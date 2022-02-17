@@ -25,6 +25,7 @@
     <ClInclude Include="Flujo.h" />
     <ClInclude Include="Inicio.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Opciones.h" />
     <ClInclude Include="Transicion.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

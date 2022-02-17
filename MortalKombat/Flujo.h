@@ -6,6 +6,7 @@
 #include "Inicio.h"
 #include "Menu.h"
 #include "Transicion.h"
+#include "Opciones.h"
 
 using namespace sf;
 using namespace std;
@@ -21,36 +22,88 @@ public:
 
 private:
 
+	void drawTransicion(RenderWindow& window);
+
 	int estado;	//0 = Inicio, 1 = Menu, 2 = Historia, 3 = Duelo, 4 = Opciones, 5 = Salir
+	bool cambiadoEstado = false;
 	Menu menu;
 	Inicio inicio;
+	Opciones opciones;
 	Transicion transicion;
 
 };
 
-Flujo::Flujo(Texture texturas[], Font fuente) : inicio(&texturas[0]), menu(&texturas[1], fuente) {
+Flujo::Flujo(Texture texturas[], Font fuente) : inicio(&texturas[0]), menu(&texturas[1], fuente), opciones(&texturas[2],fuente) {
 
 	estado = 0;
 
 }
 
 void Flujo::Actualizar(Event evento) {
-
-	if (estado == 0) {
+	cout << estado << endl;
+	switch (estado) {
+	case 0: //Pantalla inicial
+		cambiadoEstado = true;
 		estado = 1;
 		inicio.~Inicio();
-	}
-	else if (estado == 1 && evento.key.code == Keyboard::Up) {
-		menu.moverCursor(true);
-	}
-	else if (estado == 1 && evento.key.code == Keyboard::Down) {
-		menu.moverCursor(false);
-	}
-	else if (estado == 1 && evento.key.code == Keyboard::Enter) {
-		estado = menu.OpcionElegida() + 2;
+		menu.Actualizar();
+		break;
+	case 1: //Menu
+		switch (evento.key.code) {
+		case Keyboard::Up:
+			menu.moverCursor(true);
+			break;
+
+		case Keyboard::Down:
+			menu.moverCursor(false);
+			break;
+
+		case Keyboard::Enter:
+			cambiadoEstado = true;
+			estado = menu.OpcionElegida() + 2;
+			if (estado == 4)
+				opciones.Actualizar();
+			break;
+		}
+		menu.Actualizar();
+		break;
+	case 2: //Historia
+
+		break;
+	case 3: //Duelos
+
+		break;
+	case 4: //Opciones
+		switch (evento.key.code) {
+		case Keyboard::Up:
+			opciones.moverCursor(true);
+			break;
+
+		case Keyboard::Down:
+			opciones.moverCursor(false);
+			break;
+
+		case Keyboard::Enter:
+			cambiadoEstado = true;
+			opciones.Cambiar();
+			if (opciones.OpcionElegida() == 4) {
+				estado = 1;
+				menu.Actualizar();
+			}
+			break;
+		}
+		opciones.Actualizar();
+		break;
 	}
 
-	menu.Actualizar();
+}
+
+void Flujo::drawTransicion(RenderWindow& window) {
+
+	if (cambiadoEstado) {
+		transicion.draw(window);
+		cambiadoEstado = false;
+	}
 
 }
 
@@ -62,24 +115,24 @@ void Flujo::draw(RenderWindow& window) {
 
 	case 1:
 		menu.draw(window);
-		transicion.draw(window);
+		//drawTransicion(window);
 		break;
 
 	case 2:
-		transicion.draw(window);
 		//Historia
+		drawTransicion(window);
 		break;
 	case 3:
-		transicion.draw(window);
 		//Duelo
+		drawTransicion(window);
 		break;
 
 	case 4:
-		transicion.draw(window);
-		//Opciones
+		opciones.draw(window);
+		//drawTransicion(window);
 		break;
 	default:
-		//Salir
+		exit(0);
 		break;
 	
 	

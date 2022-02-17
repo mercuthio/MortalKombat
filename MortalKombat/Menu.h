@@ -71,8 +71,6 @@ void Menu::Actualizar() {
 		}	
 	}
 
-	cout << opcionElegida << endl;
-
 }
 
 int Menu::OpcionElegida() {
@@ -86,17 +84,12 @@ void Menu::draw(RenderWindow& window) {
 	fondo.setSize(Vector2f(window.getSize().x, window.getSize().y));
 	window.draw(fondo);
 
-	text[0].setPosition(Vector2f(window.getSize().x / 3, window.getSize().y / 2 + text->getCharacterSize() * 1));
-	window.draw(text[0]);
+	for (int i = 0; i < NUMERO_OPCIONES; i++) {
 
-	text[1].setPosition(Vector2f(window.getSize().x / 3, window.getSize().y / 2 + text->getCharacterSize() * 2));
-	window.draw(text[1]);
+		text[i].setPosition(Vector2f(window.getSize().x / 3, window.getSize().y / 2 + TAMANIO_LETRA * (i+1)));
+		window.draw(text[i]);
 
-	text[2].setPosition(Vector2f(window.getSize().x / 3, window.getSize().y / 2+ text->getCharacterSize() * 3));
-	window.draw(text[2]);
-
-	text[3].setPosition(Vector2f(window.getSize().x / 3, window.getSize().y / 2 + text->getCharacterSize() * 4));
-	window.draw(text[3]);
+	}
 
 }
 

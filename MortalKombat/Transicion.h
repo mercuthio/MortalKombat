@@ -40,28 +40,22 @@ void Transicion::draw(RenderWindow& window) {
 		fondo[i].setPosition(0,i * fondo[i].getSize().y);
 	}
 
-	float resta = 25;
+	float resta = 2;
 
-	while(fondo[NUM_CUADRADOS-1].getSize().y - resta > 0) {
+	while(fondo[NUM_CUADRADOS - 1].getSize().y > resta) {
 
 		for (int e = 0; e < NUM_CUADRADOS; e++) {
-			cout << fondo[NUM_CUADRADOS - 1].getSize().y << endl;
-			if (fondo[NUM_CUADRADOS - 1].getSize().y > resta) {
 
-				fondo[e].setSize(Vector2f(fondo[e].getSize().x, fondo[e].getSize().y - resta));
-				window.draw(fondo[e]);
-
-			}
-			else {
-				cout << e << endl;
-			}
+			fondo[e].setSize(Vector2f(fondo[e].getSize().x, fondo[e].getSize().y - resta));
+			window.draw(fondo[e]);
 
 		}
 
-		this_thread::sleep_for(chrono::milliseconds(100));
+		window.display();
+		this_thread::sleep_for(chrono::milliseconds(10));
 
 	}
-
+	
 }
 
 #endif

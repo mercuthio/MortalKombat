@@ -25,6 +25,7 @@ int main() {
     Texture texturas[10];
     texturas[0].loadFromFile("Recursos/Imagenes/Menus/Inicio.png");
     texturas[1].loadFromFile("Recursos/Imagenes/Menus/Menu.png");
+    texturas[2].loadFromFile("Recursos/Imagenes/Menus/Opciones.png");
 
     Flujo flujo(texturas, fuente);
 
