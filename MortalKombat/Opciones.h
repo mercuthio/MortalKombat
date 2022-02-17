@@ -19,7 +19,8 @@ public:
 
 	void draw(RenderWindow& window);
 	void Actualizar();
-	void Cambiar();
+	void Enter();
+	void Izquierda();
 	int OpcionElegida();
 	void moverCursor(bool);
 
@@ -29,7 +30,7 @@ private:
 	int musica;
 	int efectos;
 	int velocidad;
-	bool dificultad;	//False = facil, true = dificil
+	bool dificultad;	//False = normal, True = dificil
 
 	Font font;
 	Text text[NUMERO_OPCIONES_O + 1];
@@ -47,8 +48,16 @@ Opciones::Opciones(Texture* textura, Font font_) {
 	opcionElegida = 0;
 	musica = 3;
 	efectos = 3;
-	velocidad = 0;
+	velocidad = 1;
 	dificultad = false;
+
+	for (int i = 0; i < MAXIMO_MUSICA; i++) {
+		musi[i].setSize(Vector2f(15, TAMANIO_LETRA));
+	}
+
+	for (int i = 0; i < MAXIMO_EFECTOS; i++) {
+		efec[i].setSize(Vector2f(15,TAMANIO_LETRA));
+	}
 
 	text[0].setFont(font);
 	text[0].setFillColor(Color::Black);
@@ -62,7 +71,7 @@ Opciones::Opciones(Texture* textura, Font font_) {
 
 	text[2].setFont(font);
 	text[2].setFillColor(Color::Black);
-	text[2].setString("VELOCIDAD PELEA");
+	text[2].setString("VELOCIDAD");
 	text[2].setCharacterSize(TAMANIO_LETRA);
 
 	text[3].setFont(font);
@@ -74,6 +83,14 @@ Opciones::Opciones(Texture* textura, Font font_) {
 	text[4].setFillColor(Color::Black);
 	text[4].setString("SALIR");
 	text[4].setCharacterSize(TAMANIO_LETRA);
+
+	veloc.setFont(font);
+	veloc.setFillColor(Color::Black);
+	veloc.setCharacterSize(TAMANIO_LETRA);
+
+	dific.setFont(font);
+	dific.setFillColor(Color::Black);
+	dific.setCharacterSize(TAMANIO_LETRA);
 
 	fondo.setPosition(0, 0);
 	fondo.setTexture(textura);
@@ -90,27 +107,91 @@ void Opciones::Actualizar() {
 		}
 	}
 
+	for (int i = 0; i < MAXIMO_MUSICA; i++) {
+
+		if (i <= musica) {
+			musi[i].setFillColor(Color::Red);
+		}
+		else {
+			musi[i].setFillColor(Color::Black);
+		}
+
+	}
+
+	for (int i = 0; i < MAXIMO_EFECTOS; i++) {
+
+		if (i <= efectos) {
+			efec[i].setFillColor(Color::Red);
+		}
+		else {
+			efec[i].setFillColor(Color::Black);
+		}
+
+	}
+
+	switch (velocidad) {
+	case 0:
+		veloc.setString("LENTA");
+		break;
+	case 1:
+		veloc.setString("NORMAL");
+		break;
+
+	case 2:
+		veloc.setString("RAPIDA");
+		break;
+	}
+
+	if (dificultad) {
+		dific.setString("DIFICIL");
+	}
+	else {
+		dific.setString("NORMAL");
+	}
+
 }
 
-void Opciones::Cambiar() {
+void Opciones::Enter() {
 
 	switch (opcionElegida) {
 	case 0: //MUSICA
-		musica++;
-		if (musica == MAXIMO_MUSICA) {
-			musica = 0;
+		if (musica + 1 < MAXIMO_MUSICA) {
+			musica++;
 		}
 		break;
 	case 1: //EFECTOS
-		efectos++;
-		if (efectos == MAXIMO_EFECTOS) {
-			efectos = 0;
+		if (efectos + 1 < MAXIMO_EFECTOS) {
+			efectos++;
 		}
 		break;
 	case 2: //VELOCIDAD
-		velocidad++;
-		if (velocidad == MAXIMO_VELOCIDAD) {
-			velocidad = 0;
+		if (velocidad < MAXIMO_VELOCIDAD) {
+			velocidad++;
+		}
+		break;
+	case 3: //DIFICULTAD
+		dificultad = !dificultad;
+		break;
+	}
+
+}
+
+void Opciones::Izquierda() {
+
+	switch (opcionElegida) {
+	case 0: //MUSICA
+		if (musica - 1 >= 0) {
+			musica--;
+		}
+		break;
+	case 1: //EFECTOS
+		if (efectos - 1 >= 0) {
+			efectos--;
+		}
+		break;
+	case 2: //VELOCIDAD
+		if (velocidad - 1 >= 0) {
+			velocidad--;
 		}
 		break;
 	case 3: //DIFICULTAD
@@ -132,11 +213,25 @@ void Opciones::draw(RenderWindow& window) {
 	window.draw(fondo);
 
 	for (int i = 0; i < NUMERO_OPCIONES_O - 1; i++) {
-
-		text[i].setPosition(Vector2f(0, window.getSize().y / 5 + TAMANIO_LETRA * (i*1.2) ));
+		text[i].setPosition(Vector2f(0, window.getSize().y / 2.5 + TAMANIO_LETRA * (i*1.3) ));
 		window.draw(text[i]);
-
 	}
+
+	for (int i = 0; i < MAXIMO_MUSICA; i++) {
+		musi[i].setPosition(Vector2f(window.getSize().x / 2 + (i * (TAMANIO_LETRA / 2)), window.getSize().y / 2.5));
+		window.draw(musi[i]);
+	}
+
+	for (int i = 0; i < MAXIMO_EFECTOS; i++) {
+		efec[i].setPosition(Vector2f(window.getSize().x / 2 + (i * (TAMANIO_LETRA / 2)), window.getSize().y / 2.5 + TAMANIO_LETRA * 1.5));
+		window.draw(efec[i]);
+	}
+
+	veloc.setPosition(Vector2f(window.getSize().x / 2, window.getSize().y / 2.5 + TAMANIO_LETRA * (2 * 1.3)));
+	window.draw(veloc);
+
+	dific.setPosition(Vector2f(window.getSize().x / 2, window.getSize().y / 2.5 + TAMANIO_LETRA * (3 * 1.3)));
+	window.draw(dific);
 
 	text[NUMERO_OPCIONES_O - 1].setPosition(Vector2f(0, window.getSize().y - (TAMANIO_LETRA + 5)));
 	window.draw(text[NUMERO_OPCIONES_O - 1]);

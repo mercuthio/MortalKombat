@@ -85,7 +85,23 @@ void Flujo::Actualizar(Event evento) {
 
 		case Keyboard::Enter:
 			cambiadoEstado = true;
-			opciones.Cambiar();
+			opciones.Enter();
+			if (opciones.OpcionElegida() == 4) {
+				estado = 1;
+				menu.Actualizar();
+			}
+			break;
+		case Keyboard::Right:
+			cambiadoEstado = true;
+			opciones.Enter();
+			if (opciones.OpcionElegida() == 4) {
+				estado = 1;
+				menu.Actualizar();
+			}
+			break;
+		case Keyboard::Left:
+			cambiadoEstado = true;
+			opciones.Izquierda();
 			if (opciones.OpcionElegida() == 4) {
 				estado = 1;
 				menu.Actualizar();
