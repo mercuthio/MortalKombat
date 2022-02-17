@@ -57,7 +57,7 @@ Opciones::Opciones(Texture* textura, Font font_) {
 
 	text[1].setFont(font);
 	text[1].setFillColor(Color::Black);
-	text[1].setString("EFECTOS DE SONIDO");
+	text[1].setString("EFECTOS");
 	text[1].setCharacterSize(TAMANIO_LETRA);
 
 	text[2].setFont(font);
@@ -131,12 +131,15 @@ void Opciones::draw(RenderWindow& window) {
 	fondo.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
 	window.draw(fondo);
 
-	for (int i = 0; i < NUMERO_OPCIONES_O; i++) {
+	for (int i = 0; i < NUMERO_OPCIONES_O - 1; i++) {
 
 		text[i].setPosition(Vector2f(0, window.getSize().y / 5 + TAMANIO_LETRA * (i*1.2) ));
 		window.draw(text[i]);
 
 	}
+
+	text[NUMERO_OPCIONES_O - 1].setPosition(Vector2f(0, window.getSize().y - (TAMANIO_LETRA + 5)));
+	window.draw(text[NUMERO_OPCIONES_O - 1]);
 
 }
 
