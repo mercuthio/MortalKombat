@@ -20,6 +20,8 @@ public:
 	void Actualizar(Event);
 	void draw(RenderWindow&);
 
+	void setClock(Clock);
+
 private:
 
 	void drawTransicion(RenderWindow& window);
@@ -30,6 +32,7 @@ private:
 	Inicio inicio;
 	Opciones opciones;
 	Transicion transicion;
+	Clock clock;
 
 };
 
@@ -39,7 +42,14 @@ Flujo::Flujo(Texture texturas[], Font fuente) : inicio(&texturas[0]), menu(&text
 
 }
 
+void Flujo::setClock(Clock clock) {
+
+	this->clock = clock;
+
+}
+
 void Flujo::Actualizar(Event evento) {
+
 	cout << estado << endl;
 	switch (estado) {
 	case 0: //Pantalla inicial
@@ -50,11 +60,11 @@ void Flujo::Actualizar(Event evento) {
 		break;
 	case 1: //Menu
 		switch (evento.key.code) {
-		case Keyboard::Up:
+		case Keyboard::W:
 			menu.moverCursor(true);
 			break;
 
-		case Keyboard::Down:
+		case Keyboard::S:
 			menu.moverCursor(false);
 			break;
 
