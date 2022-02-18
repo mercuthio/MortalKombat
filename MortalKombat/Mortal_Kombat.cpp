@@ -1,4 +1,5 @@
 #include "SFML/Graphics.hpp"
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include "Flujo.h"
 
@@ -14,20 +15,27 @@ int RATIO_ALTO = 3;
 
 int main() {
 
-    RenderWindow window(VideoMode(ANCHO_PANTALLA, ALTO_PANTALLA), "Mortal Kombat 1");
+    RenderWindow window(VideoMode(ANCHO_PANTALLA, ALTO_PANTALLA), "Mortal Kombat I");
 
-    Clock reloj;
+    Clock clock;
     Event event;
     
     Font fuente;
-    fuente.loadFromFile("Recursos/Fuente/mortalKombat1.ttf");
+    fuente.loadFromFile("resources/Fuente/mortalKombat1.ttf");
 
     Texture texturas[10];
-    texturas[0].loadFromFile("Recursos/Imagenes/Menus/Inicio.png");
-    texturas[1].loadFromFile("Recursos/Imagenes/Menus/Menu.png");
-    texturas[2].loadFromFile("Recursos/Imagenes/Menus/Opciones.png");
+    texturas[0].loadFromFile("resources/Imagenes/Menus/Inicio.png");
+    texturas[1].loadFromFile("resources/Imagenes/Menus/Menu.png");
+    texturas[2].loadFromFile("resources/Imagenes/Menus/Opciones.png");
+
+    Music music;
+    if (!music.openFromFile("audio/soundtrack.ogg")) {
+        return -1;
+    }
+    music.play();
 
     Flujo flujo(texturas, fuente);
+    flujo.setClock(clock);
 
     window.setKeyRepeatEnabled(true);
     window.setFramerateLimit(60);
