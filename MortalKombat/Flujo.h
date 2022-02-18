@@ -11,6 +11,8 @@
 using namespace sf;
 using namespace std;
 
+const int NUMERO_CANCIONES = 10;
+
 class Flujo {
 
 public:
@@ -29,6 +31,7 @@ private:
 	int estado;	//0 = Inicio, 1 = Menu, 2 = Historia, 3 = Duelo, 4 = Opciones, 5 = Salir
 	bool cambiadoEstado = false;
 	Menu menu;
+	Music musica[NUMERO_CANCIONES];
 	Inicio inicio;
 	Opciones opciones;
 	Transicion transicion;
@@ -36,9 +39,14 @@ private:
 
 };
 
-Flujo::Flujo(Texture texturas[], Font fuente) : inicio(&texturas[0]), menu(&texturas[1], fuente), opciones(&texturas[2],fuente) {
+Flujo::Flujo(Texture texturas[], Font fuente) : inicio(&texturas[0]), menu(&texturas[1], fuente), opciones(&texturas[2], fuente) {
 
 	estado = 0;
+	
+	musica[0].openFromFile("audio/soundtrack.ogg");
+
+	musica[0].play();
+	musica[0].setLoop(true);
 
 }
 
@@ -50,7 +58,6 @@ void Flujo::setClock(Clock clock) {
 
 void Flujo::Actualizar(Event evento) {
 
-	cout << estado << endl;
 	switch (estado) {
 	case 0: //Pantalla inicial
 		cambiadoEstado = true;
@@ -60,11 +67,11 @@ void Flujo::Actualizar(Event evento) {
 		break;
 	case 1: //Menu
 		switch (evento.key.code) {
-		case Keyboard::W:
+		case Keyboard::Up:
 			menu.moverCursor(true);
 			break;
 
-		case Keyboard::S:
+		case Keyboard::Down:
 			menu.moverCursor(false);
 			break;
 
@@ -95,7 +102,7 @@ void Flujo::Actualizar(Event evento) {
 
 		case Keyboard::Enter:
 			cambiadoEstado = true;
-			opciones.Enter();
+			opciones.Enter(musica[0]);
 			if (opciones.OpcionElegida() == 4) {
 				estado = 1;
 				menu.Actualizar();
@@ -103,7 +110,7 @@ void Flujo::Actualizar(Event evento) {
 			break;
 		case Keyboard::Right:
 			cambiadoEstado = true;
-			opciones.Enter();
+			opciones.Enter(musica[0]);
 			if (opciones.OpcionElegida() == 4) {
 				estado = 1;
 				menu.Actualizar();
@@ -111,7 +118,7 @@ void Flujo::Actualizar(Event evento) {
 			break;
 		case Keyboard::Left:
 			cambiadoEstado = true;
-			opciones.Izquierda();
+			opciones.Izquierda(musica[0]);
 			if (opciones.OpcionElegida() == 4) {
 				estado = 1;
 				menu.Actualizar();

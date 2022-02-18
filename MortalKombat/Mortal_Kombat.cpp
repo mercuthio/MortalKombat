@@ -28,12 +28,6 @@ int main() {
     texturas[1].loadFromFile("resources/Imagenes/Menus/Menu.png");
     texturas[2].loadFromFile("resources/Imagenes/Menus/Opciones.png");
 
-    Music music;
-    if (!music.openFromFile("audio/soundtrack.ogg")) {
-        return -1;
-    }
-    music.play();
-
     Flujo flujo(texturas, fuente);
     flujo.setClock(clock);
 

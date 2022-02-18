@@ -17,20 +17,21 @@ public:
 	Opciones(Texture*, Font);
 	~Opciones() = default;
 
-	void draw(RenderWindow& window);
+	void draw(RenderWindow&);
 	void Actualizar();
-	void Enter();
-	void Izquierda();
+	void Enter(Music&);
+	void Izquierda(Music&);
 	int OpcionElegida();
 	void moverCursor(bool);
 
-private:
-
-	int opcionElegida;
 	int musica;
 	int efectos;
 	int velocidad;
 	bool dificultad;	//False = normal, True = dificil
+
+private:
+
+	int opcionElegida;
 
 	Font font;
 	Text text[NUMERO_OPCIONES_O + 1];
@@ -151,13 +152,14 @@ void Opciones::Actualizar() {
 
 }
 
-void Opciones::Enter() {
+void Opciones::Enter(Music& music) {
 
 	switch (opcionElegida) {
 	case 0: //MUSICA
 		if (musica + 1 < MAXIMO_MUSICA) {
 			musica++;
 		}
+		music.setVolume((musica + 1) * 20.0f);
 		break;
 	case 1: //EFECTOS
 		if (efectos + 1 < MAXIMO_EFECTOS) {
@@ -176,16 +178,17 @@ void Opciones::Enter() {
 
 }
 
-void Opciones::Izquierda() {
+void Opciones::Izquierda(Music& music) {
 
 	switch (opcionElegida) {
 	case 0: //MUSICA
-		if (musica - 1 >= 0) {
+		if (musica - 1 >= -1) {
 			musica--;
 		}
+		music.setVolume((musica+1) * 20.0f);
 		break;
 	case 1: //EFECTOS
-		if (efectos - 1 >= 0) {
+		if (efectos - 1 >= -1) {
 			efectos--;
 		}
 		break;
