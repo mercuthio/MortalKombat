@@ -19,13 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Flujo.cpp" />
+    <ClCompile Include="Inicio.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Mortal_Kombat.cpp" />
+    <ClCompile Include="Opciones.cpp" />
+    <ClCompile Include="Selector.cpp" />
+    <ClCompile Include="Transicion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Flujo.h" />
     <ClInclude Include="Inicio.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Opciones.h" />
+    <ClInclude Include="Selector.h" />
     <ClInclude Include="Transicion.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

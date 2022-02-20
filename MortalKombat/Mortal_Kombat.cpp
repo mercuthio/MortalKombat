@@ -27,6 +27,8 @@ int main() {
     texturas[0].loadFromFile("resources/Imagenes/Menus/Inicio.png");
     texturas[1].loadFromFile("resources/Imagenes/Menus/Menu.png");
     texturas[2].loadFromFile("resources/Imagenes/Menus/Opciones.png");
+    texturas[3].loadFromFile("resources/Imagenes/Menus/Selector.png");
+    texturas[4].loadFromFile("resources/Imagenes/Menus/Marco.png");
 
     Flujo flujo(texturas, fuente);
     flujo.setClock(clock);
