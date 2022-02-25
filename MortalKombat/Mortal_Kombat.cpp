@@ -1,7 +1,7 @@
 #include "SFML/Graphics.hpp"
 #include <SFML/Audio.hpp>
 #include <iostream>
-#include "Flujo.h"
+#include "EventManager.h"
 
 using namespace sf;
 using namespace std;
@@ -27,11 +27,11 @@ int main() {
     texturas[0].loadFromFile("resources/Imagenes/Menus/Inicio.png");
     texturas[1].loadFromFile("resources/Imagenes/Menus/Menu.png");
     texturas[2].loadFromFile("resources/Imagenes/Menus/Opciones.png");
-    texturas[3].loadFromFile("resources/Imagenes/Menus/Selector.png");
+    texturas[3].loadFromFile("resources/Imagenes/Menus/PlayerSelector.png");
     texturas[4].loadFromFile("resources/Imagenes/Menus/Marco.png");
 
-    Flujo flujo(texturas, fuente);
-    flujo.setClock(clock);
+    EventManager EventManager(texturas, fuente);
+    EventManager.setClock(clock);
 
     window.setKeyRepeatEnabled(true);
     window.setFramerateLimit(60);
@@ -44,13 +44,13 @@ int main() {
                 window.close();
             }
             else if (event.type == Event::KeyReleased) {
-                flujo.Actualizar(event);
+                EventManager.Actualizar(event);
             }
 
         }
 
         window.clear();
-        flujo.draw(window);
+        EventManager.draw(window);
         window.display();
     }
 

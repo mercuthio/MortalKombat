@@ -1,8 +1,8 @@
 
-#include "Opciones.h"
-#include "Menu.h"
+#include "OptionsManager.h"
+#include "MenuManager.h"
 
-Opciones::Opciones(Texture* textura, Font font_) {
+OptionsManager::OptionsManager(Texture* textura, Font font_) {
 
 	font = font_;
 	opcionElegida = 0;
@@ -57,11 +57,11 @@ Opciones::Opciones(Texture* textura, Font font_) {
 
 }
 
-void Opciones::Actualizar() {
+void OptionsManager::Actualizar() {
 
 	text[opcionElegida].setFillColor(Color::Green);
 
-	for (int i = 0; i < NUMERO_OPCIONES_O; i++) {
+	for (int i = 0; i < NUMERO_OptionsManager_O; i++) {
 		if (i != opcionElegida && text[i].getFillColor() == Color::Green) {
 			text[i].setFillColor(Color::Black);
 		}
@@ -111,7 +111,7 @@ void Opciones::Actualizar() {
 
 }
 
-void Opciones::Enter(Music& music) {
+void OptionsManager::Enter(Music& music) {
 
 	switch (opcionElegida) {
 	case 0: //MUSICA
@@ -137,7 +137,7 @@ void Opciones::Enter(Music& music) {
 
 }
 
-void Opciones::Izquierda(Music& music) {
+void OptionsManager::Izquierda(Music& music) {
 
 	switch (opcionElegida) {
 	case 0: //MUSICA
@@ -163,18 +163,18 @@ void Opciones::Izquierda(Music& music) {
 
 }
 
-int Opciones::OpcionElegida() {
+int OptionsManager::OpcionElegida() {
 
 	return opcionElegida;
 
 }
 
-void Opciones::draw(RenderWindow& window) {
+void OptionsManager::draw(RenderWindow& window) {
 
 	fondo.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
 	window.draw(fondo);
 
-	for (int i = 0; i < NUMERO_OPCIONES_O - 1; i++) {
+	for (int i = 0; i < NUMERO_OptionsManager_O - 1; i++) {
 		text[i].setPosition(Vector2f(0, window.getSize().y / 2.5 + TAMANIO_LETRA * (i * 1.3)));
 		window.draw(text[i]);
 	}
@@ -195,22 +195,22 @@ void Opciones::draw(RenderWindow& window) {
 	dific.setPosition(Vector2f(window.getSize().x / 2, window.getSize().y / 2.5 + TAMANIO_LETRA * (3 * 1.3)));
 	window.draw(dific);
 
-	text[NUMERO_OPCIONES_O - 1].setPosition(Vector2f(0, window.getSize().y - (TAMANIO_LETRA + 5)));
-	window.draw(text[NUMERO_OPCIONES_O - 1]);
+	text[NUMERO_OptionsManager_O - 1].setPosition(Vector2f(0, window.getSize().y - (TAMANIO_LETRA + 5)));
+	window.draw(text[NUMERO_OptionsManager_O - 1]);
 
 }
 
-void Opciones::moverCursor(bool arriba) {
+void OptionsManager::moverCursor(bool arriba) {
 
 	if (arriba) {
 		opcionElegida--;
 		if (opcionElegida < 0) {
-			opcionElegida = NUMERO_OPCIONES_O - 1;
+			opcionElegida = NUMERO_OptionsManager_O - 1;
 		}
 	}
 	else if (!arriba) {
 		opcionElegida++;
-		if (opcionElegida == NUMERO_OPCIONES_O) {
+		if (opcionElegida == NUMERO_OptionsManager_O) {
 			opcionElegida = 0;
 		}
 	}

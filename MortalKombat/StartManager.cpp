@@ -1,14 +1,14 @@
 
-#include "Inicio.h"
+#include "StartManager.h"
 
-Inicio::Inicio(Texture* textura) {
+StartManager::StartManager(Texture* textura) {
 
 	fondo.setPosition(0, 0);
 	fondo.setTexture(textura);
 
 }
 
-void Inicio::draw(RenderWindow& window) {
+void StartManager::draw(RenderWindow& window) {
 
 	fondo.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
 	window.draw(fondo);

@@ -13,48 +13,54 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de encabezado\GameManager">
+      <UniqueIdentifier>{f43cfddc-0e58-440c-b675-53a4e26e1e2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\GameManager">
+      <UniqueIdentifier>{d0b3a3f3-f150-46a2-a7b8-5d2625472287}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mortal_Kombat.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Flujo.cpp">
+    <ClCompile Include="PlayerSelector.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Inicio.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="StartManager.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="Opciones.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="MenuManager.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="Transicion.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="OptionsManager.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="Selector.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="TransitionManager.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Flujo.h">
+    <ClInclude Include="PlayerSelector.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Inicio.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="EventManager.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="StartManager.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Opciones.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="MenuManager.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Transicion.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="OptionsManager.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Selector.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="TransitionManager.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

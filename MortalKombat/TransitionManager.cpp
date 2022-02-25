@@ -1,7 +1,7 @@
 
-#include "Transicion.h"
+#include "TransitionManager.h"
 
-Transicion::Transicion() {
+TransitionManager::TransitionManager() {
 
 	for (int i = 0; i < NUM_CUADRADOS; i++) {
 		fondo[i].setFillColor(Color::Black);
@@ -9,7 +9,7 @@ Transicion::Transicion() {
 
 }
 
-void Transicion::draw(RenderWindow& window) {
+void TransitionManager::draw(RenderWindow& window) {
 
 	for (int i = 0; i < NUM_CUADRADOS; i++) {
 		fondo[i].setSize(Vector2f(window.getSize().x, window.getSize().y / NUM_CUADRADOS));

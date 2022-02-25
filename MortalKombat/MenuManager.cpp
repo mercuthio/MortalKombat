@@ -1,7 +1,7 @@
 
-#include "Menu.h"
+#include "MenuManager.h"
 
-Menu::Menu(Texture* textura, Font font_) {
+MenuManager::MenuManager(Texture* textura, Font font_) {
 
 	font = font_;
 	opcionElegida = 0;
@@ -22,7 +22,7 @@ Menu::Menu(Texture* textura, Font font_) {
 
 	text[2].setFont(font);
 	text[2].setFillColor(Color::Black);
-	text[2].setString("OPTIONS");
+	text[2].setString("OptionsManager");
 	text[2].setCharacterSize(TAMANIO_LETRA);
 	text[2].setOutlineColor(Color::Green);
 	text[2].setOutlineThickness(2.0f);
@@ -39,12 +39,12 @@ Menu::Menu(Texture* textura, Font font_) {
 
 }
 
-void Menu::Actualizar() {
+void MenuManager::Actualizar() {
 
 	text[opcionElegida].setFillColor(Color::Green);
 	text[opcionElegida].setOutlineColor(Color::Black);
 
-	for (int i = 0; i < NUMERO_OPCIONES; i++) {
+	for (int i = 0; i < NUMERO_OptionsManager; i++) {
 		if (i != opcionElegida && text[i].getFillColor() == Color::Green) {
 			text[i].setFillColor(Color::Black);
 			text[i].setOutlineColor(Color::Green);
@@ -53,18 +53,18 @@ void Menu::Actualizar() {
 
 }
 
-int Menu::OpcionElegida() {
+int MenuManager::OpcionElegida() {
 
 	return opcionElegida;
 
 }
 
-void Menu::draw(RenderWindow& window) {
+void MenuManager::draw(RenderWindow& window) {
 
 	fondo.setSize(Vector2f(window.getSize().x, window.getSize().y));
 	window.draw(fondo);
 
-	for (int i = 0; i < NUMERO_OPCIONES; i++) {
+	for (int i = 0; i < NUMERO_OptionsManager; i++) {
 
 		text[i].setPosition(Vector2f(window.getSize().x / 3, window.getSize().y / 2 + TAMANIO_LETRA * (i + 1)));
 		window.draw(text[i]);
@@ -73,17 +73,17 @@ void Menu::draw(RenderWindow& window) {
 
 }
 
-void Menu::moverCursor(bool arriba) {
+void MenuManager::moverCursor(bool arriba) {
 
 	if (arriba) {
 		opcionElegida--;
 		if (opcionElegida < 0) {
-			opcionElegida = NUMERO_OPCIONES - 1;
+			opcionElegida = NUMERO_OptionsManager - 1;
 		}
 	}
 	else if (!arriba) {
 		opcionElegida++;
-		if (opcionElegida == NUMERO_OPCIONES) {
+		if (opcionElegida == NUMERO_OptionsManager) {
 			opcionElegida = 0;
 		}
 	}

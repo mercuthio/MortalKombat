@@ -1,5 +1,5 @@
-#ifndef TRANSICIO_H
-#define TRANSICIO_H
+#ifndef TransitionManager_H
+#define TransitionManager_H
 
 #include "SFML/Graphics.hpp"
 
@@ -8,11 +8,11 @@ using namespace sf;
 const int NUM_CUADRADOS = 8;
 const int NUM_FRAMES = 50;
 
-class Transicion {
+class TransitionManager {
 
 public:
-	Transicion();
-	~Transicion() = default;
+	TransitionManager();
+	~TransitionManager() = default;
 
 	void draw(RenderWindow& window);
 

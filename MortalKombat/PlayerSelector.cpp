@@ -1,7 +1,7 @@
 
-#include "Selector.h"
+#include "PlayerSelector.h"
 
-Selector::Selector(Texture* fondo_, Texture* marco_) {
+PlayerSelector::PlayerSelector(Texture* fondo_, Texture* marco_) {
 
 	x = 0;
 	y = 0;
@@ -12,13 +12,13 @@ Selector::Selector(Texture* fondo_, Texture* marco_) {
 	marco.setSize(Vector2f(100, 100));
 }
 
-void Selector::Actualizar() {
+void PlayerSelector::Actualizar() {
 
 	//parpadeo = !parpadeo;
 
 }
 
-void Selector::MoverCursor(int x_, int y_) {
+void PlayerSelector::MoverCursor(int x_, int y_) {
 
 	if (PERSONAJES[y + y_][x + x_]) {
 		x += x_;
@@ -27,13 +27,13 @@ void Selector::MoverCursor(int x_, int y_) {
 
 }
 
-int Selector::OpcionElegida() {
+int PlayerSelector::OpcionElegida() {
 
 	return x + (MAXIMO_X * y);
 
 }
 
-void Selector::Draw(RenderWindow& window) {
+void PlayerSelector::Draw(RenderWindow& window) {
 
 	fondo.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
 	window.draw(fondo);

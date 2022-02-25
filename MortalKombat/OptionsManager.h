@@ -1,22 +1,22 @@
-#ifndef OPCIONES_H
-#define OPCIONES_H
+#ifndef OptionsManager_H
+#define OptionsManager_H
 
 #include "SFML/Graphics.hpp"
 #include <SFML/Audio/Music.hpp>
 
 using namespace sf;
 
-const int NUMERO_OPCIONES_O = 5;
+const int NUMERO_OptionsManager_O = 5;
 const int MAXIMO_MUSICA = 5;
 const int MAXIMO_EFECTOS = 5;
 const int MAXIMO_VELOCIDAD = 3;
 
 
-class Opciones {
+class OptionsManager {
 
 public:
-	Opciones(Texture*, Font);
-	~Opciones() = default;
+	OptionsManager(Texture*, Font);
+	~OptionsManager() = default;
 
 	void draw(RenderWindow&);
 	void Actualizar();
@@ -35,7 +35,7 @@ private:
 	int opcionElegida;
 
 	Font font;
-	Text text[NUMERO_OPCIONES_O + 1];
+	Text text[NUMERO_OptionsManager_O + 1];
 	Text veloc;
 	Text dific;
 	RectangleShape fondo;

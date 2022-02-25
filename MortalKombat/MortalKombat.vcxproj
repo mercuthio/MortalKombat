@@ -19,21 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Flujo.cpp" />
-    <ClCompile Include="Inicio.cpp" />
-    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="StartManager.cpp" />
+    <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="Mortal_Kombat.cpp" />
-    <ClCompile Include="Opciones.cpp" />
-    <ClCompile Include="Selector.cpp" />
-    <ClCompile Include="Transicion.cpp" />
+    <ClCompile Include="OptionsManager.cpp" />
+    <ClCompile Include="PlayerSelector.cpp" />
+    <ClCompile Include="TransitionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Flujo.h" />
-    <ClInclude Include="Inicio.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="Opciones.h" />
-    <ClInclude Include="Selector.h" />
-    <ClInclude Include="Transicion.h" />
+    <ClInclude Include="EventManager.h" />
+    <ClInclude Include="StartManager.h" />
+    <ClInclude Include="MenuManager.h" />
+    <ClInclude Include="OptionsManager.h" />
+    <ClInclude Include="PlayerSelector.h" />
+    <ClInclude Include="TransitionManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

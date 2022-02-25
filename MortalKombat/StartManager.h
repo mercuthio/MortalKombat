@@ -1,15 +1,15 @@
-#ifndef INICIO_H
-#define INICIO_H
+#ifndef StartManager_H
+#define StartManager_H
 
 #include "SFML/Graphics.hpp"
 
 using namespace sf;
 
-class Inicio {
+class StartManager {
 
 public:
-	Inicio(Texture*);
-	~Inicio() = default;
+	StartManager(Texture*);
+	~StartManager() = default;
 
 	void draw(RenderWindow& window);
 
