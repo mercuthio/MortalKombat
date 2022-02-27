@@ -22,7 +22,7 @@ MenuManager::MenuManager(Texture* textura, Font font_) {
 
 	text[2].setFont(font);
 	text[2].setFillColor(Color::Black);
-	text[2].setString("OptionsManager");
+	text[2].setString("OPTIONS");
 	text[2].setCharacterSize(TAMANIO_LETRA);
 	text[2].setOutlineColor(Color::Green);
 	text[2].setOutlineThickness(2.0f);
