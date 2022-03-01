@@ -24,9 +24,6 @@
     <ClCompile Include="Mortal_Kombat.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerSelector.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
@@ -42,11 +39,11 @@
     <ClCompile Include="TransitionManager.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerSelector.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PlayerSelector.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
@@ -60,6 +57,9 @@
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
     <ClInclude Include="TransitionManager.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSelector.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
   </ItemGroup>

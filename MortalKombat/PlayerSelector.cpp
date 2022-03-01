@@ -1,14 +1,13 @@
 
 #include "PlayerSelector.h"
 
-PlayerSelector::PlayerSelector(Texture* fondo_, Texture* marco_) {
+PlayerSelector::PlayerSelector(Texture* fondo_) {
 
 	x = 0;
 	y = 0;
 	parpadeo = false;
 
 	fondo.setTexture(fondo_);
-	marco.setTexture(marco_);
 	marco.setSize(Vector2f(100, 100));
 }
 
@@ -37,9 +36,6 @@ void PlayerSelector::Draw(RenderWindow& window) {
 
 	fondo.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
 	window.draw(fondo);
-
-	marco.setPosition(Vector2f(window.getSize().x / 2, window.getSize().y / 2));
-	window.draw(marco);
 
 
 }

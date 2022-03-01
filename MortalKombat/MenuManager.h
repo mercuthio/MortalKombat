@@ -8,7 +8,7 @@ using namespace sf;
 using namespace std;
 
 const int NUMERO_OptionsManager = 4;
-const int TAMANIO_LETRA = 55;
+const int TAMANIO_LETRA = 70;
 
 class MenuManager {
 
@@ -25,6 +25,7 @@ private:
 
 	int opcionElegida;
 
+	IntRect uvRect;
 	Font font;
 	Text text[NUMERO_OptionsManager + 1];
 	RectangleShape fondo;

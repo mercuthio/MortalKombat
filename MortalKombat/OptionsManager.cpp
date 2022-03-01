@@ -19,40 +19,35 @@ OptionsManager::OptionsManager(Texture* textura, Font font_) {
 		efec[i].setSize(Vector2f(15, TAMANIO_LETRA));
 	}
 
-	text[0].setFont(font);
-	text[0].setFillColor(Color::Black);
+	for (int i = 0; i <= NUMERO_OPCIONES; i++) {
+		text[i].setFont(font);
+		text[i].setFillColor(Color::Black);
+		text[i].setCharacterSize(TAMANIO_LETRA);
+		text[i].setOutlineColor(Color::Green);
+		text[i].setOutlineThickness(2.0f);
+	}
+
 	text[0].setString("MUSICA");
-	text[0].setCharacterSize(TAMANIO_LETRA);
-
-	text[1].setFont(font);
-	text[1].setFillColor(Color::Black);
 	text[1].setString("EFECTOS");
-	text[1].setCharacterSize(TAMANIO_LETRA);
-
-	text[2].setFont(font);
-	text[2].setFillColor(Color::Black);
 	text[2].setString("VELOCIDAD");
-	text[2].setCharacterSize(TAMANIO_LETRA);
-
-	text[3].setFont(font);
-	text[3].setFillColor(Color::Black);
 	text[3].setString("DIFICULTAD");
-	text[3].setCharacterSize(TAMANIO_LETRA);
-
-	text[4].setFont(font);
-	text[4].setFillColor(Color::Black);
 	text[4].setString("SALIR");
-	text[4].setCharacterSize(TAMANIO_LETRA);
 
 	veloc.setFont(font);
-	veloc.setFillColor(Color::Black);
+	veloc.setFillColor(Color::Green);
 	veloc.setCharacterSize(TAMANIO_LETRA);
 
 	dific.setFont(font);
-	dific.setFillColor(Color::Black);
+	dific.setFillColor(Color::Green);
 	dific.setCharacterSize(TAMANIO_LETRA);
 
+	uvRect.width = 390;
+	uvRect.height = 250;
+	uvRect.left = 1440;
+	uvRect.top = 885;
+
 	fondo.setPosition(0, 0);
+	fondo.setTextureRect(uvRect);
 	fondo.setTexture(textura);
 
 }
@@ -60,17 +55,19 @@ OptionsManager::OptionsManager(Texture* textura, Font font_) {
 void OptionsManager::Actualizar() {
 
 	text[opcionElegida].setFillColor(Color::Green);
+	text[opcionElegida].setOutlineColor(Color::Black);
 
-	for (int i = 0; i < NUMERO_OptionsManager_O; i++) {
+	for (int i = 0; i <= NUMERO_OPCIONES; i++) {
 		if (i != opcionElegida && text[i].getFillColor() == Color::Green) {
 			text[i].setFillColor(Color::Black);
+			text[i].setOutlineColor(Color::Green);
 		}
 	}
 
 	for (int i = 0; i < MAXIMO_MUSICA; i++) {
 
 		if (i <= musica) {
-			musi[i].setFillColor(Color::Red);
+			musi[i].setFillColor(Color::Green);
 		}
 		else {
 			musi[i].setFillColor(Color::Black);
@@ -81,7 +78,7 @@ void OptionsManager::Actualizar() {
 	for (int i = 0; i < MAXIMO_EFECTOS; i++) {
 
 		if (i <= efectos) {
-			efec[i].setFillColor(Color::Red);
+			efec[i].setFillColor(Color::Green);
 		}
 		else {
 			efec[i].setFillColor(Color::Black);
@@ -126,7 +123,7 @@ void OptionsManager::Enter(Music& music) {
 		}
 		break;
 	case 2: //VELOCIDAD
-		if (velocidad < MAXIMO_VELOCIDAD) {
+		if (velocidad + 1 < MAXIMO_VELOCIDAD) {
 			velocidad++;
 		}
 		break;
@@ -152,7 +149,7 @@ void OptionsManager::Izquierda(Music& music) {
 		}
 		break;
 	case 2: //VELOCIDAD
-		if (velocidad >= 0) {
+		if (velocidad - 1>= 0) {
 			velocidad--;
 		}
 		break;
@@ -174,29 +171,29 @@ void OptionsManager::draw(RenderWindow& window) {
 	fondo.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
 	window.draw(fondo);
 
-	for (int i = 0; i < NUMERO_OptionsManager_O - 1; i++) {
-		text[i].setPosition(Vector2f(0, window.getSize().y / 2.5 + TAMANIO_LETRA * (i * 1.3)));
+	for (int i = 0; i < NUMERO_OPCIONES - 1; i++) {
+		text[i].setPosition(Vector2f(window.getSize().x / 10, window.getSize().y / 10 + TAMANIO_LETRA * (i * 1.3)));
 		window.draw(text[i]);
 	}
 
 	for (int i = 0; i < MAXIMO_MUSICA; i++) {
-		musi[i].setPosition(Vector2f(window.getSize().x / 2 + (i * (TAMANIO_LETRA / 2)), window.getSize().y / 2.5));
+		musi[i].setPosition(Vector2f(window.getSize().x / 1.6 + (i * (TAMANIO_LETRA / 2)), window.getSize().y / 10));
 		window.draw(musi[i]);
 	}
 
 	for (int i = 0; i < MAXIMO_EFECTOS; i++) {
-		efec[i].setPosition(Vector2f(window.getSize().x / 2 + (i * (TAMANIO_LETRA / 2)), window.getSize().y / 2.5 + TAMANIO_LETRA * 1.5));
+		efec[i].setPosition(Vector2f(window.getSize().x / 1.6 + (i * (TAMANIO_LETRA / 2)), window.getSize().y / 10 + TAMANIO_LETRA * 1.5));
 		window.draw(efec[i]);
 	}
 
-	veloc.setPosition(Vector2f(window.getSize().x / 2, window.getSize().y / 2.5 + TAMANIO_LETRA * (2 * 1.3)));
+	veloc.setPosition(Vector2f(window.getSize().x / 1.6, window.getSize().y / 10 + TAMANIO_LETRA * (2 * 1.3)));
 	window.draw(veloc);
 
-	dific.setPosition(Vector2f(window.getSize().x / 2, window.getSize().y / 2.5 + TAMANIO_LETRA * (3 * 1.3)));
+	dific.setPosition(Vector2f(window.getSize().x / 1.6, window.getSize().y / 10 + TAMANIO_LETRA * (3 * 1.3)));
 	window.draw(dific);
 
-	text[NUMERO_OptionsManager_O - 1].setPosition(Vector2f(0, window.getSize().y - (TAMANIO_LETRA + 5)));
-	window.draw(text[NUMERO_OptionsManager_O - 1]);
+	text[NUMERO_OPCIONES - 1].setPosition(Vector2f(window.getSize().x / 10, window.getSize().y / 1.2 - (TAMANIO_LETRA + 5)));
+	window.draw(text[NUMERO_OPCIONES - 1]);
 
 }
 
@@ -205,12 +202,12 @@ void OptionsManager::moverCursor(bool arriba) {
 	if (arriba) {
 		opcionElegida--;
 		if (opcionElegida < 0) {
-			opcionElegida = NUMERO_OptionsManager_O - 1;
+			opcionElegida = NUMERO_OPCIONES - 1;
 		}
 	}
 	else if (!arriba) {
 		opcionElegida++;
-		if (opcionElegida == NUMERO_OptionsManager_O) {
+		if (opcionElegida == NUMERO_OPCIONES) {
 			opcionElegida = 0;
 		}
 	}

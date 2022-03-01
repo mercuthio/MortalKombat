@@ -11,10 +11,12 @@ public:
 	StartManager(Texture*);
 	~StartManager() = default;
 
-	void draw(RenderWindow& window);
+	void draw(RenderWindow&, float);
+	void actualizar();
 
 private:
 
+	IntRect uvRect;
 	RectangleShape fondo;
 
 };

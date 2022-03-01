@@ -34,7 +34,13 @@ MenuManager::MenuManager(Texture* textura, Font font_) {
 	text[3].setOutlineColor(Color::Green);
 	text[3].setOutlineThickness(2.0f);
 
+	uvRect.width = 390;
+	uvRect.height = 250;
+	uvRect.left = 1440;
+	uvRect.top = 885;
+
 	fondo.setPosition(0, 0);
+	fondo.setTextureRect(uvRect);
 	fondo.setTexture(textura);
 
 }
@@ -66,7 +72,7 @@ void MenuManager::draw(RenderWindow& window) {
 
 	for (int i = 0; i < NUMERO_OptionsManager; i++) {
 
-		text[i].setPosition(Vector2f(window.getSize().x / 3, window.getSize().y / 2 + TAMANIO_LETRA * (i + 1)));
+		text[i].setPosition(Vector2f(window.getSize().x / 10, window.getSize().y / 7 + TAMANIO_LETRA * (i + 1)));
 		window.draw(text[i]);
 
 	}

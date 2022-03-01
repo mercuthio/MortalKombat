@@ -12,7 +12,7 @@ const int PERSONAJES[MAXIMO_Y][MAXIMO_X] = { {1,1,0,1,1},{0,1,1,1,0} };
 class PlayerSelector {
 
 public:
-	PlayerSelector(Texture*, Texture*);
+	PlayerSelector(Texture*);
 	~PlayerSelector() = default;
 
 	void Draw(RenderWindow& window);

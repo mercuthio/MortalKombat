@@ -6,7 +6,7 @@
 
 using namespace sf;
 
-const int NUMERO_OptionsManager_O = 5;
+const int NUMERO_OPCIONES = 5;
 const int MAXIMO_MUSICA = 5;
 const int MAXIMO_EFECTOS = 5;
 const int MAXIMO_VELOCIDAD = 3;
@@ -35,9 +35,10 @@ private:
 	int opcionElegida;
 
 	Font font;
-	Text text[NUMERO_OptionsManager_O + 1];
+	Text text[NUMERO_OPCIONES + 1];
 	Text veloc;
 	Text dific;
+	IntRect uvRect;
 	RectangleShape fondo;
 	RectangleShape musi[MAXIMO_MUSICA];
 	RectangleShape efec[MAXIMO_EFECTOS];

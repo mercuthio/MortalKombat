@@ -1,16 +1,16 @@
 
 #include "EventManager.h"
 
-EventManager::EventManager(Texture texturas[], Font fuente) : StartManager(&texturas[0]), MenuManager(&texturas[1], fuente), OptionsManager(&texturas[2], fuente), PlayerSelector(&texturas[3],&texturas[4]) {
+EventManager::EventManager(Texture texturas[], Font fuente) : StartManager(&texturas[0]), MenuManager(&texturas[0], fuente), OptionsManager(&texturas[0], fuente), PlayerSelector(&texturas[0]) {
 
 	estado = 0;
 	personaje1 = 0;
 	cambiadoEstado = false;
 
-	musica[0].openFromFile("audio/soundtrack.ogg");
+	//musica[0].openFromFile("audio/soundtrack.ogg");
 
-	musica[0].play();
-	musica[0].setLoop(true);
+	//musica[0].play();
+	//musica[0].setLoop(true);
 
 }
 
@@ -130,7 +130,7 @@ void EventManager::drawTransitionManager(RenderWindow& window) {
 void EventManager::draw(RenderWindow& window) {
 	switch (estado) {
 	case 0:
-		StartManager.draw(window);
+		StartManager.draw(window, clock.getElapsedTime().asSeconds());
 		break;
 
 	case 1:

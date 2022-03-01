@@ -24,11 +24,7 @@ int main() {
     fuente.loadFromFile("resources/Fuente/mortalKombat1.ttf");
 
     Texture texturas[10];
-    texturas[0].loadFromFile("resources/Imagenes/Menus/Inicio.png");
-    texturas[1].loadFromFile("resources/Imagenes/Menus/Menu.png");
-    texturas[2].loadFromFile("resources/Imagenes/Menus/Opciones.png");
-    texturas[3].loadFromFile("resources/Imagenes/Menus/PlayerSelector.png");
-    texturas[4].loadFromFile("resources/Imagenes/Menus/Marco.png");
+    texturas[0].loadFromFile("resources/Sprites/Varios/Menus.png");
 
     EventManager EventManager(texturas, fuente);
     EventManager.setClock(clock);
