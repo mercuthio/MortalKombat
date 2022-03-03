@@ -23,6 +23,7 @@ public:
 	void Actualizar(Event);
 	void draw(RenderWindow&);
 	void setClock(Clock);
+	void drawPlayerSelectorChoose(RenderWindow&);
 
 private:
 

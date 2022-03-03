@@ -6,12 +6,15 @@
 using namespace sf;
 using namespace std;
 
+const int NUMBER_TRACKS = 191;
+
 int ANCHO_PANTALLA = 800;
 int ALTO_PANTALLA = 600;
 
 int RATIO_ANCHO = 4;
 int RATIO_ALTO = 3;
 
+Color pink = Color(245, 10, 237, 255);
 
 int main() {
 
@@ -23,8 +26,12 @@ int main() {
     Font fuente;
     fuente.loadFromFile("resources/Fuente/mortalKombat1.ttf");
 
+    Image a;
+    a.loadFromFile("resources/Sprites/Varios/Menus.png");
+    a.createMaskFromColor(pink);
+
     Texture texturas[10];
-    texturas[0].loadFromFile("resources/Sprites/Varios/Menus.png");
+    texturas[0].loadFromImage(a);
 
     EventManager EventManager(texturas, fuente);
     EventManager.setClock(clock);

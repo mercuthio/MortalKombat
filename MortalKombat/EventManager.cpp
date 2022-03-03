@@ -51,10 +51,10 @@ void EventManager::Actualizar(Event evento) {
 	case 2: //PlayerSelectorHistoria
 		switch (evento.key.code) {
 		case Keyboard::Up:
-			PlayerSelector.MoverCursor(0,1);
+			PlayerSelector.MoverCursor(0,-1);
 			break;
 		case Keyboard::Down:
-			PlayerSelector.MoverCursor(0, -1);
+			PlayerSelector.MoverCursor(0, 1);
 			break;
 		case Keyboard::Right:
 			PlayerSelector.MoverCursor(1, 0);
@@ -64,9 +64,15 @@ void EventManager::Actualizar(Event evento) {
 			break;
 		case Keyboard::Enter:
 			personaje1 = PlayerSelector.OpcionElegida();
+			cambiadoEstado = true;
 			estado = 5;
 			break;
+		case Keyboard::Escape:
+			estado = 1;
+			break;
 		}
+		PlayerSelector.Actualizar();
+		MenuManager.Actualizar();
 		break;
 	case 3: //PlayerSelectorDuelo
 
@@ -118,6 +124,15 @@ void EventManager::Actualizar(Event evento) {
 
 }
 
+void EventManager::drawPlayerSelectorChoose(RenderWindow& window) {
+
+	if (cambiadoEstado) {
+		PlayerSelector.DrawChoosen(window);
+		cambiadoEstado = false;
+	}
+
+}
+
 void EventManager::drawTransitionManager(RenderWindow& window) {
 
 	if (cambiadoEstado) {
@@ -139,7 +154,7 @@ void EventManager::draw(RenderWindow& window) {
 		break;
 
 	case 2:
-		PlayerSelector.Draw(window);
+		PlayerSelector.Draw(window, clock.getElapsedTime().asSeconds());
 		//drawTransitionManager(window);
 		break;
 	case 3:
@@ -150,6 +165,10 @@ void EventManager::draw(RenderWindow& window) {
 	case 4:
 		OptionsManager.draw(window);
 		//drawTransitionManager(window);
+		break;
+	case 5:
+		drawPlayerSelectorChoose(window);
+		//drawTower(window);
 		break;
 	default:
 		exit(0);

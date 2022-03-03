@@ -19,7 +19,7 @@ void StartManager::draw(RenderWindow& window, float segundos) {
 
 	fondo.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
 
-	if (segundos > 3.0f) {
+	if (segundos > 4.0f) {
 		uvRect.left = 2320;
 		fondo.setTextureRect(uvRect);
 	}
