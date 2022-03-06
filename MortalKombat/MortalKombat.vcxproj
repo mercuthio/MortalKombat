@@ -28,7 +28,12 @@
     <ClCompile Include="TransitionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animacion.h" />
+    <ClInclude Include="Animacion_Old.h" />
+    <ClInclude Include="Definiciones.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="Personaje.h" />
+    <ClInclude Include="Personaje_Old.h" />
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="OptionsManager.h" />

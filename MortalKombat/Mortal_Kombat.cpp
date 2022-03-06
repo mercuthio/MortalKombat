@@ -47,13 +47,14 @@ int main() {
                 window.close();
             }
             else if (event.type == Event::KeyReleased) {
-                EventManager.Actualizar(event);
+                //EventManager.Actualizar(event);
             }
 
         }
-
+        //personaje.actualizar();
         window.clear();
-        EventManager.draw(window);
+        //personaje.dibujar(window);
+        //EventManager.draw(window);
         window.display();
     }
 
