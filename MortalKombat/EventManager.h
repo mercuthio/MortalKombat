@@ -31,6 +31,7 @@ private:
 
 	int estado;	//0 = StartManager, 1 = MenuManager, 2 = PlayerSelectorHistoria, 3 = PlayerSelectorDuelo, 4 = OptionsManager, 5 = Torre, 6 = Batalla
 	int personaje1;
+	int personaje2;
 	bool cambiadoEstado;
 	MenuManager MenuManager;
 	Music musica[NUMERO_CANCIONES];
@@ -38,7 +39,8 @@ private:
 	OptionsManager OptionsManager;
 	TransitionManager TransitionManager;
 	Clock clock;
-	PlayerSelector PlayerSelector;
+	PlayerSelector PlayerSelector_hist;
+	PlayerSelector PlayerSelector_duel;
 
 };
 
