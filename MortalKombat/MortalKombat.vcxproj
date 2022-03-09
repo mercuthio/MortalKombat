@@ -28,11 +28,13 @@
     <ClCompile Include="TransitionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animacion.h" />
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Animacion_Old.h" />
-    <ClInclude Include="Definiciones.h" />
+    <ClInclude Include="Definitions.h" />
     <ClInclude Include="EventManager.h" />
-    <ClInclude Include="Personaje.h" />
+    <ClInclude Include="Goro.h" />
+    <ClInclude Include="IA.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="Personaje_Old.h" />
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />

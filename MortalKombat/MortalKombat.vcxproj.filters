@@ -19,6 +19,9 @@
     <Filter Include="Archivos de origen\GameManager">
       <UniqueIdentifier>{d0b3a3f3-f150-46a2-a7b8-5d2625472287}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Personajes">
+      <UniqueIdentifier>{1b658ffc-e4ed-40f8-970e-36d2dfe91956}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mortal_Kombat.cpp">
@@ -68,14 +71,20 @@
     <ClInclude Include="Animacion_Old.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Personaje.h">
+    <ClInclude Include="Character.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Animacion.h">
+    <ClInclude Include="Animation.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Definiciones.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="IA.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Definitions.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Goro.h">
+      <Filter>Archivos de encabezado\Personajes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
