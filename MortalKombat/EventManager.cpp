@@ -1,16 +1,16 @@
 
 #include "EventManager.h"
 
-EventManager::EventManager(Texture textures[], Font font) : StartManager(&textures[0], &textures[1]), MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), PlayerSelector_duel(&textures[0], true) {
+EventManager::EventManager(Texture texturas[], Font fuente) : StartManager(&texturas[0]), MenuManager(&texturas[0], fuente), OptionsManager(&texturas[0], fuente), PlayerSelector(&texturas[0]) {
 
-	state = 0;
-	character1 = 0;
-	changedEstate = false;
+	estado = 0;
+	personaje1 = 0;
+	cambiadoEstado = false;
 
-	//music[0].openFromFile("audio/soundtrack.ogg");
+	//musica[0].openFromFile("audio/soundtrack.ogg");
 
-	//music[0].play();
-	//music[0].setLoop(true);
+	//musica[0].play();
+	//musica[0].setLoop(true);
 
 }
 
@@ -20,146 +20,93 @@ void EventManager::setClock(Clock clock) {
 
 }
 
-void EventManager::Update(Event event) {
+void EventManager::Actualizar(Event evento) {
 
-	switch (state) {
+	switch (estado) {
 	case 0: //Pantalla inicial
-		changedEstate = true;
-		state = 1;
+		cambiadoEstado = true;
+		estado = 1;
 		StartManager.~StartManager();
-		MenuManager.Update();
+		MenuManager.Actualizar();
 		break;
 	case 1: //MenuManager
-		switch (event.key.code) {
+		switch (evento.key.code) {
 		case Keyboard::Up:
-			MenuManager.MoveCursor(true);
+			MenuManager.moverCursor(true);
 			break;
 
 		case Keyboard::Down:
-			MenuManager.MoveCursor(false);
+			MenuManager.moverCursor(false);
 			break;
 
 		case Keyboard::Enter:
-			changedEstate = true;
-			state = MenuManager.ChoosenOption() + 2;
-			if (state == 4)
-				OptionsManager.Update();
+			cambiadoEstado = true;
+			estado = MenuManager.OpcionElegida() + 2;
+			if (estado == 4)
+				OptionsManager.Actualizar();
 			break;
 		}
-		MenuManager.Update();
+		MenuManager.Actualizar();
 		break;
 	case 2: //PlayerSelectorHistoria
-		switch (event.key.code) {
-		case Keyboard::W:
-			PlayerSelector_hist.MoveCursor(0,-1, true);
+		switch (evento.key.code) {
+		case Keyboard::Up:
+			PlayerSelector.MoverCursor(0,1);
 			break;
-		case Keyboard::S:
-			PlayerSelector_hist.MoveCursor(0, 1, true);
+		case Keyboard::Down:
+			PlayerSelector.MoverCursor(0, -1);
 			break;
-		case Keyboard::D:
-			PlayerSelector_hist.MoveCursor(1, 0, true);
+		case Keyboard::Right:
+			PlayerSelector.MoverCursor(1, 0);
 			break;
-		case Keyboard::A:
-			PlayerSelector_hist.MoveCursor(-1, 0, true);
+		case Keyboard::Left:
+			PlayerSelector.MoverCursor(-1, 0);
 			break;
-		case Keyboard::E:
-			character1 = PlayerSelector_hist.ChoosenOption(true);
-			changedEstate = true;
-			state = 5;
-			break;
-		case Keyboard::Escape:
-			state = 1;
+		case Keyboard::Enter:
+			personaje1 = PlayerSelector.OpcionElegida();
+			estado = 5;
 			break;
 		}
-		PlayerSelector_hist.Update();
-		MenuManager.Update();
 		break;
 	case 3: //PlayerSelectorDuelo
-		switch (event.key.code) {
-		case Keyboard::W:
-			PlayerSelector_duel.MoveCursor(0, -1, true);
-			break;
-		case Keyboard::S:
-			PlayerSelector_duel.MoveCursor(0, 1, true);
-			break;
-		case Keyboard::D:
-			PlayerSelector_duel.MoveCursor(1, 0, true);
-			break;
-		case Keyboard::A:
-			PlayerSelector_duel.MoveCursor(-1, 0, true);
-			break;
-		case Keyboard::Enter:
-			character1 = PlayerSelector_duel.ChoosenOption(true);
-			if (PlayerSelector_duel.Choosen()) {
-				changedEstate = true;
-				state = 5;
-			}
-			break;
-		case Keyboard::Up:
-			PlayerSelector_duel.MoveCursor(0, -1, false);
-			break;
-		case Keyboard::Down:
-			PlayerSelector_duel.MoveCursor(0, 1, false);
-			break;
-		case Keyboard::Right:
-			PlayerSelector_duel.MoveCursor(1, 0, false);
-			break;
-		case Keyboard::Left:
-			PlayerSelector_duel.MoveCursor(-1, 0, false);
-			break;
-		case Keyboard::Space:
-			personaje2 = PlayerSelector_duel.ChoosenOption(false);
-			if (PlayerSelector_duel.Choosen()) {
-				changedEstate = true;
-				state = 5;
-			}
-			break;
-		case Keyboard::Escape:
-			state = 1;
-			break;
-		}
-		PlayerSelector_duel.Update();
-		MenuManager.Update();
+
 		break;
 	case 4: //OptionsManager
-		switch (event.key.code) {
+		switch (evento.key.code) {
 		case Keyboard::Up:
-			OptionsManager.MoveCursor(true);
+			OptionsManager.moverCursor(true);
 			break;
 
 		case Keyboard::Down:
-			OptionsManager.MoveCursor(false);
+			OptionsManager.moverCursor(false);
 			break;
 
 		case Keyboard::Enter:
-			changedEstate = true;
-			OptionsManager.Enter(music[0]);
-			if (OptionsManager.ChoosenOption() == 4) {
-				state = 1;
-				MenuManager.Update();
+			cambiadoEstado = true;
+			OptionsManager.Enter(musica[0]);
+			if (OptionsManager.OpcionElegida() == 4) {
+				estado = 1;
+				MenuManager.Actualizar();
 			}
 			break;
 		case Keyboard::Right:
-			changedEstate = true;
-			OptionsManager.Enter(music[0]);
-			if (OptionsManager.ChoosenOption() == 4) {
-				state = 1;
-				MenuManager.Update();
+			cambiadoEstado = true;
+			OptionsManager.Enter(musica[0]);
+			if (OptionsManager.OpcionElegida() == 4) {
+				estado = 1;
+				MenuManager.Actualizar();
 			}
 			break;
 		case Keyboard::Left:
-			changedEstate = true;
-			OptionsManager.Izquierda(music[0]);
-			if (OptionsManager.ChoosenOption() == 4) {
-				state = 1;
-				MenuManager.Update();
+			cambiadoEstado = true;
+			OptionsManager.Izquierda(musica[0]);
+			if (OptionsManager.OpcionElegida() == 4) {
+				estado = 1;
+				MenuManager.Actualizar();
 			}
 			break;
-		case Keyboard::Escape:
-			state = 1;
-			break;
 		}
-		OptionsManager.Update();
+		OptionsManager.Actualizar();
 		break;
 	case 5: //Torre
 	
@@ -171,38 +118,19 @@ void EventManager::Update(Event event) {
 
 }
 
-void EventManager::drawPlayerSelectorChoose(RenderWindow& window) {
-
-	if (changedEstate && state == 2) {
-		PlayerSelector_hist.DrawChoosen(window, true);
-		changedEstate = false;
-	}
-	else if (changedEstate && state == 3) {
-		PlayerSelector_duel.DrawChoosen(window, false);
-		PlayerSelector_duel.DrawChoosen(window, true);
-		changedEstate = false;
-	}
-
-}
-
 void EventManager::drawTransitionManager(RenderWindow& window) {
 
-	if (changedEstate) {
+	if (cambiadoEstado) {
 		TransitionManager.draw(window);
-		changedEstate = false;
+		cambiadoEstado = false;
 	}
 
 }
 
 void EventManager::draw(RenderWindow& window) {
-	switch (state) {
+	switch (estado) {
 	case 0:
-		if (StartManager.draw(window, clock.getElapsedTime().asSeconds())) { //Si true, terminada intro
-			changedEstate = true;
-			state = 1;
-			StartManager.~StartManager();
-			MenuManager.Update();
-		};
+		StartManager.draw(window, clock.getElapsedTime().asSeconds());
 		break;
 
 	case 1:
@@ -211,25 +139,22 @@ void EventManager::draw(RenderWindow& window) {
 		break;
 
 	case 2:
-		PlayerSelector_hist.Draw(window, clock.getElapsedTime().asSeconds());
+		PlayerSelector.Draw(window);
 		//drawTransitionManager(window);
 		break;
 	case 3:
-		PlayerSelector_duel.Draw(window, clock.getElapsedTime().asSeconds());
-		//drawTransitionManager(window);
+		//PlayerSelectorDuelo
+		drawTransitionManager(window);
 		break;
 
 	case 4:
 		OptionsManager.draw(window);
 		//drawTransitionManager(window);
 		break;
-	case 5:
-		drawPlayerSelectorChoose(window);
-		//drawTower(window);
-		break;
 	default:
 		exit(0);
 		break;
+
 
 	}
 

@@ -5,7 +5,8 @@
 
 using namespace sf;
 
-const int NUM_SQUARES = 8;
+const int NUM_CUADRADOS = 8;
+const int NUM_FRAMES = 50;
 
 class TransitionManager {
 
@@ -17,7 +18,7 @@ public:
 
 private:
 
-	RectangleShape backg[NUM_SQUARES];
+	RectangleShape fondo[NUM_CUADRADOS];
 
 };
 

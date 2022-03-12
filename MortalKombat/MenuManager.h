@@ -7,8 +7,8 @@
 using namespace sf;
 using namespace std;
 
-const int NUM_OPTIONS_MENU = 4;
-const int CHAR_SIZE = 70;
+const int NUMERO_OptionsManager = 4;
+const int TAMANIO_LETRA = 70;
 
 class MenuManager {
 
@@ -16,19 +16,19 @@ public:
 	MenuManager(Texture*, Font);
 	~MenuManager() = default;
 
-	void draw(RenderWindow& window);			//Dibuja el menu
-	void Update();							//Actualiza los sprites del menu
-	int ChoosenOption();						//Devuelve la opcion elegida en el menu
-	void MoveCursor(bool);						//Mueve el cursor arriba si parametro true, abajo si false
+	void draw(RenderWindow& window);
+	void Actualizar();
+	int OpcionElegida();
+	void moverCursor(bool);
 
 private:
 
-	int choosenOption;							//Entero que guarda la opcion elegida
+	int opcionElegida;
 
-	IntRect uvRect;								//IntRect del fondo
-	Font font;									//Variable con la fuente de letra
-	Text text[NUM_OPTIONS_MENU + 1];		//Vector con los textos de las opciones del menu
-	RectangleShape backg;						//Objeto del fondo
+	IntRect uvRect;
+	Font font;
+	Text text[NUMERO_OptionsManager + 1];
+	RectangleShape fondo;
 
 };
 
