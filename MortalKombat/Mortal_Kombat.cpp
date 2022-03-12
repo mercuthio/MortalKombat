@@ -2,6 +2,11 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include "EventManager.h"
+#include "Character.h"
+#include "Goro.h"
+#include "Animation.h"
+#include <chrono>
+#include <thread>
 
 using namespace sf;
 using namespace std;
@@ -19,25 +24,11 @@ Color pink = Color(245, 10, 237, 255);
 int main() {
 
     RenderWindow window(VideoMode(ANCHO_PANTALLA, ALTO_PANTALLA), "Mortal Kombat I");
-
-    Clock clock;
     Event event;
-    
-    Font fuente;
-    fuente.loadFromFile("resources/Fuente/mortalKombat1.ttf");
-
-    Image a;
-    a.loadFromFile("resources/Sprites/Varios/Menus.png");
-    a.createMaskFromColor(pink);
-
-    Texture texturas[10];
-    texturas[0].loadFromImage(a);
-
-    EventManager EventManager(texturas, fuente);
-    EventManager.setClock(clock);
-
     window.setKeyRepeatEnabled(true);
     window.setFramerateLimit(60);
+    
+    Character goro = CreateGoro();
 
     while (window.isOpen()) {
 
@@ -51,15 +42,12 @@ int main() {
             }
 
         }
-        //personaje.actualizar();
+        goro.Update(0.05f);
         window.clear();
-        //personaje.dibujar(window);
-        //EventManager.draw(window);
+        goro.draw(window);
         window.display();
+        this_thread::sleep_for(chrono::milliseconds(50));
     }
 
     return 0;
-
-		
-
 }

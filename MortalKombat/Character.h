@@ -14,7 +14,8 @@ using namespace std;
 
 class Character {
 public:
-	Character(map<AnimationType, Animation> _animations);
+	Character() = default;
+	Character(map<AnimationType, Animation> _animations, RectangleShape _body);
 	~Character() = default;
 
 	void Update(float time);
@@ -26,6 +27,10 @@ public:
 
 	void GetHit(int life);
 	void UseEnergy(int quantity);
+
+	void draw(RenderWindow& window);
+
+	void debug_animation();
 
 private:
 	RectangleShape body;
@@ -47,8 +52,10 @@ private:
 	@param
 	@param
 */
-Character::Character(map<AnimationType, Animation> _animations) {
+Character::Character(map<AnimationType, Animation> _animations, RectangleShape _body) {
+	body = _body;
 	animation_in_process = AnimationType::IDLE;
+	animations = _animations;
 }
 
 void Character::Update(float tiempo) {
@@ -57,7 +64,7 @@ void Character::Update(float tiempo) {
 
 	DoAnimation();
 
-	CheckCollisions();
+	//CheckCollisions();
 }
 
 void Character::CheckMovement() {
@@ -125,6 +132,9 @@ void Character::CheckMovement() {
 	else if (Keyboard::isKeyPressed(Keyboard::J)) {											//H.Kick en parado
 		animation_in_process = AnimationType::S_KICK_IDLE;
 	}
+	else {
+		animation_in_process = AnimationType::IDLE;
+	}
 }
 
 void Character::CheckCollisions() {
@@ -132,7 +142,8 @@ void Character::CheckCollisions() {
 }
 
 void Character::DoAnimation() {
-	animations[animation_in_process].DoAnimation(body);
+	debug_animation();
+	bool terminada = animations[animation_in_process].DoAnimation(body);
 }
 
 void Character::EndAnimation() {
@@ -147,4 +158,24 @@ void Character::UseEnergy(int quantity) {
 	energy -= quantity;
 }
 
+void Character::draw(RenderWindow& window) {
+	window.draw(body);
+}
+
+void Character::debug_animation() {
+	cout << "Realizando Animacion: ";
+	switch (animation_in_process) {
+	case (AnimationType::IDLE):
+		cout << "idle";
+		break;
+	case (AnimationType::FORW_WALK):
+		cout << "forwaed walk";
+		break;
+	case (AnimationType::BACK_WALK):
+		cout << "back walk";
+		break;
+	default:
+		cout << "unknown\n";
+	}
+}
 #endif
