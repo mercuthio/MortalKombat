@@ -6,7 +6,6 @@
 using namespace sf;
 
 const int NUM_CUADRADOS = 8;
-const int NUM_FRAMES = 50;
 
 class TransitionManager {
 

@@ -16,19 +16,19 @@ public:
 	MenuManager(Texture*, Font);
 	~MenuManager() = default;
 
-	void draw(RenderWindow& window);
-	void Actualizar();
-	int OpcionElegida();
-	void moverCursor(bool);
+	void draw(RenderWindow& window);			//Dibuja el menu
+	void Actualizar();							//Actualiza los sprites del menu
+	int OpcionElegida();						//Devuelve la opcion elegida en el menu
+	void moverCursor(bool);						//Mueve el cursor arriba si parametro true, abajo si false
 
 private:
 
-	int opcionElegida;
+	int opcionElegida;							//Entero que guarda la opcion elegida
 
-	IntRect uvRect;
-	Font font;
-	Text text[NUMERO_OptionsManager + 1];
-	RectangleShape fondo;
+	IntRect uvRect;								//IntRect del fondo
+	Font font;									//Variable con la fuente de letra
+	Text text[NUMERO_OptionsManager + 1];		//Vector con los textos de las opciones del menu
+	RectangleShape fondo;						//Objeto del fondo
 
 };
 

@@ -108,6 +108,7 @@ void PlayerSelector::DrawChoosen(RenderWindow& window, bool jugador1) {
 	float time = 0;
 	int frames = 0;
 
+	//Animacion de seleccion del personaje
 	while (frames < 3){
 
 		if (clock.getElapsedTime().asSeconds() - time > 0.1f) {
@@ -128,6 +129,7 @@ void PlayerSelector::DrawChoosen(RenderWindow& window, bool jugador1) {
 }
 
 int PlayerSelector::OpcionElegida(bool jugador1) {
+
 	if (!jugador1) {
 		elegido2 = true;
 		return x2 + (MAXIMO_X * y2);
@@ -137,8 +139,9 @@ int PlayerSelector::OpcionElegida(bool jugador1) {
 
 }
 
+//Solo es llamada en el caso de dos personajes
 bool PlayerSelector::Elegidos() {
-		
+
 	return elegido1 && elegido2;
 	
 }

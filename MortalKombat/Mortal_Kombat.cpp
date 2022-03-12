@@ -26,12 +26,15 @@ int main() {
     Font fuente;
     fuente.loadFromFile("resources/Fuente/mortalKombat1.ttf");
 
-    Image a;
+    Image a, b;
     a.loadFromFile("resources/Sprites/Varios/Menus.png");
     a.createMaskFromColor(pink);
+    b.loadFromFile("resources/Sprites/Varios/Bios.png");
+    b.createMaskFromColor(pink);
 
     Texture texturas[10];
     texturas[0].loadFromImage(a);
+    texturas[1].loadFromImage(b);
 
     EventManager EventManager(texturas, fuente);
     EventManager.setClock(clock);

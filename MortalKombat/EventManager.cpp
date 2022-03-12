@@ -1,7 +1,7 @@
 
 #include "EventManager.h"
 
-EventManager::EventManager(Texture texturas[], Font fuente) : StartManager(&texturas[0]), MenuManager(&texturas[0], fuente), OptionsManager(&texturas[0], fuente), PlayerSelector_hist(&texturas[0], false), PlayerSelector_duel(&texturas[0], true) {
+EventManager::EventManager(Texture texturas[], Font fuente) : StartManager(&texturas[0], &texturas[1]), MenuManager(&texturas[0], fuente), OptionsManager(&texturas[0], fuente), PlayerSelector_hist(&texturas[0], false), PlayerSelector_duel(&texturas[0], true) {
 
 	estado = 0;
 	personaje1 = 0;
@@ -114,6 +114,9 @@ void EventManager::Actualizar(Event evento) {
 				estado = 5;
 			}
 			break;
+		case Keyboard::Escape:
+			estado = 1;
+			break;
 		}
 		PlayerSelector_duel.Actualizar();
 		MenuManager.Actualizar();
@@ -151,6 +154,9 @@ void EventManager::Actualizar(Event evento) {
 				estado = 1;
 				MenuManager.Actualizar();
 			}
+			break;
+		case Keyboard::Escape:
+			estado = 1;
 			break;
 		}
 		OptionsManager.Actualizar();
@@ -191,7 +197,12 @@ void EventManager::drawTransitionManager(RenderWindow& window) {
 void EventManager::draw(RenderWindow& window) {
 	switch (estado) {
 	case 0:
-		StartManager.draw(window, clock.getElapsedTime().asSeconds());
+		if (StartManager.draw(window, clock.getElapsedTime().asSeconds())) { //Si true, terminada intro
+			cambiadoEstado = true;
+			estado = 1;
+			StartManager.~StartManager();
+			MenuManager.Actualizar();
+		};
 		break;
 
 	case 1:
