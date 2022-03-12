@@ -8,23 +8,23 @@ using namespace std;
 
 const int NUMBER_TRACKS = 191;
 
-int ANCHO_PANTALLA = 800;
-int ALTO_PANTALLA = 600;
+int WIDTH_WINDOW = 800;
+int HEIGHT_WINDOW = 600;
 
-int RATIO_ANCHO = 4;
-int RATIO_ALTO = 3;
+int RATIO_WIDTH = 4;
+int RATIO_HEIGHT = 3;
 
 Color pink = Color(245, 10, 237, 255);
 
 int main() {
 
-    RenderWindow window(VideoMode(ANCHO_PANTALLA, ALTO_PANTALLA), "Mortal Kombat I");
+    RenderWindow window(VideoMode(WIDTH_WINDOW, HEIGHT_WINDOW), "Mortal Kombat I");
 
     Clock clock;
     Event event;
     
-    Font fuente;
-    fuente.loadFromFile("resources/Fuente/mortalKombat1.ttf");
+    Font font;
+    font.loadFromFile("resources/Fuente/mortalKombat1.ttf");
 
     Image a, b;
     a.loadFromFile("resources/Sprites/Varios/Menus.png");
@@ -32,11 +32,11 @@ int main() {
     b.loadFromFile("resources/Sprites/Varios/Bios.png");
     b.createMaskFromColor(pink);
 
-    Texture texturas[10];
-    texturas[0].loadFromImage(a);
-    texturas[1].loadFromImage(b);
+    Texture textures[10];
+    textures[0].loadFromImage(a);
+    textures[1].loadFromImage(b);
 
-    EventManager EventManager(texturas, fuente);
+    EventManager EventManager(textures, font);
     EventManager.setClock(clock);
 
     window.setKeyRepeatEnabled(true);
@@ -50,7 +50,7 @@ int main() {
                 window.close();
             }
             else if (event.type == Event::KeyReleased) {
-                EventManager.Actualizar(event);
+                EventManager.Update(event);
             }
 
         }

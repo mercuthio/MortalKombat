@@ -3,28 +3,28 @@
 
 TransitionManager::TransitionManager() {
 
-	for (int i = 0; i < NUM_CUADRADOS; i++) {
-		fondo[i].setFillColor(Color::Black);
+	for (int i = 0; i < NUM_SQUARES; i++) {
+		backg[i].setFillColor(Color::Black);
 	}
 
 }
 
 void TransitionManager::draw(RenderWindow& window) {
 
-	for (int i = 0; i < NUM_CUADRADOS; i++) {
-		fondo[i].setSize(Vector2f(window.getSize().x, window.getSize().y / NUM_CUADRADOS));
-		fondo[i].setScale(1.01f, 1.01f);
-		fondo[i].setPosition(0, i * fondo[i].getSize().y);
+	for (int i = 0; i < NUM_SQUARES; i++) {
+		backg[i].setSize(Vector2f(window.getSize().x, window.getSize().y / NUM_SQUARES));
+		backg[i].setScale(1.01f, 1.01f);
+		backg[i].setPosition(0, i * backg[i].getSize().y);
 	}
 
 	float resta = 2;
 
-	while (fondo[NUM_CUADRADOS - 1].getSize().y > resta) {
+	while (backg[NUM_SQUARES - 1].getSize().y > resta) {
 
-		for (int e = 0; e < NUM_CUADRADOS; e++) {
+		for (int e = 0; e < NUM_SQUARES; e++) {
 
-			fondo[e].setSize(Vector2f(fondo[e].getSize().x, fondo[e].getSize().y - resta));
-			window.draw(fondo[e]);
+			backg[e].setSize(Vector2f(backg[e].getSize().x, backg[e].getSize().y - resta));
+			window.draw(backg[e]);
 
 		}
 

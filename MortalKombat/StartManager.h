@@ -21,18 +21,18 @@ public:
 private:
 
 	int actual_frame;
-	int personaje;
+	int character;
 	float seconds_aux;
 
-	IntRect uvRect_fondo;
-	IntRect uvRect_icono;
-	IntRect uvRect_nombre;
-	IntRect uvRect_texto;
-	RectangleShape icono;
-	RectangleShape fondo_bios;
-	RectangleShape fondo_menus;
-	RectangleShape nombre;
-	RectangleShape texto;
+	IntRect uvRect_backg;
+	IntRect uvRect_icon;
+	IntRect uvRect_name;
+	IntRect uvRect_text;
+	RectangleShape icon;
+	RectangleShape bio_backg;
+	RectangleShape menu_backg;
+	RectangleShape name;
+	RectangleShape text;
 
 };
 

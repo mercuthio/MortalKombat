@@ -9,173 +9,175 @@ using namespace std;
 StartManager::StartManager(Texture* menus, Texture* bios) {
 
 	srand(time(NULL));
-	personaje = rand() % 8;
+	character = rand() % 8;
 	actual_frame = 0;
 	seconds_aux = 3.0f;
 
-	uvRect_fondo.width = 390;
-	uvRect_fondo.height = 250;
-	uvRect_fondo.left = 1890;
-	uvRect_fondo.top = 1551;
+	uvRect_backg.width = 390;
+	uvRect_backg.height = 250;
+	uvRect_backg.left = 1890;
+	uvRect_backg.top = 1551;
 
-	fondo_menus.setPosition(0, 0);
-	fondo_menus.setTextureRect(uvRect_fondo);
-	fondo_menus.setTexture(menus);
+	menu_backg.setPosition(0, 0);
+	menu_backg.setTextureRect(uvRect_backg);
+	menu_backg.setTexture(menus);
 
-	fondo_bios.setPosition(0, 0);
-	fondo_bios.setTextureRect(uvRect_fondo); //no necesario
-	fondo_bios.setTexture(bios);
+	bio_backg.setPosition(0, 0);
+	bio_backg.setTextureRect(uvRect_backg);
+	bio_backg.setTexture(bios);
 
-	switch (personaje) {
+	switch (character) {
 	case(0):
-		uvRect_nombre.top = 8;
-		uvRect_texto.left = 8;
-		uvRect_texto.top = 1770;
-		uvRect_icono.top = 32;
+		uvRect_name.top = 8;
+		uvRect_text.left = 8;
+		uvRect_text.top = 1770;
+		uvRect_icon.top = 32;
 		break;
 	case(1):
-		uvRect_nombre.top = 218;
-		uvRect_texto.left = 305;
-		uvRect_texto.top = 1770;
-		uvRect_icono.top = 244;
+		uvRect_name.top = 218;
+		uvRect_text.left = 305;
+		uvRect_text.top = 1770;
+		uvRect_icon.top = 244;
 		break;
 	case(2):
-		uvRect_nombre.top = 430;
-		uvRect_texto.left = 602;
-		uvRect_texto.top = 1770;
-		uvRect_icono.top = 456;
+		uvRect_name.top = 430;
+		uvRect_text.left = 602;
+		uvRect_text.top = 1770;
+		uvRect_icon.top = 456;
 		break;
 	case(3):
-		uvRect_nombre.top = 640;
-		uvRect_texto.left = 8;
-		uvRect_texto.top = 1862;
-		uvRect_icono.top = 664;
+		uvRect_name.top = 640;
+		uvRect_text.left = 8;
+		uvRect_text.top = 1862;
+		uvRect_icon.top = 664;
 		break;
 	case(4):
-		uvRect_nombre.top = 848;
-		uvRect_texto.left = 305;
-		uvRect_texto.top = 1862;
-		uvRect_icono.top = 872;
+		uvRect_name.top = 848;
+		uvRect_text.left = 305;
+		uvRect_text.top = 1862;
+		uvRect_icon.top = 872;
 		break;
 	case(5):
-		uvRect_nombre.top = 1056;
-		uvRect_texto.left = 602;
-		uvRect_texto.top = 1862;
-		uvRect_icono.top = 1080;
+		uvRect_name.top = 1056;
+		uvRect_text.left = 602;
+		uvRect_text.top = 1862;
+		uvRect_icon.top = 1080;
 		break;
 	case(6):
-		uvRect_nombre.top = 1264;
-		uvRect_texto.left = 8;
-		uvRect_texto.top = 1954;
-		uvRect_icono.top = 1288;
+		uvRect_name.top = 1264;
+		uvRect_text.left = 8;
+		uvRect_text.top = 1954;
+		uvRect_icon.top = 1288;
 		break;
 	}
 
-	uvRect_icono.width = 108;
-	uvRect_icono.height = 82;
-	uvRect_icono.left = 10;
+	uvRect_icon.width = 108;
+	uvRect_icon.height = 82;
+	uvRect_icon.left = 10;
 
-	uvRect_nombre.width = 133;
-	uvRect_nombre.height = 18;
-	uvRect_nombre.left = 8;
+	uvRect_name.width = 133;
+	uvRect_name.height = 18;
+	uvRect_name.left = 8;
 
-	uvRect_texto.width = 289;
-	uvRect_texto.height = 84;
+	uvRect_text.width = 289;
+	uvRect_text.height = 84;
 
-	icono.setTextureRect(uvRect_icono);
-	icono.setTexture(bios);
+	icon.setTextureRect(uvRect_icon);
+	icon.setTexture(bios);
 
-	nombre.setTextureRect(uvRect_nombre);
-	nombre.setTexture(bios);
+	name.setTextureRect(uvRect_name);
+	name.setTexture(bios);
 
-	texto.setTextureRect(uvRect_texto);
-	texto.setTexture(bios);
+	text.setTextureRect(uvRect_text);
+	text.setTexture(bios);
 
 }
 
-bool StartManager::draw(RenderWindow& window, float segundos) {
+//Script de la intro
+bool StartManager::draw(RenderWindow& window, float seconds) {
 
-	fondo_bios.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
-	fondo_menus.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
+	bio_backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
+	menu_backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
 
-	icono.setSize(Vector2f(float(window.getSize().x / 3.7), float(window.getSize().y / 3.1)));
-	texto.setSize(Vector2f(float(window.getSize().x / 1.4), float(window.getSize().y / 2.8)));
-	nombre.setSize(Vector2f(float(window.getSize().x / 2.8), float(window.getSize().y / 10)));
+	icon.setSize(Vector2f(float(window.getSize().x / 3.7), float(window.getSize().y / 3.1)));
+	text.setSize(Vector2f(float(window.getSize().x / 1.4), float(window.getSize().y / 2.8)));
+	name.setSize(Vector2f(float(window.getSize().x / 2.8), float(window.getSize().y / 10)));
 
-	if (segundos > 25.0f) {		//Pantalla goro con texto
-		uvRect_fondo.left = 3586;
-		fondo_menus.setTextureRect(uvRect_fondo);
-		window.draw(fondo_menus);
+	if (seconds > 25.0f) {		//Pantalla goro con texto
+		uvRect_backg.left = 3586;
+		menu_backg.setTextureRect(uvRect_backg);
+		window.draw(menu_backg);
 	}
-	else if (segundos > 22.0f) { //Pantalla goro sin texto
-		uvRect_fondo.left = 3162;
-		fondo_menus.setTextureRect(uvRect_fondo);
-		window.draw(fondo_menus);
+	else if (seconds > 22.0f) { //Pantalla goro sin texto
+		uvRect_backg.left = 3162;
+		menu_backg.setTextureRect(uvRect_backg);
+		window.draw(menu_backg);
 	}
-	else if (segundos > 20.0f) { //Pantalla goro lives
-		fondo_menus.setFillColor(Color::White);
-		uvRect_fondo.left = 2738;
-		uvRect_fondo.top = 1551;
-		fondo_menus.setTextureRect(uvRect_fondo);
-		window.draw(fondo_menus);
+	else if (seconds > 20.0f) { //Pantalla goro lives
+		menu_backg.setFillColor(Color::White);
+		uvRect_backg.left = 2738;
+		uvRect_backg.top = 1551;
+		menu_backg.setTextureRect(uvRect_backg);
+		window.draw(menu_backg);
 	}
-	else if (segundos > 19.0) { //Fondo negro
-		fondo_menus.setFillColor(Color::Black);
-		window.draw(fondo_menus);
+	else if (seconds > 19.0) { //Fondo negro
+		menu_backg.setFillColor(Color::Black);
+		window.draw(menu_backg);
 	}
-	else if (segundos > 8.0f) {	//Se empieza a mostrar la biografia del personaje
+	else if (seconds > 8.0f) {	//Biografia del personaje
 		
-		if (segundos - seconds_aux > 0.1f) {
-			seconds_aux = segundos;
+		if (seconds - seconds_aux > 0.1f) {
+			seconds_aux = seconds;
 			actualizarFrame();
 		}
 
-		nombre.setOrigin(nombre.getSize().x / 2, nombre.getSize().y / 2);
-		nombre.setPosition(Vector2f(float(window.getSize().x / 2), float(window.getSize().y / 7)));
+		name.setOrigin(name.getSize().x / 2, name.getSize().y / 2);
+		name.setPosition(Vector2f(float(window.getSize().x / 2), float(window.getSize().y / 7)));
 
-		icono.setOrigin(nombre.getSize().x / 2, nombre.getSize().y / 2);
-		icono.setPosition(Vector2f(float(window.getSize().x / 1.8), float(window.getSize().y / 3.3)));
+		icon.setOrigin(name.getSize().x / 2, name.getSize().y / 2);
+		icon.setPosition(Vector2f(float(window.getSize().x / 1.8), float(window.getSize().y / 3.3)));
 
-		texto.setOrigin(nombre.getSize().x / 2, nombre.getSize().y / 2);
-		texto.setPosition(Vector2f(float(window.getSize().x / 3), float(window.getSize().y / 1.5)));
+		text.setOrigin(name.getSize().x / 2, name.getSize().y / 2);
+		text.setPosition(Vector2f(float(window.getSize().x / 3), float(window.getSize().y / 1.5)));
 
-		uvRect_fondo.left = 12;
-		uvRect_fondo.top = 1504;
+		uvRect_backg.left = 12;
+		uvRect_backg.top = 1504;
 
-		fondo_bios.setTextureRect(uvRect_fondo);
-		icono.setTextureRect(uvRect_icono);
-		window.draw(fondo_bios);
-		window.draw(nombre);
-		window.draw(icono);
-		window.draw(texto);
+		bio_backg.setTextureRect(uvRect_backg);
+		icon.setTextureRect(uvRect_icon);
+		window.draw(bio_backg);
+		window.draw(name);
+		window.draw(icon);
+		window.draw(text);
 
 	}
-	else if (segundos > 2.0f) { //Pantalla inicial roja
-		uvRect_fondo.left = 2320;
-		fondo_menus.setTextureRect(uvRect_fondo);
-		window.draw(fondo_menus);
+	else if (seconds > 2.0f) { //Pantalla inicial roja
+		uvRect_backg.left = 2320;
+		menu_backg.setTextureRect(uvRect_backg);
+		window.draw(menu_backg);
 	}
 	else {
-		window.draw(fondo_menus);
+		window.draw(menu_backg);
 	}
 
-	if (segundos > 40.0f) {
+	if (seconds > 40.0f) {
 		return true;
 	}
 	return false;
 
 }
 
+//Actuailza el frame del sprite mostrado en el icono de la biografia
 void StartManager::actualizarFrame() {
-	if (actual_frame < NUM_FRAMES[personaje]) {
+	if (actual_frame < NUM_FRAMES[character]) {
 		actual_frame++;
 
-		if (actual_frame == ENDIND_LINE_FRAME[personaje] + 1) {
-			uvRect_icono.top += 82 + 4;
-			uvRect_icono.left = 10;
+		if (actual_frame == ENDIND_LINE_FRAME[character] + 1) {
+			uvRect_icon.top += 82 + 4;
+			uvRect_icon.left = 10;
 		}
 		else {
-			uvRect_icono.left += 108 + 4;
+			uvRect_icon.left += 108 + 4;
 		}
 	
 	}
