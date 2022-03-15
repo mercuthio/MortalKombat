@@ -85,46 +85,54 @@ void PlayerSelector::MoveCursor(int x_, int y_, bool player1) {
 void PlayerSelector::DrawChoosen(RenderWindow& window, bool player1) {
 	int character = 0;
 
-	if (player1) {
-		choosen1 = true;
-		if (y == 0) { //Primera fila
-			character = x;
+	if (!(!player1 && !twoPlayers)) {
+
+		if (player1) {
+			choosen1 = true;
+			if (y == 0) { //Primera fila
+				character = x;
+			}
+			else { //Segunda fila
+				character = x + 2;
+			}
 		}
-		else { //Segunda fila
-			character = x + 2;
+		else {
+			choosen2 = true;
+			if (y2 == 0) { //Primera fila
+				character = x2;
+			}
+			else { //Segunda fila
+				character = x2 + 2;
+			}
 		}
+
+		Clock clock;
+		float time = 0;
+		int frames = 0;
+
+		//Animacion de seleccion del personaje
+		while (frames < 3) {
+
+			if (clock.getElapsedTime().asSeconds() - time > 0.1f) {
+				icons[character].setFillColor(Color::Black);
+				window.draw(icons[character]);
+				icons[character].setFillColor(Color::White);
+				window.draw(icons[character]);
+				frames++;
+				time = clock.getElapsedTime().asSeconds();
+			}
+
+		}
+
+		while (clock.getElapsedTime().asSeconds() - time < 3.0f) {}
+
+		uvRect_chara.top += 77;
+		icons[character].setTextureRect(uvRect_chara); //uvRect_frame
+		window.draw(icons[character]);
+		if ((twoPlayers && choosen1 && choosen2) || (!twoPlayers))
+			while (clock.getElapsedTime().asSeconds() < 2.0f) {}
+		cout << "hasta luego " << endl;
 	}
-	else {
-		choosen2 = true;
-		if (y2 == 0) { //Primera fila
-			character = x2;
-		}
-		else { //Segunda fila
-			character = x2 + 2;
-		}
-	}
-
-	Clock clock;
-	float time = 0;
-	int frames = 0;
-
-	//Animacion de seleccion del personaje
-	while (frames < 3){
-
-		if (clock.getElapsedTime().asSeconds() - time > 0.1f) {
-			icons[character].setFillColor(Color::White);
-			window.draw(icons[character]);
-			frames++;
-			time = clock.getElapsedTime().asSeconds();
-		}
-
-	}
-
-	uvRect_chara.top += 77;
-	icons[character].setTextureRect(uvRect_chara); //uvRect_frame
-	window.draw(icons[character]);
-	if ((twoPlayers && choosen1 && choosen2) || (!twoPlayers))
-		while (clock.getElapsedTime().asSeconds() < 2.0f){}
 
 }
 

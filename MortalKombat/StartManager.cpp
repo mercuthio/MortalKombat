@@ -128,7 +128,7 @@ bool StartManager::draw(RenderWindow& window, float seconds) {
 		
 		if (seconds - seconds_aux > 0.1f) {
 			seconds_aux = seconds;
-			actualizarFrame();
+			updateFrame();
 		}
 
 		name.setOrigin(name.getSize().x / 2, name.getSize().y / 2);
@@ -151,7 +151,7 @@ bool StartManager::draw(RenderWindow& window, float seconds) {
 		window.draw(text);
 
 	}
-	else if (seconds > 2.0f) { //Pantalla inicial roja
+	else if (seconds > 4.0f) { //Pantalla inicial roja
 		uvRect_backg.left = 2320;
 		menu_backg.setTextureRect(uvRect_backg);
 		window.draw(menu_backg);
@@ -168,7 +168,7 @@ bool StartManager::draw(RenderWindow& window, float seconds) {
 }
 
 //Actuailza el frame del sprite mostrado en el icono de la biografia
-void StartManager::actualizarFrame() {
+void StartManager::updateFrame() {
 	if (actual_frame < NUM_FRAMES[character]) {
 		actual_frame++;
 

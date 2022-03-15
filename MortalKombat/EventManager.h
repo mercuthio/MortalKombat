@@ -8,6 +8,7 @@
 #include "TransitionManager.h"
 #include "OptionsManager.h"
 #include "PlayerSelector.h"
+#include "HistoryManager.h"
 
 using namespace sf;
 using namespace std;
@@ -41,6 +42,7 @@ private:
 	Clock clock;										//Reloj para gestionar actualizacion de animaciones
 	PlayerSelector PlayerSelector_hist;					//Objeto de selector de personajes de historia
 	PlayerSelector PlayerSelector_duel;					//Objeto de selector de personajes de duelo
+	HistoryManager HistoryManager;
 
 };
 

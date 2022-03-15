@@ -16,7 +16,7 @@ public:
 	~StartManager() = default;
 
 	bool draw(RenderWindow&, float);	//Devuelve true si ha terminado de mostrar todo
-	void actualizarFrame();
+	void updateFrame();
 
 private:
 

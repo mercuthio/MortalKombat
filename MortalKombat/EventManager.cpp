@@ -1,7 +1,7 @@
 
 #include "EventManager.h"
 
-EventManager::EventManager(Texture textures[], Font font) : StartManager(&textures[0], &textures[1]), MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), PlayerSelector_duel(&textures[0], true) {
+EventManager::EventManager(Texture textures[], Font font) : StartManager(&textures[0], &textures[1]), MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]) {
 
 	state = 0;
 	character1 = 0;
@@ -62,7 +62,7 @@ void EventManager::Update(Event event) {
 		case Keyboard::A:
 			PlayerSelector_hist.MoveCursor(-1, 0, true);
 			break;
-		case Keyboard::E:
+		case Keyboard::Enter:
 			character1 = PlayerSelector_hist.ChoosenOption(true);
 			changedEstate = true;
 			state = 5;
@@ -161,8 +161,8 @@ void EventManager::Update(Event event) {
 		}
 		OptionsManager.Update();
 		break;
-	case 5: //Torre
-	
+	case 5: //Hisstoria
+		
 		break;
 	case 6: //Batalla
 
@@ -173,15 +173,9 @@ void EventManager::Update(Event event) {
 
 void EventManager::drawPlayerSelectorChoose(RenderWindow& window) {
 
-	if (changedEstate && state == 2) {
-		PlayerSelector_hist.DrawChoosen(window, true);
-		changedEstate = false;
-	}
-	else if (changedEstate && state == 3) {
-		PlayerSelector_duel.DrawChoosen(window, false);
-		PlayerSelector_duel.DrawChoosen(window, true);
-		changedEstate = false;
-	}
+	PlayerSelector_duel.DrawChoosen(window, false);
+	PlayerSelector_duel.DrawChoosen(window, true);
+	changedEstate = false;
 
 }
 
@@ -207,7 +201,6 @@ void EventManager::draw(RenderWindow& window) {
 
 	case 1:
 		MenuManager.draw(window);
-		//drawTransitionManager(window);
 		break;
 
 	case 2:
@@ -221,11 +214,10 @@ void EventManager::draw(RenderWindow& window) {
 
 	case 4:
 		OptionsManager.draw(window);
-		//drawTransitionManager(window);
 		break;
 	case 5:
 		drawPlayerSelectorChoose(window);
-		//drawTower(window);
+		//HistoryManager.Draw(window);
 		break;
 	default:
 		exit(0);

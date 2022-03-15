@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="HistoryManager.cpp" />
     <ClCompile Include="StartManager.cpp" />
     <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="Mortal_Kombat.cpp" />
@@ -29,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="HistoryManager.h" />
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="OptionsManager.h" />

@@ -13,7 +13,7 @@ public:
 	TransitionManager();
 	~TransitionManager() = default;
 
-	void draw(RenderWindow& window);
+	void draw(RenderWindow&);
 
 private:
 
