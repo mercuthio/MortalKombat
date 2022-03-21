@@ -26,14 +26,8 @@ public:
 	void Update(float time);
 	void DoAnimation();
 	void EndAnimation();
-	
-	void CheckMovement();
-	void CheckCollisions();
 
-	void GetHit(int life);
-	void UseEnergy(int quantity);
-
-	void draw(RenderWindow& window);
+	void debugDraw(RenderWindow& window);
 
 	void debug_animation();
 
@@ -48,6 +42,13 @@ private:
 	bool doing_animation = false;
 	
 	AnimationType animation_in_process;
+
+	void CheckMovement();
+	void CheckCollisions();
+	void CheckScreenCollisions();
+
+	void GetHit(int life);
+	void UseEnergy(int quantity);
 };
 
 /*
@@ -68,12 +69,10 @@ void Character::Update(float tiempo) {
 
 	DoAnimation();
 
-	//CheckCollisions();
+	CheckCollisions();
 }
 
-/*
-	Comprueba que tecla está presionando el usuario y realiza una animación dependiendo de eso
-*/
+
 void Character::CheckMovement() {
 	
 	if (!doing_animation) {
@@ -143,10 +142,37 @@ void Character::CheckMovement() {
 	}
 }
 
+
 void Character::CheckCollisions() {
-	// TO BE PROGRAMMED
+	CheckScreenCollisions();
+	// if (isHitAnimation()){
+	//		CheckHitboxes();
+	// }
 }
 
+// Cambiar las constexpr por llamadas a clases
+// que sepan estos valores
+constexpr int screenLeftLimit = 10;
+constexpr int screenRightLimit = 10;
+
+constexpr int screenFloorLimit = 10;
+
+void Character::CheckScreenCollisions() {
+	if (global_position.x < screenLeftLimit) {
+		global_position.x = screenLeftLimit;
+	}
+	else if (global_position.x > screenRightLimit) {
+		global_position.x = screenRightLimit;
+	}
+
+	if (global_position.y < screenFloorLimit) {
+		global_position.y = screenFloorLimit;
+	}
+}
+
+/*
+	Comprueba que tecla está presionando el usuario y realiza una animación dependiendo de eso
+*/
 void Character::DoAnimation() {
 	doing_animation = true;
 	debug_animation();
@@ -155,7 +181,7 @@ void Character::DoAnimation() {
 	if (isFixedMovement(animation_in_process)) { // Sigue un desplazamiento fijado
 		body.setPosition(body.getPosition() + animations[animation_in_process].traslation);
 	}
-	else { // Sigue las físicas del mundo (pj: gravedad y distancia al suelo)
+	else { // Sigue las físicas del mundo (gravedad)
 
 	}
 
@@ -177,7 +203,7 @@ void Character::UseEnergy(int quantity) {
 	energy -= quantity;
 }
 
-void Character::draw(RenderWindow& window) {
+void Character::debugDraw(RenderWindow& window) {
 	window.draw(body);
 }
 

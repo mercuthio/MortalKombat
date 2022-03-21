@@ -16,7 +16,7 @@ void testGoro(RenderWindow& window) {
 	RectangleShape body = RectangleShape(Vector2<float>(251, 219));
 	
 	body.setTexture(&spriteSheet);
-	body.setPosition(50, 50);
+	body.setPosition(20, 50);
 
 	IntRect rect = IntRect(Vector2<int>(32, 58), Vector2<int>(251, 219));
 	body.setTextureRect(rect);
@@ -25,8 +25,8 @@ void testGoro(RenderWindow& window) {
 }
 
 Movement makeMovent(Texture spriteSheet, Vector2<int> firstFrame, Vector2<int> frameSize, int offset, int n_frames, Vector2<float> translation, bool backwards, bool block, int rec) {
-
-	Animation anim = Animation(n_frames, spriteSheet, firstFrame, frameSize, offset, backwards, block, rec);
+	vector<int> null_vector;
+	Animation anim = Animation(n_frames, spriteSheet, firstFrame, frameSize, offset, backwards, block, rec, null_vector, false);
 	return Movement{ anim, translation };
 }
 
