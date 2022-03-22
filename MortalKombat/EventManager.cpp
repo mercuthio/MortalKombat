@@ -3,7 +3,7 @@
 
 EventManager::EventManager(Texture textures[], Font font) : StartManager(&textures[0], &textures[1]), MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]) {
 
-	state = 0;
+	state = 5;
 	character1 = 0;
 	changedEstate = false;
 
@@ -161,8 +161,8 @@ void EventManager::Update(Event event) {
 		}
 		OptionsManager.Update();
 		break;
-	case 5: //Hisstoria
-		
+	case 5: //Historia
+
 		break;
 	case 6: //Batalla
 
@@ -216,8 +216,8 @@ void EventManager::draw(RenderWindow& window) {
 		OptionsManager.draw(window);
 		break;
 	case 5:
-		drawPlayerSelectorChoose(window);
-		//HistoryManager.Draw(window);
+		//drawPlayerSelectorChoose(window);
+		HistoryManager.Draw(window, clock.getElapsedTime().asSeconds());
 		break;
 	default:
 		exit(0);

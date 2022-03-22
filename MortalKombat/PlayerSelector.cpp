@@ -130,8 +130,8 @@ void PlayerSelector::DrawChoosen(RenderWindow& window, bool player1) {
 		icons[character].setTextureRect(uvRect_chara); //uvRect_frame
 		window.draw(icons[character]);
 		if ((twoPlayers && choosen1 && choosen2) || (!twoPlayers))
-			while (clock.getElapsedTime().asSeconds() < 2.0f) {}
-		cout << "hasta luego " << endl;
+			while (clock.getElapsedTime().asSeconds() < 1.0f) {}
+
 	}
 
 }

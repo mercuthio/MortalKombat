@@ -18,7 +18,7 @@ public:
 	HistoryManager(Texture*);
 	~HistoryManager() = default;
 
-	void Draw(RenderWindow& window);			//Dibuja la torre
+	void Draw(RenderWindow& window, float);			//Dibuja la torre
 	void Update();								//Actualiza los sprites
 	void GetCharacters();						//Randomiza el vector de personajes
 
@@ -26,7 +26,11 @@ private:
 
 	int characters[NUM_CHARS];					//Vector que contiene el orden de los personajes simples
 	int double_characters[NUM_DOUBLE];
-	
+	float instant;
+	float time;
+	bool title_color;							//Color del titulo, true = azul, false = blanco
+	bool loaded;								//Indica si estan cargados todos los componentes de la pantalla
+
 	IntRect uvRect_backg;
 	IntRect uvRect_simple_texts;
 	IntRect uvRect_double_texts;

@@ -8,6 +8,9 @@ using namespace std;
 
 HistoryManager::HistoryManager(Texture* texture) {
 
+	instant = 0;
+	loaded = false;
+
 	uvRect_backg.width = 400;	//Fondo
 	uvRect_backg.height = 746;
 	uvRect_backg.left = 505;
@@ -106,14 +109,24 @@ HistoryManager::HistoryManager(Texture* texture) {
 		double_icons[i].setTexture(texture);
 	}
 
-	//Faltan iconons dobles y de bosses
+	uvRect_bosses_icons.width = 46;		//Iconos de bosses
+	uvRect_bosses_icons.height = 57;
+	uvRect_bosses_icons.top = 827;
+
+	uvRect_bosses_icons.left = 923;	
+	bosses_icons[0].setTextureRect(uvRect_bosses_icons);
+	bosses_icons[0].setTexture(texture);
+
+	uvRect_bosses_icons.left = 974;	
+	bosses_icons[1].setTextureRect(uvRect_bosses_icons);
+	bosses_icons[1].setTexture(texture);
 
 }
 
 //Randomiza los personajes de forma que no se repitan combates.
 void HistoryManager::GetCharacters() {
 
-	srand(time(NULL));
+	//srand(time(NULL));
 
 	bool encontrado = false;
 	int character;
@@ -151,12 +164,61 @@ void HistoryManager::GetCharacters() {
 
 }
 
-void Draw(RenderWindow& window) {
+void HistoryManager::Draw(RenderWindow& window, float seconds) {
 
+	if (!loaded) {
 
+		title.setPosition(window.getSize().x / 3.4, window.getSize().y / 20);
+		title.setSize(Vector2f(float(window.getSize().x / 3), float(window.getSize().y / 15)));
+
+		loaded = true;
+
+	}
+
+	uvRect_backg.height = window.getSize().y / 2.3;
+
+	if (uvRect_backg.top + uvRect_backg.height + 2 <= 1519)
+		uvRect_backg.top += 2;
+
+	backg.setTextureRect(uvRect_backg);
+
+	backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
+	window.draw(backg);
+
+	for (int i = 0; i < NUM_BOSSES; i++) {
+
+		switch (i) {
+		case 0:
+			bosses_icons[i].setPosition(window.getSize().x / 1.5, window.getSize().y / 15);
+			break;
+		case 1:
+
+			break;
+		}
+		window.draw(bosses_icons[i]);
+	}
+
+	if (seconds - time >= 0.1f) {
+
+		Update();
+
+		if (title_color) {
+			uvRect_title.left = 1049;
+		}
+		else {
+			uvRect_title.left = 921;
+		}
+		uvRect_title.top = 765;
+		title.setTextureRect(uvRect_title);
+
+		time = seconds;
+	}
+
+	window.draw(title);
 }
 
-void Update() {
+void HistoryManager::Update() {
 
+	title_color = !title_color;
 
 }

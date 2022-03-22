@@ -29,9 +29,9 @@ private:
 	int x2, y2;										//Coordenadas del segundo cursor
 	bool choosen1;									//True si el primer jugador a escogido personaje
 	bool choosen2;									//True si el segundo jugador a escogido personaje
-	bool flash;									//Variable para la animacion del marco (false = color claro, true = color oscuro)
+	bool flash;										//Variable para la animacion del marco (false = color claro, true = color oscuro)
 	bool twoPlayers;								//True si hay dos jugadores
-	float time;									//Tiempo actual total
+	float time;										//Tiempo actual total
 
 	IntRect uvRect_backg;							//IntRect del fondo
 	IntRect uvRect_frame;							//IntRect del marco del jugador 1
