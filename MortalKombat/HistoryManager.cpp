@@ -113,11 +113,11 @@ HistoryManager::HistoryManager(Texture* texture) {
 	uvRect_bosses_icons.height = 57;
 	uvRect_bosses_icons.top = 827;
 
-	uvRect_bosses_icons.left = 923;	
+	uvRect_bosses_icons.left = 974;	
 	bosses_icons[0].setTextureRect(uvRect_bosses_icons);
 	bosses_icons[0].setTexture(texture);
 
-	uvRect_bosses_icons.left = 974;	
+	uvRect_bosses_icons.left = 923;	
 	bosses_icons[1].setTextureRect(uvRect_bosses_icons);
 	bosses_icons[1].setTexture(texture);
 
@@ -165,39 +165,58 @@ void HistoryManager::GetCharacters() {
 }
 
 void HistoryManager::Draw(RenderWindow& window, float seconds) {
+	float mov = 4.6;
 
 	if (!loaded) {
 
 		title.setPosition(window.getSize().x / 3.4, window.getSize().y / 20);
 		title.setSize(Vector2f(float(window.getSize().x / 3), float(window.getSize().y / 15)));
 
+		for (int i = 0; i < NUM_BOSSES; i++) {
+
+			if (i == 0) {
+				bosses_icons[0].setPosition(window.getSize().x / 2.736, window.getSize().y / 4.8);
+				bosses_texts[0].setPosition(window.getSize().x / 1.84, window.getSize().y / 3.6);
+			}
+			else {
+				bosses_icons[1].setPosition(window.getSize().x / 2.736, window.getSize().y / 2);
+				bosses_texts[1].setPosition(window.getSize().x / 1.84, window.getSize().y / 1.75);
+			}
+			bosses_icons[i].setSize(Vector2f(float(window.getSize().x / 8.77), float(window.getSize().y / 4.58)));
+			bosses_texts[i].setSize(Vector2f(float(window.getSize().x / 4.2), float(window.getSize().y /17)));
+
+		}
 		loaded = true;
 
 	}
 
 	uvRect_backg.height = window.getSize().y / 2.3;
+	/*
+	if (uvRect_backg.top + uvRect_backg.height + 2 <= 1519) {
 
-	if (uvRect_backg.top + uvRect_backg.height + 2 <= 1519)
 		uvRect_backg.top += 2;
+		title.setPosition(title.getPosition().x, title.getPosition().y - mov);
 
+		for (int i = 0; i < NUM_BOSSES; i++) {
+			bosses_icons[i].setPosition(bosses_icons[i].getPosition().x, bosses_icons[i].getPosition().y - mov);
+			bosses_texts[i].setPosition(bosses_texts[i].getPosition().x, bosses_texts[i].getPosition().y - mov);
+		}
+
+		backg.setTextureRect(uvRect_backg);
+		backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
+	}
+	*/
 	backg.setTextureRect(uvRect_backg);
-
 	backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
 	window.draw(backg);
 
 	for (int i = 0; i < NUM_BOSSES; i++) {
-
-		switch (i) {
-		case 0:
-			bosses_icons[i].setPosition(window.getSize().x / 1.5, window.getSize().y / 15);
-			break;
-		case 1:
-
-			break;
-		}
 		window.draw(bosses_icons[i]);
+		window.draw(bosses_texts[i]);
 	}
 
+	window.draw(title);
+	//--------------Update---------------------
 	if (seconds - time >= 0.1f) {
 
 		Update();
@@ -213,8 +232,6 @@ void HistoryManager::Draw(RenderWindow& window, float seconds) {
 
 		time = seconds;
 	}
-
-	window.draw(title);
 }
 
 void HistoryManager::Update() {
