@@ -10,20 +10,6 @@
 #include "Animation.h"
 #include "Definitions.h"
 
-void testGoro(RenderWindow& window) {
-	Texture spriteSheet;
-	spriteSheet.loadFromFile("resources/Sprites/Personajes/Goro.png");
-	RectangleShape body = RectangleShape(Vector2<float>(251, 219));
-	
-	body.setTexture(&spriteSheet);
-	body.setPosition(20, 10);
-
-	IntRect rect = IntRect(Vector2<int>(32, 58), Vector2<int>(251, 219));
-	body.setTextureRect(rect);
-
-	window.draw(body);
-}
-
 Movement makeMovent(Texture spriteSheet, Vector2<int> firstFrame, Vector2<int> frameSize, int offset, int n_frames, Vector2<float> translation, bool backwards, bool lock, int rec, vector<int> vector) {
 	
 	Animation anim = Animation(n_frames, spriteSheet, firstFrame, frameSize, offset, backwards, lock, rec, vector, false);
@@ -32,7 +18,13 @@ Movement makeMovent(Texture spriteSheet, Vector2<int> firstFrame, Vector2<int> f
 
 Character CreateGoro() {
 	Texture spriteSheet;
-	spriteSheet.loadFromFile("resources/Sprites/Personajes/Goro.png");
+	Image spriteSheetImage;
+	Color back = Color(165,231,255,255);
+
+	spriteSheetImage.loadFromFile("resources/Sprites/Personajes/Goro.png");
+	spriteSheetImage.createMaskFromColor(back);
+
+	spriteSheet.loadFromImage(spriteSheetImage);
 
 	RectangleShape body = RectangleShape(Vector2<float>(251, 219));
 	body.setPosition(50, 400);
@@ -44,11 +36,6 @@ Character CreateGoro() {
 	Movement backMov = makeMovent(spriteSheet, Vector2<int>(4128, 58), Vector2<int>(251, 219), 5, 9, Vector2<float>(-2.5, 0.0), true, false, 0, null_vector);
 	Movement punchMov = makeMovent(spriteSheet, Vector2<int>(32, 580), Vector2<int>(251, 219), 5, 4, Vector2<float>(0.0, 0.0), false, true, 3, null_vector);
 	Movement jumpMov = makeMovent(spriteSheet, Vector2<int>(32, 1624), Vector2<int>(251, 219), 5, 9, Vector2<float>(0.0, 0.0), false, true, 1, jump_lock);
-	
-	//Movement punchMov = makeMovent(spriteSheet, Vector2<int>(), Vector2<int>(), 0, 0, Vector2<float>(), false, false);
-	//Movement punchMov = makeMovent(spriteSheet, Vector2<int>(), Vector2<int>(), 0, 0, Vector2<float>(), false, false);
-	//Movement punchMov = makeMovent(spriteSheet, Vector2<int>(), Vector2<int>(), 0, 0, Vector2<float>(), false, false);
-
 
 	map<AnimationType, Movement> animations;
 	animations[AnimationType::IDLE] = idleMov;

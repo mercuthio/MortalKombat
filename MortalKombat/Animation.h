@@ -53,7 +53,7 @@ private:
 	@param backwards:		'false' Si el desplazamiento se hace de izquierda a derecha. 'true' si es de izquierda a derecha 
 	@param _lock:			'true' si se tiene que hacer la animacion completa antes de continuar o 'false' si se puede cancelar
 	@param _recovery:		Número de frames los cuales tarda el personaje en recuperarse antes de terminar la animación
-	@param _flagged_frames:	Frames los cuales la animación esperará 
+	@param _flagged_frames:	Frames los cuales la animación esperará a algún evento
 	@param _mirrored:		'false' pinta el sprite tal y como aparece en _sprite_sheet. 'true' lo pinta mirando al lado opuesto en el eje x
 */
 
@@ -143,6 +143,7 @@ bool Animation::DoAnimation(RectangleShape& cuerpo) {
 	por parte del usuario
 */
 bool Animation::RecieveFlagEvent() {
+	// if (isPersistent){}
 	waiting_flag = false;
 	this_flagged_frame++;
 	return this_flagged_frame < n_of_flagged_frames;

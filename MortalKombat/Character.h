@@ -34,12 +34,10 @@ public:
 	//~Character() = delete;
 
 	void Update(float time);
-	
-	void EndAnimation();
-
 	void debugDraw(RenderWindow& window);
 
-	void debug_animation();
+	void GetHit(int life);
+	void UseEnergy(int quantity);
 
 private:
 	RectangleShape body;
@@ -50,19 +48,18 @@ private:
 	int life = 100;
 	int energy = 0;
 	bool doing_animation = false;
-	Vector2<float> velocidad;
+	Vector2<float> speed;
 	
 	
 	AnimationType animation_in_process;
 
 	void DoAnimation();
+	void EndAnimation();
+	void debug_animation();
+
 	void CheckAnimation();
-	void CheckMovement();
 	void CheckCollisions();
 	void CheckScreenCollisions();
-
-	void GetHit(int life);
-	void UseEnergy(int quantity);
 };
 
 /*
@@ -92,21 +89,20 @@ void Character::Update(float tiempo) {
 void Character::CheckAnimation() {
 	
 	if (!doing_animation) {
-		if (Keyboard::isKeyPressed(Keyboard::S)) {												//Agacharse
-
+		if (Keyboard::isKeyPressed(Keyboard::S)) {													//Agacharse
+			
 			if (Keyboard::isKeyPressed(Keyboard::A)) {												//Bloquear agachado
 
 			}
 			else {																					//Solo moverse
 				animation_in_process = AnimationType::DOWN;
 			}
-
 		}
-		else if (Keyboard::isKeyPressed(Keyboard::D)) {											//Moverse derecha
+		else if (Keyboard::isKeyPressed(Keyboard::D)) {												//Moverse derecha
 
 			if (Keyboard::isKeyPressed(Keyboard::W)) {												//Salto hacia delante
 				animation_in_process = AnimationType::FORW_JUMP;
-				velocidad = Vector2<float>(-100, 300);
+				speed = Vector2<float>(-100, 300);
 			}
 			else if (Keyboard::isKeyPressed(Keyboard::T)) {											//L.Punch hacia delante
 				animation_in_process = AnimationType::L_PUNCH_FORW;
@@ -129,33 +125,31 @@ void Character::CheckAnimation() {
 			else {																					//Solo moverse
 				animation_in_process = AnimationType::FORW_WALK;
 			}
-
 		}
-		else if (Keyboard::isKeyPressed(Keyboard::A)) {											//Moverse izquierda
+		else if (Keyboard::isKeyPressed(Keyboard::A)) {												//Moverse izquierda
 
 			if (Keyboard::isKeyPressed(Keyboard::W)) {												//Salto hacia atras
 				animation_in_process = AnimationType::BACK_JUMP;
-				velocidad = Vector2<float>(100, 300);
+				speed = Vector2<float>(100, 300);
 			}
 			else {																					//Solo moverse
 				animation_in_process = AnimationType::BACK_WALK;
 			}
-
 		}
-		else if (Keyboard::isKeyPressed(Keyboard::W)) {											//Salto en parado
+		else if (Keyboard::isKeyPressed(Keyboard::W)) {												//Salto en parado
 			animation_in_process = AnimationType::JUMP;
-			velocidad = Vector2<float>(0, 300);
+			speed = Vector2<float>(0, 300);
 		}
-		else if (Keyboard::isKeyPressed(Keyboard::T)) {											//L.Punch en parado
+		else if (Keyboard::isKeyPressed(Keyboard::T)) {												//L.Punch en parado
 			animation_in_process = AnimationType::L_PUNCH_IDLE;
 		}
-		else if (Keyboard::isKeyPressed(Keyboard::Y) || Keyboard::isKeyPressed(Keyboard::U)) {	//M.Punch, H.Punch en parado
+		else if (Keyboard::isKeyPressed(Keyboard::Y) || Keyboard::isKeyPressed(Keyboard::U)) {		//M.Punch, H.Punch en parado
 			animation_in_process = AnimationType::M_S_PUNCH_IDLE;
 		}
-		else if (Keyboard::isKeyPressed(Keyboard::G) || Keyboard::isKeyPressed(Keyboard::H)) {	//L.Kick, M.Kick en parado
+		else if (Keyboard::isKeyPressed(Keyboard::G) || Keyboard::isKeyPressed(Keyboard::H)) {		//L.Kick, M.Kick en parado
 			animation_in_process = AnimationType::L_M_KICK_IDLE;
 		}
-		else if (Keyboard::isKeyPressed(Keyboard::J)) {											//H.Kick en parado
+		else if (Keyboard::isKeyPressed(Keyboard::J)) {												//H.Kick en parado
 			animation_in_process = AnimationType::S_KICK_IDLE;
 		}
 	}
@@ -164,6 +158,7 @@ void Character::CheckAnimation() {
 
 void Character::CheckCollisions() {
 	CheckScreenCollisions();
+	// CheckHitboxesCollisions();
 }
 
 void Character::CheckScreenCollisions() {
@@ -176,10 +171,9 @@ void Character::CheckScreenCollisions() {
 
 	if (global_position.y > screenFloorLimit) {
 		global_position.y = screenFloorLimit;
-		velocidad = Vector2<float>(0, 0);
+		speed = Vector2<float>(0, 0);
 		animations[animation_in_process].animation.ResetAnimation();
 		EndAnimation();
-		
 	}
 }
 
@@ -189,23 +183,23 @@ void Character::CheckScreenCollisions() {
 void Character::DoAnimation() {
 	doing_animation = true;
 	debug_animation();
-	bool terminada = animations[animation_in_process].animation.DoAnimation(body);
+	bool finished = animations[animation_in_process].animation.DoAnimation(body);
 
 	if (isFixedMovement(animation_in_process)) { // Sigue un desplazamiento fijado
 		global_position = global_position + animations[animation_in_process].traslation;
 	}
 	else { // Sigue las físicas del mundo (gravedad)
-		global_position = global_position - velocidad * updateTime;
-		Vector2<float> pre_speed = velocidad;
-		velocidad.y = velocidad.y - gravedad * updateTime;
+		global_position = global_position - speed * updateTime;
+		Vector2<float> pre_speed = speed;
+		speed.y = speed.y - gravedad * updateTime;
 		
 		// Pasamos de subir a bajar
-		if (pre_speed.y >= 0 && velocidad.y < 0) {
+		if (pre_speed.y >= 0 && speed.y < 0) {
 			animations[animation_in_process].animation.RecieveFlagEvent();
 		}
 	}
 
-	if (terminada) {
+	if (finished) {
 		EndAnimation();
 	}
 }
@@ -242,6 +236,6 @@ void Character::debug_animation() {
 	default:
 		cout << "unknown";
 	}
-	cout << "\tVelocidad: " << velocidad.x << " " << velocidad.y << "\t";
+	cout << "\tVelocidad: " << speed.x << " " << speed.y << "\t";
 }
 #endif
