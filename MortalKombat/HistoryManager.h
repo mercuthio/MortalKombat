@@ -26,6 +26,8 @@ private:
 
 	int characters[NUM_CHARS];					//Vector que contiene el orden de los personajes simples
 	int double_characters[NUM_DOUBLE];
+
+	int actual_combat;
 	float instant;
 	float time;
 	bool title_color;							//Color del titulo, true = azul, false = blanco

@@ -36,7 +36,7 @@ private:
 
 	int state;											//0 = StartManager, 1 = MenuManager, 2 = PlayerSelectorHistoria, 3 = PlayerSelectorDuelo, 4 = OptionsManager, 5 = Torre, 6 = Batalla
 	int character1;										//Personaje elegido por el jugador 1
-	int personaje2;										//Personaje elegido por el jugador 2
+	int character2;										//Personaje elegido por el jugador 2
 	bool changedEstate;									//True cuando se va a cambiar el estado en el siguiente frame, false en cualquier otro momento
 	MenuManager MenuManager;							//Objeto del menu principal
 	Music music[NUMERO_CANCIONES];						//Vector de sonidos

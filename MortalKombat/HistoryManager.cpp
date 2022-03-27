@@ -10,6 +10,7 @@ HistoryManager::HistoryManager(Texture* texture) {
 
 	instant = 0;
 	loaded = false;
+	actual_combat = 0;
 
 	uvRect_backg.width = 400;	//Fondo
 	uvRect_backg.height = 746;
