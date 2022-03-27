@@ -9,6 +9,16 @@
 #include "Animation.h"
 #include "Definitions.h"
 
+
+//--------------DEBUG-------------
+constexpr int screenLeftLimit = 10;
+constexpr int screenRightLimit = 500;
+constexpr int screenFloorLimit = 400;
+constexpr float gravedad = 1000;			// pixels/s^2
+constexpr float updateTime = 0.05;			// 50 milis
+//--------------------------------
+
+
 using namespace sf;
 using namespace std;
 
@@ -24,7 +34,7 @@ public:
 	//~Character() = delete;
 
 	void Update(float time);
-	void DoAnimation();
+	
 	void EndAnimation();
 
 	void debugDraw(RenderWindow& window);
@@ -40,9 +50,13 @@ private:
 	int life = 100;
 	int energy = 0;
 	bool doing_animation = false;
+	Vector2<float> velocidad;
+	
 	
 	AnimationType animation_in_process;
 
+	void DoAnimation();
+	void CheckAnimation();
 	void CheckMovement();
 	void CheckCollisions();
 	void CheckScreenCollisions();
@@ -64,16 +78,18 @@ Character::Character(map<AnimationType, Movement> _animations, RectangleShape _b
 }
 
 void Character::Update(float tiempo) {
-
-	CheckMovement();
-
+	global_position = body.getPosition();
+	
+	CheckAnimation();
 	DoAnimation();
 
 	CheckCollisions();
+	
+	body.setPosition(global_position);
 }
 
 
-void Character::CheckMovement() {
+void Character::CheckAnimation() {
 	
 	if (!doing_animation) {
 		if (Keyboard::isKeyPressed(Keyboard::S)) {												//Agacharse
@@ -90,6 +106,7 @@ void Character::CheckMovement() {
 
 			if (Keyboard::isKeyPressed(Keyboard::W)) {												//Salto hacia delante
 				animation_in_process = AnimationType::FORW_JUMP;
+				velocidad = Vector2<float>(-100, 300);
 			}
 			else if (Keyboard::isKeyPressed(Keyboard::T)) {											//L.Punch hacia delante
 				animation_in_process = AnimationType::L_PUNCH_FORW;
@@ -118,6 +135,7 @@ void Character::CheckMovement() {
 
 			if (Keyboard::isKeyPressed(Keyboard::W)) {												//Salto hacia atras
 				animation_in_process = AnimationType::BACK_JUMP;
+				velocidad = Vector2<float>(100, 300);
 			}
 			else {																					//Solo moverse
 				animation_in_process = AnimationType::BACK_WALK;
@@ -126,6 +144,7 @@ void Character::CheckMovement() {
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::W)) {											//Salto en parado
 			animation_in_process = AnimationType::JUMP;
+			velocidad = Vector2<float>(0, 300);
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::T)) {											//L.Punch en parado
 			animation_in_process = AnimationType::L_PUNCH_IDLE;
@@ -145,17 +164,7 @@ void Character::CheckMovement() {
 
 void Character::CheckCollisions() {
 	CheckScreenCollisions();
-	// if (isHitAnimation()){
-	//		CheckHitboxes();
-	// }
 }
-
-// Cambiar las constexpr por llamadas a clases
-// que sepan estos valores
-constexpr int screenLeftLimit = 10;
-constexpr int screenRightLimit = 10;
-
-constexpr int screenFloorLimit = 10;
 
 void Character::CheckScreenCollisions() {
 	if (global_position.x < screenLeftLimit) {
@@ -165,8 +174,12 @@ void Character::CheckScreenCollisions() {
 		global_position.x = screenRightLimit;
 	}
 
-	if (global_position.y < screenFloorLimit) {
+	if (global_position.y > screenFloorLimit) {
 		global_position.y = screenFloorLimit;
+		velocidad = Vector2<float>(0, 0);
+		animations[animation_in_process].animation.ResetAnimation();
+		EndAnimation();
+		
 	}
 }
 
@@ -179,10 +192,17 @@ void Character::DoAnimation() {
 	bool terminada = animations[animation_in_process].animation.DoAnimation(body);
 
 	if (isFixedMovement(animation_in_process)) { // Sigue un desplazamiento fijado
-		body.setPosition(body.getPosition() + animations[animation_in_process].traslation);
+		global_position = global_position + animations[animation_in_process].traslation;
 	}
 	else { // Sigue las físicas del mundo (gravedad)
-
+		global_position = global_position - velocidad * updateTime;
+		Vector2<float> pre_speed = velocidad;
+		velocidad.y = velocidad.y - gravedad * updateTime;
+		
+		// Pasamos de subir a bajar
+		if (pre_speed.y >= 0 && velocidad.y < 0) {
+			animations[animation_in_process].animation.RecieveFlagEvent();
+		}
 	}
 
 	if (terminada) {
@@ -214,7 +234,7 @@ void Character::debug_animation() {
 		cout << "idle";
 		break;
 	case (AnimationType::FORW_WALK):
-		cout << "forwaed walk";
+		cout << "forward walk";
 		break;
 	case (AnimationType::BACK_WALK):
 		cout << "back walk";
@@ -222,5 +242,6 @@ void Character::debug_animation() {
 	default:
 		cout << "unknown";
 	}
+	cout << "\tVelocidad: " << velocidad.x << " " << velocidad.y << "\t";
 }
 #endif

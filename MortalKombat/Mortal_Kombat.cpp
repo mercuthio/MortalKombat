@@ -44,7 +44,7 @@ int main() {
         }
         goro.Update(0.05f);
         window.clear();
-        goro.draw(window);
+        goro.debugDraw(window);
         window.display();
         this_thread::sleep_for(chrono::milliseconds(50));
     }

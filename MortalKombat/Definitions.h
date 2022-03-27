@@ -47,9 +47,9 @@
 	};
 
 	bool isFixedMovement(AnimationType anim) {
-		return (anim != AnimationType::JUMP) ||
-			(anim != AnimationType::FORW_JUMP) ||
-			(anim != AnimationType::BACK_JUMP) ||
+		return (anim != AnimationType::JUMP) &&
+			(anim != AnimationType::FORW_JUMP) &&
+			(anim != AnimationType::BACK_JUMP) &&
 			(anim != AnimationType::BEING_HIT);
 	}
 #endif

@@ -15,9 +15,10 @@ using namespace std;
 class Animation {
 public:
 	Animation() = default;
-	Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_frame, Vector2<int> size, int _offset, bool backwards, bool _isMutex, int _recovery, vector<int> _flagged_frames, bool _mirrored);
+	Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_frame, Vector2<int> size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames, bool _mirrored);
 	//~Animation() = delete;
 	bool DoAnimation(RectangleShape& cuerpo);
+	void ResetAnimation();
 	bool RecieveFlagEvent();
 
 private:
@@ -26,7 +27,7 @@ private:
 
 	int	duration = 0;							// Total de imagenes de la animacion
 	bool isPersistent = false;
-	bool isMutex = false;
+	bool lock = false;
 	int this_recovery = 0;
 	int recovery = 0;
 	bool recovering = false;
@@ -50,13 +51,13 @@ private:
 	@param _size:			Tamanyo de cada frame de la animacion
 	@param _offset:			Distancia en pixeles entre los frames de la animacion. Siempre es un valor positivo
 	@param backwards:		'false' Si el desplazamiento se hace de izquierda a derecha. 'true' si es de izquierda a derecha 
-	@param _isMutex:		'true' si se tiene que hacer la animacion completa antes de continuar o 'false' si se puede cancelar
+	@param _lock:			'true' si se tiene que hacer la animacion completa antes de continuar o 'false' si se puede cancelar
 	@param _recovery:		Número de frames los cuales tarda el personaje en recuperarse antes de terminar la animación
 	@param _flagged_frames:	Frames los cuales la animación esperará 
 	@param _mirrored:		'false' pinta el sprite tal y como aparece en _sprite_sheet. 'true' lo pinta mirando al lado opuesto en el eje x
 */
 
-Animation::Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _isMutex, int _recovery, vector<int> _flagged_frames, bool _mirrored) {
+Animation::Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames, bool _mirrored) {
 	
 	duration = _duration;
 	sprite_sheet = _sprite_sheet;
@@ -78,7 +79,7 @@ Animation::Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_f
 
 	recovery = _recovery;
 	this_frame = first_frame;
-	isMutex = _isMutex;
+	lock = _lock;
 
 	flagged_frames = _flagged_frames;
 	n_of_flagged_frames = flagged_frames.size();
@@ -91,15 +92,17 @@ Animation::Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_f
 */
 bool Animation::DoAnimation(RectangleShape& cuerpo) {
 
-	bool finished = !isMutex;
+	bool finished = !lock;
 	cout << "\FA: " << frame_number << "\tRE: " << this_recovery << endl;
 
 	cuerpo.setTexture(&sprite_sheet);
 	cuerpo.setTextureRect(IntRect(this_frame, size));
 
 	// Si tengo que esperar que algo externo me diga que tengo que cambiar la textura
-	if (flagged_frames[this_flagged_frame] == frame_number) {
-		return finished;
+	if (n_of_flagged_frames > 0) {
+		if (flagged_frames[this_flagged_frame] == frame_number) {
+			return false;
+		}
 	}
 
 	// Si no me estoy recuperando
@@ -141,7 +144,15 @@ bool Animation::DoAnimation(RectangleShape& cuerpo) {
 */
 bool Animation::RecieveFlagEvent() {
 	waiting_flag = false;
-	this_flagged_frame++;	
+	this_flagged_frame++;
+	return this_flagged_frame < n_of_flagged_frames;
+}
+
+void Animation::ResetAnimation() {
+	frame_number = 1;
+	this_recovery = 0;
+	this_frame = first_frame;
+	this_flagged_frame = 0;
 }
 
 #endif
