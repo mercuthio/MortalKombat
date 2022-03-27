@@ -164,7 +164,7 @@ void HistoryManager::GetCharacters() {
 
 }
 
-void HistoryManager::Draw(RenderWindow& window, float seconds) {
+bool HistoryManager::Draw(RenderWindow& window, float seconds) {
 	float mov = 4.6;
 
 	if (!loaded) {
@@ -191,7 +191,7 @@ void HistoryManager::Draw(RenderWindow& window, float seconds) {
 	}
 
 	uvRect_backg.height = window.getSize().y / 2.3;
-	/*
+	
 	if (uvRect_backg.top + uvRect_backg.height + 2 <= 1519) {
 
 		uvRect_backg.top += 2;
@@ -205,7 +205,10 @@ void HistoryManager::Draw(RenderWindow& window, float seconds) {
 		backg.setTextureRect(uvRect_backg);
 		backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
 	}
-	*/
+	else {
+		return true;
+	}
+	
 	backg.setTextureRect(uvRect_backg);
 	backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
 	window.draw(backg);
@@ -232,6 +235,8 @@ void HistoryManager::Draw(RenderWindow& window, float seconds) {
 
 		time = seconds;
 	}
+
+	return false;
 }
 
 void HistoryManager::Update() {

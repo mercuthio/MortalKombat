@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackgroundManager.cpp" />
+    <ClCompile Include="Courtyard.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="HistoryManager.cpp" />
     <ClCompile Include="StartManager.cpp" />
@@ -29,6 +31,8 @@
     <ClCompile Include="TransitionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackgroundManager.h" />
+    <ClInclude Include="Courtyard.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="HistoryManager.h" />
     <ClInclude Include="StartManager.h" />

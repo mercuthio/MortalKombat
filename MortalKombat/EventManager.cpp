@@ -1,11 +1,19 @@
 
 #include "EventManager.h"
 
-EventManager::EventManager(Texture textures[], Font font) : StartManager(&textures[0], &textures[1]), MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]) {
+EventManager::EventManager(Texture textures[], Font font) : StartManager(&textures[0], &textures[1]), 
+	MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), 
+	PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]), BackgroundManager() {
 
-	state = 5;
+	state = 0;
 	character1 = 0;
 	changedEstate = false;
+
+	
+	Courtyard courtyardBackground;
+	courtyardBackground.loadTextures();
+
+	BackgroundManager = courtyardBackground;
 
 	//music[0].openFromFile("audio/soundtrack.ogg");
 
@@ -165,7 +173,7 @@ void EventManager::Update(Event event) {
 
 		break;
 	case 6: //Batalla
-
+		
 		break;
 	}
 
@@ -189,6 +197,7 @@ void EventManager::drawTransitionManager(RenderWindow& window) {
 }
 
 void EventManager::draw(RenderWindow& window) {
+
 	switch (state) {
 	case 0:
 		if (StartManager.draw(window, clock.getElapsedTime().asSeconds())) { //Si true, terminada intro
@@ -211,13 +220,20 @@ void EventManager::draw(RenderWindow& window) {
 		PlayerSelector_duel.Draw(window, clock.getElapsedTime().asSeconds());
 		//drawTransitionManager(window);
 		break;
-
 	case 4:
 		OptionsManager.draw(window);
 		break;
 	case 5:
 		//drawPlayerSelectorChoose(window);
-		HistoryManager.Draw(window, clock.getElapsedTime().asSeconds());
+		if (HistoryManager.Draw(window, clock.getElapsedTime().asSeconds())) {
+			state = 6;
+			this_thread::sleep_for(chrono::seconds(2));
+		}
+		break;
+	case 6:
+		window.setView(View(FloatRect(720, 0, 800, 600)));
+		BackgroundManager.Update();
+		BackgroundManager.draw(window);
 		break;
 	default:
 		exit(0);

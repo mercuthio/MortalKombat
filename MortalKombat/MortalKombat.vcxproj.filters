@@ -19,6 +19,12 @@
     <Filter Include="Archivos de origen\GameManager">
       <UniqueIdentifier>{d0b3a3f3-f150-46a2-a7b8-5d2625472287}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\GameManager\Backgrounds">
+      <UniqueIdentifier>{3e4ce046-9f3e-43ba-beee-c4dd95c60a5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\GameManager\Backgrounds">
+      <UniqueIdentifier>{63d3b42b-0905-4f4a-b6f7-573f47054206}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mortal_Kombat.cpp">
@@ -45,6 +51,12 @@
     <ClCompile Include="HistoryManager.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
+    <ClCompile Include="BackgroundManager.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Courtyard.cpp">
+      <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h">
@@ -67,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="HistoryManager.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundManager.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Courtyard.h">
+      <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

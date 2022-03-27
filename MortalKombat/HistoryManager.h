@@ -18,7 +18,7 @@ public:
 	HistoryManager(Texture*);
 	~HistoryManager() = default;
 
-	void Draw(RenderWindow& window, float);			//Dibuja la torre
+	bool Draw(RenderWindow& window, float);			//Dibuja la torre
 	void Update();								//Actualiza los sprites
 	void GetCharacters();						//Randomiza el vector de personajes
 
