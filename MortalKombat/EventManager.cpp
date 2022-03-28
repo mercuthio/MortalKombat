@@ -316,7 +316,6 @@ void EventManager::draw(RenderWindow& window) {
 
 	case 6:
 
-		window.setView(View(FloatRect(720, 0, 800, 600)));
 		BackgroundManager.Update();
 		BackgroundManager.draw(window);
 		break;

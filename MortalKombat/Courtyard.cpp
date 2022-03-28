@@ -13,7 +13,9 @@ void Courtyard::loadTextures() {
 	float rectWidth_monks = 1037.0f;
 	float rectHeight_monks = 128.0f;
 
-	Vector2f sizeBackground = Vector2f(rectWidth*(600.0/281.0), 600.0f);
+	float offset_left = 724;
+
+	Vector2f sizeBackground = Vector2f(rectWidth*(600.0/281.0), 600);
 	Vector2f sizeBackground_monks = Vector2f(rectWidth_monks * (600.0 / 281.0), rectHeight_monks*(600.0/281.0));
 
 	IntRect uvRect;
@@ -23,7 +25,7 @@ void Courtyard::loadTextures() {
 
 	tile.setTexture(courtyardTexture);
 	tile.setSize(sizeBackground);
-	tile.setPosition(0.0f, 0.0f);
+	tile.setPosition(-offset_left, -3.0f);
 	tile.setScale(1.0f, 1.0f);
 
 	//Fondo con piedras 0
@@ -56,7 +58,7 @@ void Courtyard::loadTextures() {
 	uvRect.left = 1121.0f;
 	uvRect.height = rectHeight_monks;
 	tile.setSize(sizeBackground_monks);
-	tile.setPosition(0.0f, (281-128)*(600.0 / 281.0));
+	tile.setPosition(-offset_left, (281-128)*(600.0 / 281.0)+3);
 
 	tile.setTextureRect(uvRect);
 	backgroundVector.push_back(tile);
@@ -66,7 +68,7 @@ void Courtyard::loadTextures() {
 	uvRect.top = 1256.0f;
 	uvRect.height = rectHeight;
 	tile.setSize(sizeBackground);
-	tile.setPosition(0.0f, 0.0f);
+	tile.setPosition(-offset_left, 3.0f);
 
 	tile.setTextureRect(uvRect);
 	backgroundVector.push_back(tile);
