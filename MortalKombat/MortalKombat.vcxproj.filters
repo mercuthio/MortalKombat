@@ -57,6 +57,9 @@
     <ClCompile Include="Courtyard.cpp">
       <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
     </ClCompile>
+    <ClCompile Include="BattleManager.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Courtyard.h">
       <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleManager.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

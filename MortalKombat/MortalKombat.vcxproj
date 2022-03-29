@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundManager.cpp" />
+    <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="Courtyard.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="HistoryManager.cpp" />
@@ -32,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundManager.h" />
+    <ClInclude Include="BattleManager.h" />
     <ClInclude Include="Courtyard.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="HistoryManager.h" />

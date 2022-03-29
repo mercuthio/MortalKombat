@@ -3,17 +3,11 @@
 
 EventManager::EventManager(Texture textures[], Font font) : StartManager(&textures[0], &textures[1]), 
 	MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), 
-	PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]), BackgroundManager() {
+	PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]), BattleManager(&textures[0],font) {
 
 	state = 0;
 	character1 = 0;
 	changedEstate = false;
-
-	
-	Courtyard courtyardBackground;
-	courtyardBackground.loadTextures();
-
-	BackgroundManager = courtyardBackground;
 
 	//music[0].openFromFile("audio/soundtrack.ogg");
 	//music[0].play();
@@ -137,6 +131,8 @@ void EventManager::Update(Event event) {
 
 				changedEstate = true;
 				state = 6;
+				BattleManager.RestartCombat(character1, character2, 0);
+				this_thread::sleep_for(chrono::seconds(2));
 			}
 
 			break;
@@ -169,6 +165,8 @@ void EventManager::Update(Event event) {
 
 				changedEstate = true;
 				state = 6;
+				BattleManager.RestartCombat(character1, character2, 0);
+				this_thread::sleep_for(chrono::seconds(2));
 			}
 			break;
 
@@ -242,13 +240,14 @@ void EventManager::Update(Event event) {
 		OptionsManager.Update();
 		break;
 
-	case 5:
+	case 5: //Historia
 
 		if (event.key.code == Keyboard::Escape) state = 1;
 
 	case 6: //Batalla
 
-		//Coger tecla
+		if (event.key.code == Keyboard::Escape) state = 1;
+		BattleManager.Update(event);
 		break;
 	}
 
@@ -272,7 +271,7 @@ void EventManager::drawTransitionManager(RenderWindow& window) {
 }
 
 void EventManager::draw(RenderWindow& window) {
-	cout << state << endl;
+
 	switch (state) {
 	case 0:
 
@@ -310,14 +309,16 @@ void EventManager::draw(RenderWindow& window) {
 
 		if (HistoryManager.Draw(window, clock.getElapsedTime().asSeconds())) {
 			state = 6;
+			//Cambiar el escenario con uno random
+			BattleManager.RestartCombat(character1, character2, 0);	
 			this_thread::sleep_for(chrono::seconds(2));
 		}
 		break;
 
 	case 6:
 
-		BackgroundManager.Update();
-		BackgroundManager.draw(window);
+		BattleManager.draw(window);
+
 		break;
 
 	default:

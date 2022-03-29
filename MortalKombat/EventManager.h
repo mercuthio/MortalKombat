@@ -9,8 +9,7 @@
 #include "OptionsManager.h"
 #include "PlayerSelector.h"
 #include "HistoryManager.h"
-#include "BackgroundManager.h"
-#include "Courtyard.h"
+#include "BattleManager.h"
 #include <chrono>
 #include <thread>
 
@@ -47,7 +46,7 @@ private:
 	PlayerSelector PlayerSelector_hist;					//Objeto de selector de personajes de historia
 	PlayerSelector PlayerSelector_duel;					//Objeto de selector de personajes de duelo
 	HistoryManager HistoryManager;
-	BackgroundManager BackgroundManager;
+	BattleManager BattleManager;
 
 };
 
