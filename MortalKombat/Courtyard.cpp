@@ -2,8 +2,6 @@
 
 void Courtyard::loadTextures() {
 
-	float ratio = 4.0/3.0;
-
 	sizeVector = 8;
 	courtyardTexture->loadFromFile("resources/Sprites/Escenarios/Courtyard.png");
 
@@ -15,8 +13,8 @@ void Courtyard::loadTextures() {
 
 	float offset_left = 724;
 
-	Vector2f sizeBackground = Vector2f(rectWidth*(600.0/281.0), 600);
-	Vector2f sizeBackground_monks = Vector2f(rectWidth_monks * (600.0 / 281.0), rectHeight_monks*(600.0/281.0));
+	Vector2f sizeBackground = Vector2f(rectWidth*(height_window /281.0), height_window);
+	Vector2f sizeBackground_monks = Vector2f(rectWidth_monks * (height_window / 281.0), rectHeight_monks*(height_window /281.0));
 
 	IntRect uvRect;
 	RectangleShape tile;

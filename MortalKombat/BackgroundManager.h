@@ -2,6 +2,7 @@
 #define BackgroundManager_H
 
 #include "SFML/Graphics.hpp"
+#include "GlobalVars.h"
 #include <iostream>
 
 using namespace sf;

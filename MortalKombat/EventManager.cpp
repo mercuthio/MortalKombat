@@ -52,6 +52,7 @@ void EventManager::Update(Event event) {
 			state = MenuManager.ChoosenOption() + 2;
 
 			if (state == 4) OptionsManager.Update();
+			if (state == 5) exit(0);
 			break;
 
 		}

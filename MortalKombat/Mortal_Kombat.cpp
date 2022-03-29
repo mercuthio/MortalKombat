@@ -6,17 +6,7 @@
 using namespace sf;
 using namespace std;
 
-const int NUMBER_TRACKS = 191;
-
-const float ASPECT_RATIO = 4.0 / 3.0;
-
-Color pink = Color(245, 10, 237, 255);
-
 View getLetterboxView(View view, int windowWidth, int windowHeight) {
-
-    // Compares the aspect ratio of the window to the aspect ratio of the view,
-    // and sets the view's viewport accordingly in order to archieve a letterbox effect.
-    // A new view (with a new viewport set) is returned.
 
     float windowRatio = windowWidth / (float)windowHeight;
     float viewRatio = view.getSize().x / (float)view.getSize().y;
@@ -28,9 +18,6 @@ View getLetterboxView(View view, int windowWidth, int windowHeight) {
     bool horizontalSpacing = true;
     if (windowRatio < viewRatio)
         horizontalSpacing = false;
-
-    // If horizontalSpacing is true, the black bars will appear on the left and right side.
-    // Otherwise, the black bars will appear on the top and bottom.
 
     if (horizontalSpacing) {
         sizeX = viewRatio / windowRatio;
@@ -48,9 +35,6 @@ View getLetterboxView(View view, int windowWidth, int windowHeight) {
 }
 
 int main() {
-
-    int width_window = 800;
-    int height_window = 600;
 
     RenderWindow window(VideoMode(width_window, height_window), "Mortal Kombat I", (sf::Style::Resize + sf::Style::Close));
 
@@ -70,6 +54,7 @@ int main() {
     font.loadFromFile("resources/Fuente/mortalKombat1.ttf");
 
     Image a, b;
+    Color pink = Color(245, 10, 237, 255);
     a.loadFromFile("resources/Sprites/Varios/Menus.png");
     a.createMaskFromColor(pink);
     b.loadFromFile("resources/Sprites/Varios/Bios.png");

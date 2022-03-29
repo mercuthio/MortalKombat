@@ -24,6 +24,7 @@ PlayerSelector::PlayerSelector(Texture* texture, bool twoPlayers_) {
 	uvRect_frame.left = 904;
 	uvRect_frame.top = 571;
 
+	frame.setSize(Vector2f(82,67));
 	frame.setPosition(frame.getSize().x * x + 56, frame.getSize().y * y + 99);
 	frame.setTextureRect(uvRect_frame);
 	frame.setTexture(texture);
@@ -157,7 +158,7 @@ bool PlayerSelector::Choosen() {
 
 void PlayerSelector::Draw(RenderWindow& window, float seconds) {
 
-	backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
+	backg.setSize(Vector2f(width_window, height_window));
 	window.draw(backg);
 
 	for (int i = 0; i < NUMBER_CHARACTERS; i++) {

@@ -2,6 +2,7 @@
 #define PlayerSelector_H
 
 #include "SFML/Graphics.hpp"
+#include "GlobalVars.h"
 
 using namespace sf;
 

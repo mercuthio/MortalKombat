@@ -92,5 +92,8 @@
     <ClInclude Include="BattleManager.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
+    <ClInclude Include="GlobalVars.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

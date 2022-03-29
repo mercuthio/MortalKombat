@@ -67,12 +67,12 @@ int MenuManager::ChoosenOption() {
 
 void MenuManager::draw(RenderWindow& window) {
 
-	backg.setSize(Vector2f(window.getSize().x, window.getSize().y));
+	backg.setSize(Vector2f(width_window, height_window));
 	window.draw(backg);
 
 	for (int i = 0; i < NUM_OPTIONS_MENU; i++) {
 
-		text[i].setPosition(Vector2f(window.getSize().x / 10, window.getSize().y / 7 + CHAR_SIZE * (i + 1)));
+		text[i].setPosition(Vector2f(width_window / 10, height_window / 7 + CHAR_SIZE * (i + 1)));
 		window.draw(text[i]);
 
 	}

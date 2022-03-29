@@ -8,7 +8,7 @@ using namespace std;
 
 StartManager::StartManager(Texture* menus, Texture* bios) {
 
-	srand(time(NULL));
+	srand(time(0));
 	character = rand() % 8;
 	actual_frame = 0;
 	seconds_aux = 3.0f;
@@ -96,12 +96,12 @@ StartManager::StartManager(Texture* menus, Texture* bios) {
 //Script de la intro
 bool StartManager::draw(RenderWindow& window, float seconds) {
 
-	bio_backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
-	menu_backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
+	bio_backg.setSize(Vector2f(width_window, height_window));
+	menu_backg.setSize(Vector2f(width_window, height_window));
 
-	icon.setSize(Vector2f(float(window.getSize().x / 3.7), float(window.getSize().y / 3.1)));
-	text.setSize(Vector2f(float(window.getSize().x / 1.4), float(window.getSize().y / 2.8)));
-	name.setSize(Vector2f(float(window.getSize().x / 2.8), float(window.getSize().y / 10)));
+	icon.setSize(Vector2f(width_window / 3.7, height_window / 3.1));
+	text.setSize(Vector2f(width_window / 1.4, height_window / 2.8));
+	name.setSize(Vector2f(width_window / 2.8, height_window / 10));
 
 	if (seconds > 25.0f) {		//Pantalla goro con texto
 		uvRect_backg.left = 3586;
@@ -132,13 +132,13 @@ bool StartManager::draw(RenderWindow& window, float seconds) {
 		}
 
 		name.setOrigin(name.getSize().x / 2, name.getSize().y / 2);
-		name.setPosition(Vector2f(float(window.getSize().x / 2), float(window.getSize().y / 7)));
+		name.setPosition(Vector2f(float(width_window / 2), float(height_window / 7)));
 
 		icon.setOrigin(name.getSize().x / 2, name.getSize().y / 2);
-		icon.setPosition(Vector2f(float(window.getSize().x / 1.8), float(window.getSize().y / 3.3)));
+		icon.setPosition(Vector2f(float(width_window / 1.8), float(height_window / 3.3)));
 
 		text.setOrigin(name.getSize().x / 2, name.getSize().y / 2);
-		text.setPosition(Vector2f(float(window.getSize().x / 3), float(window.getSize().y / 1.5)));
+		text.setPosition(Vector2f(float(width_window / 3), float(height_window / 1.5)));
 
 		uvRect_backg.left = 12;
 		uvRect_backg.top = 1504;

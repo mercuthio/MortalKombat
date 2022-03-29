@@ -168,31 +168,31 @@ int OptionsManager::ChoosenOption() {
 
 void OptionsManager::draw(RenderWindow& window) {
 
-	backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
+	backg.setSize(Vector2f(width_window, height_window));
 	window.draw(backg);
 
 	for (int i = 0; i < NUM_OPTIONS_OPT - 1; i++) {
-		text[i].setPosition(Vector2f(window.getSize().x / 10, window.getSize().y / 10 + CHAR_SIZE * (i * 1.3)));
+		text[i].setPosition(Vector2f(width_window / 10, height_window / 10 + CHAR_SIZE * (i * 1.3)));
 		window.draw(text[i]);
 	}
 
 	for (int i = 0; i < MAX_MUSIC; i++) {
-		musi[i].setPosition(Vector2f(window.getSize().x / 1.6 + (i * (CHAR_SIZE / 2)), window.getSize().y / 10));
+		musi[i].setPosition(Vector2f(width_window / 1.6 + (i * (CHAR_SIZE / 2)), height_window / 10));
 		window.draw(musi[i]);
 	}
 
 	for (int i = 0; i < MAX_EFFECTS; i++) {
-		efec[i].setPosition(Vector2f(window.getSize().x / 1.6 + (i * (CHAR_SIZE / 2)), window.getSize().y / 10 + CHAR_SIZE * 1.5));
+		efec[i].setPosition(Vector2f(width_window / 1.6 + (i * (CHAR_SIZE / 2)), height_window / 10 + CHAR_SIZE * 1.5));
 		window.draw(efec[i]);
 	}
 
-	veloc.setPosition(Vector2f(window.getSize().x / 1.6, window.getSize().y / 10 + CHAR_SIZE * (2 * 1.3)));
+	veloc.setPosition(Vector2f(width_window / 1.6, height_window / 10 + CHAR_SIZE * (2 * 1.3)));
 	window.draw(veloc);
 
-	dific.setPosition(Vector2f(window.getSize().x / 1.6, window.getSize().y / 10 + CHAR_SIZE * (3 * 1.3)));
+	dific.setPosition(Vector2f(width_window / 1.6, height_window / 10 + CHAR_SIZE * (3 * 1.3)));
 	window.draw(dific);
 
-	text[NUM_OPTIONS_OPT - 1].setPosition(Vector2f(window.getSize().x / 10, window.getSize().y / 1.2 - (CHAR_SIZE + 5)));
+	text[NUM_OPTIONS_OPT - 1].setPosition(Vector2f(width_window / 10, height_window / 1.2 - (CHAR_SIZE + 5)));
 	window.draw(text[NUM_OPTIONS_OPT - 1]);
 
 }

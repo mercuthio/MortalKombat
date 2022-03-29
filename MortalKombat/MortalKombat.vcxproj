@@ -36,6 +36,7 @@
     <ClInclude Include="BattleManager.h" />
     <ClInclude Include="Courtyard.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="HistoryManager.h" />
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />
