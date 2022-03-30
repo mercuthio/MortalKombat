@@ -91,17 +91,18 @@ StartManager::StartManager(Texture* menus, Texture* bios) {
 	text.setTextureRect(uvRect_text);
 	text.setTexture(bios);
 
-}
-
-//Script de la intro
-bool StartManager::draw(RenderWindow& window, float seconds) {
-
 	bio_backg.setSize(Vector2f(width_window, height_window));
 	menu_backg.setSize(Vector2f(width_window, height_window));
 
 	icon.setSize(Vector2f(width_window / 3.7, height_window / 3.1));
 	text.setSize(Vector2f(width_window / 1.4, height_window / 2.8));
 	name.setSize(Vector2f(width_window / 2.8, height_window / 10));
+
+}
+
+//Script de la intro
+bool StartManager::draw(RenderWindow& window, float seconds) {
+
 
 	if (seconds > 25.0f) {		//Pantalla goro con texto
 		uvRect_backg.left = 3586;

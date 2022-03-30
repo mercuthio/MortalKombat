@@ -24,8 +24,8 @@ PlayerSelector::PlayerSelector(Texture* texture, bool twoPlayers_) {
 	uvRect_frame.left = 904;
 	uvRect_frame.top = 571;
 
-	frame.setSize(Vector2f(82,67));
-	frame.setPosition(frame.getSize().x * x + 56, frame.getSize().y * y + 99);
+	frame.setSize(Vector2f(151,227));
+	frame.setPosition(87, 136);
 	frame.setTextureRect(uvRect_frame);
 	frame.setTexture(texture);
 
@@ -41,7 +41,8 @@ PlayerSelector::PlayerSelector(Texture* texture, bool twoPlayers_) {
 		uvRect_frame2.left = 1051;
 		uvRect_frame2.top = 571;
 
-		frame2.setPosition(frame2.getSize().x * x2 + 56, frame2.getSize().y * y2 + 99);
+		frame2.setSize(Vector2f(151, 227));
+		frame2.setPosition(87, 136);
 		frame2.setTextureRect(uvRect_frame2);
 		frame2.setTexture(texture);
 
@@ -59,26 +60,78 @@ PlayerSelector::PlayerSelector(Texture* texture, bool twoPlayers_) {
 
 	}
 
+	backg.setSize(Vector2f(width_window, height_window));
+
+	for (int i = 0; i < NUMBER_CHARACTERS; i++) {
+
+		switch (i) {
+		case 0:
+			uvRect_chara.left = 904;
+			icons[i].setPosition(87, 136);
+			break;
+		case 1:
+			uvRect_chara.left = 904 + 64;
+			icons[i].setPosition((width_window / 5.97) + 87, 136);
+			break;
+		case 2:
+			uvRect_chara.left = 904 + 64 * 2;
+			icons[i].setPosition((width_window / 5.97) + 87, (width_window / 4.13) + 136);
+			break;
+		case 3:
+			uvRect_chara.left = 904 + 64 * 3;
+			icons[i].setPosition((width_window / 5.97) * 2 + 87, (width_window / 4.13) + 136);
+			break;
+		case 4:
+			uvRect_chara.left = 904 + 64 * 4;
+			icons[i].setPosition((width_window / 5.97) * 3 + 87, (width_window / 4.13) + 136);
+			break;
+		case 5:
+			uvRect_chara.left = 904 + 64 * 5;
+			icons[i].setPosition((width_window / 5.97) * 3 + 87, 136);
+			break;
+		case 6:
+			uvRect_chara.left = 904 + 64 * 6;
+			icons[i].setPosition((width_window / 5.97) * 4 + 87, 136);
+			break;
+		}
+		icons[i].setTextureRect(uvRect_chara);
+		icons[i].setSize(Vector2f(151, 227));
+	}
+
 }
 
 void PlayerSelector::Update() {
 
-	frame.setPosition(frame.getSize().x * x + 56, frame.getSize().y * y + 99);
+	frame.setPosition((width_window / 5.97) * x + 87, (width_window / 4.13) * y + 136);
 
 	if (twoPlayers)
-		frame2.setPosition(frame2.getSize().x * x2 + 56, frame2.getSize().y * y2 + 99);
+		frame2.setPosition((width_window / 5.97) * x2 + 87, (width_window / 4.13) * y2 + 136);
 
 }
 
 void PlayerSelector::MoveCursor(int x_, int y_, bool player1) {
 
-	if (player1 && !choosen1 && CHARACTERS[y + y_][x + x_] == 1) {
-		x += x_;
-		y += y_;
+	if (player1 && x == 1 && y == 0 && x_ == 1 ) {
+		x = 3;
 	}
-	else if (!player1 && !choosen2 && CHARACTERS[y2 + y_][x2 + x_] == 1) {
-		x2 += x_;
-		y2 += y_;
+	else if (player1&& x == 3 && y == 0 && x_ == -1) {
+		x = 1;
+	}
+	else if (!player1 && x2 == 1 && y2 == 0 && x_ == 1) {
+		x2 = 3;
+	}
+	else if (!player1 && x2 == 3 && y2 == 0 && x_ == -1) {
+		x2 = 1;
+	}
+	else {
+		if (player1 && !choosen1 && CHARACTERS[y + y_][x + x_] == 1) {
+			x += x_;
+			y += y_;
+		}
+		else if (!player1 && !choosen2 && CHARACTERS[y2 + y_][x2 + x_] == 1) {
+			x2 += x_;
+			y2 += y_;
+		}
 	}
 
 }
@@ -158,47 +211,12 @@ bool PlayerSelector::Choosen() {
 
 void PlayerSelector::Draw(RenderWindow& window, float seconds) {
 
-	backg.setSize(Vector2f(width_window, height_window));
 	window.draw(backg);
-
+	
 	for (int i = 0; i < NUMBER_CHARACTERS; i++) {
-
-		switch (i) {
-		case 0:
-			uvRect_chara.left = 904;
-			icons[i].setPosition(56, 99);
-			break;
-		case 1:
-			uvRect_chara.left = 904 + 64;
-			icons[i].setPosition(frame.getSize().x + 56, 99);
-			break;
-		case 2:
-			uvRect_chara.left = 904 + 64*2;
-			icons[i].setPosition(frame.getSize().x + 56, frame.getSize().y + 99);
-			break;
-		case 3:
-			uvRect_chara.left = 904 + 64*3;
-			icons[i].setPosition(frame.getSize().x*2 + 56, frame.getSize().y + 99);
-			break;
-		case 4:
-			uvRect_chara.left = 904 + 64*4;
-			icons[i].setPosition(frame.getSize().x*3 + 56, frame.getSize().y + 99);
-			break;
-		case 5:
-			uvRect_chara.left = 904 + 64*5;
-			icons[i].setPosition(frame.getSize().x*3 + 56, 99);
-			break;
-		case 6:
-			uvRect_chara.left = 904 + 64*6;
-			icons[i].setPosition(frame.getSize().x*4 + 56, 99);
-			break;
-		}
-		icons[i].setTextureRect(uvRect_chara);
-		icons[i].setSize(Vector2f(135, 190));
 		window.draw(icons[i]);
-
 	}
-
+	
 	if (seconds - time >= 0.1f) {
 		flash = !flash;
 		if (flash) {
@@ -219,11 +237,10 @@ void PlayerSelector::Draw(RenderWindow& window, float seconds) {
 
 
 	}
-	frame.setSize(Vector2f(135, 190));
+
 	window.draw(frame);
 
 	if (twoPlayers) {
-		frame2.setSize(Vector2f(135, 190));
 		window.draw(frame2);
 	}
 

@@ -167,7 +167,6 @@ void EventManager::Update(Event event) {
 				changedEstate = true;
 				state = 6;
 				BattleManager.RestartCombat(character1, character2, COURTYARD);
-				this_thread::sleep_for(chrono::seconds(2));
 			}
 			break;
 
@@ -248,7 +247,7 @@ void EventManager::Update(Event event) {
 	case 6: //Batalla
 
 		if (event.key.code == Keyboard::Escape) state = 1;
-		BattleManager.Update();
+		BattleManager.Update(event);
 		break;
 	}
 
@@ -312,7 +311,6 @@ void EventManager::draw(RenderWindow& window) {
 			state = 6;
 			//Cambiar el escenario con uno random
 			BattleManager.RestartCombat(character1, character2, COURTYARD);	
-			this_thread::sleep_for(chrono::seconds(2));
 		}
 		break;
 
