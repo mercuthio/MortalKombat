@@ -3,12 +3,12 @@
 void Courtyard::loadTextures() {
 
 	sizeVector = 8;
-	courtyardTexture->loadFromFile("resources/Sprites/Escenarios/Courtyard.png");
+	texture->loadFromFile("resources/Sprites/Escenarios/Courtyard.png");
 
 	float rectWidth = 1037.0f;
 	float rectHeight = 281.0f;
 
-	float aspectRelation = height_window/281.0;
+	float aspectRelation = height_window/rectHeight;
 
 	float rectWidth_monks = 1037.0f;
 	float rectHeight_monks = 128.0f;
@@ -23,7 +23,7 @@ void Courtyard::loadTextures() {
 	uvRect.width = rectWidth;
 	uvRect.height = rectHeight;
 
-	tile.setTexture(courtyardTexture);
+	tile.setTexture(texture);
 	tile.setSize(sizeBackground);
 	tile.setPosition(-offset_left, -3.0f);
 	tile.setScale(1.0f, 1.0f);

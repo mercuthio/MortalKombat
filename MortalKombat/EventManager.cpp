@@ -7,6 +7,8 @@ EventManager::EventManager(Texture textures[], Font font) : StartManager(&textur
 
 	state = 0;
 	character1 = SCORPION;
+	stage = (background) (rand()%3);
+	std::cout << stage << endl;
 	changedEstate = false;
 
 	//music[0].openFromFile("audio/soundtrack.ogg");
@@ -134,7 +136,7 @@ void EventManager::Update(Event event) {
 
 				changedEstate = true;
 				state = 6;
-				BattleManager.RestartCombat(character1, character2, COURTYARD);
+				BattleManager.RestartCombat(character1, character2, stage);
 
 			}
 
@@ -168,7 +170,7 @@ void EventManager::Update(Event event) {
 
 				changedEstate = true;
 				state = 6;
-				BattleManager.RestartCombat(character1, character2, COURTYARD);
+				BattleManager.RestartCombat(character1, character2, stage);
 			}
 			break;
 
@@ -312,7 +314,7 @@ void EventManager::draw(RenderWindow& window) {
 		if (HistoryManager.Draw(window, clock.getElapsedTime().asSeconds())) {
 			state = 6;
 			//Cambiar el escenario con uno random
-			BattleManager.RestartCombat(character1, character2, COURTYARD);	
+			BattleManager.RestartCombat(character1, character2, stage);	
 		}
 		break;
 

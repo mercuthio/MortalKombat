@@ -185,11 +185,27 @@ void BattleManager::RestartCombat(character character1_, character character2_, 
 	switch (stage)
 	{
 	case COURTYARD:
+	{
 		Courtyard background;
 		background.loadTextures();
 		BackgroundManager = background;
 		break;
-
+	}
+	case WARRIOR_SHRINE:
+	{
+		Warrior_Shrine background;
+		background.loadTextures();
+		BackgroundManager = background;
+		break;
+	}
+	case THE_PIT:
+	{
+		The_Pit background;
+		background.loadTextures();
+		BackgroundManager = background;
+		break;
+	}
+		break;
 	}
 
 	/*	case GOROS_LAIR:
@@ -199,8 +215,6 @@ void BattleManager::RestartCombat(character character1_, character character2_, 
 	case THE_PIT:
 		break;
 	case THRONE_ROOM:
-		break;
-	case WARRIOR_SHRINE:
 		break;
 	default:
 		break;*/

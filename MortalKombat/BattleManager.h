@@ -4,7 +4,10 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include "BackgroundManager.h"
+
 #include "Courtyard.h"
+#include "Warrior_Shrine.h"
+#include "The_Pit.h"
 
 using namespace sf;
 using namespace std;

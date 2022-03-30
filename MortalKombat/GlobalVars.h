@@ -21,11 +21,11 @@ enum character {
 
 enum background {
 	COURTYARD,
+	WARRIOR_SHRINE,
+	THE_PIT,
 	GOROS_LAIR,
 	PALACE_GATES,
-	THE_PIT,
-	THRONE_ROOM,
-	WARRIOR_SHRINE
+	THRONE_ROOM
 };
 
 #endif

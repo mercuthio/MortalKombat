@@ -7,7 +7,7 @@ class Courtyard : public BackgroundManager{
 
 public:
 	Courtyard() : BackgroundManager() {
-		courtyardTexture = new Texture();
+		texture = new Texture();
 		this->type = COURTYARD;
 		this->speed = 10;
 	}
@@ -16,7 +16,7 @@ public:
 
 private:
 
-	Texture* courtyardTexture;
+	Texture* texture;
 };
 
 #endif

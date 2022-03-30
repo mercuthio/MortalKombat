@@ -29,7 +29,9 @@
     <ClCompile Include="Mortal_Kombat.cpp" />
     <ClCompile Include="OptionsManager.cpp" />
     <ClCompile Include="PlayerSelector.cpp" />
+    <ClCompile Include="The_Pit.cpp" />
     <ClCompile Include="TransitionManager.cpp" />
+    <ClCompile Include="Warrior_Shrine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundManager.h" />
@@ -42,7 +44,9 @@
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="OptionsManager.h" />
     <ClInclude Include="PlayerSelector.h" />
+    <ClInclude Include="The_Pit.h" />
     <ClInclude Include="TransitionManager.h" />
+    <ClInclude Include="Warrior_Shrine.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

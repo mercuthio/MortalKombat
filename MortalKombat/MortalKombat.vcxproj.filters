@@ -60,6 +60,12 @@
     <ClCompile Include="BattleManager.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
+    <ClCompile Include="Warrior_Shrine.cpp">
+      <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="The_Pit.cpp">
+      <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h">
@@ -94,6 +100,12 @@
     </ClInclude>
     <ClInclude Include="GlobalVars.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Warrior_Shrine.h">
+      <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="The_Pit.h">
+      <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
