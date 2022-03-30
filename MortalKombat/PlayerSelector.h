@@ -21,6 +21,7 @@ public:
 	void Update();								//Actualiza los sprites
 	void MoveCursor(int, int, bool);				//Suma a las coordenadas del cursor los dos enteros (x e y). Mueve el segundo cursor si tercer parametro false
 	void DrawChoosen(RenderWindow& window, bool);	//Dibuja la animacion de seleccion de un cursor (segundo jugador si false el tercer parametro)
+	void Restart();
 	character ChoosenOption(bool);						//Devuelve la opcion elegida por el primer jugador si el tercer parametro es true
 	bool Choosen();								//Devuelve true si se han elegido todos los personajes necesarios
 

@@ -100,6 +100,20 @@ PlayerSelector::PlayerSelector(Texture* texture, bool twoPlayers_) {
 
 }
 
+void PlayerSelector::Restart() {
+
+	choosen1 = false;
+	choosen2 = false;
+
+	x = 0;
+	y = 0;								
+	x2 = 0;
+	y2 = 0;
+
+	time = 0;
+
+}
+
 void PlayerSelector::Update() {
 
 	frame.setPosition((width_window / 5.97) * x + 87, (width_window / 4.13) * y + 136);
@@ -125,6 +139,7 @@ void PlayerSelector::MoveCursor(int x_, int y_, bool player1) {
 	}
 	else {
 		if (player1 && !choosen1 && CHARACTERS[y + y_][x + x_] == 1) {
+
 			x += x_;
 			y += y_;
 		}

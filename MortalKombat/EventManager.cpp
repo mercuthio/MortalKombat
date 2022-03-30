@@ -51,6 +51,8 @@ void EventManager::Update(Event event) {
 			changedEstate = true;
 			state = MenuManager.ChoosenOption() + 2;
 
+			if (state == 2) PlayerSelector_hist.Restart();
+			if (state == 3) PlayerSelector_duel.Restart();
 			if (state == 4) OptionsManager.Update();
 			if (state == 5) exit(0);
 			break;
@@ -133,7 +135,7 @@ void EventManager::Update(Event event) {
 				changedEstate = true;
 				state = 6;
 				BattleManager.RestartCombat(character1, character2, COURTYARD);
-				this_thread::sleep_for(chrono::seconds(2));
+
 			}
 
 			break;
