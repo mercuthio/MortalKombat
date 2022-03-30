@@ -7,32 +7,32 @@ MenuManager::MenuManager(Texture* textur, Font font_) {
 	choosenOption = 0;
 
 	text[0].setFont(font);
-	text[0].setFillColor(Color::Black);
+	text[0].setFillColor(Color::White);
 	text[0].setString("STORY");
 	text[0].setCharacterSize(CHAR_SIZE);
-	text[0].setOutlineColor(Color::Green);
-	text[0].setOutlineThickness(2.0f);
+	shadow[0] = text[0];
+	shadow[0].setFillColor(Color::Black);
 
 	text[1].setFont(font);
-	text[1].setFillColor(Color::Black);
+	text[1].setFillColor(Color::White);
 	text[1].setString("DUEL");
 	text[1].setCharacterSize(CHAR_SIZE);
-	text[1].setOutlineColor(Color::Green);
-	text[1].setOutlineThickness(2.0f);
+	shadow[1] = text[1];
+	shadow[1].setFillColor(Color::Black);
 
 	text[2].setFont(font);
-	text[2].setFillColor(Color::Black);
+	text[2].setFillColor(Color::White);
 	text[2].setString("OPTIONS");
 	text[2].setCharacterSize(CHAR_SIZE);
-	text[2].setOutlineColor(Color::Green);
-	text[2].setOutlineThickness(2.0f);
+	shadow[2] = text[2];
+	shadow[2].setFillColor(Color::Black);
 
 	text[3].setFont(font);
-	text[3].setFillColor(Color::Black);
+	text[3].setFillColor(Color::White);
 	text[3].setString("EXIT");
 	text[3].setCharacterSize(CHAR_SIZE);
-	text[3].setOutlineColor(Color::Green);
-	text[3].setOutlineThickness(2.0f);
+	shadow[3] = text[3];
+	shadow[3].setFillColor(Color::Black);
 
 	uvRect.width = 390;
 	uvRect.height = 250;
@@ -43,17 +43,23 @@ MenuManager::MenuManager(Texture* textur, Font font_) {
 	backg.setTextureRect(uvRect);
 	backg.setTexture(textur);
 
+	Texture* texture = new Texture;
+	texture->loadFromFile("resources/Imagenes/Menus/icon30x30.png");
+	logo.setTexture(texture);
+	logo.setPosition(0, 0);
+	logo.setSize(Vector2f(CHAR_SIZE, CHAR_SIZE));
+
 }
 
 void MenuManager::Update() {
 
-	text[choosenOption].setFillColor(Color::Green);
-	text[choosenOption].setOutlineColor(Color::Black);
+	Color darkRed = Color(255,255,0,255);
+
+	text[choosenOption].setFillColor(darkRed);
 
 	for (int i = 0; i < NUM_OPTIONS_MENU; i++) {
-		if (i != choosenOption && text[i].getFillColor() == Color::Green) {
-			text[i].setFillColor(Color::Black);
-			text[i].setOutlineColor(Color::Green);
+		if (i != choosenOption && text[i].getFillColor() == darkRed) {
+			text[i].setFillColor(Color::White);
 		}
 	}
 
@@ -72,8 +78,14 @@ void MenuManager::draw(RenderWindow& window) {
 
 	for (int i = 0; i < NUM_OPTIONS_MENU; i++) {
 
-		text[i].setPosition(Vector2f(width_window / 10, height_window / 7 + CHAR_SIZE * (i + 1)));
+		text[i].setPosition(Vector2f(width_window / 3 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 50));
+		shadow[i].setPosition(Vector2f(width_window / 3 + 10 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 10 + 50));
+		if (i == choosenOption) {
+			logo.setPosition(text[i].getPosition().x - 130, text[i].getPosition().y + 15);
+		}
+		window.draw(shadow[i]);
 		window.draw(text[i]);
+		window.draw(logo);
 
 	}
 

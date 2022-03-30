@@ -10,7 +10,7 @@ using namespace sf;
 using namespace std;
 
 const int NUM_OPTIONS_MENU = 4;
-const int CHAR_SIZE = 70;
+const int CHAR_SIZE = 104;
 
 class MenuManager {
 
@@ -29,7 +29,9 @@ private:
 
 	IntRect uvRect;								//IntRect del fondo
 	Font font;									//Variable con la fuente de letra
-	Text text[NUM_OPTIONS_MENU + 1];		//Vector con los textos de las opciones del menu
+	Text text[NUM_OPTIONS_MENU];				//Vector con los textos de las opciones del menu
+	Text shadow[NUM_OPTIONS_MENU];
+	RectangleShape logo;
 	RectangleShape backg;						//Objeto del fondo
 
 };
