@@ -6,12 +6,12 @@ void BackgroundManager::Update() {
 	RectangleShape tile;
 
 	switch(type) {
-	case 0: //Courtyard
+	case COURTYARD:
 
 		float rectWidth_monks = 1037.0f;
 		float rectHeight_monks = 128.0f;
 
-		Vector2f sizeBackground_monks = Vector2f(rectWidth_monks * (600.0 / 281.0), rectHeight_monks * (600.0 / 281.0));
+		Vector2f sizeBackground_monks = Vector2f(rectWidth_monks * (height_window / 281.0), rectHeight_monks * (height_window / 281.0));
 
 		uvRect.top = 32.0f + 136.0*animation;
 		uvRect.left = 1121.0f;

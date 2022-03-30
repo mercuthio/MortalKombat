@@ -64,6 +64,13 @@ int main() {
     textures[0].loadFromImage(a);
     textures[1].loadFromImage(b);
 
+    Text version;
+    version.setFont(font);
+    version.setFillColor(Color::White);
+    version.setString("Alpha v0.2");
+    version.setCharacterSize(25);
+    version.setPosition(Vector2f(30.0, height_window - 45.0));
+
     EventManager EventManager(textures, font);
     EventManager.setClock(clock);
 
@@ -86,7 +93,9 @@ int main() {
         window.clear();
 
         window.setView(view);
+
         EventManager.draw(window);
+        window.draw(version);
 
         window.display();
     }

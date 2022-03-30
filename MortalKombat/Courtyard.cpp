@@ -8,13 +8,15 @@ void Courtyard::loadTextures() {
 	float rectWidth = 1037.0f;
 	float rectHeight = 281.0f;
 
+	float aspectRelation = height_window/281.0;
+
 	float rectWidth_monks = 1037.0f;
 	float rectHeight_monks = 128.0f;
 
-	float offset_left = 724;
+	float offset_left = (rectWidth*aspectRelation)/3;
 
-	Vector2f sizeBackground = Vector2f(rectWidth*(height_window /281.0), height_window);
-	Vector2f sizeBackground_monks = Vector2f(rectWidth_monks * (height_window / 281.0), rectHeight_monks*(height_window /281.0));
+	Vector2f sizeBackground = Vector2f(rectWidth*aspectRelation, height_window);
+	Vector2f sizeBackground_monks = Vector2f(rectWidth_monks*aspectRelation, rectHeight_monks*aspectRelation);
 
 	IntRect uvRect;
 	RectangleShape tile;
@@ -56,7 +58,7 @@ void Courtyard::loadTextures() {
 	uvRect.left = 1121.0f;
 	uvRect.height = rectHeight_monks;
 	tile.setSize(sizeBackground_monks);
-	tile.setPosition(-offset_left, (281-128)*(600.0 / 281.0)+3);
+	tile.setPosition(-offset_left, (281-128)*aspectRelation+3);
 
 	tile.setTextureRect(uvRect);
 	backgroundVector.push_back(tile);

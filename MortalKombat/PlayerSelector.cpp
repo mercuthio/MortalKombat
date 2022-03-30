@@ -137,14 +137,14 @@ void PlayerSelector::DrawChoosen(RenderWindow& window, bool player1) {
 
 }
 
-int PlayerSelector::ChoosenOption(bool player1) {
+character PlayerSelector::ChoosenOption(bool player1) {
 
 	if (!player1) {
 		choosen2 = true;
-		return x2 + (MAX_X * y2);
+		return (character) (x2 + (MAX_X * y2));
 	}
 	choosen1 = true;
-	return x + (MAX_X * y);
+	return (character) (x + (MAX_X * y));
 
 }
 

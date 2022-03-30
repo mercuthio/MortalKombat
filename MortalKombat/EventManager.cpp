@@ -6,7 +6,7 @@ EventManager::EventManager(Texture textures[], Font font) : StartManager(&textur
 	PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]), BattleManager(&textures[0],font) {
 
 	state = 0;
-	character1 = 0;
+	character1 = SCORPION;
 	changedEstate = false;
 
 	//music[0].openFromFile("audio/soundtrack.ogg");
@@ -132,7 +132,7 @@ void EventManager::Update(Event event) {
 
 				changedEstate = true;
 				state = 6;
-				BattleManager.RestartCombat(character1, character2, 0);
+				BattleManager.RestartCombat(character1, character2, COURTYARD);
 				this_thread::sleep_for(chrono::seconds(2));
 			}
 
@@ -166,7 +166,7 @@ void EventManager::Update(Event event) {
 
 				changedEstate = true;
 				state = 6;
-				BattleManager.RestartCombat(character1, character2, 0);
+				BattleManager.RestartCombat(character1, character2, COURTYARD);
 				this_thread::sleep_for(chrono::seconds(2));
 			}
 			break;
@@ -248,7 +248,7 @@ void EventManager::Update(Event event) {
 	case 6: //Batalla
 
 		if (event.key.code == Keyboard::Escape) state = 1;
-		BattleManager.Update(event);
+		BattleManager.Update();
 		break;
 	}
 
@@ -311,13 +311,14 @@ void EventManager::draw(RenderWindow& window) {
 		if (HistoryManager.Draw(window, clock.getElapsedTime().asSeconds())) {
 			state = 6;
 			//Cambiar el escenario con uno random
-			BattleManager.RestartCombat(character1, character2, 0);	
+			BattleManager.RestartCombat(character1, character2, COURTYARD);	
 			this_thread::sleep_for(chrono::seconds(2));
 		}
 		break;
 
 	case 6:
 
+		BattleManager.Update();
 		BattleManager.draw(window);
 
 		break;

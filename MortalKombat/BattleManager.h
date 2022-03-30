@@ -17,21 +17,22 @@ public:
 	BattleManager(Texture*, Font );
 	~BattleManager() = default;
 
-	void Update(Event);									//Actualiza la batalla actual dada una tecla pulsada
+	void Update();									//Actualiza la batalla actual
 	void draw(RenderWindow&);							//Dibuja la batalla actual
-	void RestartCombat(int, int, int);					//Reinicia los datos del combate
+	void RestartCombat(character, character, background);					//Reinicia los datos del combate
 	int RestartRound(int);								//Resetea las variables para una nueva ronda, devuelve 0 si no ha ganado nadie, 1 si ha ganado el jugador1 y 2 el jugador2
 
 private:
 
 
-	int character1;										//Personaje del jugador 1
-	int character2;										//Personaje del jugador 2
+	character character1;										//Personaje del jugador 1
+	character character2;										//Personaje del jugador 2
 
 	int life1;
 	int life2;
 
-	int stage;
+	background stage;
+
 	int time_left;
 	int round;
 

@@ -18,7 +18,7 @@ public:
 	void draw(RenderWindow&);
 
 protected:
-	int type = 0; //0 courtyard
+	background type = COURTYARD; //0 courtyard
 	int animation = 0;
 	int clock = 0;
 	int speed = 0;

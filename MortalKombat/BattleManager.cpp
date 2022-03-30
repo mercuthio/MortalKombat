@@ -81,7 +81,7 @@ BattleManager::BattleManager(Texture* texture, Font font_) {
 
 }
 
-void BattleManager::RestartCombat(int character1_, int character2_, int stage_) {
+void BattleManager::RestartCombat(character character1_, character character2_, background stage_) {
 
 	character1 = character1_;
 	character2 = character2_;
@@ -100,9 +100,26 @@ void BattleManager::RestartCombat(int character1_, int character2_, int stage_) 
 	rounds_won2 = 0;
 
 	//Cambiar escenario segun el valor de stage
+	switch (stage)
+	{
+	case COURTYARD:
+		break;
+	case GOROS_LAIR:
+		break;
+	case PALACE_GATES:
+		break;
+	case THE_PIT:
+		break;
+	case THRONE_ROOM:
+		break;
+	case WARRIOR_SHRINE:
+		break;
+	default:
+		break;
+	}
+
 	Courtyard courtyardBackground;
 	courtyardBackground.loadTextures();
-
 	BackgroundManager = courtyardBackground;
 
 }
@@ -135,7 +152,7 @@ int BattleManager::RestartRound(int winner) {
 
 }
 
-void BattleManager::Update(Event event) {
+void BattleManager::Update() {
 
 	BackgroundManager.Update();
 

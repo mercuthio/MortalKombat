@@ -170,28 +170,28 @@ bool HistoryManager::Draw(RenderWindow& window, float seconds) {
 
 	if (!loaded) {
 
-		title.setPosition(window.getSize().x / 3.4, window.getSize().y / 20);
-		title.setSize(Vector2f(float(window.getSize().x / 3), float(window.getSize().y / 15)));
+		title.setPosition(width_window / 3.4, height_window / 20);
+		title.setSize(Vector2f(float(width_window / 3), float(height_window / 15)));
 
 		for (int i = 0; i < NUM_BOSSES; i++) {
 
 			if (i == 0) {
-				bosses_icons[0].setPosition(window.getSize().x / 2.736, window.getSize().y / 4.8);
-				bosses_texts[0].setPosition(window.getSize().x / 1.84, window.getSize().y / 3.6);
+				bosses_icons[0].setPosition(width_window / 2.736, height_window / 4.8);
+				bosses_texts[0].setPosition(width_window / 1.84, height_window / 3.6);
 			}
 			else {
-				bosses_icons[1].setPosition(window.getSize().x / 2.736, window.getSize().y / 2);
-				bosses_texts[1].setPosition(window.getSize().x / 1.84, window.getSize().y / 1.75);
+				bosses_icons[1].setPosition(width_window / 2.736, height_window / 2);
+				bosses_texts[1].setPosition(width_window / 1.84, height_window / 1.75);
 			}
-			bosses_icons[i].setSize(Vector2f(float(window.getSize().x / 8.77), float(window.getSize().y / 4.58)));
-			bosses_texts[i].setSize(Vector2f(float(window.getSize().x / 4.2), float(window.getSize().y /17)));
+			bosses_icons[i].setSize(Vector2f(float(width_window / 8.77), float(height_window / 4.58)));
+			bosses_texts[i].setSize(Vector2f(float(width_window / 4.2), float(height_window /17)));
 
 		}
 		loaded = true;
 
 	}
 
-	uvRect_backg.height = window.getSize().y / 2.3;
+	uvRect_backg.height = height_window / 2.3;
 	
 	if (uvRect_backg.top + uvRect_backg.height + 2 <= 1519) {
 
@@ -204,14 +204,14 @@ bool HistoryManager::Draw(RenderWindow& window, float seconds) {
 		}
 
 		backg.setTextureRect(uvRect_backg);
-		backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
+		backg.setSize(Vector2f(width_window, height_window));
 	}
 	else {
 		return true;
 	}
 	
 	backg.setTextureRect(uvRect_backg);
-	backg.setSize(Vector2f(float(window.getSize().x), float(window.getSize().y)));
+	backg.setSize(Vector2f(width_window, height_window));
 	window.draw(backg);
 
 	for (int i = 0; i < NUM_BOSSES; i++) {
