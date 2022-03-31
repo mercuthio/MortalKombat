@@ -51,7 +51,6 @@ void EventManager::Update(Event event) {
 			changedEstate = true;
 			state = MenuManager.ChoosenOption() + 2;
 
-			if (state == 1) HistoryManager.Restart();
 			if (state == 2) PlayerSelector_hist.Restart();
 			if (state == 3) PlayerSelector_duel.Restart();
 			if (state == 4) OptionsManager.Update();
@@ -90,7 +89,6 @@ void EventManager::Update(Event event) {
 
 			changedEstate = true;
 			character1 = PlayerSelector_hist.ChoosenOption(true);
-			state = 6;
 			break;
 
 		case Keyboard::Escape:
@@ -138,6 +136,7 @@ void EventManager::Update(Event event) {
 
 				stage = (background)(rand() % 3);
 				BattleManager.RestartCombat(character1, character2, stage);
+				BattleManager.Restart();
 
 			}
 
@@ -174,6 +173,7 @@ void EventManager::Update(Event event) {
 
 				stage = (background)(rand() % 3);
 				BattleManager.RestartCombat(character1, character2, stage);
+				BattleManager.Restart();
 			}
 			break;
 
@@ -263,14 +263,6 @@ void EventManager::Update(Event event) {
 
 }
 
-void EventManager::drawPlayerSelectorChoose(RenderWindow& window) {
-
-	PlayerSelector_duel.DrawChoosen(window, false);
-	PlayerSelector_duel.DrawChoosen(window, true);
-	changedEstate = false;
-
-}
-
 void EventManager::drawTransitionManager(RenderWindow& window) {
 
 	if (changedEstate) {
@@ -304,12 +296,17 @@ void EventManager::draw(RenderWindow& window) {
 
 		PlayerSelector_hist.Update();
 		PlayerSelector_hist.Draw(window, clock.getElapsedTime().asSeconds());
+
+		if (PlayerSelector_hist.AnimationFinished()) state = 5;
+
 		break;
 
 	case 3:
 
 		PlayerSelector_duel.Update();
 		PlayerSelector_duel.Draw(window, clock.getElapsedTime().asSeconds());
+
+		if (PlayerSelector_duel.AnimationFinished()) state = 6;
 		break;
 
 	case 4:
@@ -322,6 +319,7 @@ void EventManager::draw(RenderWindow& window) {
 		if (HistoryManager.Draw(window, clock.getElapsedTime().asSeconds())) {
 			state = 6;
 			BattleManager.RestartCombat(character1, character2, stage);	
+			BattleManager.Restart();
 		}
 		break;
 

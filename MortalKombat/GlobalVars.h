@@ -4,8 +4,8 @@
 const int NUMBER_TRACKS = 191;
 const float ASPECT_RATIO = 4.0/3.0;
 
-static float width_window = 1920;//1024
-static float height_window = 1080;//768
+static float width_window = 1024;
+static float height_window = 768;
 
 enum character {
 	CAGE,

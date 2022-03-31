@@ -271,7 +271,7 @@ bool HistoryManager::Draw(RenderWindow& window, float seconds) {
 		time = seconds;
 	}
 	*/
-	return false;
+	return true;
 
 }
 

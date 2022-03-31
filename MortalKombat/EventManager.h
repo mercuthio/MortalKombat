@@ -29,7 +29,6 @@ public:
 	void Update(Event);									//Actualiza el menu actual dada una tecla pulsada
 	void draw(RenderWindow&);							//Dibuja el menu actual
 	void setClock(Clock);								//Funcion de gestion de reloj
-	void drawPlayerSelectorChoose(RenderWindow&);		//Dibuja el jugador seleccionado
 
 private:
 

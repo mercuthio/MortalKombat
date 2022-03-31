@@ -2,17 +2,21 @@
 #include "PlayerSelector.h"
 #include <iostream>
 using namespace std;
-PlayerSelector::PlayerSelector(Texture* texture, bool twoPlayers_) {
 
-	x = 0;
-	y = 0;
-	flash = false;
-	choosen1 = false;
+PlayerSelector::PlayerSelector(Texture* texture_, bool twoPlayers_) {
+
+	texture = texture_;
+	Restart();
+
 	twoPlayers = twoPlayers_;
+
+}
+
+void PlayerSelector::LoadTextures() {
 
 	Vector2f size_backg = Vector2f(width_window, height_window);
 	Vector2f size_frame = Vector2f(151, 227);
-	Vector2f size_icon = Vector2f(26, 31);
+	Vector2f size_icon = Vector2f(151, 227);
 
 	IntRect uvRect;
 	RectangleShape rect;
@@ -31,31 +35,7 @@ PlayerSelector::PlayerSelector(Texture* texture, bool twoPlayers_) {
 	rect.setPosition(0.0f, 0.0f);
 	Objects.push_back(rect);
 
-	//Marcos cursor 1 y 2
-	uvRect.width = 67.0f;
-	uvRect.height = 82.0f;
-	uvRect.left = 904;
-	uvRect.top = 571;
-	rect.setSize(size_frame);
-
-	rect.setTextureRect(uvRect);
-	rect.setPosition(87.0f, 136.0f);
-	Objects.push_back(rect);
-
-	if (twoPlayers) {
-
-		choosen2 = false;
-		x2 = 0;
-		y2 = 0;
-
-		uvRect.left = 904;
-		rect.setTextureRect(uvRect);
-		rect.setPosition(87.0f, 136.0f);
-		Objects.push_back(rect);
-
-	}
-
-	//Iconos personajes 3 - 10
+	//Iconos personajes 1 - 7
 	uvRect.width = 59.0f;
 	uvRect.height = 74.0f;
 	uvRect.left = 904;
@@ -98,9 +78,32 @@ PlayerSelector::PlayerSelector(Texture* texture, bool twoPlayers_) {
 		Objects.push_back(rect);
 	}
 
+	//Marcos cursor 8 y 9
+	uvRect.width = 67.0f;
+	uvRect.height = 82.0f;
+	uvRect.left = 904;
+	uvRect.top = 571;
+	rect.setSize(size_frame);
+
+	rect.setTextureRect(uvRect);
+	rect.setPosition(87.0f, 136.0f);
+	Objects.push_back(rect);
+
+	if (twoPlayers) {
+
+		uvRect.left = 1051;
+		rect.setTextureRect(uvRect);
+		rect.setPosition(87.0f, 136.0f);
+		Objects.push_back(rect);
+
+	}
+
 }
 
 void PlayerSelector::Restart() {
+
+	Objects.clear();
+	LoadTextures();
 
 	choosen1 = false;
 	choosen2 = false;
@@ -111,52 +114,94 @@ void PlayerSelector::Restart() {
 	y2 = 0;
 
 	clock = 0;
+	clock_choosen1 = 0;
+	clock_choosen2 = 0;
+	frame_choosen1 = 0;
+	frame_choosen2 = 0;
 
 }
 
 void PlayerSelector::Update() {
 
-	Objects[1].setPosition((width_window / 5.97) * x + 87, (width_window / 4.13) * y + 136);
+	Objects[8].setPosition((width_window / 5.97) * x + 87, (width_window / 4.13) * y + 136);
 
-	if (twoPlayers)
-		Objects[2].setPosition((width_window / 5.97) * x2 + 87, (width_window / 4.13) * y2 + 136);
-
+	if (twoPlayers)	Objects[9].setPosition((width_window / 5.97) * x2 + 87, (width_window / 4.13) * y2 + 136);
+	
 	IntRect uvRect;
+	IntRect uvRect2;
+
 	clock++;
+	if (choosen1) clock_choosen1++;
+	if (choosen2) clock_choosen2++;
 
 	if (clock == 10) {
 		
 		clock = 0;
 		flash = !flash;
 
-		uvRect = Objects[1].getTextureRect();
+		uvRect = Objects[8].getTextureRect();
+		if (twoPlayers) uvRect2 = Objects[9].getTextureRect();
 
 		if (flash) {
-			uvRect.left += 72;
+			if (twoPlayers) uvRect2.left = 1123;
+			uvRect.left = 976;
 		}
 		else {
-			uvRect.left -= 72;
+			if (twoPlayers) uvRect2.left = 1051;
+			uvRect.left = 904;
 		}
 
-		Objects[1].setTextureRect(uvRect);
-		if (twoPlayers) Objects[2].setTextureRect(uvRect);
+		Objects[8].setTextureRect(uvRect);
+		if (twoPlayers) Objects[9].setTextureRect(uvRect2);
+		
+	}
+
+	if (choosen1 && frame_choosen1 <= 6 && clock_choosen1 == 10) {
+
+		int character = ChoosenOption_int(true);
+		clock_choosen1 = 0;
+
+		if (frame_choosen1 == 6) Objects[character + 1].setFillColor(Color::Blue);
+		if (frame_choosen1 < 6 && (frame_choosen1 % 2) == 0) Objects[character + 1].setFillColor(Color::White);
+		if (frame_choosen1 < 6 && (frame_choosen1 % 2) == 1) Objects[character + 1].setFillColor(Color::Black);
+
+		frame_choosen1++;
 
 	}
+
+	if (choosen2 && frame_choosen2 <= 6 && clock_choosen2 == 10) {
+
+		int character = ChoosenOption_int(false);
+		clock_choosen2 = 0;
+
+		if (frame_choosen2 == 6) Objects[character + 1].setFillColor(Color::Blue);
+		if (frame_choosen2 < 6 && (frame_choosen2 % 2) == 0) Objects[character + 1].setFillColor(Color::White);
+		if (frame_choosen2 < 6 && (frame_choosen2 % 2) == 1) Objects[character + 1].setFillColor(Color::Black);
+
+		frame_choosen2++;
+
+	}
+	
+}
+
+bool PlayerSelector::AnimationFinished() {
+
+	return ( !twoPlayers && frame_choosen1 == 7 ) || ( twoPlayers && frame_choosen1 == 7 && frame_choosen2 == 7 );
 
 }
 
 void PlayerSelector::MoveCursor(int x_, int y_, bool player1) {
 
-	if (player1 && x == 1 && y == 0 && x_ == 1 ) {
+	if (!choosen1 && player1 && x == 1 && y == 0 && x_ == 1 ) {
 		x = 3;
 	}
-	else if (player1&& x == 3 && y == 0 && x_ == -1) {
+	else if (!choosen1 && player1&& x == 3 && y == 0 && x_ == -1) {
 		x = 1;
 	}
-	else if (!player1 && x2 == 1 && y2 == 0 && x_ == 1) {
+	else if (!choosen2 && !player1 && x2 == 1 && y2 == 0 && x_ == 1) {
 		x2 = 3;
 	}
-	else if (!player1 && x2 == 3 && y2 == 0 && x_ == -1) {
+	else if (!choosen2 && !player1 && x2 == 3 && y2 == 0 && x_ == -1) {
 		x2 = 1;
 	}
 	else {
@@ -173,68 +218,42 @@ void PlayerSelector::MoveCursor(int x_, int y_, bool player1) {
 
 }
 
-void PlayerSelector::DrawChoosen(RenderWindow& window, bool player1) {
-	int character = 0;
+int PlayerSelector::ChoosenOption_int(bool player1) {
 
-	if (!(!player1 && !twoPlayers)) {
+	int charac = 0;
+	if (!player1) {
+		choosen2 = true;
 
-		if (player1) {
-			choosen1 = true;
-			if (y == 0) { //Primera fila
-				character = x;
-			}
-			else { //Segunda fila
-				character = x + 2;
-			}
+		if (y2 == 0 && x2 < 2) {
+			charac = x2;
+		}
+		else if (y2 == 0) {
+			charac = x2 + 2;
 		}
 		else {
-			choosen2 = true;
-			if (y2 == 0) { //Primera fila
-				character = x2;
-			}
-			else { //Segunda fila
-				character = x2 + 2;
-			}
+			charac = x2 + 1;
 		}
 
-		Clock clock;
-		float time = 0;
-		int frames = 0;
-
-		//Animacion de seleccion del personaje
-		while (frames < 3) {
-
-			if (clock.getElapsedTime().asSeconds() - time > 0.1f) {
-				Objects[3 + character].setFillColor(Color::Black);
-				window.draw(Objects[3 + character]);
-				Objects[3 + character].setFillColor(Color::White);
-				window.draw(Objects[3 + character]);
-				frames++;
-				time = clock.getElapsedTime().asSeconds();
-			}
-
-		}
-
-		while (clock.getElapsedTime().asSeconds() - time < 3.0f) {}
-		/*
-		uvRect_chara.top += 77;
-		icons[character].setTextureRect(uvRect_chara); //uvRect_frame
-		window.draw(icons[character]);
-		if ((twoPlayers && choosen1 && choosen2) || (!twoPlayers))
-			while (clock.getElapsedTime().asSeconds() < 1.0f) {}
-		*/
+		return charac;
 	}
 
+	choosen1 = true;
+	if (y == 0 && x < 2) {
+		charac = x;
+	}
+	else if (y == 0) {
+		charac = x + 2;
+	}
+	else {
+		charac = x + 1;
+	}
+
+	return (character)charac;
 }
 
 character PlayerSelector::ChoosenOption(bool player1) {
 
-	if (!player1) {
-		choosen2 = true;
-		return (character) (x2 + (MAX_X * y2));
-	}
-	choosen1 = true;
-	return (character) (x + (MAX_X * y));
+	return (character)ChoosenOption_int(player1);
 
 }
 
