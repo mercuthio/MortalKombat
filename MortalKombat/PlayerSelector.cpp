@@ -156,27 +156,27 @@ void PlayerSelector::Update() {
 		
 	}
 
-	if (choosen1 && frame_choosen1 <= 6 && clock_choosen1 == 10) {
+	if (choosen1 && frame_choosen1 <= 8 && clock_choosen1 == 5) {
 
 		int character = ChoosenOption_int(true);
 		clock_choosen1 = 0;
 
-		if (frame_choosen1 == 6) Objects[character + 1].setFillColor(Color::Blue);
-		if (frame_choosen1 < 6 && (frame_choosen1 % 2) == 0) Objects[character + 1].setFillColor(Color::White);
-		if (frame_choosen1 < 6 && (frame_choosen1 % 2) == 1) Objects[character + 1].setFillColor(Color::Black);
+		if (frame_choosen1 == 8) Objects[character + 1].setFillColor(Color::Blue);
+		if (frame_choosen1 < 8 && (frame_choosen1 % 2) == 0) Objects[character + 1].setFillColor(Color::White);
+		if (frame_choosen1 < 8 && (frame_choosen1 % 2) == 1) Objects[character + 1].setFillColor(Color::Transparent);
 
 		frame_choosen1++;
 
 	}
 
-	if (choosen2 && frame_choosen2 <= 6 && clock_choosen2 == 10) {
+	if (choosen2 && frame_choosen2 <= 8 && clock_choosen2 == 5) {
 
 		int character = ChoosenOption_int(false);
 		clock_choosen2 = 0;
 
-		if (frame_choosen2 == 6) Objects[character + 1].setFillColor(Color::Blue);
-		if (frame_choosen2 < 6 && (frame_choosen2 % 2) == 0) Objects[character + 1].setFillColor(Color::White);
-		if (frame_choosen2 < 6 && (frame_choosen2 % 2) == 1) Objects[character + 1].setFillColor(Color::Black);
+		if (frame_choosen2 == 8) Objects[character + 1].setFillColor(Color::Blue);
+		if (frame_choosen2 < 8 && (frame_choosen2 % 2) == 0) Objects[character + 1].setFillColor(Color::White);
+		if (frame_choosen2 < 8 && (frame_choosen2 % 2) == 1) Objects[character + 1].setFillColor(Color::Transparent);
 
 		frame_choosen2++;
 
@@ -186,7 +186,7 @@ void PlayerSelector::Update() {
 
 bool PlayerSelector::AnimationFinished() {
 
-	return ( !twoPlayers && frame_choosen1 == 7 ) || ( twoPlayers && frame_choosen1 == 7 && frame_choosen2 == 7 );
+	return ( !twoPlayers && frame_choosen1 == 9 ) || ( twoPlayers && frame_choosen1 == 9 && frame_choosen2 == 9 );
 
 }
 

@@ -132,7 +132,6 @@ void EventManager::Update(Event event) {
 			if (PlayerSelector_duel.Choosen()) {
 
 				changedEstate = true;
-				state = 6;
 
 				stage = (background)(rand() % 3);
 				BattleManager.RestartCombat(character1, character2, stage);
@@ -169,7 +168,6 @@ void EventManager::Update(Event event) {
 			if (PlayerSelector_duel.Choosen()) {
 
 				changedEstate = true;
-				state = 6;
 
 				stage = (background)(rand() % 3);
 				BattleManager.RestartCombat(character1, character2, stage);

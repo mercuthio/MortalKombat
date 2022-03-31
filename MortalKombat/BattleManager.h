@@ -13,6 +13,7 @@ using namespace sf;
 using namespace std;
 
 const int CHAR_SIZE_BATTLE = 50;
+const float SIZE_LIFE = 413.0f;
 
 class BattleManager {
 

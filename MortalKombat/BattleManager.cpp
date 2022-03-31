@@ -23,13 +23,13 @@ void BattleManager::LoadTextures() {
 	HUD_vector.clear();
 	Texts.clear();
 
-	Vector2f size_life = Vector2f(417, 35);
-	Vector2f size_name = Vector2f(413, 31);
-	Vector2f size_coin = Vector2f(26, 31);
-	Vector2f size_round = Vector2f(327, 82);
-	Vector2f size_danger = Vector2f(121, 39);
-	Vector2f size_clock = Vector2f(38, 54);
-	Vector2f size_fight = Vector2f(386, 114);
+	Vector2f size_life = Vector2f(417.0f, 35.0f);
+	Vector2f size_name = Vector2f(413.0f, 31.0f);
+	Vector2f size_coin = Vector2f(26.0f, 31.0f);
+	Vector2f size_round = Vector2f(327.0f, 82.0f);
+	Vector2f size_danger = Vector2f(121.0f, 39.0f);
+	Vector2f size_clock = Vector2f(38.0f, 54.0f);
+	Vector2f size_fight = Vector2f(386.0f, 114.0f);
 
 	IntRect uvRect;
 	RectangleShape rect;
@@ -299,9 +299,9 @@ void BattleManager::Update(Event event) {
 
 void BattleManager::Update() {
 
-	//Ajustar vida a personajes
-	//Vector2f size_life = Vector2f(HUD_vector[2].getSize().x * (vida / 100), HUD_vector[2].getSize().y);
-	//HUD_vector[2].setSize(size_life);
+	float vida = 100.0f;
+	Vector2f size_life = Vector2f(SIZE_LIFE * (vida /100.0f), HUD_vector[2].getSize().y);
+	HUD_vector[2].setSize(size_life);
 
 	BackgroundManager.Update();
 
