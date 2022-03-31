@@ -12,26 +12,41 @@ HistoryManager::HistoryManager(Texture* texture) {
 	loaded = false;
 	actual_combat = 0;
 
-	uvRect_backg.width = 400;	//Fondo
-	uvRect_backg.height = 746;
-	uvRect_backg.left = 505;
-	uvRect_backg.top = 773;
+	Vector2f size_backg = Vector2f(400, 746);
+	Vector2f size_title = Vector2f(126, 18);
 
-	backg.setPosition(0, 0);
-	backg.setTextureRect(uvRect_backg);
-	backg.setTexture(texture);
-	
-	uvRect_title.width = 126;	//Titulo
-	uvRect_title.height = 18;
-	uvRect_title.left = 921;
-	uvRect_title.top = 765;
+	IntRect uvRect;
+	RectangleShape rect;
 
-	title.setPosition(0, 0);
-	title.setTextureRect(uvRect_title);
-	title.setTexture(texture);
+	rect.setTexture(texture);
+	rect.setScale(1.0f, 1.0f);
 
-	uvRect_simple_texts.width = 70;		//Textos de combates simples
-	uvRect_simple_texts.height = 16;
+
+	//Fondo 0
+	uvRect.width = 100.0f;
+	uvRect.height = 746.0f;
+	uvRect.left = 505;
+	uvRect.top = 773;
+	rect.setSize(size_backg);
+
+	rect.setTextureRect(uvRect);
+	rect.setPosition(0.0f, 0.0f);
+	Objects.push_back(rect);
+
+	//Titulo 1
+	uvRect.width = 126.0f;
+	uvRect.height = 18.0f;
+	uvRect.left = 921;
+	uvRect.top = 765;
+	rect.setSize(size_backg);
+
+	rect.setTextureRect(uvRect);
+	rect.setPosition(0.0f, 0.0f);
+	Objects.push_back(rect);
+
+	//Textos combates simple 2 - 9
+	uvRect.width = 70.0f;
+	uvRect.height = 16.0f;
 
 	GetCharacters();	//Randomizamos los personajes
 
@@ -39,88 +54,107 @@ HistoryManager::HistoryManager(Texture* texture) {
 	
 		switch (characters[i]) {
 		case 0:
-			uvRect_title.left = 921;
-			uvRect_title.top = 1006;
+			uvRect.left = 921;
+			uvRect.top = 1006;
 			break;
 		case 1:
-			uvRect_title.left = 993;
-			uvRect_title.top = 1006;
+			uvRect.left = 993;
+			uvRect.top = 1006;
 			break;
 		case 2:
-			uvRect_title.left = 921;
-			uvRect_title.top = 1024;
+			uvRect.left = 921;
+			uvRect.top = 1024;
 			break;
 		case 3:
-			uvRect_title.left = 993;
-			uvRect_title.top = 1024;
+			uvRect.left = 993;
+			uvRect.top = 1024;
 			break;
 		case 4:
-			uvRect_title.left = 921;
-			uvRect_title.top = 1042;
+			uvRect.left = 921;
+			uvRect.top = 1042;
 			break;
 		case 5:
-			uvRect_title.left = 993;
-			uvRect_title.top = 1042;
+			uvRect.left = 993;
+			uvRect.top = 1042;
 			break;
 		case 6:
-			uvRect_title.left = 921;
-			uvRect_title.top = 1060;
+			uvRect.left = 921;
+			uvRect.top = 1060;
 			break;
 		}
-		simple_texts[i].setTextureRect(uvRect_title);
-		simple_texts[i].setTexture(texture);
+		rect.setTextureRect(uvRect);
+		rect.setPosition(0.0f, 0.0f);
+		Objects.push_back(rect);
 
 	}
 
-	uvRect_double_texts.width = 90;	//Textos de combates dobles
-	uvRect_double_texts.height = 16;
-	uvRect_double_texts.left = 921;
+	//Textos combates dobles 10 - 16
+	uvRect.width = 90.0f;
+	uvRect.height = 16.0f;
+	uvRect.left = 921;
 
 	for (int i = 0; i < NUM_DOUBLE; i++) {
-		uvRect_double_texts.top = double_characters[i] * 18 + 932;
-		double_texts[i].setTextureRect(uvRect_double_texts);
-		double_texts[i].setTexture(texture);
+		uvRect.top = double_characters[i] * 18 + 932;
+		rect.setTextureRect(uvRect);
+		rect.setPosition(0.0f, 0.0f);
+		Objects.push_back(rect);
 	}
 
-	uvRect_bosses_texts.width = 94;	//Testos de bosses
-	uvRect_bosses_texts.height = 16;
-	uvRect_bosses_texts.left = 921;
+	//Textos bosses 17 y 18
+	uvRect.width = 94.0f;
+	uvRect.height = 16.0f;
+	uvRect.left = 921;
+	uvRect.top = 894;
 
-	uvRect_bosses_texts.top = 894;
-	bosses_texts[0].setTextureRect(uvRect_bosses_texts);
-	bosses_texts[0].setTexture(texture);
+	rect.setTextureRect(uvRect);
+	rect.setPosition(0.0f, 0.0f);
+	Objects.push_back(rect);
 
-	uvRect_bosses_texts.top = 912;
-	bosses_texts[1].setTextureRect(uvRect_bosses_texts);
-	bosses_texts[1].setTexture(texture);
+	uvRect.top = 912;
+	rect.setTextureRect(uvRect);
+	rect.setPosition(0.0f, 0.0f);
+	Objects.push_back(rect);
 
-	uvRect_icons.width = 26;
-	uvRect_icons.height = 32;
-	uvRect_icons.top = 789;
+	//Iconos combates simples 19 - 26
+	uvRect.width = 26.0f;
+	uvRect.height = 32.0f;
+	uvRect.top = 789;
 
-	for (int i = 0; i < NUM_CHARS; i++) {	//Iconos combates simples
-		uvRect_icons.left = characters[i] * 32 + 923;
-		simple_icons[i].setTextureRect(uvRect_icons);
-		simple_icons[i].setTexture(texture);
+	for (int i = 0; i < NUM_CHARS; i++) {
+		uvRect.left = characters[i] * 32 + 923;
+		rect.setTextureRect(uvRect);
+		rect.setPosition(0.0f, 0.0f);
+		Objects.push_back(rect);
 	}
 
-	for (int i = 0; i < NUM_DOUBLE; i++) {	//Iconos combates dobles
-		uvRect_icons.left = double_characters[i] * 32 + 923;
-		double_icons[i].setTextureRect(uvRect_icons);
-		double_icons[i].setTexture(texture);
+	//Iconos combates dobles 27 - 33
+	for (int i = 0; i < NUM_DOUBLE; i++) {
+		uvRect.left = double_characters[i] * 32 + 923;
+		rect.setTextureRect(uvRect);
+		rect.setPosition(0.0f, 0.0f);
+		Objects.push_back(rect);
 	}
 
-	uvRect_bosses_icons.width = 46;		//Iconos de bosses
-	uvRect_bosses_icons.height = 57;
-	uvRect_bosses_icons.top = 827;
+	//Iconos bosses 34 y 35
+	uvRect.width = 46.0f;
+	uvRect.height = 57.0f;
+	uvRect.top = 827;
 
-	uvRect_bosses_icons.left = 974;	
-	bosses_icons[0].setTextureRect(uvRect_bosses_icons);
-	bosses_icons[0].setTexture(texture);
+	uvRect.left = 974;
+	rect.setTextureRect(uvRect);
+	rect.setPosition(0.0f, 0.0f);
+	Objects.push_back(rect);
 
-	uvRect_bosses_icons.left = 923;	
-	bosses_icons[1].setTextureRect(uvRect_bosses_icons);
-	bosses_icons[1].setTexture(texture);
+	uvRect.left = 923;
+	rect.setTextureRect(uvRect);
+	rect.setPosition(0.0f, 0.0f);
+	Objects.push_back(rect);
+
+}
+
+void HistoryManager::Restart() {
+
+	instant = 0;
 
 }
 
@@ -167,7 +201,7 @@ void HistoryManager::GetCharacters() {
 
 bool HistoryManager::Draw(RenderWindow& window, float seconds) {
 	float mov = 4.6;
-
+	/*
 	if (!loaded) {
 
 		title.setPosition(width_window / 3.4, height_window / 20);
@@ -193,7 +227,7 @@ bool HistoryManager::Draw(RenderWindow& window, float seconds) {
 
 	uvRect_backg.height = height_window / 2.3;
 	
-	if (uvRect_backg.top + uvRect_backg.height + 2 <= 1519) {
+	if (Objects[0].getTexture().top + uvRect_backg.height + 2 <= 1519) {
 
 		uvRect_backg.top += 2;
 		title.setPosition(title.getPosition().x, title.getPosition().y - mov);
@@ -236,8 +270,9 @@ bool HistoryManager::Draw(RenderWindow& window, float seconds) {
 
 		time = seconds;
 	}
-
+	*/
 	return false;
+
 }
 
 void HistoryManager::Update() {

@@ -7,8 +7,6 @@ EventManager::EventManager(Texture textures[], Font font) : StartManager(&textur
 
 	state = 0;
 	character1 = SCORPION;
-	stage = (background) (rand()%3);
-	std::cout << stage << endl;
 	changedEstate = false;
 
 	//music[0].openFromFile("audio/soundtrack.ogg");
@@ -53,6 +51,7 @@ void EventManager::Update(Event event) {
 			changedEstate = true;
 			state = MenuManager.ChoosenOption() + 2;
 
+			if (state == 1) HistoryManager.Restart();
 			if (state == 2) PlayerSelector_hist.Restart();
 			if (state == 3) PlayerSelector_duel.Restart();
 			if (state == 4) OptionsManager.Update();
@@ -91,7 +90,7 @@ void EventManager::Update(Event event) {
 
 			changedEstate = true;
 			character1 = PlayerSelector_hist.ChoosenOption(true);
-			state = 5;
+			state = 6;
 			break;
 
 		case Keyboard::Escape:
@@ -136,6 +135,8 @@ void EventManager::Update(Event event) {
 
 				changedEstate = true;
 				state = 6;
+
+				stage = (background)(rand() % 3);
 				BattleManager.RestartCombat(character1, character2, stage);
 
 			}
@@ -170,6 +171,8 @@ void EventManager::Update(Event event) {
 
 				changedEstate = true;
 				state = 6;
+
+				stage = (background)(rand() % 3);
 				BattleManager.RestartCombat(character1, character2, stage);
 			}
 			break;
@@ -250,7 +253,10 @@ void EventManager::Update(Event event) {
 
 	case 6: //Batalla
 
-		if (event.key.code == Keyboard::Escape) state = 1;
+		if (event.key.code == Keyboard::Escape) {
+			state = 1;
+			BattleManager.Restart();
+		}
 		BattleManager.Update(event);
 		break;
 	}
@@ -296,11 +302,13 @@ void EventManager::draw(RenderWindow& window) {
 
 	case 2:
 
+		PlayerSelector_hist.Update();
 		PlayerSelector_hist.Draw(window, clock.getElapsedTime().asSeconds());
 		break;
 
 	case 3:
 
+		PlayerSelector_duel.Update();
 		PlayerSelector_duel.Draw(window, clock.getElapsedTime().asSeconds());
 		break;
 
@@ -313,7 +321,6 @@ void EventManager::draw(RenderWindow& window) {
 
 		if (HistoryManager.Draw(window, clock.getElapsedTime().asSeconds())) {
 			state = 6;
-			//Cambiar el escenario con uno random
 			BattleManager.RestartCombat(character1, character2, stage);	
 		}
 		break;

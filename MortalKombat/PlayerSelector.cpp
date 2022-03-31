@@ -10,92 +10,92 @@ PlayerSelector::PlayerSelector(Texture* texture, bool twoPlayers_) {
 	choosen1 = false;
 	twoPlayers = twoPlayers_;
 
-	uvRect_backg.width = 400;
-	uvRect_backg.height = 254;
-	uvRect_backg.left = 486;
-	uvRect_backg.top = 393;
+	Vector2f size_backg = Vector2f(width_window, height_window);
+	Vector2f size_frame = Vector2f(151, 227);
+	Vector2f size_icon = Vector2f(26, 31);
 
-	backg.setPosition(0, 0);
-	backg.setTextureRect(uvRect_backg);
-	backg.setTexture(texture);
+	IntRect uvRect;
+	RectangleShape rect;
 
-	uvRect_frame.width = 67;
-	uvRect_frame.height = 82;
-	uvRect_frame.left = 904;
-	uvRect_frame.top = 571;
+	rect.setTexture(texture);
+	rect.setScale(1.0f, 1.0f);
 
-	frame.setSize(Vector2f(151,227));
-	frame.setPosition(87, 136);
-	frame.setTextureRect(uvRect_frame);
-	frame.setTexture(texture);
+	//Fondo 0
+	uvRect.width = 400.0f;
+	uvRect.height = 254.0f;
+	uvRect.left = 486;
+	uvRect.top = 393;
+	rect.setSize(size_backg);
+
+	rect.setTextureRect(uvRect);
+	rect.setPosition(0.0f, 0.0f);
+	Objects.push_back(rect);
+
+	//Marcos cursor 1 y 2
+	uvRect.width = 67.0f;
+	uvRect.height = 82.0f;
+	uvRect.left = 904;
+	uvRect.top = 571;
+	rect.setSize(size_frame);
+
+	rect.setTextureRect(uvRect);
+	rect.setPosition(87.0f, 136.0f);
+	Objects.push_back(rect);
 
 	if (twoPlayers) {
 
 		choosen2 = false;
-
 		x2 = 0;
 		y2 = 0;
 
-		uvRect_frame2.width = 67;
-		uvRect_frame2.height = 82;
-		uvRect_frame2.left = 1051;
-		uvRect_frame2.top = 571;
-
-		frame2.setSize(Vector2f(151, 227));
-		frame2.setPosition(87, 136);
-		frame2.setTextureRect(uvRect_frame2);
-		frame2.setTexture(texture);
+		uvRect.left = 904;
+		rect.setTextureRect(uvRect);
+		rect.setPosition(87.0f, 136.0f);
+		Objects.push_back(rect);
 
 	}
 
-	uvRect_chara.width = 59;
-	uvRect_chara.height = 74;
-	uvRect_chara.left = 904;
-	uvRect_chara.top = 409;
-
-	for (int i = 0; i < NUMBER_CHARACTERS; i++) {
-
-		icons[i].setTextureRect(uvRect_chara);
-		icons[i].setTexture(texture);
-
-	}
-
-	backg.setSize(Vector2f(width_window, height_window));
+	//Iconos personajes 3 - 10
+	uvRect.width = 59.0f;
+	uvRect.height = 74.0f;
+	uvRect.left = 904;
+	uvRect.top = 409;
+	rect.setSize(size_icon);
 
 	for (int i = 0; i < NUMBER_CHARACTERS; i++) {
 
 		switch (i) {
 		case 0:
-			uvRect_chara.left = 904;
-			icons[i].setPosition(87, 136);
+			uvRect.left = 904;
+			rect.setPosition(87.0f, 136.0f);
 			break;
 		case 1:
-			uvRect_chara.left = 904 + 64;
-			icons[i].setPosition((width_window / 5.97) + 87, 136);
+			uvRect.left = 904 + 64;
+			rect.setPosition((width_window / 5.97) + 87, 136);
 			break;
 		case 2:
-			uvRect_chara.left = 904 + 64 * 2;
-			icons[i].setPosition((width_window / 5.97) + 87, (width_window / 4.13) + 136);
+			uvRect.left = 904 + 64 * 2;
+			rect.setPosition((width_window / 5.97) + 87, (width_window / 4.13) + 136);
 			break;
 		case 3:
-			uvRect_chara.left = 904 + 64 * 3;
-			icons[i].setPosition((width_window / 5.97) * 2 + 87, (width_window / 4.13) + 136);
+			uvRect.left = 904 + 64 * 3;
+			rect.setPosition((width_window / 5.97) * 2 + 87, (width_window / 4.13) + 136);
 			break;
 		case 4:
-			uvRect_chara.left = 904 + 64 * 4;
-			icons[i].setPosition((width_window / 5.97) * 3 + 87, (width_window / 4.13) + 136);
+			uvRect.left = 904 + 64 * 4;
+			rect.setPosition((width_window / 5.97) * 3 + 87, (width_window / 4.13) + 136);
 			break;
 		case 5:
-			uvRect_chara.left = 904 + 64 * 5;
-			icons[i].setPosition((width_window / 5.97) * 3 + 87, 136);
+			uvRect.left = 904 + 64 * 5;
+			rect.setPosition((width_window / 5.97) * 3 + 87, 136);
 			break;
 		case 6:
-			uvRect_chara.left = 904 + 64 * 6;
-			icons[i].setPosition((width_window / 5.97) * 4 + 87, 136);
+			uvRect.left = 904 + 64 * 6;
+			rect.setPosition((width_window / 5.97) * 4 + 87, 136);
 			break;
 		}
-		icons[i].setTextureRect(uvRect_chara);
-		icons[i].setSize(Vector2f(151, 227));
+		rect.setTextureRect(uvRect);
+		Objects.push_back(rect);
 	}
 
 }
@@ -110,16 +110,38 @@ void PlayerSelector::Restart() {
 	x2 = 0;
 	y2 = 0;
 
-	time = 0;
+	clock = 0;
 
 }
 
 void PlayerSelector::Update() {
 
-	frame.setPosition((width_window / 5.97) * x + 87, (width_window / 4.13) * y + 136);
+	Objects[1].setPosition((width_window / 5.97) * x + 87, (width_window / 4.13) * y + 136);
 
 	if (twoPlayers)
-		frame2.setPosition((width_window / 5.97) * x2 + 87, (width_window / 4.13) * y2 + 136);
+		Objects[2].setPosition((width_window / 5.97) * x2 + 87, (width_window / 4.13) * y2 + 136);
+
+	IntRect uvRect;
+	clock++;
+
+	if (clock == 10) {
+		
+		clock = 0;
+		flash = !flash;
+
+		uvRect = Objects[1].getTextureRect();
+
+		if (flash) {
+			uvRect.left += 72;
+		}
+		else {
+			uvRect.left -= 72;
+		}
+
+		Objects[1].setTextureRect(uvRect);
+		if (twoPlayers) Objects[2].setTextureRect(uvRect);
+
+	}
 
 }
 
@@ -183,10 +205,10 @@ void PlayerSelector::DrawChoosen(RenderWindow& window, bool player1) {
 		while (frames < 3) {
 
 			if (clock.getElapsedTime().asSeconds() - time > 0.1f) {
-				icons[character].setFillColor(Color::Black);
-				window.draw(icons[character]);
-				icons[character].setFillColor(Color::White);
-				window.draw(icons[character]);
+				Objects[3 + character].setFillColor(Color::Black);
+				window.draw(Objects[3 + character]);
+				Objects[3 + character].setFillColor(Color::White);
+				window.draw(Objects[3 + character]);
 				frames++;
 				time = clock.getElapsedTime().asSeconds();
 			}
@@ -194,13 +216,13 @@ void PlayerSelector::DrawChoosen(RenderWindow& window, bool player1) {
 		}
 
 		while (clock.getElapsedTime().asSeconds() - time < 3.0f) {}
-
+		/*
 		uvRect_chara.top += 77;
 		icons[character].setTextureRect(uvRect_chara); //uvRect_frame
 		window.draw(icons[character]);
 		if ((twoPlayers && choosen1 && choosen2) || (!twoPlayers))
 			while (clock.getElapsedTime().asSeconds() < 1.0f) {}
-
+		*/
 	}
 
 }
@@ -226,37 +248,8 @@ bool PlayerSelector::Choosen() {
 
 void PlayerSelector::Draw(RenderWindow& window, float seconds) {
 
-	window.draw(backg);
-	
-	for (int i = 0; i < NUMBER_CHARACTERS; i++) {
-		window.draw(icons[i]);
-	}
-	
-	if (seconds - time >= 0.1f) {
-		flash = !flash;
-		if (flash) {
-			uvRect_frame.left += 72;
-			if (twoPlayers)
-				uvRect_frame2.left += 72;
-
-		}
-		else {
-			uvRect_frame.left -= 72;
-			if (twoPlayers)
-				uvRect_frame2.left -= 72;
-		}
-		frame.setTextureRect(uvRect_frame);
-		if (twoPlayers)
-			frame2.setTextureRect(uvRect_frame2);
-		time = seconds;
-
-
-	}
-
-	window.draw(frame);
-
-	if (twoPlayers) {
-		window.draw(frame2);
+	for (RectangleShape object : Objects) {
+		window.draw(object);
 	}
 
 }

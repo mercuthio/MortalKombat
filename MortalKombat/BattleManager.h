@@ -24,10 +24,11 @@ public:
 	void Update();										//Actualiza el escenario y el hud
 	void draw(RenderWindow&);							//Dibuja la batalla actual
 	void RestartCombat(character, character, background);					//Reinicia los datos del combate
+	void Restart();
+	void LoadTextures();
 	int RestartRound(int);								//Resetea las variables para una nueva ronda, devuelve 0 si no ha ganado nadie, 1 si ha ganado el jugador1 y 2 el jugador2
 
 private:
-
 
 	int character1;										//Personaje del jugador 1
 	int character2;										//Personaje del jugador 2
@@ -59,6 +60,7 @@ private:
 	bool inDanger1;
 	bool inDanger2;
 
+	Texture* texture;
 	Font font;											//Variable con la fuente de letra
 
 	BackgroundManager BackgroundManager;
