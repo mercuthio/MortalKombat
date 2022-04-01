@@ -3,11 +3,10 @@
 
 #include "SFML/Graphics.hpp"
 #include <iostream>
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 #include "BackgroundManager.h"
+
+#include "Animation.h"
+#include "LiuKang.h"
 
 #include "Courtyard.h"
 #include "Warrior_Shrine.h"
@@ -28,7 +27,7 @@ public:
 	void Update(Event);									//Actualiza la batalla actual dada una tecla pulsada
 	void Update();										//Actualiza el escenario y el hud
 	void draw(RenderWindow&);							//Dibuja la batalla actual
-	void RestartCombat(character, character, background);					//Reinicia los datos del combate
+	void RestartCombat(CharacterType, CharacterType, background);					//Reinicia los datos del combate
 	void Restart();
 	void LoadTextures();
 	int RestartRound(int);								//Resetea las variables para una nueva ronda, devuelve 0 si no ha ganado nadie, 1 si ha ganado el jugador1 y 2 el jugador2
@@ -69,8 +68,8 @@ private:
 	Font font;											//Variable con la fuente de letra
 
 	BackgroundManager BackgroundManager;
-	//Personaje1
-	//Personaje2
+	Character player1;
+	Character player2;
 
 	vector<Text> Texts;
 	vector<RectangleShape> HUD_vector;

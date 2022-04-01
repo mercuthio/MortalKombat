@@ -190,7 +190,7 @@ void BattleManager::Restart() {
 
 }
 
-void BattleManager::RestartCombat(character character1_, character character2_, background stage_) {
+void BattleManager::RestartCombat(CharacterType character1_, CharacterType character2_, background stage_) {
 
 	character1 = character1_;
 	character2 = character2_;
@@ -253,13 +253,10 @@ void BattleManager::RestartCombat(character character1_, character character2_, 
 		break;
 	default:
 		break;*/
-<<<<<<< Updated upstream
-=======
 
 	//switch(character1)
 	player1 = CreateLiuKang();
 	player1.initPosition(BackgroundManager.getInitPos(1));
->>>>>>> Stashed changes
 }
 
 int BattleManager::RestartRound(int winner1) {
@@ -309,6 +306,8 @@ void BattleManager::Update() {
 	float vida = 100.0f;
 	Vector2f size_life = Vector2f(SIZE_LIFE * (vida /100.0f), HUD_vector[2].getSize().y);
 	HUD_vector[2].setSize(size_life);
+
+	player1.Update(0.05f);
 
 	BackgroundManager.Update();
 
@@ -390,6 +389,7 @@ void BattleManager::Update() {
 void BattleManager::draw(RenderWindow& window) {
 
 	BackgroundManager.draw(window);
+	player1.debugDraw(window);
 
 	int i = 0;
 	for (RectangleShape rect : HUD_vector) {

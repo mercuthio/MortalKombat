@@ -247,12 +247,12 @@ int PlayerSelector::ChoosenOption_int(bool player1) {
 		charac = x + 1;
 	}
 
-	return (character)charac;
+	return (CharacterType)charac;
 }
 
-character PlayerSelector::ChoosenOption(bool player1) {
+CharacterType PlayerSelector::ChoosenOption(bool player1) {
 
-	return (character)ChoosenOption_int(player1);
+	return (CharacterType)ChoosenOption_int(player1);
 
 }
 

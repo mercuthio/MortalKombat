@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "Animation.h"
 #include "AnimationGroup.h"
+#include "Animation.h"
 #include "Movement.h"
 
 #include "GlobalVars.h"

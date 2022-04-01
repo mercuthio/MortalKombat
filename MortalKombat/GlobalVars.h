@@ -9,9 +9,6 @@ const float ASPECT_RATIO = 4.0/3.0;
 static float width_window = 1024;
 static float height_window = 768;
 
-<<<<<<< Updated upstream
-enum character {
-=======
 static Keyboard::Key jumpButton = Keyboard::W;
 static Keyboard::Key forwButton = Keyboard::D;
 static Keyboard::Key backButton = Keyboard::A;
@@ -22,8 +19,8 @@ static Keyboard::Key grabButton = Keyboard::U;
 static Keyboard::Key specialButton = Keyboard::I;
 static Keyboard::Key blockButton = Keyboard::L;
 
+
 enum CharacterType {
->>>>>>> Stashed changes
 	CAGE,
 	KANO,
 	RAIDEN,
@@ -44,8 +41,6 @@ enum background {
 	THRONE_ROOM
 };
 
-<<<<<<< Updated upstream
-=======
 enum class AnimationType {
 	// Movements
 	IDLE,
@@ -120,5 +115,4 @@ static bool isDamageMovement(AnimationType anim) {
 	return (anim != AnimationType::PUNCH);
 }
 
->>>>>>> Stashed changes
 #endif

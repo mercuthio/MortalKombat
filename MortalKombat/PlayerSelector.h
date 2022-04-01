@@ -27,7 +27,7 @@ public:
 
 	int ChoosenOption_int(bool);
 
-	character ChoosenOption(bool);						//Devuelve la opcion elegida por el primer jugador si el primer parametro es true
+	CharacterType ChoosenOption(bool);						//Devuelve la opcion elegida por el primer jugador si el primer parametro es true
 
 	bool AnimationFinished();
 	bool Choosen();										//Devuelve true si se han elegido todos los personajes necesarios

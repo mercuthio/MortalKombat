@@ -25,6 +25,9 @@
     <Filter Include="Archivos de origen\GameManager\Backgrounds">
       <UniqueIdentifier>{63d3b42b-0905-4f4a-b6f7-573f47054206}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\GameManager\Characters">
+      <UniqueIdentifier>{088f13fe-e146-4ac1-9b1d-8a94401cb190}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mortal_Kombat.cpp">
@@ -77,6 +80,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationGroup.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClCompile>
     <ClInclude Include="EventManager.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
@@ -116,23 +128,14 @@
     <ClInclude Include="The_Pit.h">
       <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
+    <ClInclude Include="Movement.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationGroup.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="LiuKang.h">
-      <Filter>Archivos de encabezado\GameManager\Characters</Filter>
     </ClInclude>
     <ClInclude Include="Goro.h">
       <Filter>Archivos de encabezado\GameManager\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Movement.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
+    <ClInclude Include="LiuKang.h">
+      <Filter>Archivos de encabezado\GameManager\Characters</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

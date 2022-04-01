@@ -38,8 +38,8 @@ private:
 	int state;											//0 = StartManager, 1 = MenuManager, 2 = PlayerSelectorHistoria, 3 = PlayerSelectorDuelo, 4 = OptionsManager, 5 = Torre, 6 = Batalla
 	bool changedEstate;									//True cuando se va a cambiar el estado en el siguiente frame, false en cualquier otro momento
 
-	character character1;								//Personaje elegido por el jugador 1
-	character character2;								//Personaje elegido por el jugador 2
+	CharacterType character1;								//Personaje elegido por el jugador 1
+	CharacterType character2;								//Personaje elegido por el jugador 2
 
 	background stage;
 	MenuManager MenuManager;							//Objeto del menu principal
