@@ -1,5 +1,5 @@
-#ifndef MOVEMENT_H
-#define MOVEMENT_H
+#ifndef Movement_H
+#define Movement_H
 
 #include "AnimationGroup.h"
 

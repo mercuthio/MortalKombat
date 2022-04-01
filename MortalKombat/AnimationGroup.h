@@ -1,5 +1,5 @@
-#ifndef ANIMATION_GROUP_H
-#define ANIMATION_GROUP_H
+#ifndef AnimationGroup_H
+#define AnimationGroup_H
 
 #include "Animation.h"
 

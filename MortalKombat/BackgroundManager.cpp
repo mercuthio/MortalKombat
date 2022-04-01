@@ -43,13 +43,3 @@ void BackgroundManager::draw(RenderWindow& window) {
 	}
 
 }
-
-Vector2<float> BackgroundManager::getInitPos(int player)
-{
-	if (player == 1) {
-		return playerInitPos1;
-	}
-	else {
-		return playerInitPos2;
-	}
-}

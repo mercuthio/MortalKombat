@@ -26,7 +26,7 @@
       <UniqueIdentifier>{63d3b42b-0905-4f4a-b6f7-573f47054206}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\GameManager\Characters">
-      <UniqueIdentifier>{088f13fe-e146-4ac1-9b1d-8a94401cb190}</UniqueIdentifier>
+      <UniqueIdentifier>{8d1dbdee-aa27-4796-90c4-29895cdd4e70}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,10 +69,10 @@
     <ClCompile Include="The_Pit.cpp">
       <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
+    <ClCompile Include="AnimationGroup.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationGroup.cpp">
+    <ClCompile Include="Animation.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">
@@ -80,15 +80,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimationGroup.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClCompile>
     <ClInclude Include="EventManager.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
@@ -127,6 +118,15 @@
     </ClInclude>
     <ClInclude Include="The_Pit.h">
       <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationGroup.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
     <ClInclude Include="Movement.h">
       <Filter>Archivos de encabezado\GameManager</Filter>

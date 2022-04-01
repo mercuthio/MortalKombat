@@ -1,11 +1,6 @@
 #ifndef LIUKANG_H
 #define LIUKANG_H
 
-#include <SFML/Graphics.hpp>
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "Animation.h"
 #include "Character.h"
 
 static Character CreateLiuKang() {
@@ -20,8 +15,8 @@ static Character CreateLiuKang() {
 
 	Vector2<int> sz = Vector2<int>(229, 219);
 	RectangleShape body = RectangleShape(Vector2<float>(229, 219));
-	body.setSize(Vector2f(229 * 2.5, 219 * 2.5));
-	//body.setPosition(1000, 400);
+	body.setSize(Vector2f(229 * 2, 219 * 2));
+	body.setPosition(20, 400);
 
 	vector<int> null_vector{};
 	vector<int> jump_lock{ 1, 3 };

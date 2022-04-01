@@ -1,12 +1,10 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef Character_H
+#define Character_H
 
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "AnimationGroup.h"
-#include "Animation.h"
 #include "Movement.h"
 
 #include "GlobalVars.h"

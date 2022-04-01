@@ -3,7 +3,6 @@
 
 #include "SFML/Graphics.hpp"
 #include <iostream>
-
 #include "StartManager.h"
 #include "MenuManager.h"
 #include "TransitionManager.h"

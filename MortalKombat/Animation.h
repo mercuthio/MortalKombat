@@ -1,5 +1,5 @@
-#ifndef ANIMATION_H
-#define ANIMATION_H
+#ifndef Animation_H
+#define Animation_H
 
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>

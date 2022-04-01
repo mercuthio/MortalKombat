@@ -5,7 +5,6 @@
 #include <iostream>
 #include "BackgroundManager.h"
 
-#include "Animation.h"
 #include "LiuKang.h"
 
 #include "Courtyard.h"

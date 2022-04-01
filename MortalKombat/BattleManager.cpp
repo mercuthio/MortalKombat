@@ -195,7 +195,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	character1 = character1_;
 	character2 = character2_;
 	stage = stage_;
-	
+
 	life1 = 100;
 	life2 = 100;
 
@@ -240,7 +240,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 		BackgroundManager = background;
 		break;
 	}
-		break;
+	break;
 	}
 
 	/*	case GOROS_LAIR:
@@ -254,9 +254,9 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	default:
 		break;*/
 
-	//switch(character1)
+		//switch(character1)
 	player1 = CreateLiuKang();
-	player1.initPosition(BackgroundManager.getInitPos(1));
+	//player1.initPosition(BackgroundManager.getInitPos(1));
 }
 
 int BattleManager::RestartRound(int winner1) {
@@ -282,7 +282,7 @@ int BattleManager::RestartRound(int winner1) {
 		showing_round = true;
 		inDanger1 = false;
 		inDanger2 = false;
-		
+
 		fight_x = 0;
 		life1 = 100;
 		life2 = 100;
@@ -304,7 +304,7 @@ void BattleManager::Update(Event event) {
 void BattleManager::Update() {
 
 	float vida = 100.0f;
-	Vector2f size_life = Vector2f(SIZE_LIFE * (vida /100.0f), HUD_vector[2].getSize().y);
+	Vector2f size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[2].getSize().y);
 	HUD_vector[2].setSize(size_life);
 
 	player1.Update(0.05f);
@@ -320,7 +320,7 @@ void BattleManager::Update() {
 
 		showing_round = false;
 		showing_fight = true;
-	
+
 	}
 
 	if (started_game && clock_timer >= 60) {
@@ -332,12 +332,12 @@ void BattleManager::Update() {
 		uvRect.height = 17.0f;
 		uvRect.left = 5573 + 16 * ((time_left / 10) % 10);
 		uvRect.top = 49;
-		
+
 
 		HUD_vector[13].setTextureRect(uvRect);
 		uvRect.left = 5573 + 16 * (time_left % 10);
 		HUD_vector[14].setTextureRect(uvRect);
-	
+
 	}
 
 	if (clock_flash == 10) {

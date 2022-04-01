@@ -19,7 +19,6 @@ static Keyboard::Key grabButton = Keyboard::U;
 static Keyboard::Key specialButton = Keyboard::I;
 static Keyboard::Key blockButton = Keyboard::L;
 
-
 enum CharacterType {
 	CAGE,
 	KANO,
