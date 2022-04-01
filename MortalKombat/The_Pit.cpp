@@ -9,7 +9,7 @@ void The_Pit::loadTextures() {
 
 	float aspectRelation = (height_window + 20) / rectHeight;
 
-	float offset_left = (rectWidth * aspectRelation) / 3;
+	float offset_left = (rectWidth * aspectRelation - width_window) / 2;
 	float offset_top = 0;
 
 	Vector2f sizeBackground = Vector2f(rectWidth * aspectRelation, height_window + 20);

@@ -9,7 +9,7 @@ void Warrior_Shrine::loadTextures() {
 
 	float aspectRelation = (height_window+100)/rectHeight;
 
-	float offset_left = (rectWidth * aspectRelation)/3 + 32;
+	float offset_left = (rectWidth * aspectRelation - width_window) / 2;
 	float offset_top = 55;
 
 	Vector2f sizeBackground = Vector2f(rectWidth * aspectRelation, height_window+100);
