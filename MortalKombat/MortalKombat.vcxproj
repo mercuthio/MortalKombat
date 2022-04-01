@@ -43,11 +43,8 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="HistoryManager.h" />
-<<<<<<< Updated upstream
-=======
     <ClInclude Include="LiuKang.h" />
     <ClInclude Include="Movement.h" />
->>>>>>> Stashed changes
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="OptionsManager.h" />
