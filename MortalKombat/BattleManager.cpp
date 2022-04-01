@@ -253,6 +253,13 @@ void BattleManager::RestartCombat(character character1_, character character2_, 
 		break;
 	default:
 		break;*/
+<<<<<<< Updated upstream
+=======
+
+	//switch(character1)
+	player1 = CreateLiuKang();
+	player1.initPosition(BackgroundManager.getInitPos(1));
+>>>>>>> Stashed changes
 }
 
 int BattleManager::RestartRound(int winner1) {

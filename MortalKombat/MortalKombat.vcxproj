@@ -19,8 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationGroup.cpp" />
     <ClCompile Include="BackgroundManager.cpp" />
     <ClCompile Include="BattleManager.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="Courtyard.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="HistoryManager.cpp" />
@@ -40,6 +43,11 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="HistoryManager.h" />
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="LiuKang.h" />
+    <ClInclude Include="Movement.h" />
+>>>>>>> Stashed changes
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="OptionsManager.h" />

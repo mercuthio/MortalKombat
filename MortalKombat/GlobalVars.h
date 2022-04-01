@@ -1,13 +1,29 @@
 #ifndef GlobalVars_H
 #define GlobalVars_H
 
+using namespace sf;
+
 const int NUMBER_TRACKS = 191;
 const float ASPECT_RATIO = 4.0/3.0;
 
 static float width_window = 1024;
 static float height_window = 768;
 
+<<<<<<< Updated upstream
 enum character {
+=======
+static Keyboard::Key jumpButton = Keyboard::W;
+static Keyboard::Key forwButton = Keyboard::D;
+static Keyboard::Key backButton = Keyboard::A;
+static Keyboard::Key downButton = Keyboard::S;
+static Keyboard::Key punchButton = Keyboard::J;
+static Keyboard::Key kickButton = Keyboard::K;
+static Keyboard::Key grabButton = Keyboard::U;
+static Keyboard::Key specialButton = Keyboard::I;
+static Keyboard::Key blockButton = Keyboard::L;
+
+enum CharacterType {
+>>>>>>> Stashed changes
 	CAGE,
 	KANO,
 	RAIDEN,
@@ -28,4 +44,81 @@ enum background {
 	THRONE_ROOM
 };
 
+<<<<<<< Updated upstream
+=======
+enum class AnimationType {
+	// Movements
+	IDLE,
+	JUMP,
+	JUMP_AND_MOVE,
+	DOWN,		// Crouch
+	WALK_FORW,
+	WALK_BACK,
+
+	// Atacks 
+	// -- Punch
+	PUNCH,
+	PUNCH_MULTIPLE,
+	PUNCH_CLOSE,
+
+	PUNCH_UPPER,
+	PUNCH_UPPER_MULTIPLE,
+	PUNCH_UPPER_CLOSE,
+
+	PUNCH_FROM_DOWN,
+	PUNCH_FROM_AIR,
+
+	// -- Kick
+	KICK,
+	KICK_UPPER,
+	KICK_LOW,
+	KICK_HIGH,
+
+	KICK_FROM_DOWN,
+	KICK_FROM_AIR,
+
+	// Get Hit - Block - Recover
+	HIT_STAND,
+	HIT_STAND_STRONG,
+	HIT_DOWN,
+
+	FALL,
+	FALL_UPPERCUT,
+	FALL_BACK,
+
+	RECOVER,
+	NUTS,
+
+	CATCH,
+	GET_CAUGHT,
+	GET_CAUGHT_GORO,
+
+	SPECIAL,
+
+	DYING,
+	CUT_HEAD,
+	HEAD_FLYING,
+
+	FATALITY,
+	WIN,
+
+	BLOCK,
+	BLOCK_LOW,
+
+	TURN_LEFT,
+	TURN_RIGHT,
+};
+
+static bool isFixedMovement(AnimationType anim) {
+	return (anim != AnimationType::JUMP) &&
+		(anim != AnimationType::JUMP_AND_MOVE) &&
+		(anim != AnimationType::PUNCH_FROM_AIR) &&
+		(anim != AnimationType::KICK_FROM_AIR);
+}
+
+static bool isDamageMovement(AnimationType anim) {
+	return (anim != AnimationType::PUNCH);
+}
+
+>>>>>>> Stashed changes
 #endif

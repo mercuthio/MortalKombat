@@ -17,6 +17,8 @@ public:
 	void Update();
 	void draw(RenderWindow&);
 
+	Vector2<float> getInitPos(int player);
+
 protected:
 	background type = COURTYARD; //0 courtyard
 	int animation = 0;
@@ -24,6 +26,8 @@ protected:
 	int speed = 0;
 	int sizeVector = 0;
 	vector<RectangleShape> backgroundVector;
+	Vector2<float> playerInitPos1;
+	Vector2<float> playerInitPos2;
 
 };
 

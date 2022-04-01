@@ -12,6 +12,8 @@ void Warrior_Shrine::loadTextures() {
 	float offset_left = (rectWidth * aspectRelation - width_window) / 2;
 	float offset_top = 55;
 
+	playerInitPos1 = Vector2f(offset_left + 30, aspectRelation * height_window / 2);
+
 	Vector2f sizeBackground = Vector2f(rectWidth * aspectRelation, height_window+100);
 
 	IntRect uvRect;

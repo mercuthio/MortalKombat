@@ -66,6 +66,15 @@
     <ClCompile Include="The_Pit.cpp">
       <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationGroup.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h">
@@ -107,5 +116,26 @@
     <ClInclude Include="The_Pit.h">
       <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
     </ClInclude>
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="Animation.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationGroup.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="LiuKang.h">
+      <Filter>Archivos de encabezado\GameManager\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Goro.h">
+      <Filter>Archivos de encabezado\GameManager\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Movement.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+>>>>>>> Stashed changes
   </ItemGroup>
 </Project>

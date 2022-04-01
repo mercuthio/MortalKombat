@@ -3,6 +3,10 @@
 
 #include "SFML/Graphics.hpp"
 #include <iostream>
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 #include "BackgroundManager.h"
 
 #include "Courtyard.h"
