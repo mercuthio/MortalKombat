@@ -116,8 +116,6 @@
     <ClInclude Include="The_Pit.h">
       <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
     </ClInclude>
-<<<<<<< Updated upstream
-=======
     <ClInclude Include="Animation.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
@@ -136,6 +134,5 @@
     <ClInclude Include="Movement.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
->>>>>>> Stashed changes
   </ItemGroup>
 </Project>
