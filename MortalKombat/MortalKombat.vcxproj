@@ -34,12 +34,17 @@
     <ClCompile Include="Warrior_Shrine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationGroup.h" />
     <ClInclude Include="BackgroundManager.h" />
     <ClInclude Include="BattleManager.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="Courtyard.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GlobalVars.h" />
+    <ClInclude Include="Goro.h" />
     <ClInclude Include="HistoryManager.h" />
+    <ClInclude Include="LiuKang.h" />
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="OptionsManager.h" />

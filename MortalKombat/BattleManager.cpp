@@ -190,7 +190,7 @@ void BattleManager::Restart() {
 
 }
 
-void BattleManager::RestartCombat(character character1_, character character2_, background stage_) {
+void BattleManager::RestartCombat(CharacterType character1_, CharacterType character2_, background stage_) {
 
 	character1 = character1_;
 	character2 = character2_;
@@ -253,6 +253,9 @@ void BattleManager::RestartCombat(character character1_, character character2_, 
 		break;
 	default:
 		break;*/
+
+	//switch(character1)
+	Character liu = CreateLiuKang();
 }
 
 int BattleManager::RestartRound(int winner1) {
@@ -304,6 +307,7 @@ void BattleManager::Update() {
 	HUD_vector[2].setSize(size_life);
 
 	BackgroundManager.Update();
+	player1.Update(0.05f);
 
 	IntRect uvRect;
 
@@ -423,5 +427,7 @@ void BattleManager::draw(RenderWindow& window) {
 		window.draw(text);
 	}
 	*/
+
+	player1.debugDraw(window);
 
 }
