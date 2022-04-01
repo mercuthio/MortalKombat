@@ -4,6 +4,7 @@
 #include "EventManager.h"
 #include "Character.h"
 #include "Goro.h"
+#include "LiuKang.h"
 #include "Animation.h"
 #include <chrono>
 #include <thread>
@@ -28,7 +29,8 @@ int main() {
     window.setKeyRepeatEnabled(true);
     window.setFramerateLimit(60);
     
-    Character goro = CreateGoro();
+    //Character goro = CreateGoro();
+    Character liu = CreateLiuKang();
 
     while (window.isOpen()) {
 
@@ -42,9 +44,11 @@ int main() {
             }
 
         }
-        goro.Update(0.05f);
+        //goro.Update(0.05f);
+        liu.Update(0.05f);
         window.clear();
-        goro.debugDraw(window);
+        //goro.debugDraw(window);
+        liu.debugDraw(window);
         window.display();
         this_thread::sleep_for(chrono::milliseconds(50));
     }

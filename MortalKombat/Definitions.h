@@ -5,51 +5,88 @@
 	using namespace sf;
 	using namespace std;
 
+	#include "Animation.h"
+
+	enum class AniamtioTypeGoro {
+
+	};
+
+	enum class AnimationTypeElViejoEsteQueNoSeComoSeLlama {
+
+	};
+
 	enum class AnimationType {
 		// Movements
 		IDLE,
 		JUMP,
-		BACK_JUMP,
-		FORW_JUMP,
-		DOWN,
-		FORW_WALK,
-		BACK_WALK,
+		JUMP_AND_MOVE,
+		DOWN,		// Crouch
+		WALK_FORW,
+		WALK_BACK,
 
 		// Atacks 
 		// -- Punch
-		L_PUNCH_IDLE,
-		M_S_PUNCH_IDLE,
-	
-		L_PUNCH_FORW,
-		M_PUNCH_FORW,
-		S_PUNCH_FORW,
+		PUNCH,
+		PUNCH_MULTIPLE,
+		PUNCH_CLOSE,
 
-		L_PUNCH_DOWN,
-		M_PUNCH_DOWN,
-		S_PUNCH_DOWN,
-	
+		PUNCH_UPPER,		
+		PUNCH_UPPER_MULTIPLE,
+		PUNCH_UPPER_CLOSE,
+
+		PUNCH_FROM_DOWN,
+		PUNCH_FROM_AIR,		
+
 		// -- Kick
-		L_M_KICK_IDLE,
-		S_KICK_IDLE,
+		KICK,
+		KICK_UPPER,
+		KICK_LOW,			
+		KICK_HIGH,
 
-		L_KICK_FORW,
-		M_KICK_FORW,
-		S_KICK_FORW,
+		KICK_FROM_DOWN,
+		KICK_FROM_AIR,
 
-		L_KICK_DOWN,
-		M_KICK_DOWN,
-		S_KICK_DOWN,
+		// Get Hit - Block - Recover
+		HIT_STAND,
+		HIT_STAND_STRONG,
+		HIT_DOWN,
 
-		// Herida
-		BEING_HIT,
 		FALL,
+		FALL_UPPERCUT,
+		FALL_BACK,
+
 		RECOVER,
+		NUTS,
+
+		CATCH,
+		GET_CAUGHT,
+		GET_CAUGHT_GORO,
+
+		SPECIAL,
+
+		DYING,
+		CUT_HEAD,
+		HEAD_FLYING,
+
+		FATALITY,
+		WIN,
+
+		BLOCK,
+		BLOCK_LOW,
+
+		TURN_LEFT,
+		TURN_RIGHT,
 	};
 
 	bool isFixedMovement(AnimationType anim) {
 		return (anim != AnimationType::JUMP) &&
-			(anim != AnimationType::FORW_JUMP) &&
-			(anim != AnimationType::BACK_JUMP) &&
-			(anim != AnimationType::BEING_HIT);
+			(anim != AnimationType::JUMP_AND_MOVE) &&
+			(anim != AnimationType::PUNCH_FROM_AIR) &&
+			(anim != AnimationType::KICK_FROM_AIR);
 	}
+
+	bool isDamageMovement(AnimationType anim) {
+		return (anim != AnimationType::PUNCH);
+	}
+
 #endif

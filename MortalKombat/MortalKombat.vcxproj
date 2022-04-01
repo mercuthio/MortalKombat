@@ -30,11 +30,14 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animacion_Old.h" />
+    <ClInclude Include="AnimationGroup.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="Goro.h" />
     <ClInclude Include="IA.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="LiuKang.h" />
+    <ClInclude Include="Movement.h" />
     <ClInclude Include="Personaje_Old.h" />
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />

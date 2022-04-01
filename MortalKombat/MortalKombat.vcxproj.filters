@@ -86,5 +86,14 @@
     <ClInclude Include="Goro.h">
       <Filter>Archivos de encabezado\Personajes</Filter>
     </ClInclude>
+    <ClInclude Include="LiuKang.h">
+      <Filter>Archivos de encabezado\Personajes</Filter>
+    </ClInclude>
+    <ClInclude Include="Movement.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationGroup.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

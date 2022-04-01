@@ -9,15 +9,17 @@
 
 #include "Definitions.h"
 
+constexpr bool DEBUG = false;
+
 using namespace sf;
 using namespace std;
 
 class Animation {
 public:
 	Animation() = default;
-	Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_frame, Vector2<int> size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames, bool _mirrored);
+	Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames);
 	//~Animation() = delete;
-	bool DoAnimation(RectangleShape& cuerpo);
+	bool DoAnimation(RectangleShape& body);
 	void ResetAnimation();
 	bool RecieveFlagEvent();
 
@@ -38,8 +40,8 @@ private:
 	Vector2<int> size;
 	Vector2<int> offset;						// Cuanto varia el ejeX hasta llegar al principio del siguiente frame
 	vector<int> flagged_frames;
-	int n_of_flagged_frames;
-	int this_flagged_frame;
+	int n_of_flagged_frames = 0;
+	int this_flagged_frame = 0;
 };
 
 /*
@@ -57,26 +59,20 @@ private:
 	@param _mirrored:		'false' pinta el sprite tal y como aparece en _sprite_sheet. 'true' lo pinta mirando al lado opuesto en el eje x
 */
 
-Animation::Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames, bool _mirrored) {
+Animation::Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames) {
 	
 	duration = _duration;
 	sprite_sheet = _sprite_sheet;
 	first_frame = _first_frame;
 	size = _size;
 
-	// TODO: No he probado a poner mirrored + backwards juntos, muy probablemnte falle
-	if (_mirrored) {
-		first_frame.x += size.x;
-		size.x = -size.x;
-	}
-	
 	if (backwards) {
 		offset = Vector2<int>(-size.x - _offset, 0);
 	}
 	else {
 		offset = Vector2<int>(size.x + _offset, 0);
 	}
-
+	
 	recovery = _recovery;
 	this_frame = first_frame;
 	lock = _lock;
@@ -90,13 +86,14 @@ Animation::Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_f
 	Realiza la printura en el sprite 'cuerpo' del siguiente frame de la animación
 	el cual puede estar condicionado por factores externos
 */
-bool Animation::DoAnimation(RectangleShape& cuerpo) {
 
+bool Animation::DoAnimation(RectangleShape& body) {
 	bool finished = !lock;
-	cout << "\FA: " << frame_number << "\tRE: " << this_recovery << endl;
+	if (DEBUG)
+		cout << "\tFA: " << frame_number << "\tRE: " << this_recovery << endl;
 
-	cuerpo.setTexture(&sprite_sheet);
-	cuerpo.setTextureRect(IntRect(this_frame, size));
+	body.setTexture(&sprite_sheet);
+	body.setTextureRect(IntRect(this_frame, size));
 
 	// Si tengo que esperar que algo externo me diga que tengo que cambiar la textura
 	if (n_of_flagged_frames > 0) {
@@ -144,7 +141,6 @@ bool Animation::DoAnimation(RectangleShape& cuerpo) {
 */
 bool Animation::RecieveFlagEvent() {
 	// if (isPersistent){}
-	waiting_flag = false;
 	this_flagged_frame++;
 	return this_flagged_frame < n_of_flagged_frames;
 }
