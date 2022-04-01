@@ -17,14 +17,14 @@ using namespace std;
 class Animation {
 public:
 	Animation() = default;
-	Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames);
+	Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames);
 	//~Animation() = delete;
 	bool DoAnimation(RectangleShape& body);
 	void ResetAnimation();
 	bool RecieveFlagEvent();
 
 private:
-	Texture sprite_sheet;						// Spritesheet de la animacion
+	Texture* sprite_sheet;						// Spritesheet de la animacion
 	int frame_number = 1;
 
 	int	duration = 0;							// Total de imagenes de la animacion
@@ -59,7 +59,7 @@ private:
 	@param _mirrored:		'false' pinta el sprite tal y como aparece en _sprite_sheet. 'true' lo pinta mirando al lado opuesto en el eje x
 */
 
-Animation::Animation(int _duration, Texture _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames) {
+Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames) {
 	
 	duration = _duration;
 	sprite_sheet = _sprite_sheet;
@@ -92,7 +92,7 @@ bool Animation::DoAnimation(RectangleShape& body) {
 	if (DEBUG)
 		cout << "\tFA: " << frame_number << "\tRE: " << this_recovery << endl;
 
-	body.setTexture(&sprite_sheet);
+	body.setTexture(sprite_sheet);
 	body.setTextureRect(IntRect(this_frame, size));
 
 	// Si tengo que esperar que algo externo me diga que tengo que cambiar la textura

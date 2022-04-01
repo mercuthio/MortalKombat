@@ -330,6 +330,10 @@ void Character::debugDraw(RenderWindow& window) {
 }
 
 void Character::Mirror() {
+	Keyboard::Key aux = backButton;
+	backButton = forwButton;
+	forwButton = aux;
+
 	// Recalculate hitboxes positions
 	if (leftOfOpponent) {
 
