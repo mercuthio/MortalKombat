@@ -112,6 +112,9 @@ void Character::CheckAnimation() {
 	
 	CheckDebugAnimations();	
 
+	cout << crouching << " " << Keyboard::isKeyPressed(downButton) << endl;
+
+
 	if (on_air) {					// El personaje está en el aire
 		if (Keyboard::isKeyPressed(punchButton)) {
 			EndAndResetAnimation();
@@ -157,6 +160,7 @@ void Character::CheckAnimation() {
 				animation_in_process = AnimationType::KICK_LOW;
 			}
 			else {
+				crouching = true;
 				animation_in_process = AnimationType::DOWN;
 			}
 		}
@@ -258,8 +262,6 @@ void Character::CheckScreenCollisions() {
 	if (global_position.y > screenFloorLimit) {
 		global_position.y = screenFloorLimit;
 		speed = Vector2<float>(0, 0);
-		EndAndResetAnimation();		// Probar a quitar, queda muy feo
-		on_air = false;
 	}
 }
 
@@ -280,7 +282,7 @@ void Character::DoAnimation() {
 		global_position = global_position - speed * updateTime;
 		Vector2<float> pre_speed = speed;
 		speed.y = speed.y - gravedad * updateTime;
-		
+
 		// Pasamos de subir a bajar
 		if (pre_speed.y >= 0 && speed.y < 0) {
 			animations[animation_in_process].animation.RecieveFlagEvent();
@@ -288,12 +290,22 @@ void Character::DoAnimation() {
 	}
 
 	if (finished) {
-		EndAnimation();
-	}
+		if (!hasFlag(animation_in_process)) {
+			EndAnimation();
+		}
+		else {
+			EndAndResetAnimation();
+		}		
+	}		
 }
 
 void Character::EndAnimation() {
+	cout << "ENDING ANIMATION\n";
+	
 	doing_animation = false;
+	on_air = false;
+	crouching = false;
+	punching = false;
 	animation_in_process = AnimationType::IDLE;
 }
 

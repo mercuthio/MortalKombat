@@ -89,4 +89,8 @@
 		return (anim != AnimationType::PUNCH);
 	}
 
+	bool hasFlag(AnimationType anim) {
+		return (!isFixedMovement(anim) || anim == AnimationType::DOWN);
+	}
+
 #endif

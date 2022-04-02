@@ -96,7 +96,7 @@ bool Animation::DoAnimation(RectangleShape& body) {
 	body.setTextureRect(IntRect(this_frame, size));
 
 	// Si tengo que esperar que algo externo me diga que tengo que cambiar la textura
-	if (n_of_flagged_frames > 0) {
+	if (n_of_flagged_frames > 0 && this_flagged_frame < n_of_flagged_frames) {
 		if (flagged_frames[this_flagged_frame] == frame_number) {
 			return false;
 		}

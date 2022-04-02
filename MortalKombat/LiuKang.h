@@ -16,8 +16,6 @@
 #include <time.h>       /* time_t, struct tm, difftime, time, mktime */
 
 Character CreateLiuKang() {
-	
-	time_t ini1 = time(NULL);
 
 	Texture* spriteSheet = new Texture();
 	Image spriteSheetImage;
@@ -33,24 +31,20 @@ Character CreateLiuKang() {
 	body.setPosition(50, 400);
 
 	vector<int> null_vector{};
-	vector<int> jump_lock{ 1, 3 };
-
-	time_t fin1 = time(NULL);
-
-	time_t ini2 = time(NULL);
+	vector<int> jump_lock{ 1 };
+	vector<int> jump_lock_2{ 7 };
+	vector<int> jump_lock_fall{ 3 };
+	vector<int> duck_lock{3};
 
 	Animation idle0		= Animation(8, spriteSheet, Vector2<int>(32, 58), sz, 5, false, false, 0, null_vector);
 	Animation forw0		= Animation(9, spriteSheet, Vector2<int>(2138, 58), sz, 5, false, false, 0, null_vector);
 	Animation back0		= Animation(9, spriteSheet, Vector2<int>(4010, 58), sz, 5, true, false, 0, null_vector);
 	Animation punch0	= Animation(4, spriteSheet, Vector2<int>(32, 580), sz, 5, false, true, 3, null_vector);
-	Animation jump0		= Animation(1, spriteSheet, Vector2<int>(32, 3090), sz, 5, false, false, 0, null_vector);
-	Animation jumpMove0	= Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, false, 0, null_vector);
-	Animation jumpFall	= Animation(3, spriteSheet, Vector2<int>(3308, 3089), sz, 5, false, false, 0, jump_lock);
+	Animation jump0		= Animation(1, spriteSheet, Vector2<int>(32, 3090), sz, 5, false, true, 0, jump_lock);
+	Animation jumpMove0	= Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, 0, jump_lock_2);
+	Animation jumpFall	= Animation(3, spriteSheet, Vector2<int>(3308, 3089), sz, 5, false, true, 0, jump_lock_fall);
 	Animation kick0		= Animation(7, spriteSheet, Vector2<int>(32, 1574), sz, 5, false, true, 0, null_vector);
-
-	time_t fin2 = time(NULL);
-
-	time_t ini3 = time(NULL);
+	Animation duck0		= Animation(5, spriteSheet, Vector2<int>(32, 2568), sz, 5, false, true, 0, duck_lock);
 
 	AnimationGroup idle = AnimationGroup(idle0);
 	AnimationGroup forwWalk = AnimationGroup(forw0);
@@ -61,10 +55,7 @@ Character CreateLiuKang() {
 	AnimationGroup jumpMove = AnimationGroup(jumpMove0);
 	jumpMove.AddAnimation(jumpFall);
 	AnimationGroup kick = AnimationGroup(kick0);
-
-	time_t fin3 = time(NULL);
-
-	time_t ini4 = time(NULL);
+	AnimationGroup duck = AnimationGroup(duck0);
 
 	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0) };
 	Movement forwMov = Movement{ forwWalk, Vector2<float>(10.0, 0.0) };
@@ -73,10 +64,7 @@ Character CreateLiuKang() {
 	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0) };
 	Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0) };
 	Movement jumpMoveMov = Movement{ jumpMove, Vector2<float>(0.0, 0.0) };
-
-	time_t fin4 = time(NULL);
-
-	time_t ini5 = time(NULL);
+	Movement duckMov = Movement{duck, Vector2<float>(0.0,0.0)};
 
 	map<AnimationType, Movement> animations;
 	animations[AnimationType::IDLE] = idleMov;
@@ -84,13 +72,10 @@ Character CreateLiuKang() {
 	animations[AnimationType::WALK_BACK] = backMov;
 	animations[AnimationType::PUNCH] = punchMov;
 	animations[AnimationType::JUMP] = jumpMov;
-	animations[AnimationType::JUMP_AND_MOVE] = jumpMov;
+	animations[AnimationType::JUMP_AND_MOVE] = jumpMoveMov;
 	animations[AnimationType::KICK] = kickMov;
+	animations[AnimationType::DOWN] = duckMov;
 
-	time_t fin5 = time(NULL);
-
-	cout << fin1 - ini1 << endl << fin2 - ini2 << endl << fin3 - ini3 << endl << fin4 - ini4 << endl << fin5 - ini5 << endl;
-	
 	Character LiuKang = Character(animations, body);
 	
 	return LiuKang;
