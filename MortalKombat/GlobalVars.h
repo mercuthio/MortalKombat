@@ -4,7 +4,7 @@
 using namespace sf;
 
 const int NUMBER_TRACKS = 191;
-const float ASPECT_RATIO = 4.0/3.0;
+const double ASPECT_RATIO = 4.0/3.0;
 
 static float width_window = 1024;
 static float height_window = 768;
@@ -112,6 +112,10 @@ static bool isFixedMovement(AnimationType anim) {
 
 static bool isDamageMovement(AnimationType anim) {
 	return (anim != AnimationType::PUNCH);
+}
+
+static bool hasFlag(AnimationType anim) {
+	return (!isFixedMovement(anim) || anim == AnimationType::DOWN);
 }
 
 #endif

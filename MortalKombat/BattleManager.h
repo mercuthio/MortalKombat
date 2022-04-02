@@ -6,6 +6,7 @@
 #include "BackgroundManager.h"
 
 #include "LiuKang.h"
+#include "Scorpion.h"
 
 #include "Courtyard.h"
 #include "Warrior_Shrine.h"
@@ -29,12 +30,13 @@ public:
 	void RestartCombat(CharacterType, CharacterType, background);					//Reinicia los datos del combate
 	void Restart();
 	void LoadTextures();
+	void LoadCharacters();
 	int RestartRound(int);								//Resetea las variables para una nueva ronda, devuelve 0 si no ha ganado nadie, 1 si ha ganado el jugador1 y 2 el jugador2
 
 private:
 
-	int character1;										//Personaje del jugador 1
-	int character2;										//Personaje del jugador 2
+	CharacterType character1;										//Personaje del jugador 1
+	CharacterType character2;										//Personaje del jugador 2
 
 	int life1;
 	int life2;
@@ -67,6 +69,11 @@ private:
 	Font font;											//Variable con la fuente de letra
 
 	BackgroundManager BackgroundManager;
+
+	Character LiuKang;
+	Character Scorpion;
+
+
 	Character player1;
 	Character player2;
 

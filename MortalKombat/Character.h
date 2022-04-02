@@ -12,8 +12,8 @@
 //--------------DEBUG-------------
 constexpr int screenLeftLimit = -1000;
 constexpr int screenRightLimit = 1000;
-constexpr int screenFloorLimit = 380;
-constexpr float gravedad = 1000;			// pixels/s^2
+constexpr int screenFloorLimit = 200;
+constexpr float gravedad = 1800;			// pixels/s^2
 constexpr float updateTime = 0.05;			// 50 milis
 constexpr bool DEBUG_POSITION = true;
 //--------------------------------
@@ -25,7 +25,7 @@ using namespace std;
 class Character {
 public:
 	Character() = default;
-	Character(map<AnimationType, Movement> _animations, RectangleShape& _body);
+	Character(map<AnimationType, Movement> _animations, RectangleShape & _body);
 	//~Character() = delete;
 
 	void Update(float time);
@@ -41,6 +41,8 @@ private:
 
 	Vector2<float> global_position;
 	map<AnimationType, Movement> animations; // mapa de enum -> animacion
+
+	float internalTimer = 0.05f;
 
 	int life = 100;
 	int energy = 0;

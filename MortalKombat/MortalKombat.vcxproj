@@ -49,6 +49,7 @@
     <ClInclude Include="HistoryManager.h" />
     <ClInclude Include="LiuKang.h" />
     <ClInclude Include="Movement.h" />
+    <ClInclude Include="Scorpion.h" />
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="OptionsManager.h" />

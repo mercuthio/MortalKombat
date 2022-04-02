@@ -15,10 +15,13 @@ BattleManager::BattleManager(Texture* texture_, Font font_) {
 	clock_fight = 0;
 
 	LoadTextures();
+	LoadCharacters();
 
 }
 
 void BattleManager::LoadTextures() {
+
+	cout << "[*] Loading game textures..." << endl;
 
 	HUD_vector.clear();
 	Texts.clear();
@@ -71,7 +74,7 @@ void BattleManager::LoadTextures() {
 	uvRect.width = 161.0f;
 	uvRect.height = 11.0f;
 	uvRect.left = 5406;
-	uvRect.top = 99 + 15 * character1;
+	uvRect.top = 99 + 15 * (int)character1;
 	rect.setSize(size_name);
 
 	rect.setTextureRect(uvRect);
@@ -180,6 +183,15 @@ void BattleManager::LoadTextures() {
 
 }
 
+void BattleManager::LoadCharacters(){
+	cout << "[*] Loading character textures..." << endl;
+	LiuKang = CreateLiuKang();
+	cout << "[+......] Character LiuKang loaded!" << endl;
+	Scorpion = CreateScorpion();
+	cout << "[++.....] Character Scorpion loaded!" << endl;
+	cout << "[+++++++] All characters loaded succesfully!" << endl;
+}
+
 void BattleManager::Restart() {
 
 	clock_timer = 0;
@@ -254,9 +266,28 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	default:
 		break;*/
 
-		//switch(character1)
-	player1 = CreateLiuKang();
-	//player1.initPosition(BackgroundManager.getInitPos(1));
+	switch (character1){
+	case CAGE:
+		break;
+	case KANO:
+		break;
+	case RAIDEN:
+		break;
+	case LIU_KANG:
+		player1 = LiuKang;
+		break;
+	case SCORPION:
+		player1 = Scorpion;
+		break;
+	case SUB_ZERO:
+		break;
+	case SONYA:
+		break;
+	default:
+		player1 = Scorpion;
+		break;
+	}
+	player1.initPosition(BackgroundManager.initPlayer1);
 }
 
 int BattleManager::RestartRound(int winner1) {

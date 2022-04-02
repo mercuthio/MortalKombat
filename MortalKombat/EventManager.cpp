@@ -6,7 +6,6 @@ EventManager::EventManager(Texture textures[], Font font) : StartManager(&textur
 	PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]), BattleManager(&textures[0],font) {
 
 	state = 0;
-	character1 = SCORPION;
 	changedEstate = false;
 
 	//music[0].openFromFile("audio/soundtrack.ogg");

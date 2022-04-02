@@ -13,6 +13,9 @@ class BackgroundManager {
 public:
 	BackgroundManager() {}
 	virtual ~BackgroundManager() = default;
+	
+	Vector2<float> initPlayer1;
+	Vector2<float> initPlayer2;
 
 	void Update();
 	void draw(RenderWindow&);

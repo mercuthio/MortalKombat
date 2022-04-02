@@ -137,5 +137,8 @@
     <ClInclude Include="LiuKang.h">
       <Filter>Archivos de encabezado\GameManager\Characters</Filter>
     </ClInclude>
+    <ClInclude Include="Scorpion.h">
+      <Filter>Archivos de encabezado\GameManager\Characters</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

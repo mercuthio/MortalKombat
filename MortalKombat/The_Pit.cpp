@@ -14,6 +14,9 @@ void The_Pit::loadTextures() {
 
 	Vector2f sizeBackground = Vector2f(rectWidth * aspectRelation, height_window + 20);
 
+	initPlayer1 = Vector2<float>(-50, 135);
+	initPlayer2 = Vector2<float>(550, 135);
+
 	IntRect uvRect;
 	RectangleShape tile;
 	uvRect.width = rectWidth;

@@ -7,18 +7,26 @@ Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _
 }
 
 void Character::Update(float tiempo) {
-	//global_position = body.getPosition();
-	if (DEBUG_POSITION) {
-		cout << "X: " << global_position.x << " - Y:" << global_position.y << endl;
-		cout << "Origin: " << "(" << body.getOrigin().x << ", " << body.getOrigin().y << ")" << endl;
+	if (internalTimer >= updateTime) {
+
+		internalTimer = 0.0f;
+		//global_position = body.getPosition();
+		if (DEBUG_POSITION) {
+			cout << "X: " << global_position.x << " - Y:" << global_position.y << endl;
+			cout << "Origin: " << "(" << body.getOrigin().x << ", " << body.getOrigin().y << ")" << endl;
+		}
+
+		CheckAnimation();	// Dependiendo de que ha pulsado el jugador hago una animación u otra
+		DoAnimation();		// Realizo el siguiente frame de la animación
+
+		CheckCollisions();
+
+		body.setPosition(global_position);
+	
 	}
-
-	CheckAnimation();	// Dependiendo de que ha pulsado el jugador hago una animación u otra
-	DoAnimation();		// Realizo el siguiente frame de la animación
-
-	CheckCollisions();
-
-	body.setPosition(global_position);
+	else {
+		internalTimer += 0.025f;
+	}
 }
 
 void Character::initPosition(Vector2<float> initPos) {
@@ -28,6 +36,9 @@ void Character::initPosition(Vector2<float> initPos) {
 void Character::CheckAnimation() {
 
 	CheckDebugAnimations();
+
+	cout << crouching << " " << Keyboard::isKeyPressed(downButton) << endl;
+
 
 	if (on_air) {					// El personaje está en el aire
 		if (Keyboard::isKeyPressed(punchButton)) {
@@ -74,13 +85,14 @@ void Character::CheckAnimation() {
 				animation_in_process = AnimationType::KICK_LOW;
 			}
 			else {
+				crouching = true;
 				animation_in_process = AnimationType::DOWN;
 			}
 		}
 		else if (Keyboard::isKeyPressed(forwButton)) {												//Moverse derecha
 			if (Keyboard::isKeyPressed(jumpButton)) {												//Salto hacia delante
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
-				speed = Vector2<float>(-100, 300);
+				speed = Vector2<float>(-400, 700);
 				on_air = true;
 			}
 			else if (Keyboard::isKeyPressed(punchButton)) {											//L.Punch hacia delante
@@ -97,7 +109,7 @@ void Character::CheckAnimation() {
 
 			if (Keyboard::isKeyPressed(jumpButton)) {												//Salto hacia atras
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
-				speed = Vector2<float>(100, 300);
+				speed = Vector2<float>(400, 700);
 			}
 			else if (Keyboard::isKeyPressed(punchButton)) {												//Salto hacia delante
 				animation_in_process = AnimationType::PUNCH;
@@ -112,7 +124,7 @@ void Character::CheckAnimation() {
 		}
 		else if (Keyboard::isKeyPressed(jumpButton)) {												//Salto en parado
 			animation_in_process = AnimationType::JUMP;
-			speed = Vector2<float>(0, 300);
+			speed = Vector2<float>(0, 700);
 			on_air = true;
 		}
 		else if (Keyboard::isKeyPressed(kickButton)) {		//M.Punch, H.Punch en parado
@@ -175,8 +187,6 @@ void Character::CheckScreenCollisions() {
 	if (global_position.y > screenFloorLimit) {
 		global_position.y = screenFloorLimit;
 		speed = Vector2<float>(0, 0);
-		EndAndResetAnimation();		// Probar a quitar, queda muy feo
-		on_air = false;
 	}
 }
 
@@ -205,12 +215,22 @@ void Character::DoAnimation() {
 	}
 
 	if (finished) {
-		EndAnimation();
+		if (!hasFlag(animation_in_process)) {
+			EndAnimation();
+		}
+		else {
+			EndAndResetAnimation();
+		}
 	}
 }
 
 void Character::EndAnimation() {
+	cout << "ENDING ANIMATION\n";
+
 	doing_animation = false;
+	on_air = false;
+	crouching = false;
+	punching = false;
 	animation_in_process = AnimationType::IDLE;
 }
 
@@ -247,6 +267,10 @@ void Character::debugDraw(RenderWindow& window) {
 }
 
 void Character::Mirror() {
+	Keyboard::Key aux = backButton;
+	backButton = forwButton;
+	forwButton = aux;
+
 	// Recalculate hitboxes positions
 	if (leftOfOpponent) {
 
