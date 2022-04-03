@@ -50,6 +50,7 @@
     <ClInclude Include="LiuKang.h" />
     <ClInclude Include="Movement.h" />
     <ClInclude Include="Scorpion.h" />
+    <ClInclude Include="Sonya_Blade.h" />
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="OptionsManager.h" />

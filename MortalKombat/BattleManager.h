@@ -7,6 +7,7 @@
 
 #include "LiuKang.h"
 #include "Scorpion.h"
+#include "Sonya_Blade.h"
 
 #include "Courtyard.h"
 #include "Warrior_Shrine.h"
@@ -55,6 +56,8 @@ private:
 	int clock_flash;
 	int clock_fight;
 	int clock_start;
+	int clock_inDanger1;
+	int clock_inDanger2;
 
 	int fight_x;
 
@@ -64,6 +67,8 @@ private:
 	bool showing_round;
 	bool inDanger1;
 	bool inDanger2;
+	bool showed_danger1;
+	bool showed_danger2;
 
 	Texture* texture;
 	Font font;											//Variable con la fuente de letra
@@ -72,6 +77,7 @@ private:
 
 	Character LiuKang;
 	Character Scorpion;
+	Character SonyaBlade;
 
 
 	Character player1;

@@ -36,6 +36,8 @@ public:
 
 	void initPosition(Vector2<float> initPos);
 
+	float GetLife();
+
 private:
 	RectangleShape body;
 

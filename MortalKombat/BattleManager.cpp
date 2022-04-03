@@ -189,6 +189,8 @@ void BattleManager::LoadCharacters(){
 	cout << "[+......] Character LiuKang loaded!" << endl;
 	Scorpion = CreateScorpion();
 	cout << "[++.....] Character Scorpion loaded!" << endl;
+	SonyaBlade = CreateSonyaBlade();
+	cout << "[+++....] Character Sonya Blade loaded!" << endl;
 	cout << "[+++++++] All characters loaded succesfully!" << endl;
 }
 
@@ -197,6 +199,8 @@ void BattleManager::Restart() {
 	clock_timer = 0;
 	clock_flash = 0;
 	clock_fight = 0;
+	clock_inDanger1 = 0;
+	clock_inDanger2 = 0;
 
 	LoadTextures();
 
@@ -282,6 +286,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	case SUB_ZERO:
 		break;
 	case SONYA:
+		player1 = SonyaBlade;
 		break;
 	default:
 		player1 = Scorpion;
@@ -313,6 +318,8 @@ int BattleManager::RestartRound(int winner1) {
 		showing_round = true;
 		inDanger1 = false;
 		inDanger2 = false;
+		showed_danger1 = false;
+		showed_danger2 = false;
 
 		fight_x = 0;
 		life1 = 100;
@@ -334,11 +341,23 @@ void BattleManager::Update(Event event) {
 
 void BattleManager::Update() {
 
-	float vida = 100.0f;
+	float vida = player1.GetLife();
 	Vector2f size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[2].getSize().y);
 	HUD_vector[2].setSize(size_life);
+	if (!showed_danger1 && (vida / 100.0f) <= 0.2f) {
+		inDanger1 = true;
+	}
+
+	//float vida = player2.GetLife();
+	//size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[3].getSize().y);
+	//HUD_vector[3].setSize(size_life);
+
+	//if (!showed_danger2 && (vida / 100.0f) <= 0.2f) {
+	//	inDanger2 = true;
+	//}
 
 	player1.Update(0.05f);
+	//player2.Update(0.05f);
 
 	BackgroundManager.Update();
 
@@ -369,6 +388,22 @@ void BattleManager::Update() {
 		uvRect.left = 5573 + 16 * (time_left % 10);
 		HUD_vector[14].setTextureRect(uvRect);
 
+	}
+
+	if (inDanger1) {
+		clock_inDanger1++;
+		if (clock_inDanger1 == 100) {
+			showed_danger1 = true;
+			inDanger1 = false;
+		}
+	}
+
+	if (inDanger2) {
+		clock_inDanger2++;
+		if (clock_inDanger2 == 100) {
+			showed_danger2 = true;
+			inDanger2 = false;
+		}
 	}
 
 	if (clock_flash == 10) {

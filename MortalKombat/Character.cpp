@@ -298,3 +298,7 @@ void Character::debug_animation() {
 	}
 	cout << "\tVelocidad: " << speed.x << " " << speed.y << "\t";
 }
+
+float Character::GetLife() {
+	return life;
+}

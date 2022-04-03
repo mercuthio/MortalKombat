@@ -1,14 +1,14 @@
-#ifndef Scorpion_H
-#define Scorpion_H
+#ifndef SonyaBlade_H
+#define SonyaBlade_H
 
 #include "Character.h"
 
-static Character CreateScorpion() {
+static Character CreateSonyaBlade() {
 	Texture* spriteSheet = new Texture();
 	Image spriteSheetImage;
 	Color back = Color(165, 231, 255, 255);
 
-	spriteSheetImage.loadFromFile("resources/Sprites/Personajes/Scorpion.png");
+	spriteSheetImage.loadFromFile("resources/Sprites/Personajes/Sonya_Blade.png");
 	spriteSheetImage.createMaskFromColor(back);
 
 	spriteSheet->loadFromImage(spriteSheetImage);
@@ -25,12 +25,12 @@ static Character CreateScorpion() {
 
 	Animation idle0 = Animation(7, spriteSheet, Vector2<int>(32, 58), sz, 5, false, false, 0, null_vector);
 	Animation forw0 = Animation(9, spriteSheet, Vector2<int>(1904, 58), sz, 5, false, false, 0, null_vector);
-	Animation back0 = Animation(9, spriteSheet, Vector2<int>(4005, 58), sz, 5, true, false, 0, null_vector);
+	Animation back0 = Animation(9, spriteSheet, Vector2<int>(3776, 58), sz, 5, true, false, 0, null_vector);
 	Animation punch0 = Animation(5, spriteSheet, Vector2<int>(32, 580), sz, 5, false, true, 5, null_vector);
 	Animation jump0 = Animation(1, spriteSheet, Vector2<int>(32, 3090), sz, 5, false, true, 0, jump_lock);
 	Animation jumpMove0 = Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, 0, jump_lock_2);
-	Animation jumpFall = Animation(3, spriteSheet, Vector2<int>(2372, 3090), sz, 5, false, true, 0, jump_lock_fall);
-	Animation kick0 = Animation(7, spriteSheet, Vector2<int>(32, 1574), sz, 5, false, true, 0, null_vector);
+	Animation jumpFall = Animation(3, spriteSheet, Vector2<int>(1904, 3090), sz, 5, false, true, 0, jump_lock_fall);
+	Animation kick0 = Animation(9, spriteSheet, Vector2<int>(32, 1574), sz, 5, false, true, 0, null_vector);
 	Animation duck0 = Animation(5, spriteSheet, Vector2<int>(32, 2568), sz, 5, false, true, 0, duck_lock);
 
 	AnimationGroup idle = AnimationGroup(idle0);
@@ -63,9 +63,9 @@ static Character CreateScorpion() {
 	animations[AnimationType::KICK] = kickMov;
 	animations[AnimationType::DOWN] = duckMov;
 
-	Character Scorpion = Character(animations, body);
+	Character SonyaBlade = Character(animations, body);
 
-	return Scorpion;
+	return SonyaBlade;
 }
 
 #endif //LIUKANG_H
