@@ -272,10 +272,13 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 
 	switch (character1){
 	case CAGE:
+		player1 = Scorpion;
 		break;
 	case KANO:
+		player1 = Scorpion;
 		break;
 	case RAIDEN:
+		player1 = Scorpion;
 		break;
 	case LIU_KANG:
 		player1 = LiuKang;
@@ -284,6 +287,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 		player1 = Scorpion;
 		break;
 	case SUB_ZERO:
+		player1 = Scorpion;
 		break;
 	case SONYA:
 		player1 = SonyaBlade;

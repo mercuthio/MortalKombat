@@ -54,6 +54,7 @@ private:
 	bool on_air = false;
 	bool punching = false;
 	bool crouching = false;
+	bool blocking = false;
 
 	Vector2<float> speed;
 	bool leftOfOpponent = true;
