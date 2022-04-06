@@ -53,12 +53,12 @@ MenuManager::MenuManager(Texture* textur, Font font_) {
 
 void MenuManager::Update() {
 
-	Color darkRed = Color(255,255,0,255);
+	Color yellow = Color(255,255,0,255);
 
-	text[choosenOption].setFillColor(darkRed);
+	text[choosenOption].setFillColor(yellow);
 
 	for (int i = 0; i < NUM_OPTIONS_MENU; i++) {
-		if (i != choosenOption && text[i].getFillColor() == darkRed) {
+		if (i != choosenOption && text[i].getFillColor() == yellow) {
 			text[i].setFillColor(Color::White);
 		}
 	}

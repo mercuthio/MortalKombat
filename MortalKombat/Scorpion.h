@@ -28,7 +28,7 @@ static Character CreateScorpion() {
 	Animation idle0 = Animation(7, spriteSheet, Vector2<int>(32, 58), sz, 5, false, false, 0, null_vector);
 	Animation forw0 = Animation(9, spriteSheet, Vector2<int>(1904, 58), sz, 5, false, false, 0, null_vector);
 	Animation back0 = Animation(9, spriteSheet, Vector2<int>(3776, 58), sz, 5, true, false, 0, null_vector);
-	Animation punch0 = Animation(5, spriteSheet, Vector2<int>(32, 580), sz, 5, false, true, 5, null_vector);
+	Animation punch0 = Animation(5, spriteSheet, Vector2<int>(32, 580), sz, 5, false, true, 2, null_vector);
 	Animation jump0 = Animation(1, spriteSheet, Vector2<int>(32, 3090), sz, 5, false, true, 0, jump_lock);
 	Animation jumpMove0 = Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, 0, jump_lock_2);
 	Animation jumpFall = Animation(3, spriteSheet, Vector2<int>(2840, 3090), sz, 5, false, true, 0, jump_lock_fall);

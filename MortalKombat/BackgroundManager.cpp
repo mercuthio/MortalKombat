@@ -33,6 +33,8 @@ void BackgroundManager::Update() {
 		break;
 	}
 
+	backgroundVector[4].setPosition(backgroundVector[4].getPosition().x + moveXBack, backgroundVector[4].getPosition().y + moveYBack);
+
 }
 
 void BackgroundManager::draw(RenderWindow& window) {

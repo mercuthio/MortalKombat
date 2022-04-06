@@ -201,6 +201,8 @@ void Character::DoAnimation() {
 	if (isFixedMovement(animation_in_process)) { // Sigue un desplazamiento fijado
 		Vector2<float> mov = animations[animation_in_process].traslation;
 		mov.x = leftOfOpponent ? mov.x : -mov.x;
+		moveXBack = mov.x;
+		cout << moveXBack << " MUEVE ESCENARIO" << endl;
 		global_position += mov;
 	}
 	else { // Sigue las físicas del mundo (gravedad)

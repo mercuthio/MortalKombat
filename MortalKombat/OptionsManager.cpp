@@ -8,7 +8,6 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	choosenOption = 0;
 	music = 3;
 	effects = 3;
-	speed = 1;
 	difficulty = false;
 
 	for (int i = 0; i < MAX_MUSIC; i++) {
@@ -21,24 +20,17 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 
 	for (int i = 0; i <= NUM_OPTIONS_OPT; i++) {
 		text[i].setFont(font);
-		text[i].setFillColor(Color::Black);
+		text[i].setFillColor(Color::White);
 		text[i].setCharacterSize(CHAR_SIZE);
-		text[i].setOutlineColor(Color::Green);
-		text[i].setOutlineThickness(2.0f);
 	}
 
-	text[0].setString("MUSICA");
-	text[1].setString("EFECTOS");
-	text[2].setString("VELOCIDAD");
-	text[3].setString("DIFICULTAD");
-	text[4].setString("SALIR");
-
-	veloc.setFont(font);
-	veloc.setFillColor(Color::Green);
-	veloc.setCharacterSize(CHAR_SIZE);
+	text[0].setString("MUSIC");
+	text[1].setString("EFFECTS");
+	text[2].setString("DIFFICULTY");
+	text[3].setString("EDIT CONTROLS");
 
 	dific.setFont(font);
-	dific.setFillColor(Color::Green);
+	dific.setFillColor(Color::White);
 	dific.setCharacterSize(CHAR_SIZE);
 
 	uvRect.width = 390;
@@ -54,23 +46,23 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 
 void OptionsManager::Update() {
 
-	text[choosenOption].setFillColor(Color::Green);
-	text[choosenOption].setOutlineColor(Color::Black);
+	Color yellow = Color(255, 255, 0, 255);
+
+	text[choosenOption].setFillColor(yellow);
 
 	for (int i = 0; i <= NUM_OPTIONS_OPT; i++) {
-		if (i != choosenOption && text[i].getFillColor() == Color::Green) {
-			text[i].setFillColor(Color::Black);
-			text[i].setOutlineColor(Color::Green);
+		if (i != choosenOption && text[i].getFillColor() == yellow) {
+			text[i].setFillColor(Color::White);
 		}
 	}
 
 	for (int i = 0; i < MAX_MUSIC; i++) {
 
 		if (i <= music) {
-			musi[i].setFillColor(Color::Green);
+			musi[i].setFillColor(yellow);
 		}
 		else {
-			musi[i].setFillColor(Color::Black);
+			musi[i].setFillColor(Color::White);
 		}
 
 	}
@@ -78,29 +70,16 @@ void OptionsManager::Update() {
 	for (int i = 0; i < MAX_EFFECTS; i++) {
 
 		if (i <= effects) {
-			efec[i].setFillColor(Color::Green);
+			efec[i].setFillColor(yellow);
 		}
 		else {
-			efec[i].setFillColor(Color::Black);
+			efec[i].setFillColor(Color::White);
 		}
 
-	}
-
-	switch (speed) {
-	case 0:
-		veloc.setString("LENTA");
-		break;
-	case 1:
-		veloc.setString("NORMAL");
-		break;
-
-	case 2:
-		veloc.setString("RAPIDA");
-		break;
 	}
 
 	if (difficulty) {
-		dific.setString("DIFICIL");
+		dific.setString("HARD");
 	}
 	else {
 		dific.setString("NORMAL");
@@ -122,12 +101,7 @@ void OptionsManager::Enter(Music& music_) {
 			effects++;
 		}
 		break;
-	case 2: //VELOCIDAD
-		if (speed + 1 < MAX_SPEED) {
-			speed++;
-		}
-		break;
-	case 3: //DIFICULTAD
+	case 2: //DIFICULTAD
 		difficulty = !difficulty;
 		break;
 	}
@@ -148,12 +122,7 @@ void OptionsManager::Izquierda(Music& music_) {
 			effects--;
 		}
 		break;
-	case 2: //VELOCIDAD
-		if (speed - 1>= 0) {
-			speed--;
-		}
-		break;
-	case 3: //DIFICULTAD
+	case 2: //DIFICULTAD
 		difficulty = !difficulty;
 		break;
 	}
@@ -171,8 +140,9 @@ void OptionsManager::draw(RenderWindow& window) {
 	backg.setSize(Vector2f(width_window, height_window));
 	window.draw(backg);
 
-	for (int i = 0; i < NUM_OPTIONS_OPT - 1; i++) {
-		text[i].setPosition(Vector2f(width_window / 10, height_window / 10 + CHAR_SIZE * (i * 1.3)));
+	for (int i = 0; i < NUM_OPTIONS_OPT; i++) {
+		//text[i].setPosition(Vector2f(width_window / 10, height_window / 10 + CHAR_SIZE * (i * 1.3)));
+		text[i].setPosition(Vector2f(width_window / 3 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 50));
 		window.draw(text[i]);
 	}
 
@@ -186,13 +156,9 @@ void OptionsManager::draw(RenderWindow& window) {
 		window.draw(efec[i]);
 	}
 
-	veloc.setPosition(Vector2f(width_window / 1.6, height_window / 10 + CHAR_SIZE * (2 * 1.3)));
-	window.draw(veloc);
-
 	dific.setPosition(Vector2f(width_window / 1.6, height_window / 10 + CHAR_SIZE * (3 * 1.3)));
 	window.draw(dific);
 
-	text[NUM_OPTIONS_OPT - 1].setPosition(Vector2f(width_window / 10, height_window / 1.2 - (CHAR_SIZE + 5)));
 	window.draw(text[NUM_OPTIONS_OPT - 1]);
 
 }
