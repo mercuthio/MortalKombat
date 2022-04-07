@@ -5,7 +5,7 @@ EventManager::EventManager(Texture textures[], Font font) : StartManager(&textur
 	MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), 
 	PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]), BattleManager(&textures[0],font) {
 
-	state = 0;
+	state = 4;
 	changedEstate = false;
 
 	//music[0].openFromFile("audio/soundtrack.ogg");
@@ -35,12 +35,12 @@ void EventManager::Update(Event event) {
 	case 1: //MenuManager
 
 		switch (event.key.code) {
-		case Keyboard::Up:
+		case Keyboard::W:
 
 			MenuManager.MoveCursor(true);
 			break;
 
-		case Keyboard::Down:
+		case Keyboard::S:
 
 			MenuManager.MoveCursor(false);
 			break;
@@ -187,12 +187,12 @@ void EventManager::Update(Event event) {
 	case 4: //OptionsManager
 
 		switch (event.key.code) {
-		case Keyboard::Up:
+		case Keyboard::W:
 
 			OptionsManager.MoveCursor(true);
 			break;
 
-		case Keyboard::Down:
+		case Keyboard::S:
 
 			OptionsManager.MoveCursor(false);
 			break;
@@ -200,7 +200,7 @@ void EventManager::Update(Event event) {
 		case Keyboard::Enter:
 
 			changedEstate = true;
-			OptionsManager.Enter(music[0]);
+			OptionsManager.Enter();
 
 			if (OptionsManager.ChoosenOption() == 4) {
 
@@ -210,10 +210,10 @@ void EventManager::Update(Event event) {
 
 			break;
 
-		case Keyboard::Right:
+		case Keyboard::D:
 
 			changedEstate = true;
-			OptionsManager.Enter(music[0]);
+			OptionsManager.Right(music[0]);
 
 			if (OptionsManager.ChoosenOption() == 4) {
 
@@ -223,7 +223,7 @@ void EventManager::Update(Event event) {
 
 			break;
 
-		case Keyboard::Left:
+		case Keyboard::A:
 
 			changedEstate = true;
 			OptionsManager.Izquierda(music[0]);

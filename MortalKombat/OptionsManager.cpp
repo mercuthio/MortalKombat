@@ -8,6 +8,7 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	choosenOption = 0;
 	music = 3;
 	effects = 3;
+	showing_controls = false;
 	difficulty = false;
 
 	for (int i = 0; i < MAX_MUSIC; i++) {
@@ -18,16 +19,18 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 		efec[i].setSize(Vector2f(15, CHAR_SIZE));
 	}
 
+	text[0].setString("MUSIC");
+	text[1].setString("EFFECTS");
+	text[2].setString("DIFFICULTY");
+	text[3].setString("CONTROLS");
+
 	for (int i = 0; i <= NUM_OPTIONS_OPT; i++) {
 		text[i].setFont(font);
 		text[i].setFillColor(Color::White);
 		text[i].setCharacterSize(CHAR_SIZE);
+		shadow[i] = text[i];
+		shadow[i].setFillColor(Color::Black);
 	}
-
-	text[0].setString("MUSIC");
-	text[1].setString("EFFECTS");
-	text[2].setString("DIFFICULTY");
-	text[3].setString("EDIT CONTROLS");
 
 	dific.setFont(font);
 	dific.setFillColor(Color::White);
@@ -41,6 +44,16 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	backg.setPosition(0, 0);
 	backg.setTextureRect(uvRect);
 	backg.setTexture(texture);
+
+	Texture* texture2 = new Texture;
+	texture2->loadFromFile("resources/Imagenes/Menus/icon30x30.png");
+	logo.setTexture(texture2);
+	logo.setPosition(0, 0);
+	logo.setSize(Vector2f(CHAR_SIZE, CHAR_SIZE));
+
+	//texture2->loadFromFile("resources/Imagenes/Menus/Controls.png");
+	//controls_backg.setTexture(texture);
+	controls_backg.setPosition(0, 0);
 
 }
 
@@ -87,7 +100,7 @@ void OptionsManager::Update() {
 
 }
 
-void OptionsManager::Enter(Music& music_) {
+void OptionsManager::Right(Music& music_) {
 
 	switch (choosenOption) {
 	case 0: //MUSICA
@@ -104,8 +117,18 @@ void OptionsManager::Enter(Music& music_) {
 	case 2: //DIFICULTAD
 		difficulty = !difficulty;
 		break;
+	case 3:
+		showing_controls = true;
+		break;
 	}
 
+}
+
+void OptionsManager::Enter() {
+
+	if (choosenOption == 3){
+		showing_controls = !showing_controls;
+	}
 }
 
 void OptionsManager::Izquierda(Music& music_) {
@@ -142,24 +165,34 @@ void OptionsManager::draw(RenderWindow& window) {
 
 	for (int i = 0; i < NUM_OPTIONS_OPT; i++) {
 		//text[i].setPosition(Vector2f(width_window / 10, height_window / 10 + CHAR_SIZE * (i * 1.3)));
-		text[i].setPosition(Vector2f(width_window / 3 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 50));
-		window.draw(text[i]);
-	}
+		text[i].setPosition(Vector2f(width_window / 5 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 100));
+		shadow[i].setPosition(Vector2f(width_window / 5 + 10 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 10 + 100));
+		if (i == choosenOption) {
+			logo.setPosition(text[i].getPosition().x - 85, text[i].getPosition().y + 15);
+		}
 
+		window.draw(shadow[i]);
+		window.draw(text[i]);
+		window.draw(logo);
+	}
+	
 	for (int i = 0; i < MAX_MUSIC; i++) {
-		musi[i].setPosition(Vector2f(width_window / 1.6 + (i * (CHAR_SIZE / 2)), height_window / 10));
+		musi[i].setPosition(Vector2f(width_window / 1.6 + (i * (CHAR_SIZE / 2)), height_window / 7 + CHAR_SIZE + 100));
 		window.draw(musi[i]);
 	}
 
 	for (int i = 0; i < MAX_EFFECTS; i++) {
-		efec[i].setPosition(Vector2f(width_window / 1.6 + (i * (CHAR_SIZE / 2)), height_window / 10 + CHAR_SIZE * 1.5));
+		efec[i].setPosition(Vector2f(width_window / 1.6 + (i * (CHAR_SIZE / 2)), height_window / 7 + CHAR_SIZE*2 + 110));
 		window.draw(efec[i]);
 	}
 
-	dific.setPosition(Vector2f(width_window / 1.6, height_window / 10 + CHAR_SIZE * (3 * 1.3)));
+	dific.setPosition(Vector2f(width_window / 1.6, height_window / 7 + CHAR_SIZE * 3 + 100));
 	window.draw(dific);
-
-	window.draw(text[NUM_OPTIONS_OPT - 1]);
+	
+	controls_backg.setSize(Vector2f(width_window / 2, height_window / 2));
+	if (showing_controls) {
+		window.draw(controls_backg);
+	}
 
 }
 

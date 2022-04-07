@@ -75,4 +75,4 @@ static Character CreateScorpion() {
 	return Scorpion;
 }
 
-#endif //LIUKANG_H
+#endif //SCORPION_H

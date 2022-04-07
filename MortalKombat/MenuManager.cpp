@@ -78,10 +78,10 @@ void MenuManager::draw(RenderWindow& window) {
 
 	for (int i = 0; i < NUM_OPTIONS_MENU; i++) {
 
-		text[i].setPosition(Vector2f(width_window / 3 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 50));
-		shadow[i].setPosition(Vector2f(width_window / 3 + 10 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 10 + 50));
+		text[i].setPosition(Vector2f(width_window / 5 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 100));
+		shadow[i].setPosition(Vector2f(width_window / 5 + 10 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 10 + 100));
 		if (i == choosenOption) {
-			logo.setPosition(text[i].getPosition().x - 130, text[i].getPosition().y + 15);
+			logo.setPosition(text[i].getPosition().x - 85, text[i].getPosition().y + 15);
 		}
 		window.draw(shadow[i]);
 		window.draw(text[i]);

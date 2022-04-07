@@ -10,7 +10,7 @@ using namespace sf;
 using namespace std;
 
 const int NUM_OPTIONS_MENU = 4;
-const int CHAR_SIZE = 104;
+const int CHAR_SIZE = 70;
 
 class MenuManager {
 
