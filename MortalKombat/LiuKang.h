@@ -24,27 +24,43 @@ static Character CreateLiuKang() {
 	vector<int> duck_lock{ 3 };
 	vector<int> blockUp_lock{ 3 };
 	vector<int> blockDown_lock{ 2 };
+	vector<int> win_lock{ 14 };
 	
 	Animation idle0 = Animation(8, spriteSheet, Vector2<int>(32, 58), sz, 5, false, false, 0, null_vector);
 	Animation forw0 = Animation(9, spriteSheet, Vector2<int>(2138, 58), sz, 5, false, false, 0, null_vector);
 	Animation back0 = Animation(9, spriteSheet, Vector2<int>(4010, 58), sz, 5, true, false, 0, null_vector);
+
 	Animation punch0 = Animation(4, spriteSheet, Vector2<int>(32, 580), sz, 5, false, true, 5, null_vector);
+	Animation punchDown0 = Animation(5, spriteSheet, Vector2<int>(1436, 2568), sz, 5, false, true, 0, null_vector);
+	Animation punchFromUp0 = Animation(5, spriteSheet, Vector2<int>(500, 3090), sz, 5, false, true, 0, null_vector);
+	Animation bodyToBody0 = Animation(5, spriteSheet, Vector2<int>(3542, 580), sz, 5, false, true, 0, null_vector);
+
 	Animation jump0 = Animation(1, spriteSheet, Vector2<int>(32, 3090), sz, 5, false, true, 0, jump_lock);
 	Animation jumpMove0 = Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, 0, jump_lock_2);
 	Animation jumpFall = Animation(3, spriteSheet, Vector2<int>(3308, 3089), sz, 5, false, true, 0, jump_lock_fall);
+
 	Animation kick0 = Animation(7, spriteSheet, Vector2<int>(32, 1574), sz, 5, false, true, 0, null_vector);
 	Animation kickUp0 = Animation(7, spriteSheet, Vector2<int>(2372, 2046), sz, 5, false, true, 0, null_vector);
+	Animation kickDown0 = Animation(8, spriteSheet, Vector2<int>(1904, 1574), sz, 5, false, true, 0, null_vector);
 	Animation kickFromDown0 = Animation(5, spriteSheet, Vector2<int>(2840, 2568), sz, 5, false, true, 0, null_vector);
 	Animation kickFromUp0 = Animation(5, spriteSheet, Vector2<int>(1904, 3090), sz, 5, false, true, 0, null_vector);
-	Animation punchDown0 = Animation(5, spriteSheet, Vector2<int>(1436, 2568), sz, 5, false, true, 0, null_vector);
+
 	Animation duck0 = Animation(5, spriteSheet, Vector2<int>(32, 2568), sz, 5, false, true, 0, duck_lock);
+
 	Animation blockUp0 = Animation(5, spriteSheet, Vector2<int>(32, 6122), sz, 5, false, true, 0, blockUp_lock);
 	Animation blockDown0 = Animation(2, spriteSheet, Vector2<int>(1436, 6122), sz, 5, false, true, 0, blockDown_lock);
+
+	Animation special0 = Animation(8, spriteSheet, Vector2<int>(32, 6644), sz, 5, false, true, 0, null_vector);
+	Animation fatality0 = Animation(14, spriteSheet, Vector2<int>(32, 7688), sz, 5, false, true, 0, null_vector);
+	Animation win0 = Animation(14, spriteSheet, Vector2<int>(32, 6122), sz, 5, false, true, 0, win_lock);
+
 
 	AnimationGroup idle = AnimationGroup(idle0);
 	AnimationGroup forwWalk = AnimationGroup(forw0);
 	AnimationGroup backWalk = AnimationGroup(back0);
 	AnimationGroup punch = AnimationGroup(punch0);
+	AnimationGroup punchFromUp = AnimationGroup(punchFromUp0);
+	AnimationGroup bodyToBody = AnimationGroup(bodyToBody0);
 	AnimationGroup jump = AnimationGroup(jump0);
 	jump.AddAnimation(jumpFall);
 	AnimationGroup jumpMove = AnimationGroup(jumpMove0);
@@ -52,19 +68,26 @@ static Character CreateLiuKang() {
 	AnimationGroup kick = AnimationGroup(kick0);
 	AnimationGroup kickUp = AnimationGroup(kickUp0);
 	AnimationGroup kickFromDown = AnimationGroup(kickFromDown0);
+	AnimationGroup kickDown = AnimationGroup(kickDown0);
 	AnimationGroup kickFromUp = AnimationGroup(kickFromUp0);
 	AnimationGroup punchDown = AnimationGroup(punchDown0);
 	AnimationGroup duck = AnimationGroup(duck0);
 	AnimationGroup blockUp = AnimationGroup(blockUp0);
 	AnimationGroup blockDown = AnimationGroup(blockDown0);
+	AnimationGroup special = AnimationGroup(special0);
+	AnimationGroup fatality = AnimationGroup(fatality0);
+	AnimationGroup win = AnimationGroup(win0);
 
 	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0) };
 	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0) };
 	Movement backMov = Movement{ backWalk, Vector2<float>(-10, 0.0) };
 	Movement punchMov = Movement{ punch, Vector2<float>(0.0, 0.0) };
+	Movement punchFromUpMov = Movement{punchFromUp, Vector2<float>(0.0, 0.0) };
+	Movement bodyToBodyMov = Movement{ bodyToBody, Vector2<float>(0.0, 0.0) };
 	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0) };
 	Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0) };
 	Movement kickUpMov = Movement{ kickUp, Vector2<float>(0.0, 0.0) };
+	Movement kickDownMov = Movement{ kickDown, Vector2<float>(0.0, 0.0) };
 	Movement kickFromDownMov = Movement{ kickFromDown, Vector2<float>(0.0, 0.0) };
 	Movement kickFromUpMov = Movement{ kickFromUp, Vector2<float>(0.0, 0.0) };
 	Movement punchDownMov = Movement{ punchDown, Vector2<float>(0.0, 0.0) };
@@ -72,15 +95,21 @@ static Character CreateLiuKang() {
 	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0) };
 	Movement blockUpMov = Movement{ blockUp, Vector2<float>(0.0,0.0) };
 	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0) };
+	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0) };
+	Movement fatalityMov = Movement{ fatality, Vector2<float>(0.0,0.0) };
+	Movement winMov = Movement{ win, Vector2<float>(0.0,0.0) };
 
 	map<AnimationType, Movement> animations;
 	animations[AnimationType::IDLE] = idleMov;
 	animations[AnimationType::WALK_FORW] = forwMov;
 	animations[AnimationType::WALK_BACK] = backMov;
 	animations[AnimationType::PUNCH] = punchMov;
+	animations[AnimationType::PUNCH_FROM_AIR] = punchFromUpMov;
+	animations[AnimationType::PUNCH_CLOSE] = bodyToBodyMov;
 	animations[AnimationType::JUMP] = jumpMov;
 	animations[AnimationType::JUMP_AND_MOVE] = jumpMoveMov;
 	animations[AnimationType::KICK] = kickMov;
+	animations[AnimationType::KICK_LOW] = kickDownMov;
 	animations[AnimationType::KICK_UPPER] = kickUpMov;
 	animations[AnimationType::KICK_FROM_DOWN] = kickFromDownMov;
 	animations[AnimationType::KICK_FROM_AIR] = kickFromUpMov;
@@ -88,6 +117,9 @@ static Character CreateLiuKang() {
 	animations[AnimationType::DOWN] = duckMov;
 	animations[AnimationType::BLOCK] = blockUpMov;
 	animations[AnimationType::BLOCK_LOW] = blockDownMov;
+	animations[AnimationType::SPECIAL] = specialMov;
+	animations[AnimationType::FATALITY] = fatalityMov;
+	animations[AnimationType::WIN] = winMov;
 
 	Character LiuKang = Character(animations, body);
 
