@@ -53,7 +53,9 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 
 	//texture2->loadFromFile("resources/Imagenes/Menus/Controls.png");
 	//controls_backg.setTexture(texture);
-	controls_backg.setPosition(0, 0);
+	controls_backg.setSize(Vector2f(width_window / 2, height_window / 2));
+	controls_backg.setOrigin(controls_backg.getSize().x / 2, controls_backg.getSize().y / 2);
+	controls_backg.setPosition(width_window/2, height_window/2);
 
 }
 
@@ -189,7 +191,6 @@ void OptionsManager::draw(RenderWindow& window) {
 	dific.setPosition(Vector2f(width_window / 1.6, height_window / 7 + CHAR_SIZE * 3 + 100));
 	window.draw(dific);
 	
-	controls_backg.setSize(Vector2f(width_window / 2, height_window / 2));
 	if (showing_controls) {
 		window.draw(controls_backg);
 	}

@@ -5,7 +5,7 @@ EventManager::EventManager(Texture textures[], Font font) : StartManager(&textur
 	MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), 
 	PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]), BattleManager(&textures[0],font) {
 
-	state = 4;
+	state = 0;
 	changedEstate = false;
 
 	//music[0].openFromFile("audio/soundtrack.ogg");
