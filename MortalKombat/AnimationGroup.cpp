@@ -23,7 +23,7 @@ void AnimationGroup::ResetAnimation() {
 }
 
 bool AnimationGroup::DoAnimation(RectangleShape& body) {
-	bool finished = animations[current_animation].DoAnimation(body);
+	bool finished = animations[current_animation].DoAnimation(body); 
 	if (finished) {
 		current_animation++;
 		if (current_animation == n_animations) {

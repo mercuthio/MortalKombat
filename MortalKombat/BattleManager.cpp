@@ -207,7 +207,6 @@ void BattleManager::Restart() {
 }
 
 void BattleManager::RestartCombat(CharacterType character1_, CharacterType character2_, background stage_) {
-
 	character1 = character1_;
 	character2 = character2_;
 	stage = stage_;
@@ -297,6 +296,37 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 		break;
 	}
 	player1.initPosition(BackgroundManager.initPlayer1);
+
+	if (character2 == 0) character2 = (CharacterType)(rand() % 7);
+	switch (character2) {
+	case CAGE:
+		player2 = Scorpion;
+		break;
+	case KANO:
+		player2 = Scorpion;
+		break;
+	case RAIDEN:
+		player2 = Scorpion;
+		break;
+	case LIU_KANG:
+		player2 = LiuKang;
+		break;
+	case SCORPION:
+		player2 = Scorpion;
+		break;
+	case SUB_ZERO:
+		player2 = Scorpion;
+		break;
+	case SONYA:
+		player2 = SonyaBlade;
+		break;
+	default:
+		player2 = Scorpion;
+		break;
+	}
+	player2.initPosition(BackgroundManager.initPlayer2);
+
+
 }
 
 int BattleManager::RestartRound(int winner1) {
@@ -348,20 +378,21 @@ void BattleManager::Update() {
 	float vida = player1.GetLife();
 	Vector2f size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[2].getSize().y);
 	HUD_vector[2].setSize(size_life);
+
 	if (!showed_danger1 && (vida / 100.0f) <= 0.2f) {
 		inDanger1 = true;
 	}
 
-	//float vida = player2.GetLife();
-	//size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[3].getSize().y);
-	//HUD_vector[3].setSize(size_life);
+	vida = player2.GetLife();
+	size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[3].getSize().y);
+	HUD_vector[3].setSize(size_life);
 
-	//if (!showed_danger2 && (vida / 100.0f) <= 0.2f) {
-	//	inDanger2 = true;
-	//}
+	if (!showed_danger2 && (vida / 100.0f) <= 0.2f) {
+		inDanger2 = true;
+	}
 
 	player1.Update(0.05f);
-	//player2.Update(0.05f);
+	player2.Update(0.05f);
 
 	BackgroundManager.Update();
 
@@ -460,6 +491,7 @@ void BattleManager::draw(RenderWindow& window) {
 
 	BackgroundManager.draw(window);
 	player1.debugDraw(window);
+	player2.debugDraw(window);
 
 	int i = 0;
 	for (RectangleShape rect : HUD_vector) {

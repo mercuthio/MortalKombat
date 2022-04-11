@@ -32,7 +32,6 @@ public:
 	void debugDraw(RenderWindow& window);
 
 	void GetHit(int life);
-	void UseEnergy(int quantity);
 
 	void initPosition(Vector2<float> initPos);
 
@@ -47,7 +46,6 @@ private:
 	float internalTimer = 0.05f;
 
 	int life = 100;
-	int energy = 0;
 
 	bool doing_animation = false;
 

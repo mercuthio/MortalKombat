@@ -11,10 +11,10 @@ void Character::Update(float tiempo) {
 
 		internalTimer = 0.0f;
 		//global_position = body.getPosition();
-		if (DEBUG_POSITION) {
+		/*if (DEBUG_POSITION) {
 			cout << "X: " << global_position.x << " - Y:" << global_position.y << endl;
 			cout << "Origin: " << "(" << body.getOrigin().x << ", " << body.getOrigin().y << ")" << endl;
-		}
+		}*/
 
 		CheckAnimation();	// Dependiendo de que ha pulsado el jugador hago una animación u otra
 		DoAnimation();		// Realizo el siguiente frame de la animación
@@ -38,7 +38,6 @@ void Character::CheckAnimation() {
 	CheckDebugAnimations();
 
 	cout << crouching << " " << Keyboard::isKeyPressed(downButton) << endl;
-
 
 	if (on_air) {					// El personaje está en el aire
 		if (Keyboard::isKeyPressed(punchButton)) {
@@ -77,7 +76,6 @@ void Character::CheckAnimation() {
 			}
 		}
 	}
-
 	else if (!doing_animation) {	// El personaje no está haciendo nada
 		if (Keyboard::isKeyPressed(downButton)) {													//Agacharse
 
@@ -258,10 +256,6 @@ void Character::GetHit(int quantity) {
 		speed = Vector2<float>(-100, 200);
 	}
 	life -= quantity;
-}
-
-void Character::UseEnergy(int quantity) {
-	energy -= quantity;
 }
 
 void Character::debugDraw(RenderWindow& window) {
