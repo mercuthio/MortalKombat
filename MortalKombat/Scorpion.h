@@ -23,30 +23,60 @@ static Character CreateScorpion() {
 	vector<int> jump_lock_fall{ 3 };
 	vector<int> duck_lock{ 3 };
 	vector<int> block_lock{ 3 };
+	vector<int> blockDown_lock{ 3 };
+	vector<int> win_lock{ 4 };
 
 	//(int _duration, Texture* _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames) {
 	Animation idle0 = Animation(7, spriteSheet, Vector2<int>(32, 58), sz, 5, false, false, 0, null_vector);
 	Animation forw0 = Animation(9, spriteSheet, Vector2<int>(1904, 58), sz, 5, false, false, 0, null_vector);
 	Animation back0 = Animation(9, spriteSheet, Vector2<int>(3776, 58), sz, 5, true, false, 0, null_vector);
+
 	Animation punch0 = Animation(5, spriteSheet, Vector2<int>(32, 580), sz, 5, false, true, 2, null_vector);
+	Animation punchDown0 = Animation(5, spriteSheet, Vector2<int>(1436, 2568), sz, 5, false, true, 0, null_vector);
+	Animation punchFromUp0 = Animation(5, spriteSheet, Vector2<int>(500, 3090), sz, 5, false, true, 0, null_vector);
+	Animation bodyToBody0 = Animation(5, spriteSheet, Vector2<int>(4010, 580), sz, 5, false, true, 0, null_vector);
+
 	Animation jump0 = Animation(1, spriteSheet, Vector2<int>(32, 3090), sz, 5, false, true, 0, jump_lock);
 	Animation jumpMove0 = Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, 0, jump_lock_2);
 	Animation jumpFall = Animation(3, spriteSheet, Vector2<int>(2840, 3090), sz, 5, false, true, 0, jump_lock_fall);
+
 	Animation kick0 = Animation(7, spriteSheet, Vector2<int>(32, 1574), sz, 5, false, true, 0, null_vector);
+	Animation kickUp0 = Animation(7, spriteSheet, Vector2<int>(2606, 2046), sz, 5, false, true, 0, null_vector);
+	Animation kickDown0 = Animation(8, spriteSheet, Vector2<int>(1904, 1574), sz, 5, false, true, 0, null_vector);
+	Animation kickFromDown0 = Animation(5, spriteSheet, Vector2<int>(2840, 2568), sz, 5, false, true, 0, null_vector);
+	Animation kickFromUp0 = Animation(3, spriteSheet, Vector2<int>(1904, 3090), sz, 5, false, true, 0, null_vector);
+
 	Animation duck0 = Animation(5, spriteSheet, Vector2<int>(32, 2568), sz, 5, false, true, 0, duck_lock);
-	//Animation block0 = Animation(5, spriteSheet, Vector2<int>(32, 6122), sz, 5, false, true, 0, block_lock);
+	
+	Animation block0 = Animation(5, spriteSheet, Vector2<int>(32, 6122), sz, 5, false, true, 0, block_lock);
+	Animation blockDown0 = Animation(3, spriteSheet, Vector2<int>(1436, 6122), sz, 5, false, true, 0, blockDown_lock);
+
+	Animation special0 = Animation(7, spriteSheet, Vector2<int>(32, 6644), sz, 5, false, true, 0, null_vector);
+	Animation fatality0 = Animation(24, spriteSheet, Vector2<int>(32, 7688), sz, 5, false, true, 0, null_vector);
+	Animation win0 = Animation(4, spriteSheet, Vector2<int>(32, 8810), sz, 5, false, true, 0, win_lock);
 
 	AnimationGroup idle = AnimationGroup(idle0);
 	AnimationGroup forwWalk = AnimationGroup(forw0);
 	AnimationGroup backWalk = AnimationGroup(back0);
 	AnimationGroup punch = AnimationGroup(punch0);
+	AnimationGroup punchDown = AnimationGroup(punchDown0);
+	AnimationGroup punchFromUp = AnimationGroup(punchFromUp0);
+	AnimationGroup bodyToBody = AnimationGroup(bodyToBody0);
 	AnimationGroup jump = AnimationGroup(jump0);
 	jump.AddAnimation(jumpFall);
 	AnimationGroup jumpMove = AnimationGroup(jumpMove0);
 	jumpMove.AddAnimation(jumpFall);
 	AnimationGroup kick = AnimationGroup(kick0);
+	AnimationGroup kickUp = AnimationGroup(kickUp0);
+	AnimationGroup kickFromDown = AnimationGroup(kickFromDown0);
+	AnimationGroup kickDown = AnimationGroup(kickDown0);
+	AnimationGroup kickFromUp = AnimationGroup(kickFromUp0);
+	AnimationGroup block = AnimationGroup(block0);
+	AnimationGroup blockDown = AnimationGroup(blockDown0);
 	AnimationGroup duck = AnimationGroup(duck0);
-	//AnimationGroup block = AnimationGroup(block0);
+	AnimationGroup special = AnimationGroup(special0);
+	AnimationGroup fatality = AnimationGroup(fatality0);
+	AnimationGroup win = AnimationGroup(win0);
 
 	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0) };
 	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0) };
@@ -56,8 +86,11 @@ static Character CreateScorpion() {
 	Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0) };
 	Movement jumpMoveMov = Movement{ jumpMove, Vector2<float>(0.0, 0.0) };
 	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0) };
-	//Movement blockMov = Movement{ block, Vector2<float>(0.0,0.0) };
-
+	Movement blockUpMov = Movement{ block, Vector2<float>(0.0,0.0) };
+	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0) };
+	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0) };
+	Movement fatalityMov = Movement{ fatality, Vector2<float>(0.0,0.0) };
+	Movement winMov = Movement{ win, Vector2<float>(0.0,0.0) };
 
 	map<AnimationType, Movement> animations;
 	animations[AnimationType::IDLE] = idleMov;
@@ -68,7 +101,8 @@ static Character CreateScorpion() {
 	animations[AnimationType::JUMP_AND_MOVE] = jumpMoveMov;
 	animations[AnimationType::KICK] = kickMov;
 	animations[AnimationType::DOWN] = duckMov;
-	//animations[AnimationType::BLOCK] = blockMov;
+	animations[AnimationType::BLOCK] = blockUpMov;
+	animations[AnimationType::BLOCK_LOW] = blockDownMov;
 
 	Character Scorpion = Character(animations, body);
 
