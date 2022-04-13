@@ -10,8 +10,8 @@ void Character::Update(float tiempo) {
 	if (internalTimer >= updateTime) {
 
 		internalTimer = 0.0f;
-		//global_position = body.getPosition();
-		/*if (DEBUG_POSITION) {
+		/*global_position = body.getPosition();
+		if (DEBUG_POSITION) {
 			cout << "X: " << global_position.x << " - Y:" << global_position.y << endl;
 			cout << "Origin: " << "(" << body.getOrigin().x << ", " << body.getOrigin().y << ")" << endl;
 		}*/
@@ -27,6 +27,25 @@ void Character::Update(float tiempo) {
 	else {
 		internalTimer += 0.025f;
 	}
+}
+
+void Character::UpdateIA(float time) {
+	if (internalTimer >= updateTime) {
+
+		internalTimer = 0.0f;
+
+		//Elijo una acción dependiendo del jugador
+		DoAnimation();		// Realizo el siguiente frame de la animación
+
+		CheckCollisions();
+
+		body.setPosition(global_position);
+
+	}
+	else {
+		internalTimer += 0.025f;
+	}
+
 }
 
 void Character::initPosition(Vector2<float> initPos) {

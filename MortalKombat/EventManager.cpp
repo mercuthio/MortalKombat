@@ -133,7 +133,7 @@ void EventManager::Update(Event event) {
 				changedEstate = true;
 
 				stage = (background)(rand() % 3);
-				BattleManager.RestartCombat(character1, character2, stage);
+				BattleManager.RestartCombat(character1, character2, stage, true);
 				BattleManager.Restart();
 
 			}
@@ -169,7 +169,7 @@ void EventManager::Update(Event event) {
 				changedEstate = true;
 
 				stage = (background)(rand() % 3);
-				BattleManager.RestartCombat(character1, character2, stage);
+				BattleManager.RestartCombat(character1, character2, stage, true);
 				BattleManager.Restart();
 			}
 			break;
@@ -315,7 +315,7 @@ void EventManager::draw(RenderWindow& window) {
 
 		if (HistoryManager.Draw(window, clock.getElapsedTime().asSeconds())) {
 			state = 6;
-			BattleManager.RestartCombat(character1, character2, stage);	
+			BattleManager.RestartCombat(character1, character2, stage, false);	
 			BattleManager.Restart();
 		}
 		break;

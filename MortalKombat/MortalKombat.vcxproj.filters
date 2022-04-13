@@ -143,5 +143,8 @@
     <ClInclude Include="Sonya_Blade.h">
       <Filter>Archivos de encabezado\GameManager\Characters</Filter>
     </ClInclude>
+    <ClInclude Include="MusicManager.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -28,7 +28,7 @@ public:
 	void Update(Event);									//Actualiza la batalla actual dada una tecla pulsada
 	void Update();										//Actualiza el escenario y el hud
 	void draw(RenderWindow&);							//Dibuja la batalla actual
-	void RestartCombat(CharacterType, CharacterType, background);					//Reinicia los datos del combate
+	void RestartCombat(CharacterType, CharacterType, background, bool);					//Reinicia los datos del combate
 	void Restart();
 	void LoadTextures();
 	void LoadCharacters();
@@ -69,6 +69,7 @@ private:
 	bool inDanger2;
 	bool showed_danger1;
 	bool showed_danger2;
+	bool twoPlayers;
 
 	Texture* texture;
 	Font font;											//Variable con la fuente de letra

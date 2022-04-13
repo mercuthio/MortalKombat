@@ -29,6 +29,7 @@ public:
 	//~Character() = delete;
 
 	void Update(float time);
+	void UpdateIA(float time);
 	void debugDraw(RenderWindow& window);
 
 	void GetHit(int life);

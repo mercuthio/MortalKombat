@@ -206,7 +206,8 @@ void BattleManager::Restart() {
 
 }
 
-void BattleManager::RestartCombat(CharacterType character1_, CharacterType character2_, background stage_) {
+void BattleManager::RestartCombat(CharacterType character1_, CharacterType character2_, background stage_, bool twoPlayers_) {
+	twoPlayers = twoPlayers_;
 	character1 = character1_;
 	character2 = character2_;
 	stage = stage_;
@@ -379,20 +380,20 @@ void BattleManager::Update() {
 	Vector2f size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[2].getSize().y);
 	HUD_vector[2].setSize(size_life);
 
-	if (!showed_danger1 && (vida / 100.0f) <= 0.2f) {
-		inDanger1 = true;
-	}
+	if (!showed_danger1 && (vida / 100.0f) <= 0.2f) inDanger1 = true;
 
 	vida = player2.GetLife();
 	size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[3].getSize().y);
 	HUD_vector[3].setSize(size_life);
 
-	if (!showed_danger2 && (vida / 100.0f) <= 0.2f) {
-		inDanger2 = true;
-	}
+	if (!showed_danger2 && (vida / 100.0f) <= 0.2f) inDanger2 = true;
 
 	player1.Update(0.05f);
-	player2.Update(0.05f);
+	if (twoPlayers) { 
+		player2.Update(0.05f); 
+	} else { 
+		player2.UpdateIA(0.05f); 
+	}
 
 	BackgroundManager.Update();
 
