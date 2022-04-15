@@ -55,10 +55,13 @@ void Character::initPosition(Vector2<float> initPos) {
 void Character::CheckAnimation() {
 
 	CheckDebugAnimations();
-
-	cout << crouching << " " << Keyboard::isKeyPressed(downButton) << endl;
-
-	if (on_air) {					// El personaje está en el aire
+	if (fallen) {
+		if (isAnyKeyPressed()) {
+			fallen = false;
+			animation_in_process = AnimationType::RECOVER;
+		}
+	}
+	else if (on_air) {					// El personaje está en el aire
 		if (Keyboard::isKeyPressed(punchButton)) {
 			EndAndResetAnimation();
 			animation_in_process = AnimationType::PUNCH_FROM_AIR;
@@ -69,7 +72,6 @@ void Character::CheckAnimation() {
 		}
 		// else -> nothing
 	}
-
 	else if (crouching) {			// El personaje está agachado
 		if (Keyboard::isKeyPressed(punchButton)) {
 			animation_in_process = AnimationType::PUNCH_FROM_DOWN;
@@ -156,6 +158,9 @@ void Character::CheckAnimation() {
 		else if (Keyboard::isKeyPressed(blockButton)) {												//H.Kick en parado
 			animation_in_process = AnimationType::BLOCK;
 		}
+		else if (Keyboard::isKeyPressed(grabButton)) {
+			animation_in_process = AnimationType::CATCH;
+		}
 	}
 	// else -> Nothing
 }
@@ -164,23 +169,30 @@ void Character::CheckDebugAnimations() {
 	if (Keyboard::isKeyPressed(Keyboard::M)) { // DEBUG
 		Mirror();
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::Z)) {	// Get Caught
-
+	else if (Keyboard::isKeyPressed(Keyboard::Z)) {
+		animation_in_process = AnimationType::GET_CAUGHT;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::F)) { // Fatality
-
+	else if (Keyboard::isKeyPressed(Keyboard::F)) {
+		animation_in_process = AnimationType::FATALITY;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::R)) { // Recover
-
+	else if (Keyboard::isKeyPressed(Keyboard::T)) {
+		animation_in_process = AnimationType::FALL;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::T)) { // Fall
-
+	else if (Keyboard::isKeyPressed(Keyboard::R)) {
+		animation_in_process = AnimationType::FALL_UPPERCUT;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::Y)) { // Win
-
+	else if (Keyboard::isKeyPressed(Keyboard::Y)) {
+		animation_in_process = AnimationType::WIN;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::M)) { // Nuts
-
+	else if (Keyboard::isKeyPressed(Keyboard::N)) { 
+		animation_in_process = AnimationType::NUTS;
+	}
+	else if (Keyboard::isKeyPressed(Keyboard::C)) {
+		dying = true;
+		animation_in_process = AnimationType::DYING;
+	}
+	else if (Keyboard::isKeyPressed(Keyboard::V)) {
+		animation_in_process = AnimationType::FALL_BACK;
 	}
 }
 
@@ -213,7 +225,23 @@ void Character::CheckScreenCollisions() {
 void Character::DoAnimation() {
 	doing_animation = true;
 	//debug_animation();
-	bool finished = animations[animation_in_process].animation.DoAnimation(body);
+
+	bool finished = false;
+	
+	if (!fallen) {
+		finished = animations[animation_in_process].animation.DoAnimation(body);
+	}	
+	if (finished) {
+		if (animation_in_process == AnimationType::FALL || animation_in_process == AnimationType::FALL_UPPERCUT) {
+			finished = false;
+			fallen = true;
+		}
+		else if (animation_in_process == AnimationType::DYING) {
+			finished = false;			
+			animations[animation_in_process].animation.ResetAnimation();
+		}
+	}
+	
 
 	if (isFixedMovement(animation_in_process)) { // Sigue un desplazamiento fijado
 		Vector2<float> mov = animations[animation_in_process].traslation;
@@ -317,3 +345,4 @@ void Character::debug_animation() {
 float Character::GetLife() {
 	return life;
 }
+

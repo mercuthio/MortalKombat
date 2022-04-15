@@ -24,15 +24,15 @@ static Character CreateSonyaBlade() {
 	vector<int> duck_lock{ 2 };
 
 	//(int _duration, Texture* _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames) {
-	Animation idle0 = Animation(7, spriteSheet, Vector2<int>(32, 58), sz, 5, false, false, 0, null_vector);
-	Animation forw0 = Animation(9, spriteSheet, Vector2<int>(1904, 58), sz, 5, false, false, 0, null_vector);
-	Animation back0 = Animation(9, spriteSheet, Vector2<int>(3776, 58), sz, 5, true, false, 0, null_vector);
-	Animation punch0 = Animation(5, spriteSheet, Vector2<int>(32, 580), sz, 5, false, true, 5, null_vector);
-	Animation jump0 = Animation(1, spriteSheet, Vector2<int>(32, 3090), sz, 5, false, true, 0, jump_lock);	
-	Animation jumpMove0 = Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, 0, jump_lock_2);
-	Animation jumpFall = Animation(3, spriteSheet, Vector2<int>(2372, 3090), sz, 5, false, true, 0, jump_lock_fall);
-	Animation kick0 = Animation(9, spriteSheet, Vector2<int>(32, 1574), sz, 5, false, true, 0, null_vector);
-	Animation duck0 = Animation(3, spriteSheet, Vector2<int>(32, 2568), sz, 5, false, true, 0, duck_lock);
+	Animation idle0 = Animation(7, spriteSheet, Vector2<int>(32, 58), sz, 5, false, false, 0, null_vector, 0);
+	Animation forw0 = Animation(9, spriteSheet, Vector2<int>(1904, 58), sz, 5, false, false, 0, null_vector, 0);
+	Animation back0 = Animation(9, spriteSheet, Vector2<int>(3776, 58), sz, 5, true, false, 0, null_vector, 0);
+	Animation punch0 = Animation(5, spriteSheet, Vector2<int>(32, 580), sz, 5, false, true, 5, null_vector, 0);
+	Animation jump0 = Animation(1, spriteSheet, Vector2<int>(32, 3090), sz, 5, false, true, 0, jump_lock, 0);
+	Animation jumpMove0 = Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, 0, jump_lock_2, 0);
+	Animation jumpFall = Animation(3, spriteSheet, Vector2<int>(2372, 3090), sz, 5, false, true, 0, jump_lock_fall, 0);
+	Animation kick0 = Animation(9, spriteSheet, Vector2<int>(32, 1574), sz, 5, false, true, 0, null_vector, 0);
+	Animation duck0 = Animation(3, spriteSheet, Vector2<int>(32, 2568), sz, 5, false, true, 0, duck_lock, 0);
 
 	AnimationGroup idle = AnimationGroup(idle0);
 	AnimationGroup forwWalk = AnimationGroup(forw0);

@@ -17,7 +17,7 @@ using namespace std;
 class Animation {
 public:
 	Animation() = default;
-	Animation(int _duration, Texture *_sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames);
+	Animation(int _duration, Texture *_sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames, int _wait_until);
 	//~Animation() = delete;
 	bool DoAnimation(RectangleShape& body);
 	void ResetAnimation();
@@ -42,6 +42,9 @@ private:
 	vector<int> flagged_frames;
 	int n_of_flagged_frames = 0;
 	int this_flagged_frame = 0;
+
+	int current_wait = 0;
+	int wait_until = 0;
 };
 
 /*

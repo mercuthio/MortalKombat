@@ -120,5 +120,18 @@ static bool isDamageMovement(AnimationType anim) {
 static bool hasFlag(AnimationType anim) {
 	return (!isFixedMovement(anim) || anim == AnimationType::DOWN);
 }
+static bool isAnyKeyPressed() {
+	return(
+		Keyboard::isKeyPressed(jumpButton) ||
+		Keyboard::isKeyPressed(forwButton) ||
+		Keyboard::isKeyPressed(backButton) ||
+		Keyboard::isKeyPressed(downButton) ||
+		Keyboard::isKeyPressed(punchButton) ||
+		Keyboard::isKeyPressed(kickButton) ||
+		Keyboard::isKeyPressed(grabButton) ||
+		Keyboard::isKeyPressed(specialButton) ||
+		Keyboard::isKeyPressed(blockButton)
+	);
+}
 
 #endif

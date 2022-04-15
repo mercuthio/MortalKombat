@@ -54,6 +54,8 @@ private:
 	bool punching = false;
 	bool crouching = false;
 	bool blocking = false;
+	bool fallen = false;
+	bool dying = false;
 
 	Vector2<float> speed;
 	bool leftOfOpponent = true;
@@ -80,4 +82,4 @@ private:
 	@param _animations: map compuesto de AnimationType que da un Movement
 	@param _body: RectangleShape que define el sprite en el mundo
 */
-#endif
+#endif 

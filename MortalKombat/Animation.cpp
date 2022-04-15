@@ -1,11 +1,12 @@
 #include "Animation.h"
 
-Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames) {
+Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames, int _wait_until) {
 
 	duration = _duration;
 	sprite_sheet = _sprite_sheet;
 	first_frame = _first_frame;
 	size = _size;
+	wait_until = _wait_until;
 
 	if (backwards) {
 		offset = Vector2<int>(-size.x - _offset, 0);
@@ -35,6 +36,12 @@ bool Animation::DoAnimation(RectangleShape& body) {
 
 	body.setTexture(sprite_sheet);
 	body.setTextureRect(IntRect(this_frame, size));
+
+	current_wait++;
+	if (current_wait < wait_until) {
+		return false;
+	}
+	current_wait = 0;
 
 	// Si tengo que esperar que algo externo me diga que tengo que cambiar la textura
 	if (n_of_flagged_frames > 0 && this_flagged_frame < n_of_flagged_frames) {
