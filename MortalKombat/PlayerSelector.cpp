@@ -42,41 +42,51 @@ void PlayerSelector::LoadTextures() {
 	uvRect.top = 409;
 	rect.setSize(size_icon);
 
+	Color Gray = Color(60, 70, 75, 255);
+
 	for (int i = 0; i < NUMBER_CHARACTERS; i++) {
 
 		switch (i) {
 		case 0:
 			uvRect.left = 904;
 			rect.setPosition(87.0f, 136.0f);
+			rect.setFillColor(Gray);
 			break;
 		case 1:
 			uvRect.left = 904 + 64;
 			rect.setPosition((width_window / 5.97) + 87, 136);
+			rect.setFillColor(Gray);
 			break;
 		case 2:
 			uvRect.left = 904 + 64 * 2;
 			rect.setPosition((width_window / 5.97) + 87, (width_window / 4.13) + 136);
+			rect.setFillColor(Gray);
 			break;
 		case 3:
 			uvRect.left = 904 + 64 * 3;
 			rect.setPosition((width_window / 5.97) * 2 + 87, (width_window / 4.13) + 136);
+			rect.setFillColor(Color::White);
 			break;
 		case 4:
 			uvRect.left = 904 + 64 * 4;
 			rect.setPosition((width_window / 5.97) * 3 + 87, (width_window / 4.13) + 136);
+			rect.setFillColor(Color::White);
 			break;
 		case 5:
 			uvRect.left = 904 + 64 * 5;
 			rect.setPosition((width_window / 5.97) * 3 + 87, 136);
+			rect.setFillColor(Gray);
 			break;
 		case 6:
 			uvRect.left = 904 + 64 * 6;
 			rect.setPosition((width_window / 5.97) * 4 + 87, 136);
+			rect.setFillColor(Color::White);
 			break;
 		}
 		rect.setTextureRect(uvRect);
 		Objects.push_back(rect);
 	}
+	rect.setFillColor(Color::White);
 
 	//Marcos cursor 8 y 9
 	uvRect.width = 67.0f;
@@ -221,7 +231,8 @@ void PlayerSelector::MoveCursor(int x_, int y_, bool player1) {
 int PlayerSelector::ChoosenOption_int(bool player1) {
 
 	int charac = 0;
-	if (!player1) {
+	cout << x << "--" << y << endl;
+	if (!player1 && ((x2 == 4 && y2 == 0) || (x2 == 2 && y2 == 1) || (x2 == 3 && y2 == 1)) ) {
 		choosen2 = true;
 
 		if (y2 == 0 && x2 < 2) {
@@ -234,21 +245,23 @@ int PlayerSelector::ChoosenOption_int(bool player1) {
 			charac = x2 + 1;
 		}
 
-		return charac;
+		return  (CharacterType)charac;
 	}
 
-	choosen1 = true;
-	if (y == 0 && x < 2) {
-		charac = x;
-	}
-	else if (y == 0) {
-		charac = x + 2;
-	}
-	else {
-		charac = x + 1;
+	if ((x == 4 && y == 0) || (x == 2 && y == 1) || (x == 3 && y == 1)) {
+		choosen1 = true;
+		if (y == 0 && x < 2) {
+			charac = x;
+		}
+		else if (y == 0) {
+			charac = x + 2;
+		}
+		else {
+			charac = x + 1;
+		}
+		return (CharacterType)charac;
 	}
 
-	return (CharacterType)charac;
 }
 
 CharacterType PlayerSelector::ChoosenOption(bool player1) {

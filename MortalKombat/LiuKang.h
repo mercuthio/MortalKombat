@@ -3,6 +3,15 @@
 
 #include "Character.h"
 
+
+struct rectValues {
+	float width;
+	float height;
+	float left;
+	float top;
+};
+
+
 static Character CreateLiuKang() {
 	Texture* spriteSheet = new Texture();
 	Image spriteSheetImage;
@@ -161,7 +170,58 @@ static Character CreateLiuKang() {
 	animations[AnimationType::GET_CAUGHT] = getCaughtMov;
 	animations[AnimationType::CATCH] = catchMov;
 	animations[AnimationType::DYING] = dyingMov;
+	/*
+	rectValues idle0[8] = {  };
+	rectValues forw0[9] = {  };
+	rectValues back0[9] = {  };
 
+	rectValues punch0[4] = {  };
+	rectValues punchUp0[4] = {  };
+	rectValues punchDown0[5] = {  };
+	rectValues punchFromUp0[5] = {  };
+	rectValues bodyToBody0[5] = {  };
+	rectValues bodyToBodyUp0[5] = {  };
+
+	rectValues jump0[1] = {  };
+	rectValues jumpMove0[7] = {  };
+	rectValues jumpFall[3] = {  };
+
+	rectValues kick0[7] = {  };
+	rectValues kickUp0[7] = {  };
+	rectValues kickDown0[8] = {  };
+	rectValues kickFromDown0[5] = {  };
+	rectValues kickFromUp0[5] = {  };
+
+	rectValues duck0[5] = {  };
+
+	rectValues blockUp0[5] = {  };
+	rectValues blockDown0[2] = {  };
+
+	rectValues special0[8] = {  };
+	rectValues fatality0[14] = {  };
+	rectValues win0[14] = {  };
+
+	rectValues fall0[7] = {  };
+	rectValues fallBack0[6] = {  };
+	rectValues fallUppercut0[8] = {  };
+	rectValues nuts0[4] = {  };
+	rectValues recover0[7] = {  };
+
+	rectValues getCaught0[7] = {  };
+	rectValues catch0[7] = {  };
+	rectValues dying0[7] = {  };
+
+
+	RectangleShape rect;
+	IntRect uvRect;
+	vector<RectangleShape> hitboxes;
+	
+
+	for (int i = 0; i < ; i++) {
+
+	}
+
+	*/
 	Character LiuKang = Character(animations, body);
 
 	return LiuKang;
