@@ -27,6 +27,7 @@
     <ClCompile Include="Courtyard.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="HistoryManager.cpp" />
+    <ClCompile Include="MusicManager.cpp" />
     <ClCompile Include="StartManager.cpp" />
     <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="Mortal_Kombat.cpp" />

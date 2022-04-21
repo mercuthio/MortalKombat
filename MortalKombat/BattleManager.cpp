@@ -334,7 +334,6 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	}
 	player2.initPosition(BackgroundManager.initPlayer2);
 
-
 }
 
 int BattleManager::RestartRound(int winner1) {
@@ -413,6 +412,7 @@ void BattleManager::Update() {
 
 		showing_round = false;
 		showing_fight = true;
+		music.fight();
 
 	}
 
@@ -527,7 +527,7 @@ void BattleManager::draw(RenderWindow& window) {
 			if (inDanger2) window.draw(rect);
 			break;
 		case 15:
-			if (showing_fight) window.draw(rect);
+			if (showing_fight) { window.draw(rect); }
 			break;
 		default:
 			window.draw(rect);

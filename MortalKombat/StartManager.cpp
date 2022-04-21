@@ -6,6 +6,9 @@
 
 using namespace std;
 
+bool playingPresents = false;
+bool playingStart = false;
+
 StartManager::StartManager(Texture* menus, Texture* bios) {
 
 	srand(time(0));
@@ -103,28 +106,28 @@ StartManager::StartManager(Texture* menus, Texture* bios) {
 //Script de la intro
 bool StartManager::draw(RenderWindow& window, float seconds) {
 
-	if (seconds > 25.0f) {		//Pantalla goro con texto
+	if (seconds > 26.0f) {		//Pantalla goro con texto
 		uvRect_backg.left = 3586;
 		menu_backg.setTextureRect(uvRect_backg);
 		window.draw(menu_backg);
 	}
-	else if (seconds > 22.0f) { //Pantalla goro sin texto
+	else if (seconds > 25.0f) { //Pantalla goro sin texto
 		uvRect_backg.left = 3162;
 		menu_backg.setTextureRect(uvRect_backg);
 		window.draw(menu_backg);
 	}
-	else if (seconds > 20.0f) { //Pantalla goro lives
+	else if (seconds > 24.0f) { //Pantalla goro lives
 		menu_backg.setFillColor(Color::White);
 		uvRect_backg.left = 2738;
 		uvRect_backg.top = 1551;
 		menu_backg.setTextureRect(uvRect_backg);
 		window.draw(menu_backg);
 	}
-	else if (seconds > 19.0) { //Fondo negro
+	else if (seconds > 23.0) { //Fondo negro
 		menu_backg.setFillColor(Color::Black);
 		window.draw(menu_backg);
 	}
-	else if (seconds > 8.0f) {	//Biografia del personaje
+	else if (seconds > 12.0f) {	//Biografia del personaje
 		
 		if (seconds - seconds_aux > 0.1f) {
 			seconds_aux = seconds;
@@ -152,11 +155,19 @@ bool StartManager::draw(RenderWindow& window, float seconds) {
 
 	}
 	else if (seconds > 4.0f) { //Pantalla inicial roja
+		if (!playingStart) {
+			playingStart = true;
+			music.startIntro();
+		}
 		uvRect_backg.left = 2320;
 		menu_backg.setTextureRect(uvRect_backg);
 		window.draw(menu_backg);
 	}
 	else {
+		if (!playingPresents) {
+			playingPresents = true;
+			music.presentsIntro();
+		}
 		window.draw(menu_backg);
 	}
 

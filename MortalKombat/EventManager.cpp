@@ -1,6 +1,8 @@
 
 #include "EventManager.h"
 
+MusicManager music;
+
 EventManager::EventManager(Texture textures[], Font font, Clock clock) : BattleManager(&textures[0], font, clock), StartManager(&textures[0], &textures[1]),
 	MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), 
 	PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]) {
@@ -9,11 +11,6 @@ EventManager::EventManager(Texture textures[], Font font, Clock clock) : BattleM
 
 	state = 0;
 	changedEstate = false;
-
-	//music[0].openFromFile("audio/soundtrack.ogg");
-	//music[0].play();
-	//music[0].setLoop(true);
-
 }
 
 void EventManager::Update(Event event) {
@@ -21,23 +18,26 @@ void EventManager::Update(Event event) {
 	switch (state) {
 	case 0: //Pantalla inicial
 
+		music.skipIntro();
+
 		changedEstate = true;
 		state = 1;
 
 		StartManager.~StartManager();
 		MenuManager.Update();
+
 		break;
 
 	case 1: //MenuManager
 
 		switch (event.key.code) {
 		case Keyboard::W:
-
+			music.moveMain();
 			MenuManager.MoveCursor(true);
 			break;
 
 		case Keyboard::S:
-
+			music.moveMain();
 			MenuManager.MoveCursor(false);
 			break;
 
@@ -46,8 +46,8 @@ void EventManager::Update(Event event) {
 			changedEstate = true;
 			state = MenuManager.ChoosenOption() + 2;
 
-			if (state == 2) PlayerSelector_hist.Restart();
-			if (state == 3) PlayerSelector_duel.Restart();
+			if (state == 2) { PlayerSelector_hist.Restart(); music.selectorIntro(); }
+			if (state == 3) { PlayerSelector_duel.Restart(); music.selectorIntro(); }
 			if (state == 4) OptionsManager.Update();
 			if (state == 5) exit(0);
 			break;
@@ -61,22 +61,18 @@ void EventManager::Update(Event event) {
 
 		switch (event.key.code) {
 		case Keyboard::W:
-
 			PlayerSelector_hist.MoveCursor(0,-1, true);
 			break;
 
 		case Keyboard::S:
-
 			PlayerSelector_hist.MoveCursor(0, 1, true);
 			break;
 
 		case Keyboard::D:
-
 			PlayerSelector_hist.MoveCursor(1, 0, true);
 			break;
 
 		case Keyboard::A:
-
 			PlayerSelector_hist.MoveCursor(-1, 0, true);
 			break;
 
@@ -84,10 +80,24 @@ void EventManager::Update(Event event) {
 
 			changedEstate = true;
 			character1 = PlayerSelector_hist.ChoosenOption(true);
+
+			switch (character1)
+			{
+			case LIU_KANG:
+				music.LiuKang();
+				break;
+			case SCORPION:
+				music.Scorpion();
+				break;
+			case SONYA:
+				music.SonyaBlade();
+				break;
+			}
 			break;
 
 		case Keyboard::Escape:
 
+			music.skipIntro();
 			state = 1;
 			break;
 
@@ -101,28 +111,38 @@ void EventManager::Update(Event event) {
 
 		switch (event.key.code) {
 		case Keyboard::W:
-
 			PlayerSelector_duel.MoveCursor(0, -1, true);
 			break;
 
 		case Keyboard::S:
-
 			PlayerSelector_duel.MoveCursor(0, 1, true);
 			break;
 
 		case Keyboard::D:
-
 			PlayerSelector_duel.MoveCursor(1, 0, true);
 			break;
 
 		case Keyboard::A:
-
 			PlayerSelector_duel.MoveCursor(-1, 0, true);
 			break;
 
 		case Keyboard::Enter:
 
 			character1 = PlayerSelector_duel.ChoosenOption(true);
+
+			switch (character1)
+			{
+			case LIU_KANG:
+				music.LiuKang();
+				break;
+			case SCORPION:
+				music.Scorpion();
+				break;
+			case SONYA:
+				music.SonyaBlade();
+				break;
+			}
+			break;
 
 			if (PlayerSelector_duel.Choosen()) {
 
@@ -137,28 +157,38 @@ void EventManager::Update(Event event) {
 			break;
 
 		case Keyboard::Up:
-
 			PlayerSelector_duel.MoveCursor(0, -1, false);
 			break;
 
 		case Keyboard::Down:
-
 			PlayerSelector_duel.MoveCursor(0, 1, false);
 			break;
 
 		case Keyboard::Right:
-
 			PlayerSelector_duel.MoveCursor(1, 0, false);
 			break;
 
 		case Keyboard::Left:
-
 			PlayerSelector_duel.MoveCursor(-1, 0, false);
 			break;
 
 		case Keyboard::Space:
 
 			character2 = PlayerSelector_duel.ChoosenOption(false);
+
+			switch (character2)
+			{
+			case LIU_KANG:
+				music.LiuKang();
+				break;
+			case SCORPION:
+				music.Scorpion();
+				break;
+			case SONYA:
+				music.SonyaBlade();
+				break;
+			}
+			break;
 
 			if (PlayerSelector_duel.Choosen()) {
 
@@ -172,6 +202,7 @@ void EventManager::Update(Event event) {
 
 		case Keyboard::Escape:
 
+			music.skipIntro();
 			state = 1;
 			break;
 
@@ -184,12 +215,10 @@ void EventManager::Update(Event event) {
 
 		switch (event.key.code) {
 		case Keyboard::W:
-
 			OptionsManager.MoveCursor(true);
 			break;
 
 		case Keyboard::S:
-
 			OptionsManager.MoveCursor(false);
 			break;
 
@@ -207,9 +236,8 @@ void EventManager::Update(Event event) {
 			break;
 
 		case Keyboard::D:
-
 			changedEstate = true;
-			OptionsManager.Right(music[0]);
+			OptionsManager.Right();
 
 			if (OptionsManager.ChoosenOption() == 4) {
 
@@ -220,9 +248,8 @@ void EventManager::Update(Event event) {
 			break;
 
 		case Keyboard::A:
-
 			changedEstate = true;
-			OptionsManager.Izquierda(music[0]);
+			OptionsManager.Izquierda();
 
 			if (OptionsManager.ChoosenOption() == 4) {
 
@@ -233,6 +260,7 @@ void EventManager::Update(Event event) {
 
 		case Keyboard::Escape:
 
+			music.skipIntro();
 			state = 1;
 			break;
 
@@ -242,11 +270,15 @@ void EventManager::Update(Event event) {
 
 	case 5: //Historia
 
-		if (event.key.code == Keyboard::Escape) state = 1;
+		if (event.key.code == Keyboard::Escape) { 
+			state = 1; 
+			music.skipIntro();
+		}
 
 	case 6: //Batalla
 
 		if (event.key.code == Keyboard::Escape) {
+			music.skipIntro();
 			state = 1;
 			BattleManager.Restart();
 		}

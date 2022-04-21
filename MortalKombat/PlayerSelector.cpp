@@ -204,25 +204,30 @@ void PlayerSelector::MoveCursor(int x_, int y_, bool player1) {
 
 	if (!choosen1 && player1 && x == 1 && y == 0 && x_ == 1 ) {
 		x = 3;
+		music.moveSelector();
 	}
 	else if (!choosen1 && player1&& x == 3 && y == 0 && x_ == -1) {
 		x = 1;
+		music.moveSelector();
 	}
 	else if (!choosen2 && !player1 && x2 == 1 && y2 == 0 && x_ == 1) {
 		x2 = 3;
+		music.moveSelector();
 	}
 	else if (!choosen2 && !player1 && x2 == 3 && y2 == 0 && x_ == -1) {
 		x2 = 1;
+		music.moveSelector();
 	}
 	else {
 		if (player1 && !choosen1 && CHARACTERS[y + y_][x + x_] == 1) {
-
 			x += x_;
 			y += y_;
+			music.moveSelector();
 		}
 		else if (!player1 && !choosen2 && CHARACTERS[y2 + y_][x2 + x_] == 1) {
 			x2 += x_;
 			y2 += y_;
+			music.moveSelector();
 		}
 	}
 
@@ -231,7 +236,6 @@ void PlayerSelector::MoveCursor(int x_, int y_, bool player1) {
 int PlayerSelector::ChoosenOption_int(bool player1) {
 
 	int charac = 0;
-	cout << x << "--" << y << endl;
 	if (!player1 && ((x2 == 4 && y2 == 0) || (x2 == 2 && y2 == 1) || (x2 == 3 && y2 == 1)) ) {
 		choosen2 = true;
 

@@ -78,6 +78,9 @@
     <ClCompile Include="Character.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
+    <ClCompile Include="MusicManager.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h">
@@ -144,7 +147,7 @@
       <Filter>Archivos de encabezado\GameManager\Characters</Filter>
     </ClInclude>
     <ClInclude Include="MusicManager.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

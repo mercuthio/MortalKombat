@@ -6,7 +6,7 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 
 	font = font_;
 	choosenOption = 0;
-	music = 3;
+	musicVolume = 3;
 	effects = 3;
 	showing_controls = false;
 	difficulty = false;
@@ -73,7 +73,7 @@ void OptionsManager::Update() {
 
 	for (int i = 0; i < MAX_MUSIC; i++) {
 
-		if (i <= music) {
+		if (i <= musicVolume) {
 			musi[i].setFillColor(yellow);
 		}
 		else {
@@ -102,22 +102,26 @@ void OptionsManager::Update() {
 
 }
 
-void OptionsManager::Right(Music& music_) {
+void OptionsManager::Right() {
 
 	switch (choosenOption) {
 	case 0: //MUSICA
-		if (music + 1 < MAX_MUSIC) {
-			music++;
+		if (musicVolume + 1 < MAX_MUSIC) {
+			musicVolume++;
+			music.addVolumeMusic();
+			music.moveOptions();
 		}
-		music_.setVolume((music + 1) * 20.0f);
 		break;
 	case 1: //EFECTOS
 		if (effects + 1 < MAX_EFFECTS) {
 			effects++;
+			music.addVolumeEffects();
+			music.moveOptions();
 		}
 		break;
 	case 2: //DIFICULTAD
 		difficulty = !difficulty;
+		music.moveOptions();
 		break;
 	case 3:
 		showing_controls = true;
@@ -133,22 +137,26 @@ void OptionsManager::Enter() {
 	}
 }
 
-void OptionsManager::Izquierda(Music& music_) {
+void OptionsManager::Izquierda() {
 
 	switch (choosenOption) {
 	case 0: //MUSICA
-		if (music - 1 >= -1) {
-			music--;
+		if (musicVolume - 1 >= -1) {
+			musicVolume--;
+			music.reduceVolumeMusic();
+			music.moveOptions();
 		}
-		music_.setVolume((music + 1) * 20.0f);
 		break;
 	case 1: //EFECTOS
 		if (effects - 1 >= -1) {
 			effects--;
+			music.reduceVolumeEffects();
+			music.moveOptions();
 		}
 		break;
 	case 2: //DIFICULTAD
 		difficulty = !difficulty;
+		music.moveOptions();
 		break;
 	}
 
@@ -211,5 +219,7 @@ void OptionsManager::MoveCursor(bool arriba) {
 			choosenOption = 0;
 		}
 	}
+
+	music.moveOptions();
 
 }

@@ -19,13 +19,13 @@ public:
 
 	void draw(RenderWindow&);			//Dibuja el menu de opciones
 	void Update();					//Actualiza los sprites de opciones
-	void Right(Music&);					//Pulsa la tecla D
+	void Right();					//Pulsa la tecla D
 	void Enter();					//Pulsa la tecla enter
-	void Izquierda(Music&);				//Mueve una opcion a la izquierda
+	void Izquierda();				//Mueve una opcion a la izquierda
 	int ChoosenOption();				//Devuelve la opcion elegida
 	void MoveCursor(bool);				//Mueve el curso arriba si parametro true, abajo si false
 
-	int music;							//Valor del volumen de la musica
+	int musicVolume;					//Valor del volumen de la musica
 	int effects;						//Valor del volumen de los efectos
 	bool difficulty;					//False = normal, True = dificil
 
@@ -44,7 +44,6 @@ private:
 	RectangleShape logo;
 	RectangleShape musi[MAX_MUSIC];	//Vector de objetos de la musica
 	RectangleShape efec[MAX_EFFECTS];//Vector de objetos de los efectos
-
 };
 
 #endif

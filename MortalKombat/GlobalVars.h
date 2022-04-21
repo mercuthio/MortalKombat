@@ -1,7 +1,11 @@
 #ifndef GlobalVars_H
 #define GlobalVars_H
 
+#include "MusicManager.h"
+
 using namespace sf;
+
+extern MusicManager music;
 
 extern float loadingTime;
 extern float moveXBack;

@@ -10,6 +10,7 @@
 #include "PlayerSelector.h"
 #include "HistoryManager.h"
 #include "BattleManager.h"
+#include "MusicManager.h"
 
 #include <chrono>
 #include <thread>
@@ -17,8 +18,6 @@
 
 using namespace sf;
 using namespace std;
-
-const int NUMERO_CANCIONES = 10;
 
 class EventManager {
 
@@ -41,7 +40,6 @@ private:
 
 	background stage;
 	MenuManager MenuManager;							//Objeto del menu principal
-	Music music[NUMERO_CANCIONES];						//Vector de sonidos
 	StartManager StartManager;							//Objeto de las pantallas iniciales
 	OptionsManager OptionsManager;						//Objeto del menu de opciones
 	TransitionManager TransitionManager;				//Objeto de la transicion
