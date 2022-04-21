@@ -104,7 +104,9 @@ static Character CreateScorpion() {
 	animations[AnimationType::BLOCK] = blockUpMov;
 	animations[AnimationType::BLOCK_LOW] = blockDownMov;
 
-	Character Scorpion = Character(animations, body);
+	map< AnimationType, vector<RectangleShape>> hitboxes;
+
+	Character Scorpion = Character(animations, body, hitboxes);
 
 	return Scorpion;
 }

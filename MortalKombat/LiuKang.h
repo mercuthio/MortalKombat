@@ -3,15 +3,6 @@
 
 #include "Character.h"
 
-
-struct rectValues {
-	float left;
-	float top;
-	float width;
-	float height;
-};
-
-
 static Character CreateLiuKang() {
 	Texture* spriteSheet = new Texture();
 	Image spriteSheetImage;
@@ -37,7 +28,7 @@ static Character CreateLiuKang() {
 	vector<int> punchOrKickAir_lock{ 5, 5 };
 	vector<int> fallBack_lock{ 6 };
 
-	
+
 	Animation idle0 = Animation(8, spriteSheet, Vector2<int>(32, 58), sz, 5, false, false, 0, null_vector, 0);
 	Animation forw0 = Animation(9, spriteSheet, Vector2<int>(2138, 58), sz, 5, false, false, 0, null_vector, 0);
 	Animation back0 = Animation(9, spriteSheet, Vector2<int>(4010, 58), sz, 5, true, false, 0, null_vector, 0);
@@ -73,7 +64,7 @@ static Character CreateLiuKang() {
 	Animation fallUppercut0 = Animation(8, spriteSheet, Vector2<int>(1904, 4606), sz, 5, false, true, 0, null_vector, 0);
 	Animation nuts0 = Animation(4, spriteSheet, Vector2<int>(4010, 4606), sz, 5, false, true, 0, null_vector, 0);
 	Animation recover0 = Animation(7, spriteSheet, Vector2<int>(1670, 5078), sz, 5, false, true, 0, null_vector, 0);
-	
+
 	Animation getCaught0 = Animation(7, spriteSheet, Vector2<int>(1904, 5600), sz, 5, false, true, 0, null_vector, 0);
 	Animation catch0 = Animation(7, spriteSheet, Vector2<int>(32, 5600), sz, 5, false, true, 0, null_vector, 0);
 	Animation dying0 = Animation(7, spriteSheet, Vector2<int>(32, 7166), sz, 5, false, true, 0, null_vector, 0);
@@ -115,7 +106,7 @@ static Character CreateLiuKang() {
 	Movement backMov = Movement{ backWalk, Vector2<float>(-10, 0.0) };
 	Movement punchMov = Movement{ punch, Vector2<float>(0.0, 0.0) };
 	Movement punchUpMov = Movement{ punchUp, Vector2<float>(0.0, 0.0) };
-	Movement punchFromUpMov = Movement{punchFromUp, Vector2<float>(0.0, 0.0) };
+	Movement punchFromUpMov = Movement{ punchFromUp, Vector2<float>(0.0, 0.0) };
 	Movement bodyToBodyMov = Movement{ bodyToBody, Vector2<float>(0.0, 0.0) };
 	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0) };
 	Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0) };
@@ -170,64 +161,193 @@ static Character CreateLiuKang() {
 	animations[AnimationType::GET_CAUGHT] = getCaughtMov;
 	animations[AnimationType::CATCH] = catchMov;
 	animations[AnimationType::DYING] = dyingMov;
-	
-	/*
-	float left;
-	float top;
-	float width;
-	float height;
-	*/
-	/*
-	rectValues idle0[8] = { { 99,117, 72, 123}, {334,113, 70,126}, {564,111,74,130}, {797,114,74,127}, {1031,118,74,124}, {1266,114,74,126}, {1500,110,74,131}, {1739,113,71,127} };
-	rectValues forw0[9] = { {2213,110,71,131}, {2461,106,55,135}, {2696,108,56,132}, {2934,107,52,132}, {3164,111,56,128}, {3394,107,60,133}, {3868,107,53,134}, {3868,107,53,134}, {4098,112,62,128} };
-	rectValues back0[9] = { {4098,112,62,128}, {3868,107,53,134}, {3868,107,53,134}, {3394,107,60,133}, {3164,111,56,128}, {2934,107,52,132}, {2696,108,56,132}, {2461,106,55,135}, {2213,110,71,131} };
 
-	rectValues punch0[4] = { {98,627,72,137}, {335,625,81,139}, {569,630,115,130}, {799,628,73,136} };
-	rectValues punchUp0[4] = { {}, {}, {}, {} };
-	rectValues punchDown0[5] = { {1501,2641,73,110}, {1740,2627,89,125}, {1977,2619,92,136}, {2224,2606,54,149}, {2433,2620,86,129} };
-	rectValues punchFromUp0[5] = { {2465,3591,73,84}, {2683,3592,104,78}, {2889,3589,145,82}, {3151,3592,104,77}, {3401,3591,73,84} };
-	rectValues bodyToBody0[5] = { {3608,630,84,134}, {3844,632,73,131}, {4083,634,88,128}, {4312,632,74,131}, {4544,629,84,135} };
-	rectValues bodyToBodyUp0[5] = { {}, {}, {}, {}, {} };
+	Vector2f idleS[8] = { { 72, 123}, { 70,126}, {74,130}, {74,127}, {74,124}, {74,126}, {74,131}, {71,127} };
+	Vector2f forwS[9] = { {71,131}, {55,135}, {56,132}, {52,132}, {56,128}, {60,133}, {53,134}, {53,134}, {62,128} };
+	Vector2f backS[9] = { {62,128}, {53,134}, {53,134}, {60,133}, {56,128}, {52,132}, {56,132}, {55,135}, {71,131} };
 
-	rectValues jump0[1] = { {103,3128,74,102} };
-	rectValues jumpMove0[7] = { {603,3607,50,70}, {833,3612,62,64}, {1059,3615,70,43}, {1293,3610,63,59}, {1544,3592,46,69}, {1768,3593,60,64}, {2013,3604,64,60} };
-	rectValues jumpFall[3] = { {3378,3127,75,102}, {3614,3130,71,142}, {3842,3154,77,119} };
+	Vector2f punchS[4] = { {72,137}, {81,139}, {115,130}, {73,136} };
+	Vector2f punchUpS[4] = { {73,135}, {80,137}, {106,137}, {71,137} };
+	Vector2f punchDownS[5] = { {73,110}, {89,125}, {92,136}, {54,149}, {86,129} };
+	Vector2f punchFromUpS[5] = { {73,84}, {104,78}, {145,82}, {104,77}, {73,84} };
+	Vector2f bodyToBodyS[5] = { {84,134}, {73,131}, {88,128}, {74,131}, {84,135} };
 
-	rectValues kick0[7] = { {103,1623,68,135}, {355,1620,62,133}, {591,1622,58,131}, {825,1623,109,130}, {1059,1622,57,132}, {1292,1619,61,136}, {1508,1623,65,133} };
-	rectValues kickUp0[7] = { {2418,2904,94,133}, {2671,2098,77,130}, {2934,2108,58,119}, {3173,2095,89,134}, {3410,2119,52,110}, {3629,2125,55,104}, {3850,2100,66,128} };
-	rectValues kickDown0[8] = { {1975,1623,68,133}, {2201,1667,78,89}, {2446,1696,70,65}, {2684,1702,101,62}, {2924,1701,124,60}, {3166,1696,51,89}, {3367,1654,89,102}, {3611,1622,70,135} };
-	rectValues kickFromDown0[5] = { {2914,2671,62,80}, {3151,2672,84,76}, {3385,2659,87,91}, {3618,2672,85,77}, {3850,2671,62,79} };
-	rectValues kickFromUp0[5] = { {3873,3597,78,78}, {4107,3597,90,79}, {4339,3598,110,74}, {4575,3597,91,77}, {4810,3597,77,79} };
+	Vector2f jumpS[4] = { {74,102}, {75,102}, {71,142 }, { 77,119 } };
+	Vector2f jumpMoveS[7] = { {50,70}, {62,64}, {70,43}, {63,59}, {46,69}, {60,64}, {64,60} };
 
-	rectValues duck0[5] = { {99,2632,72,118}, {332,2660,76,91}, {566,2674,72,77}, {800,2660,76,90}, {1035,2631,71,118} };
+	Vector2f kickS[7] = { {68,135}, {62,133}, {58,131}, {109,130}, {57,132}, {61,136}, {65,133} };
+	Vector2f kickUpS[7] = { {94,133}, {77,130}, {58,119}, {89,134}, {52,110}, {55,104}, {66,128} };
+	Vector2f kickDownS[8] = { {68,133}, {78,89}, {70,65}, {101,62}, {124,60}, {51,89}, {89,102}, {70,135} };
+	Vector2f kickFromDownS[5] = { {62,80}, {84,76}, {87,91}, {85,77}, {62,79} };
+	Vector2f kickFromUpS[5] = { {78,78}, {90,79}, {110,74}, {91,77}, {77,79} };
 
-	rectValues blockUp0[5] = { {100,6172,77,132}, {331,6170,75,135}, {563,6172,74,132}, {799,6170,75,134}, {1037,6172,76,132} };
-	rectValues blockDown0[2] = { {1505,6209,68,97}, {1739,6207,69,98} };
+	Vector2f duckS[5] = { {72,118}, {76,91}, {72,77}, {76,90}, {71,118} };
 
-	rectValues special0[8] = { {86,6710,85,118}, {327,6723,78,104}, {561,6706,80,121}, {794,6694,63,134}, {1025,6697,62,130}, {1258,6699,63,130}, {1492,6699,63,129}, {1726,6698,63,130} };
-	
-	rectValues fall0[7] = { {}, {}, {}, {}, {}, {}, {} };
-	rectValues fallBack0[6] = { {}, {}, {}, {}, {}, {} };
-	rectValues fallUppercut0[8] = { {}, {}, {}, {}, {}, {}, {}, {} };
-	rectValues nuts0[4] = { {}, {}, {}, {} };
-	rectValues recover0[7] = { {}, {}, {}, {}, {}, {}, {} };
+	Vector2f blockUpS[5] = { {77,132}, {75,135}, {74,132}, {75,134}, {76,132} };
+	Vector2f blockDownS[2] = { {68,97}, {69,98} };
 
-	rectValues getCaught0[7] = { {}, {}, {}, {}, {}, {}, {} };
-	rectValues catch0[7] = { {}, {}, {}, {}, {}, {}, {} };
-	rectValues dying0[7] = { {}, {}, {}, {}, {}, {}, {} };
+	Vector2f specialS[8] = { {85,118}, {78,104}, {80,121}, {63,134}, {62,130}, {63,130}, {63,129}, {63,130} };
+
+	Vector2f nutsS[4] = { {68,105}, {67,91}, {77,90}, {73,118} };
+
+	Vector2f catchS[7] = { {92,128}, {106,112}, {90,126}, {86,144}, {74,157}, {86,138}, {93,110} };
+	Vector2f dyingS[7] = { {70,122}, {71,121}, {70,127}, {70,134}, {70,135}, {71,133}, {71,121} };
 
 
 	RectangleShape rect;
-	IntRect uvRect;
-	vector<RectangleShape> hitboxes;
-	
-
-	for (int i = 0; i < ; i++) {
-
+	vector<RectangleShape> idleR;
+	for (Vector2f size : idleS) {
+		rect.setSize(size);
+		idleR.push_back(rect);
+	}
+	vector<RectangleShape> forwR;
+	for (Vector2f size : forwS) {
+		rect.setSize(size);
+		forwR.push_back(rect);
+	}
+	vector<RectangleShape> backR;
+	for (Vector2f size : backS) {
+		rect.setSize(size);
+		backR.push_back(rect);
 	}
 
-	*/
-	Character LiuKang = Character(animations, body);
+	vector<RectangleShape> punchR;
+	for (Vector2f size : punchS) {
+		rect.setSize(size);
+		punchR.push_back(rect);
+	}
+	vector<RectangleShape> punchUpR;
+	for (Vector2f size : punchUpS) {
+		rect.setSize(size);
+		punchUpR.push_back(rect);
+	}
+	vector<RectangleShape> punchDownR;
+	for (Vector2f size : punchDownS) {
+		rect.setSize(size);
+		punchDownR.push_back(rect);
+	}
+	vector<RectangleShape> punchFromUpR;
+	for (Vector2f size : punchFromUpS) {
+		rect.setSize(size);
+		punchFromUpR.push_back(rect);
+	}
+	vector<RectangleShape> bodyToBodyR;
+	for (Vector2f size : bodyToBodyS) {
+		rect.setSize(size);
+		bodyToBodyR.push_back(rect);
+	}
+
+	vector<RectangleShape> jumpR;
+	for (Vector2f size : jumpS) {
+		rect.setSize(size);
+		jumpR.push_back(rect);
+	}
+	vector<RectangleShape> jumpMoveR;
+	for (Vector2f size : jumpMoveS) {
+		rect.setSize(size);
+		jumpMoveR.push_back(rect);
+	}
+
+	vector<RectangleShape> kickR;
+	for (Vector2f size : kickS) {
+		rect.setSize(size);
+		kickR.push_back(rect);
+	}
+	vector<RectangleShape> kickUpR;
+	for (Vector2f size : kickUpS) {
+		rect.setSize(size);
+		kickUpR.push_back(rect);
+	}
+	vector<RectangleShape> kickDownR;
+	for (Vector2f size : kickDownS) {
+		rect.setSize(size);
+		kickDownR.push_back(rect);
+	}
+	vector<RectangleShape> kickFromDownR;
+	for (Vector2f size : kickFromDownS) {
+		rect.setSize(size);
+		kickFromDownR.push_back(rect);
+	}
+	vector<RectangleShape> kickFromUpR;
+	for (Vector2f size : kickFromUpS) {
+		rect.setSize(size);
+		kickFromUpR.push_back(rect);
+	}
+
+	vector<RectangleShape> duckR;
+	for (Vector2f size : duckS) {
+		rect.setSize(size);
+		duckR.push_back(rect);
+	}
+
+	vector<RectangleShape> blockUpR;
+	for (Vector2f size : blockUpS) {
+		rect.setSize(size);
+		blockUpR.push_back(rect);
+	}
+	vector<RectangleShape> blockDownR;
+	for (Vector2f size : blockDownS) {
+		rect.setSize(size);
+		blockDownR.push_back(rect);
+	}
+
+	vector<RectangleShape> specialR;
+	for (Vector2f size : specialS) {
+		rect.setSize(size);
+		specialR.push_back(rect);
+	}
+
+	vector<RectangleShape> nutsR;
+	for (Vector2f size : nutsS) {
+		rect.setSize(size);
+		nutsR.push_back(rect);
+	}
+
+	vector<RectangleShape> catchR;
+	for (Vector2f size : catchS) {
+		rect.setSize(size);
+		catchR.push_back(rect);
+	}
+	vector<RectangleShape> dyingR;
+	for (Vector2f size : dyingS) {
+		rect.setSize(size);
+		dyingR.push_back(rect);
+	}
+
+	map< AnimationType, vector<RectangleShape>> hitboxes;
+	hitboxes[AnimationType::IDLE] = idleR;
+	hitboxes[AnimationType::WALK_FORW] = forwR;
+	hitboxes[AnimationType::WALK_BACK] = backR;
+
+	hitboxes[AnimationType::PUNCH] = punchR;
+	hitboxes[AnimationType::PUNCH_UPPER] = punchUpR;
+	hitboxes[AnimationType::PUNCH_FROM_DOWN] = punchDownR;
+	hitboxes[AnimationType::PUNCH_FROM_AIR] = punchFromUpR;
+	hitboxes[AnimationType::PUNCH_CLOSE] = bodyToBodyR;
+
+	hitboxes[AnimationType::JUMP] = jumpR;
+	hitboxes[AnimationType::JUMP_AND_MOVE] = jumpMoveR;
+
+	hitboxes[AnimationType::KICK] = kickR;
+	hitboxes[AnimationType::KICK_UPPER] = kickUpR;
+	hitboxes[AnimationType::KICK_LOW] = kickDownR;
+	hitboxes[AnimationType::KICK_FROM_DOWN] = kickFromDownR;
+	hitboxes[AnimationType::KICK_FROM_AIR] = kickFromUpR;
+
+	hitboxes[AnimationType::DOWN] = duckR;
+
+	hitboxes[AnimationType::BLOCK] = blockUpR;
+	hitboxes[AnimationType::BLOCK_LOW] = blockDownR;
+
+	hitboxes[AnimationType::SPECIAL] = specialR;
+
+	hitboxes[AnimationType::NUTS] = nutsR;
+
+	hitboxes[AnimationType::CATCH] = catchR;
+	hitboxes[AnimationType::DYING] = dyingR;
+
+
+	Character LiuKang = Character(animations, body, hitboxes);
 
 	return LiuKang;
 }

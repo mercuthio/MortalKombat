@@ -25,7 +25,7 @@ using namespace std;
 class Character {
 public:
 	Character() = default;
-	Character(map<AnimationType, Movement> _animations, RectangleShape & _body);
+	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, map<AnimationType, vector<RectangleShape>> hitboxes_);
 	//~Character() = delete;
 
 	void Update(float time);
@@ -43,6 +43,7 @@ private:
 
 	Vector2<float> global_position;
 	map<AnimationType, Movement> animations; // mapa de enum -> animacion
+	map<AnimationType, vector<RectangleShape>> hitboxes;
 
 	float internalTimer = 0.05f;
 

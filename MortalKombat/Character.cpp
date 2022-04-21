@@ -1,9 +1,10 @@
 #include "Character.h"
 
-Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body) {
+Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, map<AnimationType, vector<RectangleShape>> hitboxes_) {
 	body = _body;
 	animation_in_process = AnimationType::IDLE;
 	animations = _animations;
+	hitboxes = hitboxes_;
 }
 
 void Character::Update(float tiempo) {

@@ -64,7 +64,9 @@ static Character CreateSonyaBlade() {
 	animations[AnimationType::KICK] = kickMov;
 	animations[AnimationType::DOWN] = duckMov;
 
-	Character SonyaBlade = Character(animations, body);
+	map< AnimationType, vector<RectangleShape>> hitboxes;
+
+	Character SonyaBlade = Character(animations, body, hitboxes);
 
 	return SonyaBlade;
 }
