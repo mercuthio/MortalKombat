@@ -20,12 +20,23 @@ void Character::Update(float tiempo) {
 			cout << "Origin: " << "(" << body.getOrigin().x << ", " << body.getOrigin().y << ")" << endl;
 		}*/
 
+
 		CheckAnimation();	// Dependiendo de que ha pulsado el jugador hago una animación u otra
 		DoAnimation();		// Realizo el siguiente frame de la animación
 
 		CheckCollisions();
 
+		int frame = animations[animation_in_process].animation.current_animation;
+		hitbox = hitboxes[animation_in_process][frame];
+
+		cout << "X: " << hitbox.getSize().x / 3<< endl;
+		cout << "Y: " << hitbox.getSize().y / 3 << endl;
+		cout << "Frame actual: " << frame << endl;
+
+		hitbox.setPosition(global_position.x + 190, global_position.y + 170);
+
 		body.setPosition(global_position);
+
 	
 	}
 	else {
@@ -310,6 +321,7 @@ void Character::GetHit(int quantity) {
 }
 
 void Character::debugDraw(RenderWindow& window) {
+	window.draw(hitbox);	//Para debug
 	window.draw(body);
 }
 

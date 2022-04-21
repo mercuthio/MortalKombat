@@ -40,6 +40,7 @@ public:
 
 private:
 	RectangleShape body;
+	RectangleShape hitbox;
 
 	Vector2<float> global_position;
 	map<AnimationType, Movement> animations; // mapa de enum -> animacion
