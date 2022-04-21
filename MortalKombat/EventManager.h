@@ -23,12 +23,11 @@ const int NUMERO_CANCIONES = 10;
 class EventManager {
 
 public:
-	EventManager(Texture[], Font);
+	EventManager(Texture[], Font, Clock);
 	~EventManager() = default;
 
 	void Update(Event);									//Actualiza el menu actual dada una tecla pulsada
 	void draw(RenderWindow&);							//Dibuja el menu actual
-	void setClock(Clock);								//Funcion de gestion de reloj
 
 private:
 

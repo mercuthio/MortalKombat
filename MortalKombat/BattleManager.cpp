@@ -1,9 +1,12 @@
-
 #include "BattleManager.h"
 
 using namespace std;
 
-BattleManager::BattleManager(Texture* texture_, Font font_) {
+float loadingTime;
+
+BattleManager::BattleManager(Texture* texture_, Font font_, Clock clock) {
+
+	this->clock = clock;
 
 	texture = texture_;
 	font = font_;
@@ -16,6 +19,10 @@ BattleManager::BattleManager(Texture* texture_, Font font_) {
 
 	LoadTextures();
 	LoadCharacters();
+
+	loadingTime = clock.getElapsedTime().asSeconds();
+
+	cout << "INFO: Game loaded in " << loadingTime << "s!" << endl;
 
 }
 
@@ -185,11 +192,11 @@ void BattleManager::LoadTextures() {
 
 void BattleManager::LoadCharacters(){
 	cout << "[*] Loading character textures..." << endl;
-	//LiuKang = CreateLiuKang();
+	LiuKang = CreateLiuKang();
 	cout << "[+......] Character LiuKang loaded!" << endl;
-	//Scorpion = CreateScorpion();
+	Scorpion = CreateScorpion();
 	cout << "[++.....] Character Scorpion loaded!" << endl;
-	//SonyaBlade = CreateSonyaBlade();
+	SonyaBlade = CreateSonyaBlade();
 	cout << "[+++....] Character Sonya Blade loaded!" << endl;
 	cout << "[+++++++] All characters loaded succesfully!" << endl;
 }

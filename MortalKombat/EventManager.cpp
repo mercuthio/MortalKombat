@@ -1,9 +1,11 @@
 
 #include "EventManager.h"
 
-EventManager::EventManager(Texture textures[], Font font) : StartManager(&textures[0], &textures[1]), 
+EventManager::EventManager(Texture textures[], Font font, Clock clock) : BattleManager(&textures[0], font, clock), StartManager(&textures[0], &textures[1]),
 	MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), 
-	PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]), BattleManager(&textures[0],font) {
+	PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]) {
+
+	this->clock = clock;
 
 	state = 0;
 	changedEstate = false;
@@ -11,12 +13,6 @@ EventManager::EventManager(Texture textures[], Font font) : StartManager(&textur
 	//music[0].openFromFile("audio/soundtrack.ogg");
 	//music[0].play();
 	//music[0].setLoop(true);
-
-}
-
-void EventManager::setClock(Clock clock) {
-
-	this->clock = clock;
 
 }
 
@@ -274,7 +270,8 @@ void EventManager::draw(RenderWindow& window) {
 	switch (state) {
 	case 0:
 
-		if (StartManager.draw(window, clock.getElapsedTime().asSeconds())) { //Si terminada intro
+		if (StartManager.draw(window, clock.getElapsedTime().asSeconds() - loadingTime)) { //Si terminada intro
+
 			changedEstate = true;
 			state = 1;
 

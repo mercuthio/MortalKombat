@@ -3,14 +3,15 @@
 
 using namespace sf;
 
+extern float loadingTime;
+extern float moveXBack;
+extern float moveYBack;
+
 const int NUMBER_TRACKS = 191;
 const double ASPECT_RATIO = 4.0/3.0;
 
 static float width_window = 1024;
 static float height_window = 768;
-
-static float moveXBack = 0.0f;
-static float moveYBack = 0.0f;
 
 static Keyboard::Key jumpButton = Keyboard::W;
 static Keyboard::Key forwButton = Keyboard::D;
@@ -133,5 +134,4 @@ static bool isAnyKeyPressed() {
 		Keyboard::isKeyPressed(blockButton)
 	);
 }
-
 #endif

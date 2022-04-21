@@ -103,7 +103,6 @@ StartManager::StartManager(Texture* menus, Texture* bios) {
 //Script de la intro
 bool StartManager::draw(RenderWindow& window, float seconds) {
 
-
 	if (seconds > 25.0f) {		//Pantalla goro con texto
 		uvRect_backg.left = 3586;
 		menu_backg.setTextureRect(uvRect_backg);

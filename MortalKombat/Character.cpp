@@ -1,5 +1,8 @@
 #include "Character.h"
 
+float moveXBack;
+float moveYBack;
+
 Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, map<AnimationType, vector<RectangleShape>> hitboxes_) {
 	body = _body;
 	animation_in_process = AnimationType::IDLE;

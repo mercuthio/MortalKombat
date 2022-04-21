@@ -22,7 +22,7 @@ const float SIZE_LIFE = 413.0f;
 class BattleManager {
 
 public:
-	BattleManager(Texture*, Font);
+	BattleManager(Texture*, Font, Clock);
 	~BattleManager() = default;
 
 	void Update(Event);									//Actualiza la batalla actual dada una tecla pulsada
@@ -38,6 +38,8 @@ private:
 
 	CharacterType character1;										//Personaje del jugador 1
 	CharacterType character2;										//Personaje del jugador 2
+
+	Clock clock;
 
 	int life1;
 	int life2;

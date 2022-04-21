@@ -73,8 +73,7 @@ int main() {
     version.setCharacterSize(25);
     version.setPosition(Vector2f(30.0, height_window - 45.0));
 
-    EventManager EventManager(textures, font);
-    EventManager.setClock(clock);
+    EventManager EventManager(textures, font, clock);
 
     window.setKeyRepeatEnabled(true);
     window.setFramerateLimit(60);
