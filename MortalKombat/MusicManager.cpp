@@ -1,8 +1,13 @@
 #include "MusicManager.h"
 
 MusicManager::MusicManager() {
-
+	
 	//INTRO
+	SoundBuffer buffer;
+	Sound sound;
+
+	for (int i = 0; i < 4; i++) { bufferIntro.push_back(buffer); intro.push_back(sound);}
+
 	bufferIntro[0].loadFromFile("audio/musiccues/startIntro.ogg");
 	intro[0].setBuffer(bufferIntro[0]);
 	bufferIntro[1].loadFromFile("audio/musiccues/endIntro.ogg");
@@ -12,7 +17,22 @@ MusicManager::MusicManager() {
 	bufferIntro[3].loadFromFile("audio/musiccues/selector.ogg");
 	intro[3].setBuffer(bufferIntro[3]);
 
+
+	//MUSIC
+
+	for (int i = 0; i < 2; i++) { bufferMusic.push_back(buffer); music.push_back(sound); }
+
+	bufferMusic[0].loadFromFile("audio/music/mainTheme.ogg");
+	music[0].setBuffer(bufferMusic[0]);
+	bufferMusic[1].loadFromFile("audio/music/selectorTheme.ogg");
+	music[1].setBuffer(bufferMusic[1]);
+
+
+
 	//ANUNCIADOR
+
+	for (int i = 0; i < 20; i++) { bufferAnnouncers.push_back(buffer); announcers.push_back(sound); }
+
 	bufferAnnouncers[0].loadFromFile("audio/announcer/excellent.ogg");
 	announcers[0].setBuffer(bufferAnnouncers[0]);
 	bufferAnnouncers[1].loadFromFile("audio/announcer/fatality.ogg");
@@ -55,6 +75,9 @@ MusicManager::MusicManager() {
 	announcers[19].setBuffer(bufferAnnouncers[19]);
 
 	//UI
+
+	for (int i = 0; i < 4; i++) { bufferUI.push_back(buffer); UI.push_back(sound); }
+
 	bufferUI[0].loadFromFile("audio/ui/moveMain.ogg");
 	UI[0].setBuffer(bufferUI[0]);
 	bufferUI[1].loadFromFile("audio/ui/moveOptions.ogg");
@@ -65,10 +88,16 @@ MusicManager::MusicManager() {
 	UI[3].setBuffer(bufferUI[3]);
 
 	//History
-	bufferHistory.loadFromFile("audio/musiccues/history.ogg");
-	history.setBuffer(bufferHistory);
+
+	for (int i = 0; i < 1; i++) { bufferHistory.push_back(buffer); history.push_back(sound); }
+
+	bufferHistory[0].loadFromFile("audio/musiccues/history.ogg");
+	history[0].setBuffer(bufferHistory[0]);
 
 	//Arenas
+
+	for (int i = 0; i < 3; i++) { bufferArenas.push_back(buffer); arenas.push_back(sound); }
+
 	bufferArenas[0].loadFromFile("audio/arenas/claps.ogg");
 	arenas[0].setBuffer(bufferArenas[0]);
 	bufferArenas[1].loadFromFile("audio/arenas/loosePublic.ogg");
@@ -77,6 +106,9 @@ MusicManager::MusicManager() {
 	arenas[2].setBuffer(bufferArenas[2]);
 
 	//Scorpion
+
+	for (int i = 0; i < 2; i++) { bufferScorpion.push_back(buffer); scorpion.push_back(sound); }
+
 	bufferScorpion[0].loadFromFile("audio/scorpion/comeHere.ogg");
 	scorpion[0].setBuffer(bufferScorpion[0]);
 	bufferScorpion[1].loadFromFile("audio/scorpion/getOverHere.ogg");
@@ -87,6 +119,9 @@ void MusicManager::startIntro() { intro[0].setVolume(volumeMusic); intro[0].play
 void MusicManager::endIntro() { intro[1].setVolume(volumeMusic); intro[1].play(); }
 void MusicManager::presentsIntro() { intro[2].setVolume(volumeMusic); intro[2].play(); }
 void MusicManager::selectorIntro() { intro[3].setVolume(volumeMusic); intro[3].play(); }
+
+void MusicManager::mainTheme() { stopMusic(); stopIntros(); music[0].setVolume(volumeMusic); music[0].play(); music[0].setLoop(true); }
+void MusicManager::selectorTheme() { stopMusic(); stopIntros(); music[1].setVolume(volumeMusic); music[1].play(); music[1].setLoop(true); }
 
 void MusicManager::excellente() { announcers[0].setVolume(volumeEffects); announcers[0].play(); }
 void MusicManager::fatality() { announcers[1].setVolume(volumeEffects); announcers[1].play(); }
@@ -114,7 +149,7 @@ void MusicManager::moveOptions() { UI[1].setVolume(volumeEffects); UI[1].play();
 void MusicManager::moveSelector() { UI[2].setVolume(volumeEffects); UI[2].play(); }
 void MusicManager::skipIntro() { UI[3].setVolume(volumeEffects); UI[3].play(); }
 
-void MusicManager::History() { history.setVolume(volumeMusic); history.play(); }
+void MusicManager::History() { history[0].setVolume(volumeMusic); history[0].play(); }
 
 void MusicManager::claps() { arenas[0].setVolume(volumeEffects); arenas[0].play(); }
 void MusicManager::loosePublic() { arenas[1].setVolume(volumeEffects); arenas[1].play(); }
@@ -122,3 +157,15 @@ void MusicManager::victoryPublic() { arenas[2].setVolume(volumeEffects); arenas[
 
 void MusicManager::comeHere() { scorpion[0].setVolume(volumeEffects); scorpion[0].play(); }
 void MusicManager::getOverHere() { scorpion[1].setVolume(volumeEffects); scorpion[1].play(); }
+
+void MusicManager::stopIntros() {
+	for (int i = 0; i < intro.size(); i++) {
+		intro[i].stop();
+	}
+}
+
+void MusicManager::stopMusic() {
+	for (int i = 0; i < music.size(); i++) {
+		music[i].stop();
+	}
+}

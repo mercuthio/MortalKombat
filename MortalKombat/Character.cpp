@@ -3,6 +3,7 @@
 float moveXBack;
 float moveYBack;
 
+
 Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, map<AnimationType, vector<RectangleShape>> hitboxes_) {
 	body = _body;
 	animation_in_process = AnimationType::IDLE;
@@ -226,23 +227,16 @@ bool Character::CheckScreenCollisions(float movement) {
 	if (global_position.x < screenLeftHardLimit) {
 		global_position.x = screenLeftHardLimit;
 		return true;
-	}
-	else if (global_position.x > screenRightHardLimit) {
+	} else if (global_position.x > screenRightHardLimit) {
 		global_position.x = screenRightHardLimit;
 		return true;
 	}
 
-	if (global_position.x <= screenLeftLimit) {
-		cout << "LIMIT LEFT: " << screenLeftLimit << endl;
-		cout << "-----------: " << global_position.x << endl;
+	if (global_position.x - movement <= screenLeftLimit) {
 		moveXBack += movement;
-		screenLeftLimit -= movement;
 		return true;
-	}
-	else if (global_position.x >= screenRightLimit) {
-		cout << "LIMIT RIGHT: " << screenRightLimit << endl;
+	} else if (global_position.x - movement >= screenRightLimit) {
 		moveXBack += movement;
-		screenRightLimit -= movement;
 		return true;
 	}
 
@@ -285,16 +279,23 @@ void Character::DoAnimation() {
 		if (mov.x != 0) { 
 			if (!CheckScreenCollisions(-mov.x)) {
 				global_position += mov;
-				cout << "MOVEMENT: " << global_position.x << endl;
-			}
-			else {
-				global_position -= mov;
-				cout << "NO MOVER" << endl;
 			}
 		}
-	}
-	else { // Sigue las físicas del mundo (gravedad)
-		global_position = global_position - speed * updateTime;
+	} else { // Sigue las físicas del mundo (gravedad)
+		Vector2<float> mov;
+		mov.y = speed.y * updateTime;
+		global_position.y -= mov.y;
+
+		CheckScreenCollisions(0);
+
+		mov.x = speed.x * updateTime;
+		mov.x = leftOfOpponent ? mov.x : -mov.x;
+		if (mov.x != 0) {
+			if (!CheckScreenCollisions(mov.x)) {
+				global_position.x -= mov.x;
+			}
+		}
+
 		Vector2<float> pre_speed = speed;
 		speed.y = speed.y - gravedad * updateTime;
 

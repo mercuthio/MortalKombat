@@ -18,6 +18,9 @@ public:
 	void endIntro();
 	void selectorIntro();
 
+	void mainTheme();
+	void selectorTheme();
+
 	void excellente();
 	void fatality();
 	void fight();
@@ -59,20 +62,31 @@ public:
 	void reduceVolumeEffects() { volumeEffects -= 20.f; };
 	void addVolumeEffects() { volumeEffects += 20.f; };
 
-private:
-	Sound intro[4];
-	Sound announcers[20];
-	Sound UI[5];
-	Sound history;
-	Sound arenas[3];
-	Sound scorpion[2];
+	void updateMusicVolume() {
+		for (int i = 0; i < music.size(); i++) {
+			music[i].setVolume(volumeMusic);
+		}
+	}
 
-	SoundBuffer bufferIntro[4];
-	SoundBuffer bufferAnnouncers[20];
-	SoundBuffer bufferUI[5];
-	SoundBuffer bufferHistory;
-	SoundBuffer bufferArenas[3];
-	SoundBuffer bufferScorpion[2];
+	void stopIntros();
+	void stopMusic();
+
+private:
+	vector<Sound> intro;
+	vector<Sound> music;
+	vector<Sound> announcers;
+	vector<Sound> UI;
+	vector<Sound> history;
+	vector<Sound> arenas;
+	vector<Sound> scorpion;
+
+	vector<SoundBuffer> bufferIntro;
+	vector<SoundBuffer> bufferMusic;
+	vector<SoundBuffer> bufferAnnouncers;
+	vector<SoundBuffer> bufferUI;
+	vector<SoundBuffer> bufferHistory;
+	vector<SoundBuffer> bufferArenas;
+	vector<SoundBuffer> bufferScorpion;
 
 	float volumeMusic = 80.f;
 	float volumeEffects = 80.f;

@@ -109,6 +109,7 @@ void OptionsManager::Right() {
 		if (musicVolume + 1 < MAX_MUSIC) {
 			musicVolume++;
 			music.addVolumeMusic();
+			music.updateMusicVolume();
 			music.moveOptions();
 		}
 		break;
@@ -144,6 +145,7 @@ void OptionsManager::Izquierda() {
 		if (musicVolume - 1 >= -1) {
 			musicVolume--;
 			music.reduceVolumeMusic();
+			music.updateMusicVolume();
 			music.moveOptions();
 		}
 		break;

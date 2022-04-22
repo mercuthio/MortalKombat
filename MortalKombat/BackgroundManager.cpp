@@ -22,7 +22,14 @@ void BackgroundManager::Update() {
 	RectangleShape tile;
 
 	for (int i = 0; i < backgroundVector.size(); i++) {
-		if (i != 0) backgroundVector[i].setPosition(backgroundVector[i].getPosition().x + moveXBack, backgroundVector[i].getPosition().y + moveYBack);
+		if (i != 0) { 
+			if (i != backgroundVector.size() - 1) {
+				backgroundVector[i].setPosition(backgroundVector[i].getPosition().x + moveXBack/1.5, backgroundVector[i].getPosition().y + moveYBack/1.5);
+			}
+			else {
+				backgroundVector[i].setPosition(backgroundVector[i].getPosition().x + moveXBack, backgroundVector[i].getPosition().y + moveYBack);
+			}
+		}
 	}
 	moveXBack = 0.f;
 
@@ -34,8 +41,8 @@ void BackgroundManager::Update() {
 
 		Vector2f sizeBackground_monks = Vector2f(rectWidth_monks * (height_window / 281.0), rectHeight_monks * (height_window / 281.0));
 
-		uvRect.top = 32.0f + 136.0 * animation;
-		//uvRect.top = 929.0f + 136.0 * animation;
+		//uvRect.top = 32.0f + 136.0 * animation;
+		uvRect.top = 929.0f + 136.0 * animation;
 		uvRect.left = 1121.0f;
 		uvRect.width = rectWidth_monks;
 		uvRect.height = rectHeight_monks;

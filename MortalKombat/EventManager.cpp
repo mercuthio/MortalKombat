@@ -20,6 +20,8 @@ void EventManager::Update(Event event) {
 
 		music.skipIntro();
 
+		music.mainTheme();
+
 		changedEstate = true;
 		state = 1;
 
@@ -46,8 +48,8 @@ void EventManager::Update(Event event) {
 			changedEstate = true;
 			state = MenuManager.ChoosenOption() + 2;
 
-			if (state == 2) { PlayerSelector_hist.Restart(); music.selectorIntro(); }
-			if (state == 3) { PlayerSelector_duel.Restart(); music.selectorIntro(); }
+			if (state == 2) { PlayerSelector_hist.Restart(); music.selectorTheme();}
+			if (state == 3) { PlayerSelector_duel.Restart(); music.selectorTheme();}
 			if (state == 4) OptionsManager.Update();
 			if (state == 5) exit(0);
 			break;
@@ -96,8 +98,7 @@ void EventManager::Update(Event event) {
 			break;
 
 		case Keyboard::Escape:
-
-			music.skipIntro();
+			music.mainTheme();
 			state = 1;
 			break;
 
@@ -201,8 +202,7 @@ void EventManager::Update(Event event) {
 			break;
 
 		case Keyboard::Escape:
-
-			music.skipIntro();
+			music.mainTheme();
 			state = 1;
 			break;
 
@@ -259,7 +259,6 @@ void EventManager::Update(Event event) {
 			break;
 
 		case Keyboard::Escape:
-
 			music.skipIntro();
 			state = 1;
 			break;
@@ -272,13 +271,15 @@ void EventManager::Update(Event event) {
 
 		if (event.key.code == Keyboard::Escape) { 
 			state = 1; 
-			music.skipIntro();
+			music.mainTheme();
 		}
 
 	case 6: //Batalla
 
+		music.stopMusic();
+
 		if (event.key.code == Keyboard::Escape) {
-			music.skipIntro();
+			music.mainTheme();
 			state = 1;
 			BattleManager.Restart();
 		}
