@@ -11,7 +11,7 @@ using namespace std;
 class BackgroundManager {
 
 public:
-	BackgroundManager() {}
+	BackgroundManager();
 	virtual ~BackgroundManager() = default;
 	
 	Vector2<float> initPlayer1;

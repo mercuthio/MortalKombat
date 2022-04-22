@@ -31,11 +31,11 @@ void Character::Update(float tiempo) {
 
 		hitbox = hitboxes[animation_in_process][frame-1];
 
-		cout << "X: " << hitbox.getSize().x / 3 << endl;
+		/*cout << "X: " << hitbox.getSize().x / 3 << endl;
 		cout << "Y: " << hitbox.getSize().y / 3 << endl;
 		cout << "Frame actual: " << frame - 1 << endl;
 		cout << "OX: " << hitbox.getOrigin().x << endl;
-		cout << "OY: " << hitbox.getOrigin().y << endl;
+		cout << "OY: " << hitbox.getOrigin().y << endl;*/
 
 		hitbox.setPosition(global_position.x + 302, global_position.y + 340);
 
@@ -215,7 +215,6 @@ void Character::CheckDebugAnimations() {
 }
 
 void Character::CheckCollisions() {
-	CheckScreenCollisions();
 	// CheckOpponentPosition()			// Giramos el sprite si nos hemos camiado de posición respecto al enemigo
 	if (isDamageMovement(animation_in_process)) {
 		// CheckHitboxesCollisions();	// Checkeamos hitboxes si estamos golpeando
@@ -223,18 +222,37 @@ void Character::CheckCollisions() {
 
 }
 
-void Character::CheckScreenCollisions() {
-	if (global_position.x < screenLeftLimit) {
-		global_position.x = screenLeftLimit;
+bool Character::CheckScreenCollisions(float movement) {
+	if (global_position.x < screenLeftHardLimit) {
+		global_position.x = screenLeftHardLimit;
+		return true;
 	}
-	else if (global_position.x > screenRightLimit) {
-		global_position.x = screenRightLimit;
+	else if (global_position.x > screenRightHardLimit) {
+		global_position.x = screenRightHardLimit;
+		return true;
+	}
+
+	if (global_position.x <= screenLeftLimit) {
+		cout << "LIMIT LEFT: " << screenLeftLimit << endl;
+		cout << "-----------: " << global_position.x << endl;
+		moveXBack += movement;
+		screenLeftLimit -= movement;
+		return true;
+	}
+	else if (global_position.x >= screenRightLimit) {
+		cout << "LIMIT RIGHT: " << screenRightLimit << endl;
+		moveXBack += movement;
+		screenRightLimit -= movement;
+		return true;
 	}
 
 	if (global_position.y > screenFloorLimit) {
 		global_position.y = screenFloorLimit;
 		speed = Vector2<float>(0, 0);
+		return true;
 	}
+
+	return false;
 }
 
 /*
@@ -264,9 +282,16 @@ void Character::DoAnimation() {
 	if (isFixedMovement(animation_in_process)) { // Sigue un desplazamiento fijado
 		Vector2<float> mov = animations[animation_in_process].traslation;
 		mov.x = leftOfOpponent ? mov.x : -mov.x;
-		moveXBack = mov.x;
-		cout << moveXBack << " MUEVE ESCENARIO" << endl;
-		global_position += mov;
+		if (mov.x != 0) { 
+			if (!CheckScreenCollisions(-mov.x)) {
+				global_position += mov;
+				cout << "MOVEMENT: " << global_position.x << endl;
+			}
+			else {
+				global_position -= mov;
+				cout << "NO MOVER" << endl;
+			}
+		}
 	}
 	else { // Sigue las físicas del mundo (gravedad)
 		global_position = global_position - speed * updateTime;
@@ -290,7 +315,7 @@ void Character::DoAnimation() {
 }
 
 void Character::EndAnimation() {
-	cout << "ENDING ANIMATION\n";
+	//cout << "ENDING ANIMATION\n";
 
 	doing_animation = false;
 	on_air = false;
@@ -338,6 +363,7 @@ void Character::Mirror() {
 
 	}
 	leftOfOpponent = !leftOfOpponent;
+	//cout << "----------------" << body.getOrigin().x << ":" << body.getOrigin().y << endl;
 	body.setOrigin(125, 0);
 	body.setScale(body.getScale().x * -1, 1);
 	//body.setOrigin(0, 0);

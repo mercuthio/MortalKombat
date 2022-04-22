@@ -194,9 +194,9 @@ void BattleManager::LoadCharacters(){
 	cout << "[*] Loading character textures..." << endl;
 	LiuKang = CreateLiuKang();
 	cout << "[+......] Character LiuKang loaded!" << endl;
-	Scorpion = CreateScorpion();
+	//Scorpion = CreateScorpion();
 	cout << "[++.....] Character Scorpion loaded!" << endl;
-	SonyaBlade = CreateSonyaBlade();
+	//SonyaBlade = CreateSonyaBlade();
 	cout << "[+++....] Character Sonya Blade loaded!" << endl;
 	cout << "[+++++++] All characters loaded succesfully!" << endl;
 }
@@ -305,7 +305,8 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	}
 	player1.initPosition(BackgroundManager.initPlayer1);
 
-	if (character2 == 0) character2 = (CharacterType)(rand() % 7);
+	//if (character2 == 0) character2 = (CharacterType)(rand() % 7);
+	if (character2 == 0) character2 = LIU_KANG;
 	switch (character2) {
 	case CAGE:
 		player2 = Scorpion;

@@ -10,9 +10,6 @@
 #include "GlobalVars.h"
 
 //--------------DEBUG-------------
-constexpr int screenLeftLimit = -1000;
-constexpr int screenRightLimit = 1000;
-constexpr int screenFloorLimit = 200;
 constexpr float gravedad = 1800;			// pixels/s^2
 constexpr float updateTime = 0.05;			// 50 milis
 constexpr bool DEBUG_POSITION = true;
@@ -75,7 +72,7 @@ private:
 
 	void CheckAnimation();
 	void CheckCollisions();
-	void CheckScreenCollisions();
+	bool CheckScreenCollisions(float movement);
 };
 
 /*

@@ -11,6 +11,13 @@ extern float loadingTime;
 extern float moveXBack;
 extern float moveYBack;
 
+extern int screenLeftLimit;
+extern int screenRightLimit;
+extern int screenFloorLimit;
+
+extern int screenLeftHardLimit;
+extern int screenRightHardLimit;
+
 const int NUMBER_TRACKS = 191;
 const double ASPECT_RATIO = 4.0/3.0;
 

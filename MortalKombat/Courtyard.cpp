@@ -21,6 +21,10 @@ void Courtyard::loadTextures() {
 	Vector2f sizeBackground = Vector2f(rectWidth*aspectRelation, height_window + 50);
 	Vector2f sizeBackground_monks = Vector2f(rectWidth_monks*aspectRelation, rectHeight_monks*aspectRelation);
 
+	screenLeftLimit = -180;
+	screenRightLimit = 580;
+	screenFloorLimit = 200;
+
 	IntRect uvRect;
 	RectangleShape tile;
 	uvRect.width = rectWidth;

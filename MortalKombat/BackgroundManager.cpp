@@ -1,11 +1,32 @@
 #include "BackgroundManager.h"
 
+int screenLeftLimit;
+int screenRightLimit;
+int screenFloorLimit;
+
+int screenLeftHardLimit;
+int screenRightHardLimit;
+
+BackgroundManager::BackgroundManager() {
+	screenLeftLimit = -1000;
+	screenRightLimit = 1000;
+	screenFloorLimit = 200;
+
+	screenLeftHardLimit = -1000;
+	screenRightHardLimit = 1000;
+}
+
 void BackgroundManager::Update() {
 
 	IntRect uvRect;
 	RectangleShape tile;
 
-	switch(type) {
+	for (int i = 0; i < backgroundVector.size(); i++) {
+		if (i != 0) backgroundVector[i].setPosition(backgroundVector[i].getPosition().x + moveXBack, backgroundVector[i].getPosition().y + moveYBack);
+	}
+	moveXBack = 0.f;
+
+	switch (type) {
 	case COURTYARD:
 
 		float rectWidth_monks = 1037.0f;
@@ -13,7 +34,7 @@ void BackgroundManager::Update() {
 
 		Vector2f sizeBackground_monks = Vector2f(rectWidth_monks * (height_window / 281.0), rectHeight_monks * (height_window / 281.0));
 
-		uvRect.top = 32.0f + 136.0*animation;
+		uvRect.top = 32.0f + 136.0 * animation;
 		//uvRect.top = 929.0f + 136.0 * animation;
 		uvRect.left = 1121.0f;
 		uvRect.width = rectWidth_monks;
@@ -32,8 +53,6 @@ void BackgroundManager::Update() {
 		}
 		break;
 	}
-
-	backgroundVector[4].setPosition(backgroundVector[4].getPosition().x + moveXBack, backgroundVector[4].getPosition().y + moveYBack);
 
 }
 
