@@ -15,10 +15,10 @@ public:
 	bool RecieveFlagEvent();
 	void ResetAnimation();
 
+	vector<Animation> animations;
 	int current_animation = 0;
 
 private:
-	vector<Animation> animations;
 	int n_animations = 0;
 
 };

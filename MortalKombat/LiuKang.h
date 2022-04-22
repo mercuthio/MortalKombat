@@ -193,123 +193,177 @@ static Character CreateLiuKang() {
 	Vector2f catchS[7] = { {92*3,128*3}, {106*3,112*3}, {90*3,126*3}, {86*3,144*3}, {74*3,157*3}, {86*3,138*3}, {93*3,110*3} };
 	Vector2f dyingS[7] = { {70*3,122*3}, {71*3,121*3}, {70*3,127*3}, {70*3,134*3}, {70*3,135*3}, {71*3,133*3}, {71*3,121*3} };
 
+
+	Vector2f idleOrigin = {102*3,182*3};
+	Vector2f forwOrigin = {102,183};
+	Vector2f backOrigin = {102,183};
+
+	Vector2f punchOrigin = {133,180};
+	Vector2f punchUpOrigin = {133,180};
+	Vector2f punchDownOrigin = {102,183};
+	Vector2f punchFromUpOrigin = {134,112};
+	Vector2f bodyTobodyOrigin = {102,182};
+
+	Vector2f jumpOrigin = {111,140};
+	Vector2f jumpMoveOrigin = {130,113};
+
+	Vector2f kickOrigin = {102,184};
+	Vector2f kickUpOrigin = {97,181};
+	Vector2f kickDownOrigin = {102,182};
+	Vector2f kickFromDownOrigin = {102,182};
+	Vector2f kickFromUpOrigin = {112,178};
+
+	Vector2f duckOrigin = {102,182};
+
+	Vector2f blockUpOrigin = {102,183};
+	Vector2f blockDownOrigin = {102,183};
+	
+	Vector2f specialOrigin = {98,184};
+
+	Vector2f nutsOrigin = {102,183};
+
+	Vector2f catchOrigin = {102,183};
+	Vector2f dyingOrigin = {102,183};
+
 	RectangleShape rect;
 	rect.setFillColor(Color::Green);
 	vector<RectangleShape> idleR;
 	for (Vector2f size : idleS) {
+		rect.setOrigin(idleOrigin);
 		rect.setSize(size);
 		idleR.push_back(rect);
 	}
 	vector<RectangleShape> forwR;
 	for (Vector2f size : forwS) {
+		rect.setOrigin(forwOrigin);
 		rect.setSize(size);
 		forwR.push_back(rect);
 	}
 	vector<RectangleShape> backR;
 	for (Vector2f size : backS) {
+		rect.setOrigin(backOrigin);
 		rect.setSize(size);
 		backR.push_back(rect);
 	}
 
 	vector<RectangleShape> punchR;
 	for (Vector2f size : punchS) {
+		rect.setOrigin(punchOrigin);
 		rect.setSize(size);
 		punchR.push_back(rect);
 	}
 	vector<RectangleShape> punchUpR;
 	for (Vector2f size : punchUpS) {
+		rect.setOrigin(punchUpOrigin);
 		rect.setSize(size);
 		punchUpR.push_back(rect);
 	}
 	vector<RectangleShape> punchDownR;
 	for (Vector2f size : punchDownS) {
+		rect.setOrigin(punchDownOrigin);
 		rect.setSize(size);
 		punchDownR.push_back(rect);
 	}
 	vector<RectangleShape> punchFromUpR;
 	for (Vector2f size : punchFromUpS) {
+		rect.setOrigin(punchFromUpOrigin);
 		rect.setSize(size);
 		punchFromUpR.push_back(rect);
 	}
 	vector<RectangleShape> bodyToBodyR;
 	for (Vector2f size : bodyToBodyS) {
+		rect.setOrigin(bodyTobodyOrigin);
 		rect.setSize(size);
 		bodyToBodyR.push_back(rect);
 	}
 
 	vector<RectangleShape> jumpR;
 	for (Vector2f size : jumpS) {
+		rect.setOrigin(jumpOrigin);
 		rect.setSize(size);
 		jumpR.push_back(rect);
 	}
 	vector<RectangleShape> jumpMoveR;
 	for (Vector2f size : jumpMoveS) {
+		rect.setOrigin(jumpMoveOrigin);
 		rect.setSize(size);
 		jumpMoveR.push_back(rect);
 	}
 
 	vector<RectangleShape> kickR;
 	for (Vector2f size : kickS) {
+		rect.setOrigin(kickOrigin);
 		rect.setSize(size);
 		kickR.push_back(rect);
 	}
 	vector<RectangleShape> kickUpR;
 	for (Vector2f size : kickUpS) {
+		rect.setOrigin(kickUpOrigin);
 		rect.setSize(size);
 		kickUpR.push_back(rect);
 	}
 	vector<RectangleShape> kickDownR;
 	for (Vector2f size : kickDownS) {
+		rect.setOrigin(kickDownOrigin);
 		rect.setSize(size);
 		kickDownR.push_back(rect);
 	}
 	vector<RectangleShape> kickFromDownR;
 	for (Vector2f size : kickFromDownS) {
+		rect.setOrigin(kickFromDownOrigin);
 		rect.setSize(size);
 		kickFromDownR.push_back(rect);
 	}
 	vector<RectangleShape> kickFromUpR;
 	for (Vector2f size : kickFromUpS) {
+		rect.setOrigin(kickFromUpOrigin);
 		rect.setSize(size);
 		kickFromUpR.push_back(rect);
 	}
 
 	vector<RectangleShape> duckR;
 	for (Vector2f size : duckS) {
+		rect.setOrigin(duckOrigin);
 		rect.setSize(size);
 		duckR.push_back(rect);
 	}
 
 	vector<RectangleShape> blockUpR;
 	for (Vector2f size : blockUpS) {
+		rect.setOrigin(blockUpOrigin);
 		rect.setSize(size);
 		blockUpR.push_back(rect);
 	}
 	vector<RectangleShape> blockDownR;
 	for (Vector2f size : blockDownS) {
+		rect.setOrigin(blockDownOrigin);
 		rect.setSize(size);
 		blockDownR.push_back(rect);
 	}
 
 	vector<RectangleShape> specialR;
 	for (Vector2f size : specialS) {
+		rect.setOrigin(specialOrigin);
 		rect.setSize(size);
 		specialR.push_back(rect);
 	}
 
 	vector<RectangleShape> nutsR;
 	for (Vector2f size : nutsS) {
+		rect.setOrigin(nutsOrigin);
 		rect.setSize(size);
 		nutsR.push_back(rect);
 	}
 
 	vector<RectangleShape> catchR;
 	for (Vector2f size : catchS) {
+		rect.setOrigin(catchOrigin);
 		rect.setSize(size);
 		catchR.push_back(rect);
 	}
 	vector<RectangleShape> dyingR;
 	for (Vector2f size : dyingS) {
+		rect.setOrigin(dyingOrigin);
 		rect.setSize(size);
 		dyingR.push_back(rect);
 	}
@@ -345,7 +399,6 @@ static Character CreateLiuKang() {
 
 	hitboxes[AnimationType::CATCH] = catchR;
 	hitboxes[AnimationType::DYING] = dyingR;
-
 
 	Character LiuKang = Character(animations, body, hitboxes);
 

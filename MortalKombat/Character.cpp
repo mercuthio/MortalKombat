@@ -26,17 +26,20 @@ void Character::Update(float tiempo) {
 
 		CheckCollisions();
 
-		int frame = animations[animation_in_process].animation.current_animation;
-		hitbox = hitboxes[animation_in_process][frame];
+		int current_frame = animations[animation_in_process].animation.current_animation;
+		int frame = animations[animation_in_process].animation.animations[current_frame].frame_number;
 
-		cout << "X: " << hitbox.getSize().x / 3<< endl;
+		hitbox = hitboxes[animation_in_process][frame-1];
+
+		cout << "X: " << hitbox.getSize().x / 3 << endl;
 		cout << "Y: " << hitbox.getSize().y / 3 << endl;
-		cout << "Frame actual: " << frame << endl;
+		cout << "Frame actual: " << frame - 1 << endl;
+		cout << "OX: " << hitbox.getOrigin().x << endl;
+		cout << "OY: " << hitbox.getOrigin().y << endl;
 
-		hitbox.setPosition(global_position.x + 190, global_position.y + 170);
+		hitbox.setPosition(global_position.x + 302, global_position.y + 340);
 
 		body.setPosition(global_position);
-
 	
 	}
 	else {

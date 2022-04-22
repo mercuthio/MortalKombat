@@ -23,9 +23,10 @@ public:
 	void ResetAnimation();
 	bool RecieveFlagEvent();
 
+	int frame_number = 1;
+
 private:
 	Texture* sprite_sheet;						// Spritesheet de la animacion
-	int frame_number = 1;
 
 	int	duration = 0;							// Total de imagenes de la animacion
 	bool isPersistent = false;
