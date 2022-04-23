@@ -49,6 +49,9 @@ private:
 	HistoryManager HistoryManager;
 	BattleManager BattleManager;
 
+	RectangleShape loading_screen;
+	Texture* texture;
+
 };
 
 #endif

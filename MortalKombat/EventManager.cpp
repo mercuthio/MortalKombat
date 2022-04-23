@@ -1,21 +1,22 @@
-
 #include "EventManager.h"
 
 MusicManager music;
 
 EventManager::EventManager(Texture textures[], Font font, Clock clock) : BattleManager(&textures[0], font, clock), StartManager(&textures[0], &textures[1]),
-	MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false), 
-	PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0]) {
+MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false),
+PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0],0) {
 
 	this->clock = clock;
 
-	state = 0;
+	state = -1;
 	changedEstate = false;
 }
 
 void EventManager::Update(Event event) {
 
 	switch (state) {
+	case -1: //Cargando
+		break;
 	case 0: //Pantalla inicial
 
 		music.skipIntro();
@@ -48,8 +49,8 @@ void EventManager::Update(Event event) {
 			changedEstate = true;
 			state = MenuManager.ChoosenOption() + 2;
 
-			if (state == 2) { PlayerSelector_hist.Restart(); music.selectorTheme();}
-			if (state == 3) { PlayerSelector_duel.Restart(); music.selectorTheme();}
+			if (state == 2) { PlayerSelector_hist.Restart(); music.selectorTheme(); }
+			if (state == 3) { PlayerSelector_duel.Restart(); music.selectorTheme(); }
 			if (state == 4) OptionsManager.Update();
 			if (state == 5) exit(0);
 			break;
@@ -63,10 +64,11 @@ void EventManager::Update(Event event) {
 
 		switch (event.key.code) {
 		case Keyboard::W:
-			PlayerSelector_hist.MoveCursor(0,-1, true);
+			PlayerSelector_hist.MoveCursor(0, -1, true);
 			break;
 
 		case Keyboard::S:
+
 			PlayerSelector_hist.MoveCursor(0, 1, true);
 			break;
 
@@ -80,7 +82,6 @@ void EventManager::Update(Event event) {
 
 		case Keyboard::Enter:
 
-			changedEstate = true;
 			character1 = PlayerSelector_hist.ChoosenOption(true);
 
 			switch (character1)
@@ -95,6 +96,10 @@ void EventManager::Update(Event event) {
 				music.SonyaBlade();
 				break;
 			}
+
+			HistoryManager.Restart(character1);
+			changedEstate = true;
+
 			break;
 
 		case Keyboard::Escape:
@@ -269,8 +274,8 @@ void EventManager::Update(Event event) {
 
 	case 5: //Historia
 
-		if (event.key.code == Keyboard::Escape) { 
-			state = 1; 
+		if (event.key.code == Keyboard::Escape) {
+			state = 1;
 			music.mainTheme();
 		}
 
@@ -301,6 +306,11 @@ void EventManager::drawTransitionManager(RenderWindow& window) {
 void EventManager::draw(RenderWindow& window) {
 
 	switch (state) {
+	case -1:
+		if (clock.getElapsedTime().asSeconds() - loadingTime > 0) {
+			state = 0;
+		}
+		break;
 	case 0:
 
 		if (StartManager.draw(window, clock.getElapsedTime().asSeconds() - loadingTime)) { //Si terminada intro
@@ -342,10 +352,12 @@ void EventManager::draw(RenderWindow& window) {
 		break;
 
 	case 5:
-
+		HistoryManager.Update();
 		if (HistoryManager.Draw(window, clock.getElapsedTime().asSeconds())) {
+
 			state = 6;
-			BattleManager.RestartCombat(character1, character2, stage, false);	
+			stage = (background)(rand() % 3);
+			BattleManager.RestartCombat(character1, character2, stage, false);
 			BattleManager.Restart();
 		}
 		break;
@@ -365,4 +377,3 @@ void EventManager::draw(RenderWindow& window) {
 	}
 
 }
-
