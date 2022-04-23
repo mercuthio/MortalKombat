@@ -35,6 +35,28 @@ public:
 
 	float GetLife();
 
+	bool isMirrored() {
+		return mirrored;
+	}
+
+	float GetXPosition() {
+		return global_position.x;
+	}
+
+	void SetXPosition(float x) {
+		global_position.x += x;
+	}
+
+	void Mirror();
+
+	void setPlayer(int p) {
+		player = p;
+	}
+
+	void setFreeze(bool freeze_) {
+		freeze = freeze_;
+	};
+
 private:
 	RectangleShape body;
 	RectangleShape shadow;
@@ -59,14 +81,17 @@ private:
 	bool wait_air = false;
 
 	Vector2<float> speed;
-	bool leftOfOpponent = true;
+
+	bool mirrored = false;
+
+	int player = 0;
+
+	bool freeze = true;		//Para el comienzo de partidas, no permite mover
 	
 	AnimationType animation_in_process;
 
 	void CheckDebugAnimations();
 	void EndAndResetAnimation();
-
-	void Mirror();
 
 	void DoAnimation();
 	void EndAnimation();

@@ -23,7 +23,7 @@ void Character::Update(float tiempo) {
 		}*/
 
 
-		CheckAnimation();	// Dependiendo de que ha pulsado el jugador hago una animación u otra
+		if (!freeze) CheckAnimation();	// Dependiendo de que ha pulsado el jugador hago una animación u otra
 		DoAnimation();		// Realizo el siguiente frame de la animación
 
 		CheckCollisions();
@@ -283,7 +283,7 @@ void Character::DoAnimation() {
 	bool finished = false;
 	
 	if (!fallen) {
-		finished = animations[animation_in_process].animation.DoAnimation(body, shadow);
+		finished = animations[animation_in_process].animation.DoAnimation(body, shadow, isMirrored());
 	}	
 	if (finished) {
 		if (animation_in_process == AnimationType::FALL || animation_in_process == AnimationType::FALL_UPPERCUT) {
@@ -299,7 +299,7 @@ void Character::DoAnimation() {
 
 	if (isFixedMovement(animation_in_process)) { // Sigue un desplazamiento fijado
 		Vector2<float> mov = animations[animation_in_process].traslation;
-		mov.x = leftOfOpponent ? mov.x : -mov.x;
+		mov.x = mirrored ? -mov.x : mov.x;
 		if (mov.x != 0) { 
 			if (!CheckScreenCollisions(-mov.x)) {
 				global_position += mov;
@@ -313,7 +313,7 @@ void Character::DoAnimation() {
 		CheckScreenCollisions(0);
 
 		mov.x = speed.x * updateTime;
-		mov.x = leftOfOpponent ? mov.x : -mov.x;
+		mov.x = mirrored ? -mov.x : mov.x;
 		if (mov.x != 0) {
 			if (!CheckScreenCollisions(mov.x)) {
 				global_position.x -= mov.x;
@@ -361,7 +361,7 @@ void Character::GetHit(int quantity) {
 
 	animation_in_process = AnimationType::FALL;
 
-	if (leftOfOpponent) {
+	if (!mirrored) {
 		speed = Vector2<float>(100, 200);
 	}
 	else {
@@ -377,19 +377,14 @@ void Character::debugDraw(RenderWindow& window) {
 }
 
 void Character::Mirror() {
-	Keyboard::Key aux = backButton;
-	backButton = forwButton;
-	forwButton = aux;
 
-	// Recalculate hitboxes positions
-	if (leftOfOpponent) {
-
+	if (player == 1) {
+		Keyboard::Key aux = backButton;
+		backButton = forwButton;
+		forwButton = aux;
 	}
-	leftOfOpponent = !leftOfOpponent;
-	//cout << "----------------" << body.getOrigin().x << ":" << body.getOrigin().y << endl;
-	body.setOrigin(125, 0);
-	body.setScale(body.getScale().x * -1, 1);
-	//body.setOrigin(0, 0);
+
+	mirrored = !mirrored;
 }
 
 void Character::debug_animation() {

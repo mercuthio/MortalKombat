@@ -312,7 +312,9 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 		player1 = Scorpion;
 		break;
 	}
+	player1.setFreeze(true);
 	player1.initPosition(BackgroundManager.initPlayer1);
+	player1.setPlayer(1);
 
 	//if (character2 == 0) character2 = (CharacterType)(rand() % 7);
 	if (character2 == 0) character2 = LIU_KANG;
@@ -342,8 +344,10 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 		player2 = Scorpion;
 		break;
 	}
+	player2.setFreeze(true);
 	player2.initPosition(BackgroundManager.initPlayer2);
-
+	player2.setPlayer(2);
+	player2.Mirror();
 }
 
 int BattleManager::RestartRound(int winner1) {
@@ -378,6 +382,9 @@ int BattleManager::RestartRound(int winner1) {
 		time_left = 99;
 		round++;
 
+		player1.setFreeze(true);
+		player2.setFreeze(true);
+
 		return 0;
 
 	}
@@ -391,6 +398,18 @@ void BattleManager::Update(Event event) {
 }
 
 void BattleManager::Update() {
+
+
+	if (!player1.isMirrored() && player1.GetXPosition() > player2.GetXPosition() + 5) { //PLAYER 1 LEFT -> RIGHT
+		player1.Mirror();
+		player1.SetXPosition(15.f);
+		player2.Mirror();
+	}
+	else if (player1.isMirrored() && player1.GetXPosition() + 5 < player2.GetXPosition()) { //PLAYER 1 RIGHT -> LEFT
+		player1.Mirror();
+		player1.SetXPosition(-15.f);
+		player2.Mirror();
+	}
 
 	float vida = player1.GetLife();
 	Vector2f size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[2].getSize().y);
@@ -423,6 +442,8 @@ void BattleManager::Update() {
 		showing_round = false;
 		showing_fight = true;
 		music.fight();
+		player1.setFreeze(false);
+		player2.setFreeze(false);
 
 	}
 

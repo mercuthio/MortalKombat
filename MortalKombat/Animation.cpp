@@ -29,16 +29,35 @@ Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_
 	el cual puede estar condicionado por factores externos
 */
 
-bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow) {
+bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, bool mirrored) {
 	bool finished = !lock;
 	if (DEBUG)
 		cout << "\tFA: " << frame_number << "\tRE: " << this_recovery << endl;
 
 	shadow.setTexture(sprite_sheet);
-	shadow.setTextureRect(IntRect(Vector2i(this_frame.x, this_frame.y + 228), size));
-
 	body.setTexture(sprite_sheet);
-	body.setTextureRect(IntRect(this_frame, size));
+
+	if (mirrored) {
+
+		IntRect uRectBody;
+		uRectBody.left = this_frame.x - (size.x * -1);
+		uRectBody.top = this_frame.y;
+		uRectBody.width = size.x * -1;
+		uRectBody.height = size.y;
+
+		IntRect uRectShadow;
+		uRectShadow.left = this_frame.x - (size.x * -1);
+		uRectShadow.top = this_frame.y + 228;
+		uRectShadow.width = size.x * -1;
+		uRectShadow.height = size.y;
+
+		body.setTextureRect(uRectBody);
+		shadow.setTextureRect(uRectShadow);
+	}
+	else {
+		body.setTextureRect(IntRect(this_frame, size));
+		shadow.setTextureRect(IntRect(Vector2i(this_frame.x, this_frame.y + 228), size));
+	}
 
 	current_wait++;
 	if (current_wait < wait_until) {

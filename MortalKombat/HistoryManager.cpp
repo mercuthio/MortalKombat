@@ -247,7 +247,11 @@ void HistoryManager::Update() {
 
 	}
 
-	if (clock == 550) {
+	if (clock == 100) {
+		music.skipHistoryTheme();
+	}
+
+	if (clock == 200) { //550
 
 		IntRect uvRect;
 

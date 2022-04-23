@@ -10,7 +10,7 @@ class AnimationGroup {
 public:
 	AnimationGroup() = default;
 	AnimationGroup(Animation anim);
-	bool DoAnimation(RectangleShape& body, RectangleShape& shadow);
+	bool DoAnimation(RectangleShape& body, RectangleShape& shadow, bool mirrored);
 	void AddAnimation(Animation anim);
 	bool RecieveFlagEvent();
 	void ResetAnimation();

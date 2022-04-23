@@ -22,6 +22,8 @@ public:
 	void selectorTheme();
 	void historyTheme();
 
+	void skipHistoryTheme();
+
 	void courtyardTheme();
 	void thepitTheme();
 	void warriorshrineTheme();

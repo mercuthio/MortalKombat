@@ -22,8 +22,8 @@ void AnimationGroup::ResetAnimation() {
 	current_animation = 0;
 }
 
-bool AnimationGroup::DoAnimation(RectangleShape& body, RectangleShape& shadow) {
-	bool finished = animations[current_animation].DoAnimation(body, shadow);
+bool AnimationGroup::DoAnimation(RectangleShape& body, RectangleShape& shadow, bool mirrored) {
+	bool finished = animations[current_animation].DoAnimation(body, shadow, mirrored);
 	if (finished) {
 		current_animation++;
 		if (current_animation == n_animations) {

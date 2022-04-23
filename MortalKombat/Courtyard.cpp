@@ -16,7 +16,7 @@ void Courtyard::loadTextures() {
 	float offset_left = (rectWidth*aspectRelation - width_window)/2;
 
 	initPlayer1 = Vector2<float>(-50, 200);
-	initPlayer2 = Vector2<float>(550, 200);
+	initPlayer2 = Vector2<float>(400, 200);
 
 	Vector2f sizeBackground = Vector2f(rectWidth*aspectRelation, height_window + 50);
 	Vector2f sizeBackground_monks = Vector2f(rectWidth_monks*aspectRelation, rectHeight_monks*aspectRelation);

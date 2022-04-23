@@ -124,6 +124,10 @@ void MusicManager::mainTheme() { stopMusic(); stopIntros(); music[0].setVolume(v
 void MusicManager::selectorTheme() { stopMusic(); stopIntros(); music[1].setVolume(volumeMusic); music[1].play(); music[1].setLoop(true); }
 void MusicManager::historyTheme() { stopMusic(); stopIntros(); music[2].setVolume(volumeMusic); music[2].play(); music[2].setLoop(false); }
 
+void MusicManager::skipHistoryTheme() { music[2].setPlayingOffset(seconds(6.65f)); }
+
+
+
 void MusicManager::courtyardTheme() { stopMusic(); stopIntros(); music[3].setVolume(volumeMusic); music[3].play(); music[3].setLoop(true); }
 void MusicManager::thepitTheme() { stopMusic(); stopIntros(); music[4].setVolume(volumeMusic); music[4].play(); music[4].setLoop(true); }
 void MusicManager::warriorshrineTheme() { stopMusic(); stopIntros(); music[5].setVolume(volumeMusic); music[5].play(); music[5].setLoop(true); }
