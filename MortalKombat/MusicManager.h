@@ -20,6 +20,11 @@ public:
 
 	void mainTheme();
 	void selectorTheme();
+	void historyTheme();
+
+	void courtyardTheme();
+	void thepitTheme();
+	void warriorshrineTheme();
 
 	void excellente();
 	void fatality();
@@ -46,8 +51,6 @@ public:
 	void moveOptions();
 	void moveSelector();
 	void skipIntro();
-
-	void History();
 
 	void claps();
 	void loosePublic();
@@ -76,7 +79,6 @@ private:
 	vector<Sound> music;
 	vector<Sound> announcers;
 	vector<Sound> UI;
-	vector<Sound> history;
 	vector<Sound> arenas;
 	vector<Sound> scorpion;
 
@@ -84,7 +86,6 @@ private:
 	vector<SoundBuffer> bufferMusic;
 	vector<SoundBuffer> bufferAnnouncers;
 	vector<SoundBuffer> bufferUI;
-	vector<SoundBuffer> bufferHistory;
 	vector<SoundBuffer> bufferArenas;
 	vector<SoundBuffer> bufferScorpion;
 

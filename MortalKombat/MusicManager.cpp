@@ -20,13 +20,20 @@ MusicManager::MusicManager() {
 
 	//MUSIC
 
-	for (int i = 0; i < 2; i++) { bufferMusic.push_back(buffer); music.push_back(sound); }
+	for (int i = 0; i < 6; i++) { bufferMusic.push_back(buffer); music.push_back(sound); }
 
 	bufferMusic[0].loadFromFile("audio/music/mainTheme.ogg");
 	music[0].setBuffer(bufferMusic[0]);
 	bufferMusic[1].loadFromFile("audio/music/selectorTheme.ogg");
 	music[1].setBuffer(bufferMusic[1]);
-
+	bufferMusic[2].loadFromFile("audio/music/historyTheme.ogg");
+	music[2].setBuffer(bufferMusic[2]);
+	bufferMusic[3].loadFromFile("audio/music/courtyardTheme.ogg");
+	music[3].setBuffer(bufferMusic[3]);
+	bufferMusic[4].loadFromFile("audio/music/thepitTheme.ogg");
+	music[4].setBuffer(bufferMusic[4]);
+	bufferMusic[5].loadFromFile("audio/music/warriorshrineTheme.ogg");
+	music[5].setBuffer(bufferMusic[5]);
 
 
 	//ANUNCIADOR
@@ -87,13 +94,6 @@ MusicManager::MusicManager() {
 	bufferUI[3].loadFromFile("audio/ui/skipIntro.ogg");
 	UI[3].setBuffer(bufferUI[3]);
 
-	//History
-
-	for (int i = 0; i < 1; i++) { bufferHistory.push_back(buffer); history.push_back(sound); }
-
-	bufferHistory[0].loadFromFile("audio/musiccues/history.ogg");
-	history[0].setBuffer(bufferHistory[0]);
-
 	//Arenas
 
 	for (int i = 0; i < 3; i++) { bufferArenas.push_back(buffer); arenas.push_back(sound); }
@@ -122,6 +122,11 @@ void MusicManager::selectorIntro() { intro[3].setVolume(volumeMusic); intro[3].p
 
 void MusicManager::mainTheme() { stopMusic(); stopIntros(); music[0].setVolume(volumeMusic); music[0].play(); music[0].setLoop(true); }
 void MusicManager::selectorTheme() { stopMusic(); stopIntros(); music[1].setVolume(volumeMusic); music[1].play(); music[1].setLoop(true); }
+void MusicManager::historyTheme() { stopMusic(); stopIntros(); music[2].setVolume(volumeMusic); music[2].play(); music[2].setLoop(false); }
+
+void MusicManager::courtyardTheme() { stopMusic(); stopIntros(); music[3].setVolume(volumeMusic); music[3].play(); music[3].setLoop(true); }
+void MusicManager::thepitTheme() { stopMusic(); stopIntros(); music[4].setVolume(volumeMusic); music[4].play(); music[4].setLoop(true); }
+void MusicManager::warriorshrineTheme() { stopMusic(); stopIntros(); music[5].setVolume(volumeMusic); music[5].play(); music[5].setLoop(true); }
 
 void MusicManager::excellente() { announcers[0].setVolume(volumeEffects); announcers[0].play(); }
 void MusicManager::fatality() { announcers[1].setVolume(volumeEffects); announcers[1].play(); }
@@ -148,8 +153,6 @@ void MusicManager::moveMain() { UI[0].setVolume(volumeEffects); UI[0].play(); }
 void MusicManager::moveOptions() { UI[1].setVolume(volumeEffects); UI[1].play(); }
 void MusicManager::moveSelector() { UI[2].setVolume(volumeEffects); UI[2].play(); }
 void MusicManager::skipIntro() { UI[3].setVolume(volumeEffects); UI[3].play(); }
-
-void MusicManager::History() { history[0].setVolume(volumeMusic); history[0].play(); }
 
 void MusicManager::claps() { arenas[0].setVolume(volumeEffects); arenas[0].play(); }
 void MusicManager::loosePublic() { arenas[1].setVolume(volumeEffects); arenas[1].play(); }

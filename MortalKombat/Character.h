@@ -22,7 +22,7 @@ using namespace std;
 class Character {
 public:
 	Character() = default;
-	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, map<AnimationType, vector<RectangleShape>> hitboxes_);
+	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_);
 	//~Character() = delete;
 
 	void Update(float time);
@@ -37,6 +37,7 @@ public:
 
 private:
 	RectangleShape body;
+	RectangleShape shadow;
 	RectangleShape hitbox;
 
 	Vector2<float> global_position;

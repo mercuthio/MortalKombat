@@ -20,7 +20,7 @@ public:
 	Animation() = default;
 	Animation(int _duration, Texture *_sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, vector<Recover> _recovery, vector<int> _flagged_frames, int _wait_until);
 	//~Animation() = delete;
-	bool DoAnimation(RectangleShape& body);
+	bool DoAnimation(RectangleShape& body, RectangleShape& shadow);
 	void ResetAnimation();
 	bool RecieveFlagEvent();
 

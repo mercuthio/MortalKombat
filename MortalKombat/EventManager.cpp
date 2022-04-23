@@ -20,7 +20,6 @@ void EventManager::Update(Event event) {
 	case 0: //Pantalla inicial
 
 		music.skipIntro();
-
 		music.mainTheme();
 
 		changedEstate = true;
@@ -281,8 +280,6 @@ void EventManager::Update(Event event) {
 
 	case 6: //Batalla
 
-		music.stopMusic();
-
 		if (event.key.code == Keyboard::Escape) {
 			music.mainTheme();
 			state = 1;
@@ -334,7 +331,7 @@ void EventManager::draw(RenderWindow& window) {
 		PlayerSelector_hist.Update();
 		PlayerSelector_hist.Draw(window, clock.getElapsedTime().asSeconds());
 
-		if (PlayerSelector_hist.AnimationFinished()) state = 5;
+		if (PlayerSelector_hist.AnimationFinished()) { state = 5; music.historyTheme(); }
 
 		break;
 

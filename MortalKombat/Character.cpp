@@ -4,8 +4,9 @@ float moveXBack;
 float moveYBack;
 
 
-Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, map<AnimationType, vector<RectangleShape>> hitboxes_) {
+Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_) {
 	body = _body;
+	shadow = _shadow;
 	animation_in_process = AnimationType::IDLE;
 	animations = _animations;
 	hitboxes = hitboxes_;
@@ -40,6 +41,7 @@ void Character::Update(float tiempo) {
 
 		hitbox.setPosition(global_position.x + 302, global_position.y + 340);
 
+		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		body.setPosition(global_position);
 	
 	}
@@ -58,6 +60,7 @@ void Character::UpdateIA(float time) {
 
 		CheckCollisions();
 
+		shadow.setPosition(global_position);
 		body.setPosition(global_position);
 
 	}
@@ -280,7 +283,7 @@ void Character::DoAnimation() {
 	bool finished = false;
 	
 	if (!fallen) {
-		finished = animations[animation_in_process].animation.DoAnimation(body);
+		finished = animations[animation_in_process].animation.DoAnimation(body, shadow);
 	}	
 	if (finished) {
 		if (animation_in_process == AnimationType::FALL || animation_in_process == AnimationType::FALL_UPPERCUT) {
@@ -369,6 +372,7 @@ void Character::GetHit(int quantity) {
 
 void Character::debugDraw(RenderWindow& window) {
 	window.draw(hitbox);	//Para debug
+	window.draw(shadow);
 	window.draw(body);
 }
 

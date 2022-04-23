@@ -17,6 +17,10 @@ void Warrior_Shrine::loadTextures() {
 	initPlayer1 = Vector2<float>(-50, 200);
 	initPlayer2 = Vector2<float>(550, 200);
 
+	screenLeftLimit = -180;
+	screenRightLimit = 580;
+	screenFloorLimit = 200;
+
 	IntRect uvRect;
 	RectangleShape tile;
 	uvRect.width = rectWidth;

@@ -247,6 +247,9 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 		Courtyard background;
 		background.loadTextures();
 		BackgroundManager = background;
+
+		music.courtyardTheme();
+
 		break;
 	}
 	case WARRIOR_SHRINE:
@@ -254,6 +257,9 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 		Warrior_Shrine background;
 		background.loadTextures();
 		BackgroundManager = background;
+
+		music.warriorshrineTheme();
+
 		break;
 	}
 	case THE_PIT:
@@ -261,6 +267,9 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 		The_Pit background;
 		background.loadTextures();
 		BackgroundManager = background;
+
+		music.thepitTheme();
+
 		break;
 	}
 	break;

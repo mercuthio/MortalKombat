@@ -232,7 +232,7 @@ void HistoryManager::Update() {
 
 	}
 
-	if (clock_move == 2) {
+	if (clock_move == 100) {
 		
 		clock_move = 0;
 
@@ -247,7 +247,7 @@ void HistoryManager::Update() {
 
 	}
 
-	if (clock == 250) {
+	if (clock == 550) {
 
 		IntRect uvRect;
 
@@ -267,7 +267,4 @@ void HistoryManager::Update() {
 
 		finish = true;
 	}
-
-
-
 }

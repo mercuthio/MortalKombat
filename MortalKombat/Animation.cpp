@@ -29,10 +29,13 @@ Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_
 	el cual puede estar condicionado por factores externos
 */
 
-bool Animation::DoAnimation(RectangleShape& body) {
+bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow) {
 	bool finished = !lock;
 	if (DEBUG)
 		cout << "\tFA: " << frame_number << "\tRE: " << this_recovery << endl;
+
+	shadow.setTexture(sprite_sheet);
+	shadow.setTextureRect(IntRect(Vector2i(this_frame.x, this_frame.y + 228), size));
 
 	body.setTexture(sprite_sheet);
 	body.setTextureRect(IntRect(this_frame, size));

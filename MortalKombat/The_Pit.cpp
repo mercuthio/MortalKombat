@@ -17,6 +17,10 @@ void The_Pit::loadTextures() {
 	initPlayer1 = Vector2<float>(-50, 135);
 	initPlayer2 = Vector2<float>(550, 135);
 
+	screenLeftLimit = -180;
+	screenRightLimit = 580;
+	screenFloorLimit = 135;
+
 	IntRect uvRect;
 	RectangleShape tile;
 	uvRect.width = rectWidth;
@@ -33,7 +37,7 @@ void The_Pit::loadTextures() {
 	tile.setTextureRect(uvRect);
 	backgroundVector.push_back(tile);
 
-	//Fondo pasarela 4
+	//Fondo pasarela 1
 	rectWidth = 1147.0f;
 	rectHeight = 1000.0f;
 

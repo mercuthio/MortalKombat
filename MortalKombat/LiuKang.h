@@ -17,6 +17,9 @@ static Character CreateLiuKang() {
 	RectangleShape body = RectangleShape(Vector2<float>(229, 219));
 	body.setSize(Vector2f(229 * 3, 219 * 3));
 
+	RectangleShape shadow = RectangleShape(Vector2<float>(229, 219));
+	shadow.setSize(Vector2f(229 * 3, 219 * 3));
+
 	vector<int> null_vector{};
 	vector<int> jump_lock{ 1, 1 };
 	vector<int> jump_lock_2{ 7 };
@@ -412,7 +415,7 @@ static Character CreateLiuKang() {
 	hitboxes[AnimationType::CATCH] = catchR;
 	hitboxes[AnimationType::DYING] = dyingR;
 
-	Character LiuKang = Character(animations, body, hitboxes);
+	Character LiuKang = Character(animations, body, shadow,hitboxes);
 
 	return LiuKang;
 }
