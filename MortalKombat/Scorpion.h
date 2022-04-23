@@ -2,7 +2,7 @@
 #define Scorpion_H
 
 #include "Character.h"
-
+/*
 static Character CreateScorpion() {
 	Texture* spriteSheet = new Texture();
 	Image spriteSheetImage;
@@ -110,5 +110,5 @@ static Character CreateScorpion() {
 
 	return Scorpion;
 }
-
+*/
 #endif //SCORPION_H

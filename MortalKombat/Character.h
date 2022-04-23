@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 #include "Movement.h"
-
+#include "Recover.h"
 #include "GlobalVars.h"
 
 //--------------DEBUG-------------
@@ -55,6 +55,7 @@ private:
 	bool blocking = false;
 	bool fallen = false;
 	bool dying = false;
+	bool wait_air = false;
 
 	Vector2<float> speed;
 	bool leftOfOpponent = true;

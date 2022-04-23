@@ -2,7 +2,7 @@
 #define SonyaBlade_H
 
 #include "Character.h"
-
+/*
 static Character CreateSonyaBlade() {
 	Texture* spriteSheet = new Texture();
 	Image spriteSheetImage;
@@ -70,5 +70,6 @@ static Character CreateSonyaBlade() {
 
 	return SonyaBlade;
 }
+*/
 
 #endif //LIUKANG_H

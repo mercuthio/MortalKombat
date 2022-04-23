@@ -149,5 +149,8 @@
     <ClInclude Include="MusicManager.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
+    <ClInclude Include="Recover.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

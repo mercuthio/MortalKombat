@@ -130,7 +130,7 @@ static bool isDamageMovement(AnimationType anim) {
 }
 
 static bool hasFlag(AnimationType anim) {
-	return (!isFixedMovement(anim) || anim == AnimationType::DOWN);
+	return (!isFixedMovement(anim) || anim == AnimationType::DOWN || anim == AnimationType::BLOCK || anim == AnimationType::BLOCK_LOW);
 }
 static bool isAnyKeyPressed() {
 	return(

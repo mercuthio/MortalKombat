@@ -51,6 +51,7 @@
     <ClInclude Include="LiuKang.h" />
     <ClInclude Include="Movement.h" />
     <ClInclude Include="MusicManager.h" />
+    <ClInclude Include="Recover.h" />
     <ClInclude Include="Scorpion.h" />
     <ClInclude Include="Sonya_Blade.h" />
     <ClInclude Include="StartManager.h" />

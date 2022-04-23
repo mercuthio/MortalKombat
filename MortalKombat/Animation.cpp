@@ -1,6 +1,6 @@
 #include "Animation.h"
 
-Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames, int _wait_until) {
+Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, vector<Recover> _recovery, vector<int> _flagged_frames, int _wait_until) {
 
 	duration = _duration;
 	sprite_sheet = _sprite_sheet;
@@ -50,32 +50,31 @@ bool Animation::DoAnimation(RectangleShape& body) {
 		}
 	}
 
-	// Si no me estoy recuperando
-	if (!recovering) {
-		// Pasa al siguiente frame 
+	if (this_recovery < recovery.size()) {
+		if (recovery[this_recovery].frame == frame_number) {
+			recovering = true;
+			this_recover_frame++;
+			if (this_recover_frame > recovery[this_recovery].rec_frames) {
+				this_recovery++;
+				this_recover_frame = 0;
+				recovering = false;
+			}
+		}
+	}
+	
+	if(!recovering) {
 		this_frame += offset;
 		frame_number++;
 	}
 
 	// Si se ha acabado la animación
 	if (frame_number > duration && !isPersistent) {
-		// No me estoy recueprando
-		if (!recovering) {
-			this_frame -= offset;
-		}
-		recovering = true;
-		// Aún no me he terminado de recueprar
-		if (this_recovery < recovery) {
-			this_recovery++;
-		}
-		// Ya ha terminado de recuperarme
-		else {
-			frame_number = 1;
-			this_recovery = 0;
-			this_frame = first_frame;
-			finished = true;
-			recovering = false;
-		}
+		frame_number = 1;
+		this_recovery = 0;
+		this_frame = first_frame;
+		finished = true;
+		recovering = false;
+		
 	}
 
 	return finished;

@@ -27,10 +27,10 @@ void Character::Update(float tiempo) {
 
 		CheckCollisions();
 
-		int current_frame = animations[animation_in_process].animation.current_animation;
-		int frame = animations[animation_in_process].animation.animations[current_frame].frame_number;
+		//int current_frame = animations[animation_in_process].animation.current_animation;
+		//int frame = animations[animation_in_process].animation.animations[current_frame].frame_number;
 
-		hitbox = hitboxes[animation_in_process][frame-1];
+		//hitbox = hitboxes[animation_in_process][frame-1];
 
 		/*cout << "X: " << hitbox.getSize().x / 3 << endl;
 		cout << "Y: " << hitbox.getSize().y / 3 << endl;
@@ -91,8 +91,15 @@ void Character::CheckAnimation() {
 		}
 		// else -> nothing
 	}
+	else if (blocking) {
+		if (!Keyboard::isKeyPressed(blockButton)) {
+			blocking = false;
+			animations[animation_in_process].animation.RecieveFlagEvent();
+		}
+	}
 	else if (crouching) {			// El personaje está agachado
 		if (Keyboard::isKeyPressed(punchButton)) {
+			animations[animation_in_process].animation.ResetAnimation();
 			animation_in_process = AnimationType::PUNCH_FROM_DOWN;
 		}
 		else if (Keyboard::isKeyPressed(kickButton)) {
@@ -100,21 +107,31 @@ void Character::CheckAnimation() {
 		}
 		else if (Keyboard::isKeyPressed(blockButton)) {												//H.Kick en parado
 			animation_in_process = AnimationType::BLOCK_LOW;
+			blocking = true;
 		}
 		else if (!Keyboard::isKeyPressed(downButton)) {
 			crouching = false;
 			animations[animation_in_process].animation.RecieveFlagEvent();
 		}
-	}
+		else {
+			if (!doing_animation) {
+				animation_in_process = AnimationType::DOWN;
+			}			
+		}
+	}	
 	else if (punching) {			// El personaje está pegando
 		if (Keyboard::isKeyPressed(punchButton)) {
 			if (Keyboard::isKeyPressed(forwButton)) {											//L.Punch hacia delante
+				animations[animation_in_process].animation.ResetAnimation();
 				animation_in_process = AnimationType::PUNCH_UPPER_MULTIPLE;
 			}
 			else {
+				animations[animation_in_process].animation.ResetAnimation();
 				animation_in_process = AnimationType::PUNCH_MULTIPLE;
 			}
 		}
+		punching = false;
+		
 	}
 	else if (!doing_animation) {	// El personaje no está haciendo nada
 		if (Keyboard::isKeyPressed(downButton)) {													//Agacharse
@@ -135,6 +152,7 @@ void Character::CheckAnimation() {
 			}
 			else if (Keyboard::isKeyPressed(punchButton)) {											//L.Punch hacia delante
 				animation_in_process = AnimationType::PUNCH_UPPER;
+				punching = true;
 			}
 			else if (Keyboard::isKeyPressed(kickButton)) {											//M.Punch hacia delante
 				animation_in_process = AnimationType::KICK_UPPER;
@@ -151,6 +169,7 @@ void Character::CheckAnimation() {
 			}
 			else if (Keyboard::isKeyPressed(punchButton)) {												//Salto hacia delante
 				animation_in_process = AnimationType::PUNCH;
+				punching = true;
 			}
 			else if (Keyboard::isKeyPressed(kickButton)) {											//L.Punch hacia delante
 				animation_in_process = AnimationType::KICK;
@@ -170,12 +189,14 @@ void Character::CheckAnimation() {
 		}
 		else if (Keyboard::isKeyPressed(punchButton)) {												//L.Punch en parado
 			animation_in_process = AnimationType::PUNCH;
+			punching = true;
 		}
 		else if (Keyboard::isKeyPressed(specialButton)) {		//L.Kick, M.Kick en parado
 			animation_in_process = AnimationType::SPECIAL;
 		}
 		else if (Keyboard::isKeyPressed(blockButton)) {												//H.Kick en parado
 			animation_in_process = AnimationType::BLOCK;
+			blocking = true;
 		}
 		else if (Keyboard::isKeyPressed(grabButton)) {
 			animation_in_process = AnimationType::CATCH;
@@ -317,11 +338,8 @@ void Character::DoAnimation() {
 
 void Character::EndAnimation() {
 	//cout << "ENDING ANIMATION\n";
-
-	doing_animation = false;
 	on_air = false;
-	crouching = false;
-	punching = false;
+	doing_animation = false;
 	animation_in_process = AnimationType::IDLE;
 }
 

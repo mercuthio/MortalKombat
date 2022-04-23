@@ -18,7 +18,7 @@ static Character CreateLiuKang() {
 	body.setSize(Vector2f(229 * 3, 219 * 3));
 
 	vector<int> null_vector{};
-	vector<int> jump_lock{ 1 };
+	vector<int> jump_lock{ 1, 1 };
 	vector<int> jump_lock_2{ 7 };
 	vector<int> jump_lock_fall{ 3 };
 	vector<int> duck_lock{ 3 };
@@ -28,58 +28,66 @@ static Character CreateLiuKang() {
 	vector<int> punchOrKickAir_lock{ 5, 5 };
 	vector<int> fallBack_lock{ 6 };
 
+	vector<Recover> punchRecovery{ {1, 1} };
+	vector<Recover> kickUpRecovery{ {3, 2} };
+	vector<Recover> noRecovery{};
 
-	Animation idle0 = Animation(8, spriteSheet, Vector2<int>(32, 58), sz, 5, false, false, 0, null_vector, 0);
-	Animation forw0 = Animation(9, spriteSheet, Vector2<int>(2138, 58), sz, 5, false, false, 0, null_vector, 0);
-	Animation back0 = Animation(9, spriteSheet, Vector2<int>(4010, 58), sz, 5, true, false, 0, null_vector, 0);
 
-	Animation punch0 = Animation(4, spriteSheet, Vector2<int>(32, 580), sz, 5, false, true, 5, null_vector, 2);
-	Animation punchUp0 = Animation(4, spriteSheet, Vector2<int>(32, 1052), sz, 5, false, true, 5, null_vector, 0);
-	Animation punchDown0 = Animation(5, spriteSheet, Vector2<int>(1436, 2568), sz, 5, false, false, 0, null_vector, 0);
-	Animation punchFromUp0 = Animation(5, spriteSheet, Vector2<int>(500, 3090), sz, 5, false, true, 0, punchOrKickAir_lock, 0);
-	Animation bodyToBody0 = Animation(5, spriteSheet, Vector2<int>(3542, 580), sz, 5, false, false, 0, null_vector, 0);
-	Animation bodyToBodyUp0 = Animation(5, spriteSheet, Vector2<int>(3542, 1052), sz, 5, false, false, 0, null_vector, 0);
+	Animation idle0 = Animation(8, spriteSheet, Vector2<int>(32, 58), sz, 5, false, false, noRecovery, null_vector, 3);
+	Animation forw0 = Animation(9, spriteSheet, Vector2<int>(2138, 58), sz, 5, false, false, noRecovery, null_vector, 2);
+	Animation back0 = Animation(9, spriteSheet, Vector2<int>(4010, 58), sz, 5, true, false, noRecovery, null_vector, 2);
 
-	Animation jump0 = Animation(1, spriteSheet, Vector2<int>(32, 3090), sz, 5, false, true, 0, jump_lock, 0);
-	Animation jumpMove0 = Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, 0, jump_lock_2, 0);
-	Animation jumpFall = Animation(3, spriteSheet, Vector2<int>(3308, 3089), sz, 5, false, true, 0, jump_lock_fall, 0);
+	Animation punch0 = Animation(4, spriteSheet, Vector2<int>(32, 580), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation punchMult0 = Animation(9, spriteSheet, Vector2<int>(1202, 580), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation punchUp0 = Animation(4, spriteSheet, Vector2<int>(32, 1052), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation punchUpMult0 = Animation(9, spriteSheet, Vector2<int>(1202, 1052), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation punchDown0 = Animation(5, spriteSheet, Vector2<int>(1436, 2568), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation punchFromUp0 = Animation(5, spriteSheet, Vector2<int>(500, 3090), sz, 5, false, true, noRecovery, punchOrKickAir_lock, 2);
+	Animation bodyToBody0 = Animation(5, spriteSheet, Vector2<int>(3542, 580), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation bodyToBodyUp0 = Animation(5, spriteSheet, Vector2<int>(3542, 1052), sz, 5, false, false, noRecovery, null_vector, 2);
 
-	Animation kick0 = Animation(7, spriteSheet, Vector2<int>(32, 1574), sz, 5, false, false, 0, null_vector, 0);
-	Animation kickUp0 = Animation(7, spriteSheet, Vector2<int>(2372, 2046), sz, 5, false, false, 0, null_vector, 0);
-	Animation kickDown0 = Animation(8, spriteSheet, Vector2<int>(1904, 1574), sz, 5, false, false, 0, null_vector, 0);
-	Animation kickFromDown0 = Animation(5, spriteSheet, Vector2<int>(2840, 2568), sz, 5, false, false, 0, null_vector, 0);
-	Animation kickFromUp0 = Animation(5, spriteSheet, Vector2<int>(1904, 3090), sz, 5, false, true, 0, punchOrKickAir_lock, 0);
+	Animation jump0 = Animation(1, spriteSheet, Vector2<int>(32, 3090), sz, 5, false, true, noRecovery, jump_lock, 2);
+	Animation jumpMove0 = Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, noRecovery, jump_lock_2, 0);
+	//Animation jumpFall = Animation(3, spriteSheet, Vector2<int>(3308, 3089), sz, 5, false, true, 0, jump_lock_fall, 0);
 
-	Animation duck0 = Animation(5, spriteSheet, Vector2<int>(32, 2568), sz, 5, false, true, 0, duck_lock, 0);
+	Animation kick0 = Animation(7, spriteSheet, Vector2<int>(32, 1574), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation kickUp0 = Animation(7, spriteSheet, Vector2<int>(2372, 2046), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation kickDown0 = Animation(8, spriteSheet, Vector2<int>(1904, 1574), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation kickFromDown0 = Animation(5, spriteSheet, Vector2<int>(2840, 2568), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation kickFromUp0 = Animation(5, spriteSheet, Vector2<int>(1904, 3090), sz, 5, false, true, noRecovery, punchOrKickAir_lock, 2);
 
-	Animation blockUp0 = Animation(5, spriteSheet, Vector2<int>(32, 6122), sz, 5, false, true, 0, blockUp_lock, 0);
-	Animation blockDown0 = Animation(2, spriteSheet, Vector2<int>(1436, 6122), sz, 5, false, true, 0, blockDown_lock, 0);
+	Animation duck0 = Animation(5, spriteSheet, Vector2<int>(32, 2568), sz, 5, false, true, noRecovery, duck_lock, 2);
 
-	Animation special0 = Animation(8, spriteSheet, Vector2<int>(32, 6644), sz, 5, false, true, 0, null_vector, 0);
-	Animation fatality0 = Animation(14, spriteSheet, Vector2<int>(32, 7688), sz, 5, false, true, 0, null_vector, 0);
-	Animation win0 = Animation(14, spriteSheet, Vector2<int>(32, 8210), sz, 5, false, true, 0, win_lock, 0);
+	Animation blockUp0 = Animation(5, spriteSheet, Vector2<int>(32, 6122), sz, 5, false, true, noRecovery, blockUp_lock, 2);
+	Animation blockDown0 = Animation(2, spriteSheet, Vector2<int>(1436, 6122), sz, 5, false, true, noRecovery, blockDown_lock, 2);
 
-	Animation fall0 = Animation(7, spriteSheet, Vector2<int>(32, 4606), sz, 5, false, true, 0, null_vector, 0);
-	Animation fallBack0 = Animation(6, spriteSheet, Vector2<int>(32, 5078), sz, 5, false, true, 0, fallBack_lock, 0);		// Al morir sin fatality
-	Animation fallUppercut0 = Animation(8, spriteSheet, Vector2<int>(1904, 4606), sz, 5, false, true, 0, null_vector, 0);
-	Animation nuts0 = Animation(4, spriteSheet, Vector2<int>(4010, 4606), sz, 5, false, true, 0, null_vector, 0);
-	Animation recover0 = Animation(7, spriteSheet, Vector2<int>(1670, 5078), sz, 5, false, true, 0, null_vector, 0);
+	Animation special0 = Animation(8, spriteSheet, Vector2<int>(32, 6644), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation fatality0 = Animation(14, spriteSheet, Vector2<int>(32, 7688), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation win0 = Animation(14, spriteSheet, Vector2<int>(32, 8210), sz, 5, false, true, noRecovery, win_lock, 2);
 
-	Animation getCaught0 = Animation(7, spriteSheet, Vector2<int>(1904, 5600), sz, 5, false, true, 0, null_vector, 0);
-	Animation catch0 = Animation(7, spriteSheet, Vector2<int>(32, 5600), sz, 5, false, true, 0, null_vector, 0);
-	Animation dying0 = Animation(7, spriteSheet, Vector2<int>(32, 7166), sz, 5, false, true, 0, null_vector, 0);
+	Animation fall0 = Animation(7, spriteSheet, Vector2<int>(32, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation fallBack0 = Animation(6, spriteSheet, Vector2<int>(32, 5078), sz, 5, false, true, noRecovery, fallBack_lock, 2);		// Al morir sin fatality
+	Animation fallUppercut0 = Animation(8, spriteSheet, Vector2<int>(1904, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation nuts0 = Animation(4, spriteSheet, Vector2<int>(4010, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation recover0 = Animation(7, spriteSheet, Vector2<int>(1670, 5078), sz, 5, false, true, noRecovery, null_vector, 2);
+
+	Animation getCaught0 = Animation(7, spriteSheet, Vector2<int>(1904, 5600), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation catch0 = Animation(7, spriteSheet, Vector2<int>(32, 5600), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation dying0 = Animation(7, spriteSheet, Vector2<int>(32, 7166), sz, 5, false, true, noRecovery, null_vector, 2);
 
 	AnimationGroup idle = AnimationGroup(idle0);
 	AnimationGroup forwWalk = AnimationGroup(forw0);
 	AnimationGroup backWalk = AnimationGroup(back0);
-	AnimationGroup punch = AnimationGroup(punch0);
+	AnimationGroup punch = AnimationGroup(punch0); 
+	AnimationGroup punchMult = AnimationGroup(punchMult0);
+	AnimationGroup punchUpMult = AnimationGroup(punchUpMult0);
 	AnimationGroup punchUp = AnimationGroup(punchUp0);
 	AnimationGroup punchFromUp = AnimationGroup(punchFromUp0);
 	AnimationGroup bodyToBody = AnimationGroup(bodyToBody0);
 	AnimationGroup jump = AnimationGroup(jump0);
-	jump.AddAnimation(jumpFall);
+	//jump.AddAnimation(jumpFall);
 	AnimationGroup jumpMove = AnimationGroup(jumpMove0);
-	jumpMove.AddAnimation(jumpFall);
+	jumpMove.AddAnimation(jumpMove0);
 	AnimationGroup kick = AnimationGroup(kick0);
 	AnimationGroup kickUp = AnimationGroup(kickUp0);
 	AnimationGroup kickFromDown = AnimationGroup(kickFromDown0);
@@ -105,7 +113,9 @@ static Character CreateLiuKang() {
 	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0) };
 	Movement backMov = Movement{ backWalk, Vector2<float>(-10, 0.0) };
 	Movement punchMov = Movement{ punch, Vector2<float>(0.0, 0.0) };
+	Movement punchMultMov = Movement{ punchMult, Vector2<float>(0.0, 0.0) };
 	Movement punchUpMov = Movement{ punchUp, Vector2<float>(0.0, 0.0) };
+	Movement punchUpMultMov = Movement{ punchUpMult, Vector2<float>(0.0, 0.0) };
 	Movement punchFromUpMov = Movement{ punchFromUp, Vector2<float>(0.0, 0.0) };
 	Movement bodyToBodyMov = Movement{ bodyToBody, Vector2<float>(0.0, 0.0) };
 	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0) };
@@ -136,7 +146,9 @@ static Character CreateLiuKang() {
 	animations[AnimationType::WALK_FORW] = forwMov;
 	animations[AnimationType::WALK_BACK] = backMov;
 	animations[AnimationType::PUNCH] = punchMov;
+	animations[AnimationType::PUNCH_MULTIPLE] = punchMultMov;
 	animations[AnimationType::PUNCH_UPPER] = punchUpMov;
+	animations[AnimationType::PUNCH_UPPER_MULTIPLE] = punchUpMultMov;
 	animations[AnimationType::PUNCH_FROM_AIR] = punchFromUpMov;
 	animations[AnimationType::PUNCH_CLOSE] = bodyToBodyMov;
 	animations[AnimationType::JUMP] = jumpMov;

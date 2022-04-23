@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "GlobalVars.h"
+#include "Recover.h"
 
 constexpr bool DEBUG = false;
 
@@ -17,7 +18,7 @@ using namespace std;
 class Animation {
 public:
 	Animation() = default;
-	Animation(int _duration, Texture *_sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, int _recovery, vector<int> _flagged_frames, int _wait_until);
+	Animation(int _duration, Texture *_sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, vector<Recover> _recovery, vector<int> _flagged_frames, int _wait_until);
 	//~Animation() = delete;
 	bool DoAnimation(RectangleShape& body);
 	void ResetAnimation();
@@ -32,7 +33,8 @@ private:
 	bool isPersistent = false;
 	bool lock = false;
 	int this_recovery = 0;
-	int recovery = 0;
+	int this_recover_frame = 0;
+	vector<Recover> recovery;
 	bool recovering = false;
 	bool waiting_flag = false;
 
