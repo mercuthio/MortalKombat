@@ -29,10 +29,15 @@ static Keyboard::Key forwButton = Keyboard::D;
 static Keyboard::Key backButton = Keyboard::A;
 static Keyboard::Key downButton = Keyboard::S;
 static Keyboard::Key punchButton = Keyboard::J;
+static Keyboard::Key punchButton2 = Keyboard::H;
 static Keyboard::Key kickButton = Keyboard::K;
 static Keyboard::Key grabButton = Keyboard::U;
 static Keyboard::Key specialButton = Keyboard::I;
 static Keyboard::Key blockButton = Keyboard::L;
+
+enum class LookingAt {
+	LEFT, RIGHT
+};
 
 enum CharacterType {
 	CAGE,
@@ -131,6 +136,14 @@ static bool isDamageMovement(AnimationType anim) {
 
 static bool hasFlag(AnimationType anim) {
 	return (!isFixedMovement(anim) || anim == AnimationType::DOWN || anim == AnimationType::BLOCK || anim == AnimationType::BLOCK_LOW);
+}
+static bool isAnyFightKeyPressed() {
+	return(
+		Keyboard::isKeyPressed(punchButton) ||
+		Keyboard::isKeyPressed(kickButton) ||
+		Keyboard::isKeyPressed(grabButton) ||
+		Keyboard::isKeyPressed(specialButton)
+		);
 }
 static bool isAnyKeyPressed() {
 	return(

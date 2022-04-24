@@ -1,4 +1,5 @@
 #include "BattleManager.h"
+#include "GlobalVars.h"
 
 using namespace std;
 
@@ -362,12 +363,12 @@ void BattleManager::Update() {
 
 	finished_round();	//Comprobamos final de ronda
 
-	if (!player1.isMirrored() && player1.GetXPosition() > player2.GetXPosition() + 5) { //PLAYER 1 LEFT -> RIGHT
+	if (player1.lookingAt() == LookingAt::LEFT && player1.GetXPosition() > player2.GetXPosition() + 5) { //PLAYER 1 LEFT -> RIGHT
 		player1.Mirror();
 		player1.SetXPosition(15.f);
 		player2.Mirror();
 	}
-	else if (player1.isMirrored() && player1.GetXPosition() + 5 < player2.GetXPosition()) { //PLAYER 1 RIGHT -> LEFT
+	else if (player1.lookingAt() == LookingAt::RIGHT && player1.GetXPosition() + 5 < player2.GetXPosition()) { //PLAYER 1 RIGHT -> LEFT
 		player1.Mirror();
 		player1.SetXPosition(-15.f);
 		player2.Mirror();

@@ -78,6 +78,9 @@ static Character CreateLiuKang() {
 	Animation catch0 = Animation(7, spriteSheet, Vector2<int>(32, 5600), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation dying0 = Animation(7, spriteSheet, Vector2<int>(32, 7166), sz, 5, false, true, noRecovery, null_vector, 2);
 
+	Animation turnLeft0 = Animation(3, spriteSheet, Vector2<int>(2138, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation turnRight0 = Animation(3, spriteSheet, Vector2<int>(3074, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
+
 	AnimationGroup idle = AnimationGroup(idle0);
 	AnimationGroup forwWalk = AnimationGroup(forw0);
 	AnimationGroup backWalk = AnimationGroup(back0);
@@ -88,7 +91,6 @@ static Character CreateLiuKang() {
 	AnimationGroup punchFromUp = AnimationGroup(punchFromUp0);
 	AnimationGroup bodyToBody = AnimationGroup(bodyToBody0);
 	AnimationGroup jump = AnimationGroup(jump0);
-	//jump.AddAnimation(jumpFall);
 	AnimationGroup jumpMove = AnimationGroup(jumpMove0);
 	jumpMove.AddAnimation(jumpMove0);
 	AnimationGroup kick = AnimationGroup(kick0);
@@ -111,6 +113,8 @@ static Character CreateLiuKang() {
 	AnimationGroup getCaught = AnimationGroup(getCaught0);
 	AnimationGroup catchAnim = AnimationGroup(catch0);
 	AnimationGroup dying = AnimationGroup(dying0);
+	AnimationGroup turnLeft = AnimationGroup(turnLeft0);
+	AnimationGroup turnRight = AnimationGroup(turnRight0);
 
 	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0), { 68*3,69*3,66*3,65*3,65*3,65*3,65*3,69*3}, { 60*3,57*3,54*3,58*3,61*3,58*3,54*3,57*3 } };
 	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0), {76*3,89*3,90*3,94*3,90*3,86*3,93*3,93*3,88*3}, {52*3,48*3,50*3,50*3,53*3,49*3,50*3,49*3,54*3} };
@@ -143,6 +147,9 @@ static Character CreateLiuKang() {
 	Movement getCaughtMov = Movement{ getCaught, Vector2<float>(5.0, 0.0) };
 	Movement catchMov = Movement{ catchAnim, Vector2<float>(0.0, 0.0) };
 	Movement dyingMov = Movement{ dying, Vector2<float>(0.0, 0.0) };
+	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0) };
+	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0) };
+	
 
 	map<AnimationType, Movement> animations;
 	animations[AnimationType::IDLE] = idleMov;
@@ -176,6 +183,9 @@ static Character CreateLiuKang() {
 	animations[AnimationType::GET_CAUGHT] = getCaughtMov;
 	animations[AnimationType::CATCH] = catchMov;
 	animations[AnimationType::DYING] = dyingMov;
+	animations[AnimationType::TURN_LEFT] = turnLeftMov;
+	animations[AnimationType::TURN_RIGHT] = turnRightMov;
+	
 
 	//Tamaños hitboxes
 	Vector2f idleS[8] = { { 72 * 3, 123 * 3}, { 70 * 3,126 * 3}, {74 * 3,130 * 3}, {74 * 3,127 * 3}, {74 * 3,124 * 3}, {74 * 3,126 * 3}, {74 * 3,131 * 3}, {71 * 3,127 * 3} };
@@ -417,7 +427,7 @@ static Character CreateLiuKang() {
 	hitboxes[AnimationType::CATCH] = catchR;
 	hitboxes[AnimationType::DYING] = dyingR;
 
-	Character LiuKang = Character(animations, body, shadow, hitboxes, LIU_KANG);
+	Character LiuKang = Character(animations, body, shadow, hitboxes);
 
 	return LiuKang;
 }

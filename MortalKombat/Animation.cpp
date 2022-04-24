@@ -31,8 +31,6 @@ Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_
 
 bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored, float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition) {
 	bool finished = !lock;
-	if (DEBUG)
-		cout << "\tFA: " << frame_number << "\tRE: " << this_recovery << endl;
 
 	hitbox.setTexture(sprite_sheet);
 	shadow.setTexture(sprite_sheet);

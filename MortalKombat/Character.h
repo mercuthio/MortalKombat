@@ -22,7 +22,7 @@ using namespace std;
 class Character {
 public:
 	Character() = default;
-	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, CharacterType _type);
+	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_);
 	//~Character() = delete;
 
 	void Update(float time);
@@ -35,8 +35,8 @@ public:
 
 	float GetLife();
 
-	bool isMirrored() {
-		return mirrored;
+	LookingAt lookingAt() {
+		return looking_at;
 	}
 
 	float GetXPosition() {
@@ -79,16 +79,19 @@ private:
 	bool fallen = false;
 	bool dying = false;
 	bool wait_air = false;
+	bool fightKeyPressed = false;
+	bool removePunchNext = false;
+	bool freeze = true;		//Para el comienzo de partidas, no permite mover
+	bool mirrorOnEnd = false;
+	bool mirroring = false;
+	
+	LookingAt looking_at = LookingAt::LEFT;
 
 	Vector2<float> speed;
 
 	bool mirrored = false;
 
-	int player = 0;
-
-	bool freeze = true;		//Para el comienzo de partidas, no permite mover
-
-	CharacterType type;
+	int player = 0;	
 	
 	AnimationType animation_in_process;
 
