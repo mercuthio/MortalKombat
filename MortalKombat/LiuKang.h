@@ -112,11 +112,11 @@ static Character CreateLiuKang() {
 	AnimationGroup catchAnim = AnimationGroup(catch0);
 	AnimationGroup dying = AnimationGroup(dying0);
 
-	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0) };
-	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0) };
-	Movement backMov = Movement{ backWalk, Vector2<float>(-10, 0.0) };
-	Movement punchMov = Movement{ punch, Vector2<float>(0.0, 0.0) };
-	Movement punchMultMov = Movement{ punchMult, Vector2<float>(0.0, 0.0) };
+	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0), { 68*3,69*3,66*3,65*3,65*3,65*3,65*3,69*3}, { 60*3,57*3,54*3,58*3,61*3,58*3,54*3,57*3 } };
+	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0), {76*3,89*3,90*3,94*3,90*3,86*3,93*3,93*3,88*3}, {52*3,48*3,50*3,50*3,53*3,49*3,50*3,49*3,54*3} };
+	Movement backMov = Movement{ backWalk, Vector2<float>(-10, 0.0), {76 * 3,89 * 3,90 * 3,94 * 3,90 * 3,86 * 3,93 * 3,93 * 3,88 * 3}, {52 * 3,48 * 3,50 * 3,50 * 3,53 * 3,49 * 3,50 * 3,49 * 3,54 * 3} };
+	Movement punchMov = Movement{ punch, Vector2<float>(0.0, 0.0), {67*3,69*3,70*3,66*3}, {48*3,45*3,51*3,48*3} };
+	Movement punchMultMov = Movement{ punchMult, Vector2<float>(0.0, 0.0), {67*3,69*3,70*3,77*3,78*3,70*3,78*3,78*3,65*3}, {49*3,45*3,50*3,47*3,48*3,55*3,49*3,47*3,49*3} };
 	Movement punchUpMov = Movement{ punchUp, Vector2<float>(0.0, 0.0) };
 	Movement punchUpMultMov = Movement{ punchUpMult, Vector2<float>(0.0, 0.0) };
 	Movement punchFromUpMov = Movement{ punchFromUp, Vector2<float>(0.0, 0.0) };
@@ -177,6 +177,7 @@ static Character CreateLiuKang() {
 	animations[AnimationType::CATCH] = catchMov;
 	animations[AnimationType::DYING] = dyingMov;
 
+	//Tamaños hitboxes
 	Vector2f idleS[8] = { { 72 * 3, 123 * 3}, { 70 * 3,126 * 3}, {74 * 3,130 * 3}, {74 * 3,127 * 3}, {74 * 3,124 * 3}, {74 * 3,126 * 3}, {74 * 3,131 * 3}, {71 * 3,127 * 3} };
 	Vector2f forwS[9] = { {71 * 3,131 * 3}, {55 * 3,135 * 3}, {56 * 3,132 * 3}, {52 * 3,132 * 3}, {56 * 3,128 * 3}, {60 * 3,133 * 3}, {53 * 3,134 * 3}, {53 * 3,134 * 3}, {62 * 3,128 * 3} };
 	Vector2f backS[9] = { {62 * 3,128 * 3}, {53 * 3,134 * 3}, {53 * 3,134 * 3}, {60 * 3,133 * 3}, {56 * 3,128 * 3}, {52 * 3,132 * 3}, {56 * 3,132 * 3}, {55 * 3,135 * 3}, {71 * 3,131 * 3} };
@@ -208,8 +209,7 @@ static Character CreateLiuKang() {
 	Vector2f catchS[7] = { {92 * 3,128 * 3}, {106 * 3,112 * 3}, {90 * 3,126 * 3}, {86 * 3,144 * 3}, {74 * 3,157 * 3}, {86 * 3,138 * 3}, {93 * 3,110 * 3} };
 	Vector2f dyingS[7] = { {70 * 3,122 * 3}, {71 * 3,121 * 3}, {70 * 3,127 * 3}, {70 * 3,134 * 3}, {70 * 3,135 * 3}, {71 * 3,133 * 3}, {71 * 3,121 * 3} };
 
-
-	Vector2f idleOrigin = { 102 * 3,182 * 3 };
+	Vector2f idleOrigin = { 102 ,182  };
 	Vector2f forwOrigin = { 102,183 };
 	Vector2f backOrigin = { 102,183 };
 
@@ -243,10 +243,12 @@ static Character CreateLiuKang() {
 	RectangleShape rect;
 	rect.setFillColor(Color::Green);
 	vector<RectangleShape> idleR;
+	int i = 0;
 	for (Vector2f size : idleS) {
-		rect.setOrigin(idleOrigin);
+		//rect.setOrigin(animations);
 		rect.setSize(size);
 		idleR.push_back(rect);
+		i++;
 	}
 	vector<RectangleShape> forwR;
 	for (Vector2f size : forwS) {

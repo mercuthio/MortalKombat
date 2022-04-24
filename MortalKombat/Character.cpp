@@ -23,24 +23,14 @@ void Character::Update(float tiempo) {
 			cout << "Origin: " << "(" << body.getOrigin().x << ", " << body.getOrigin().y << ")" << endl;
 		}*/
 
-
 		if (!freeze) CheckAnimation();	// Dependiendo de que ha pulsado el jugador hago una animación u otra
 		DoAnimation();		// Realizo el siguiente frame de la animación
 
 		CheckCollisions();
 
-		//int current_frame = animations[animation_in_process].animation.current_animation;
-		//int frame = animations[animation_in_process].animation.animations[current_frame].frame_number;
-
-		//hitbox = hitboxes[animation_in_process][frame-1];
-
-		/*cout << "X: " << hitbox.getSize().x / 3 << endl;
+		cout << "X: " << hitbox.getSize().x / 3 << endl;
 		cout << "Y: " << hitbox.getSize().y / 3 << endl;
-		cout << "Frame actual: " << frame - 1 << endl;
-		cout << "OX: " << hitbox.getOrigin().x << endl;
-		cout << "OY: " << hitbox.getOrigin().y << endl;*/
-
-		hitbox.setPosition(global_position.x + 302, global_position.y + 340);
+		cout << "Animacion: " << (int)animation_in_process << endl;
 
 		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		body.setPosition(global_position);
@@ -356,9 +346,11 @@ void Character::DoAnimation() {
 	//debug_animation();
 
 	bool finished = false;
-	
+
 	if (!fallen) {
-		finished = animations[animation_in_process].animation.DoAnimation(body, shadow, isMirrored());
+
+		finished = animations[animation_in_process].animation.DoAnimation(body, shadow, hitbox, isMirrored(),
+			animations[animation_in_process].hitbox_positions_X, animations[animation_in_process].hitbox_positions_Y, global_position);
 	}	
 	if (finished) {
 		if (animation_in_process == AnimationType::FALL || animation_in_process == AnimationType::FALL_UPPERCUT) {

@@ -29,13 +29,19 @@ Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_
 	el cual puede estar condicionado por factores externos
 */
 
-bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, bool mirrored) {
+bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored, float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition) {
 	bool finished = !lock;
 	if (DEBUG)
 		cout << "\tFA: " << frame_number << "\tRE: " << this_recovery << endl;
 
+	hitbox.setTexture(sprite_sheet);
 	shadow.setTexture(sprite_sheet);
 	body.setTexture(sprite_sheet);
+
+	float position_x = hitbox_positions_X[frame_number];
+	float position_y = hitbox_positions_Y[frame_number];
+	
+	hitbox.setPosition(globalPosition.x + position_x, globalPosition.y + position_y);
 
 	if (mirrored) {
 
