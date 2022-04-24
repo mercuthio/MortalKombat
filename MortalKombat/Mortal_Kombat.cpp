@@ -53,7 +53,7 @@ int main() {
     Font font;
     font.loadFromFile("resources/Fuente/mortalKombat1.ttf");
 
-    Image a, b,c;
+    Image a, b, c;
     Color pink = Color(245, 10, 237, 255);
     Color blue = Color(165, 231, 255);
     a.loadFromFile("resources/Sprites/Varios/Menus.png");
@@ -61,10 +61,12 @@ int main() {
     a.createMaskFromColor(blue);
     b.loadFromFile("resources/Sprites/Varios/Bios.png");
     b.createMaskFromColor(pink);
+    c.loadFromFile("resources/Sprites/Varios/Endings.png");
 
     Texture textures[10];
     textures[0].loadFromImage(a);
     textures[1].loadFromImage(b);
+    textures[2].loadFromImage(c);
 
     Text version;
     version.setFont(font);

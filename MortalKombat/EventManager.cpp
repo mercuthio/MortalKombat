@@ -4,7 +4,7 @@ MusicManager music;
 
 EventManager::EventManager(Texture textures[], Font font, Clock clock) : BattleManager(&textures[0], font, clock), StartManager(&textures[0], &textures[1]),
 MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false),
-PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0],0), DeadManager(&textures[0], font) {
+PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0],0), DeadManager(&textures[0]), FinishManager(&textures[2]) {
 
 	this->clock = clock;
 
@@ -379,9 +379,12 @@ void EventManager::draw(RenderWindow& window) {
 		ganador_partida = BattleManager.isfinished();
 		if (ganador_partida == 1) {					//Ha ganado el jugador
 			if (HistoryManager.NextCombat()) {		//Si modo historia completado
+				FinishManager.Restart(character1);
 				state = 8;							//Estado cinematica final
 			}
-			state = 5;								//Si terminada partida se va a la cinematica de la historia
+			else {
+				state = 5;							//Si terminada partida se va a la cinematica de la historia
+			}
 		}
 		else if (ganador_partida == 2) {			//Ha ganado la IA
 			DeadManager.Restart();
@@ -401,12 +404,14 @@ void EventManager::draw(RenderWindow& window) {
 
 	case 8: //Cinematica final
 
+		FinishManager.Update();
+		if (FinishManager.Draw(window)) state = 1;		//Si terminada cinematica final vamos al menu
 		break;
 
 	case 9:	//Pantalla de muerte
 
 		DeadManager.Update();
-		if (DeadManager.Draw(window)) state = 1;		//Si terminada pantalla e muerte vamos al menu
+		if (DeadManager.Draw(window)) state = 1;		//Si terminada pantalla de muerte vamos al menu
 		break;
 	default:
 

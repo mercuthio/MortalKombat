@@ -12,6 +12,7 @@
 #include "BattleManager.h"
 #include "MusicManager.h"
 #include "DeadManager.h"
+#include "FinishManager.h"
 
 #include <chrono>
 #include <thread>
@@ -36,8 +37,8 @@ private:
 	int state;											//0 = StartManager, 1 = MenuManager, 2 = PlayerSelectorHistoria, 3 = PlayerSelectorDuelo, 4 = OptionsManager, 5 = Torre, 6 = Batalla
 	bool changedEstate;									//True cuando se va a cambiar el estado en el siguiente frame, false en cualquier otro momento
 
-	CharacterType character1;								//Personaje elegido por el jugador 1
-	CharacterType character2;								//Personaje elegido por el jugador 2
+	CharacterType character1;							//Personaje elegido por el jugador 1
+	CharacterType character2;							//Personaje elegido por el jugador 2
 
 	background stage;
 	MenuManager MenuManager;							//Objeto del menu principal
@@ -50,6 +51,7 @@ private:
 	HistoryManager HistoryManager;
 	BattleManager BattleManager;
 	DeadManager DeadManager;
+	FinishManager FinishManager;
 
 	RectangleShape loading_screen;
 	Texture* texture;

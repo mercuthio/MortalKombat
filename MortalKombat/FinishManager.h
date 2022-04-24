@@ -1,5 +1,5 @@
-#ifndef DeadManager_H
-#define DeadManager_H
+#ifndef FinishManager_H
+#define FinishManager_H
 
 #include "SFML/Graphics.hpp"
 #include "GlobalVars.h"
@@ -8,24 +8,27 @@
 using namespace sf;
 using namespace std;
 
-class DeadManager {
+class FinishManager {
 
 
 public:
-	DeadManager(Texture*);
-	~DeadManager() = default;
+	FinishManager(Texture*);
+	~FinishManager() = default;
 
-	bool Draw(RenderWindow& window);		
+	bool Draw(RenderWindow& window);
 	void LoadTextures();
 	void Update();								//Actualiza los sprites
-	void Restart();
+	void Restart(int);
 
 
 private:
 
 	Texture* texture;
+	Font font;
 
 	int clock;
+	int character;
+	bool changed_image;
 
 	RectangleShape backg;
 

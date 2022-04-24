@@ -6,9 +6,8 @@
 
 using namespace std;
 
-DeadManager::DeadManager(Texture* texture_, Font font_) {
+DeadManager::DeadManager(Texture* texture_) {
 
-	font = font_;
 	texture = texture_;
 
 	Restart();
@@ -23,7 +22,7 @@ void DeadManager::LoadTextures() {
 	backg.setTexture(texture);
 	backg.setScale(1.0f, 1.0f);
 
-	//Fondo 0
+	//Fondo
 	uvRect.width = 400;
 	uvRect.height = 254;
 	uvRect.left = 4010;

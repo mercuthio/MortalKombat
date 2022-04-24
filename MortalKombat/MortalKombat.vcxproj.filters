@@ -82,7 +82,10 @@
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
     <ClCompile Include="DeadManager.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="FinishManager.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +159,9 @@
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
     <ClInclude Include="DeadManager.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="FinishManager.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
   </ItemGroup>

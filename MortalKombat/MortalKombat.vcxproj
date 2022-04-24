@@ -27,6 +27,7 @@
     <ClCompile Include="Courtyard.cpp" />
     <ClCompile Include="DeadManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="FinishManager.cpp" />
     <ClCompile Include="HistoryManager.cpp" />
     <ClCompile Include="MusicManager.cpp" />
     <ClCompile Include="StartManager.cpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="Courtyard.h" />
     <ClInclude Include="DeadManager.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="FinishManager.h" />
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="Goro.h" />
     <ClInclude Include="HistoryManager.h" />
