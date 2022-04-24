@@ -39,7 +39,7 @@ void BattleManager::LoadTextures() {
 	Vector2f size_round = Vector2f(327.0f, 82.0f);
 	Vector2f size_danger = Vector2f(121.0f, 39.0f);
 	Vector2f size_clock = Vector2f(38.0f, 54.0f);
-	Vector2f size_fight = Vector2f(386.0f, 114.0f);
+	Vector2f size_fight = Vector2f(386.0f*2, 114.0f*2);
 
 	IntRect uvRect;
 	RectangleShape rect;
@@ -167,7 +167,7 @@ void BattleManager::LoadTextures() {
 	rect.setSize(size_fight);
 
 	rect.setTextureRect(uvRect);
-	rect.setPosition(width_window / 2 - rect.getSize().x / 2, 254.0f);
+	rect.setPosition(width_window / 2 - rect.getSize().x / 2, 254.0f/2);
 	HUD_vector.push_back(rect);
 
 	//Puntos del jugador 1 1, 2 y 3

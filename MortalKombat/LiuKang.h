@@ -415,7 +415,7 @@ static Character CreateLiuKang() {
 	hitboxes[AnimationType::CATCH] = catchR;
 	hitboxes[AnimationType::DYING] = dyingR;
 
-	Character LiuKang = Character(animations, body, shadow,hitboxes);
+	Character LiuKang = Character(animations, body, shadow, hitboxes, LIU_KANG);
 
 	return LiuKang;
 }

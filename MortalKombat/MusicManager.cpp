@@ -113,6 +113,15 @@ MusicManager::MusicManager() {
 	scorpion[0].setBuffer(bufferScorpion[0]);
 	bufferScorpion[1].loadFromFile("audio/scorpion/getOverHere.ogg");
 	scorpion[1].setBuffer(bufferScorpion[1]);
+
+	//LiuKang
+
+	for (int i = 0; i < 2; i++) { bufferLiuKang.push_back(buffer); liukang.push_back(sound); }
+
+	bufferLiuKang[0].loadFromFile("audio/liukang/mk1-00228.ogg"); //Hit 1
+	liukang[0].setBuffer(bufferLiuKang[0]);
+	bufferLiuKang[1].loadFromFile("audio/liukang/mk1-00225.ogg"); //Kick 1
+	liukang[1].setBuffer(bufferLiuKang[1]);
 }
 
 void MusicManager::startIntro() { intro[0].setVolume(volumeMusic); intro[0].play(); }
@@ -164,6 +173,9 @@ void MusicManager::victoryPublic() { arenas[2].setVolume(volumeEffects); arenas[
 
 void MusicManager::comeHere() { scorpion[0].setVolume(volumeEffects); scorpion[0].play(); }
 void MusicManager::getOverHere() { scorpion[1].setVolume(volumeEffects); scorpion[1].play(); }
+
+void MusicManager::liuKangPunch01() { liukang[0].setVolume(volumeEffects); liukang[0].play(); }
+void MusicManager::liuKangKick01() { liukang[1].setVolume(volumeEffects); liukang[1].play(); }
 
 void MusicManager::stopIntros() {
 	for (int i = 0; i < intro.size(); i++) {

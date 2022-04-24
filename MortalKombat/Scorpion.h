@@ -106,7 +106,7 @@ static Character CreateScorpion() {
 
 	map< AnimationType, vector<RectangleShape>> hitboxes;
 
-	Character Scorpion = Character(animations, body, hitboxes);
+	Character Scorpion = Character(animations, body, hitboxes, SCORPION);
 
 	return Scorpion;
 }

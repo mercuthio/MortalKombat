@@ -66,7 +66,7 @@ static Character CreateSonyaBlade() {
 
 	map< AnimationType, vector<RectangleShape>> hitboxes;
 
-	Character SonyaBlade = Character(animations, body, hitboxes);
+	Character SonyaBlade = Character(animations, body, hitboxes, SONYA);
 
 	return SonyaBlade;
 }

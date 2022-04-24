@@ -4,12 +4,13 @@ float moveXBack;
 float moveYBack;
 
 
-Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_) {
+Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, CharacterType _type) {
 	body = _body;
 	shadow = _shadow;
 	animation_in_process = AnimationType::IDLE;
 	animations = _animations;
 	hitboxes = hitboxes_;
+	type = _type;
 }
 
 void Character::Update(float tiempo) {
@@ -85,11 +86,31 @@ void Character::CheckAnimation() {
 	}
 	else if (on_air) {					// El personaje está en el aire
 		if (Keyboard::isKeyPressed(punchButton)) {
+
+			switch (type) {
+			case LIU_KANG:
+				music.liuKangPunch01();
+				break;
+			case SCORPION:
+				break;
+			case SONYA:
+				break;
+			}
+
 			EndAndResetAnimation();
 			animation_in_process = AnimationType::PUNCH_FROM_AIR;
 		}
 		else if (Keyboard::isKeyPressed(kickButton)) {
 			EndAndResetAnimation();
+			switch (type) {
+			case LIU_KANG:
+				music.liuKangKick01();
+				break;
+			case SCORPION:
+				break;
+			case SONYA:
+				break;
+			}
 			animation_in_process = AnimationType::KICK_FROM_AIR;
 		}
 		// else -> nothing
@@ -102,10 +123,28 @@ void Character::CheckAnimation() {
 	}
 	else if (crouching) {			// El personaje está agachado
 		if (Keyboard::isKeyPressed(punchButton)) {
+			switch (type) {
+			case LIU_KANG:
+				music.liuKangPunch01();
+				break;
+			case SCORPION:
+				break;
+			case SONYA:
+				break;
+			}
 			animations[animation_in_process].animation.ResetAnimation();
 			animation_in_process = AnimationType::PUNCH_FROM_DOWN;
 		}
 		else if (Keyboard::isKeyPressed(kickButton)) {
+			switch (type) {
+			case LIU_KANG:
+				music.liuKangKick01();
+				break;
+			case SCORPION:
+				break;
+			case SONYA:
+				break;
+			}
 			animation_in_process = AnimationType::KICK_FROM_DOWN;
 		}
 		else if (Keyboard::isKeyPressed(blockButton)) {												//H.Kick en parado
@@ -124,6 +163,15 @@ void Character::CheckAnimation() {
 	}	
 	else if (punching) {			// El personaje está pegando
 		if (Keyboard::isKeyPressed(punchButton)) {
+			switch (type) {
+			case LIU_KANG:
+				music.liuKangPunch01();
+				break;
+			case SCORPION:
+				break;
+			case SONYA:
+				break;
+			}
 			if (Keyboard::isKeyPressed(forwButton)) {											//L.Punch hacia delante
 				animations[animation_in_process].animation.ResetAnimation();
 				animation_in_process = AnimationType::PUNCH_UPPER_MULTIPLE;
@@ -140,6 +188,15 @@ void Character::CheckAnimation() {
 		if (Keyboard::isKeyPressed(downButton)) {													//Agacharse
 
 			if (Keyboard::isKeyPressed(kickButton)) {
+				switch (type) {
+				case LIU_KANG:
+					music.liuKangKick01();
+					break;
+				case SCORPION:
+					break;
+				case SONYA:
+					break;
+				}
 				animation_in_process = AnimationType::KICK_LOW;
 			}
 			else {
@@ -158,6 +215,15 @@ void Character::CheckAnimation() {
 				punching = true;
 			}
 			else if (Keyboard::isKeyPressed(kickButton)) {											//M.Punch hacia delante
+				switch (type) {
+				case LIU_KANG:
+					music.liuKangKick01();
+					break;
+				case SCORPION:
+					break;
+				case SONYA:
+					break;
+				}
 				animation_in_process = AnimationType::KICK_UPPER;
 			}
 			else {																					//Solo moverse
@@ -176,6 +242,15 @@ void Character::CheckAnimation() {
 			}
 			else if (Keyboard::isKeyPressed(kickButton)) {											//L.Punch hacia delante
 				animation_in_process = AnimationType::KICK;
+				switch (type) {
+				case LIU_KANG:
+					music.liuKangKick01();
+					break;
+				case SCORPION:
+					break;
+				case SONYA:
+					break;
+				}
 			}
 			else {																					//Solo moverse
 				animation_in_process = AnimationType::WALK_BACK;

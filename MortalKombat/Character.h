@@ -22,7 +22,7 @@ using namespace std;
 class Character {
 public:
 	Character() = default;
-	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_);
+	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, CharacterType _type);
 	//~Character() = delete;
 
 	void Update(float time);
@@ -87,6 +87,8 @@ private:
 	int player = 0;
 
 	bool freeze = true;		//Para el comienzo de partidas, no permite mover
+
+	CharacterType type;
 	
 	AnimationType animation_in_process;
 

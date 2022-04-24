@@ -61,6 +61,9 @@ public:
 	void comeHere();
 	void getOverHere();
 
+	void liuKangPunch01();
+	void liuKangKick01();
+
 	void reduceVolumeMusic() { volumeMusic -= 20.f;};
 	void addVolumeMusic() { volumeMusic += 20.f;};
 
@@ -83,6 +86,7 @@ private:
 	vector<Sound> UI;
 	vector<Sound> arenas;
 	vector<Sound> scorpion;
+	vector<Sound> liukang;
 
 	vector<SoundBuffer> bufferIntro;
 	vector<SoundBuffer> bufferMusic;
@@ -90,6 +94,7 @@ private:
 	vector<SoundBuffer> bufferUI;
 	vector<SoundBuffer> bufferArenas;
 	vector<SoundBuffer> bufferScorpion;
+	vector<SoundBuffer> bufferLiuKang;
 
 	float volumeMusic = 80.f;
 	float volumeEffects = 80.f;
