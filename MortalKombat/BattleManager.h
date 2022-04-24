@@ -25,14 +25,18 @@ public:
 	BattleManager(Texture*, Font, Clock);
 	~BattleManager() = default;
 
-	void Update(Event);									//Actualiza la batalla actual dada una tecla pulsada
+	void Update(Event);									//Para que no crashee en cinematica historia (no hace nada)
 	void Update();										//Actualiza el escenario y el hud
 	void draw(RenderWindow&);							//Dibuja la batalla actual
 	void RestartCombat(CharacterType, CharacterType, background, bool);					//Reinicia los datos del combate
 	void Restart();
 	void LoadTextures();
 	void LoadCharacters();
-	int RestartRound(int);								//Resetea las variables para una nueva ronda, devuelve 0 si no ha ganado nadie, 1 si ha ganado el jugador1 y 2 el jugador2
+	void RestartRound();								//Resetea las variables para una nueva ronda
+	void finished_round();
+	void increase_round(int);
+
+	int isfinished();
 
 private:
 
@@ -47,6 +51,7 @@ private:
 	int stage;
 	int time_left;
 	int round;
+	int winned_game;
 
 	int points1;
 	int points2;
@@ -72,6 +77,7 @@ private:
 	bool showed_danger1;
 	bool showed_danger2;
 	bool twoPlayers;
+	bool finished_game;
 
 	Texture* texture;
 	Font font;											//Variable con la fuente de letra
@@ -86,7 +92,6 @@ private:
 	Character player1;
 	Character player2;
 
-	vector<Text> Texts;
 	vector<RectangleShape> HUD_vector;
 
 };

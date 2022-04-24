@@ -11,6 +11,7 @@
 #include "HistoryManager.h"
 #include "BattleManager.h"
 #include "MusicManager.h"
+#include "DeadManager.h"
 
 #include <chrono>
 #include <thread>
@@ -48,6 +49,7 @@ private:
 	PlayerSelector PlayerSelector_duel;					//Objeto de selector de personajes de duelo
 	HistoryManager HistoryManager;
 	BattleManager BattleManager;
+	DeadManager DeadManager;
 
 	RectangleShape loading_screen;
 	Texture* texture;

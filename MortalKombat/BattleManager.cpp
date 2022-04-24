@@ -31,7 +31,6 @@ void BattleManager::LoadTextures() {
 	cout << "[*] Loading game textures..." << endl;
 
 	HUD_vector.clear();
-	Texts.clear();
 
 	Vector2f size_life = Vector2f(417.0f, 35.0f);
 	Vector2f size_name = Vector2f(413.0f, 31.0f);
@@ -170,24 +169,6 @@ void BattleManager::LoadTextures() {
 	rect.setPosition(width_window / 2 - rect.getSize().x / 2, 254.0f/2);
 	HUD_vector.push_back(rect);
 
-	//Puntos del jugador 1 1, 2 y 3
-	Text text;
-	text.setFont(font);
-	text.setString("0000");
-	text.setCharacterSize(CHAR_SIZE_BATTLE);
-	text.setOutlineColor(Color::Black);
-	text.setOutlineThickness(2.0f);
-	text.setFillColor(Color::Yellow);
-	text.setPosition(40.0f, 5.0f);
-	Texts.push_back(text);
-
-	text.setPosition(200.0f, 5.0f);
-	Texts.push_back(text);
-
-	text.setFillColor(Color::Red);
-	text.setPosition(150.0f, 5.0f);
-	Texts.push_back(text);
-
 }
 
 void BattleManager::LoadCharacters(){
@@ -214,6 +195,7 @@ void BattleManager::Restart() {
 }
 
 void BattleManager::RestartCombat(CharacterType character1_, CharacterType character2_, background stage_, bool twoPlayers_) {
+
 	twoPlayers = twoPlayers_;
 	character1 = character1_;
 	character2 = character2_;
@@ -224,6 +206,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 
 	time_left = 99;
 	round = 0;
+	winned_game = 0;
 
 	points1 = 0;
 	points2 = 0;
@@ -231,6 +214,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	rounds_won1 = 0;
 	rounds_won2 = 0;
 
+	finished_game = false;
 	showing_fight = false;
 	started_game = false;
 	showing_round = true;
@@ -350,55 +334,33 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	player2.Mirror();
 }
 
-int BattleManager::RestartRound(int winner1) {
+void BattleManager::RestartRound() {
 
-	if (winner1) {
-		rounds_won1++;
-	}
-	else {
-		rounds_won2++;
-	}
+	flash = false;
+	showing_fight = false;
+	started_game = false;
+	showing_round = true;
+	inDanger1 = false;
+	inDanger2 = false;
+	showed_danger1 = false;
+	showed_danger2 = false;
 
-	if (rounds_won1 == 2) {
-		return 1;
-	}
-	else if (rounds_won2 == 2) {
-		return 2;
-	}
-	else {
+	fight_x = 0;
+	life1 = 100;
+	life2 = 100;
+	time_left = 99;
+	round++;
 
-		flash = false;
-		showing_fight = false;
-		started_game = false;
-		showing_round = true;
-		inDanger1 = false;
-		inDanger2 = false;
-		showed_danger1 = false;
-		showed_danger2 = false;
-
-		fight_x = 0;
-		life1 = 100;
-		life2 = 100;
-		time_left = 99;
-		round++;
-
-		player1.setFreeze(true);
-		player2.setFreeze(true);
-
-		return 0;
-
-	}
+	player1.setFreeze(true);
+	player2.setFreeze(true);
 
 }
 
-void BattleManager::Update(Event event) {
-
-	//Procesar tecla
-
-}
+void BattleManager::Update(Event event) {}
 
 void BattleManager::Update() {
 
+	finished_round();	//Comprobamos final de ronda
 
 	if (!player1.isMirrored() && player1.GetXPosition() > player2.GetXPosition() + 5) { //PLAYER 1 LEFT -> RIGHT
 		player1.Mirror();
@@ -524,6 +486,66 @@ void BattleManager::Update() {
 		}
 	}
 
+	if (winned_game != 0) {
+		if (winned_game == 1) {
+			//Stunear jugador contrario
+			//Mostrar letras finish him
+
+			//Cuando golpee el contrario mostrar you win
+			//Pose de victoria
+			
+			//Si terminado lo anterior finished_game = 1
+		}
+		else {
+			//Stunear jugador contrario
+			//Mostrar letras finish him
+
+			//Cuando golpee el contrario mostrar you win
+			//Pose de victoria
+
+			//Si terminado lo anterior finished_game = 1
+		}
+	}
+
+}
+
+int BattleManager::isfinished() {
+	if (finished_game) {
+		if (life1 >= life2) return 1;
+		return 2;
+	}
+	return 0;
+}
+
+void BattleManager::finished_round() {
+
+	if (time_left <= 0) {
+		if (life1 <= life2) increase_round(2);	//Gana el jugador 2
+		else increase_round(1);					//Gana el jugador 1
+		RestartRound();
+	}
+	if (life1 <= 0) {
+		increase_round(1); 	
+		RestartRound();
+	}		
+	if (life2 <= 0) {
+		increase_round(2);  
+		RestartRound();
+	}	
+
+}
+
+void BattleManager::increase_round(int player) {
+
+	if (player) {
+		rounds_won1++;
+		if (rounds_won1 >= 2) winned_game = 1;
+	}
+	else {
+		rounds_won2++;
+		if (rounds_won2 >= 2) winned_game = 2;
+	}
+
 }
 
 void BattleManager::draw(RenderWindow& window) {
@@ -566,10 +588,5 @@ void BattleManager::draw(RenderWindow& window) {
 		i++;
 
 	}
-	/*
-	for (Text text : Texts) {
-		window.draw(text);
-	}
-	*/
 
 }

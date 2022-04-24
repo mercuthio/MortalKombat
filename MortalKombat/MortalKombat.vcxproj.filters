@@ -81,6 +81,9 @@
     <ClCompile Include="MusicManager.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
+    <ClCompile Include="DeadManager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h">
@@ -150,6 +153,9 @@
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
     <ClInclude Include="Recover.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadManager.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
   </ItemGroup>

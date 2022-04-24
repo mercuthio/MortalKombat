@@ -69,7 +69,7 @@ int main() {
     Text version;
     version.setFont(font);
     version.setFillColor(Color::White);
-    version.setString("Beta v0.2");
+    version.setString("Beta v0.3");
     version.setCharacterSize(25);
     version.setPosition(Vector2f(30.0, height_window - 45.0));
 

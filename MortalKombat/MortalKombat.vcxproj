@@ -25,6 +25,7 @@
     <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Courtyard.cpp" />
+    <ClCompile Include="DeadManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="HistoryManager.cpp" />
     <ClCompile Include="MusicManager.cpp" />
@@ -44,6 +45,7 @@
     <ClInclude Include="BattleManager.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Courtyard.h" />
+    <ClInclude Include="DeadManager.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="Goro.h" />

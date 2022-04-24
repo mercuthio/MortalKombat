@@ -4,7 +4,7 @@ MusicManager music;
 
 EventManager::EventManager(Texture textures[], Font font, Clock clock) : BattleManager(&textures[0], font, clock), StartManager(&textures[0], &textures[1]),
 MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false),
-PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0],0) {
+PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0],0), DeadManager(&textures[0], font) {
 
 	this->clock = clock;
 
@@ -278,7 +278,17 @@ void EventManager::Update(Event event) {
 			music.mainTheme();
 		}
 
-	case 6: //Batalla
+	case 6: //Batalla historia
+
+		if (event.key.code == Keyboard::Escape) {
+			music.mainTheme();
+			state = 1;
+			BattleManager.Restart();
+		}
+		BattleManager.Update(event);
+		break;
+
+	case 7: //Batalla historia
 
 		if (event.key.code == Keyboard::Escape) {
 			music.mainTheme();
@@ -302,13 +312,15 @@ void EventManager::drawTransitionManager(RenderWindow& window) {
 
 void EventManager::draw(RenderWindow& window) {
 
+	int ganador_partida;
+
 	switch (state) {
-	case -1:
+	case -1: //Cargando
 		if (clock.getElapsedTime().asSeconds() - loadingTime > 0) {
 			state = 0;
 		}
 		break;
-	case 0:
+	case 0:	//Intro
 
 		if (StartManager.draw(window, clock.getElapsedTime().asSeconds() - loadingTime)) { //Si terminada intro
 
@@ -320,13 +332,13 @@ void EventManager::draw(RenderWindow& window) {
 
 		};
 		break;
-	case 1:
+	case 1: //Menu principal
 
 		MenuManager.Update();
 		MenuManager.draw(window);
 		break;
 
-	case 2:
+	case 2: //Selector de personaje en historia
 
 		PlayerSelector_hist.Update();
 		PlayerSelector_hist.Draw(window, clock.getElapsedTime().asSeconds());
@@ -335,20 +347,20 @@ void EventManager::draw(RenderWindow& window) {
 
 		break;
 
-	case 3:
+	case 3:	//Selector de personajes en duelo
 
 		PlayerSelector_duel.Update();
 		PlayerSelector_duel.Draw(window, clock.getElapsedTime().asSeconds());
 
-		if (PlayerSelector_duel.AnimationFinished()) state = 6;
+		if (PlayerSelector_duel.AnimationFinished()) state = 7;
 		break;
 
-	case 4:
+	case 4:	//Pantalla opcines
 
 		OptionsManager.draw(window);
 		break;
 
-	case 5:
+	case 5:	//Cinematica historia
 		HistoryManager.Update();
 		if (HistoryManager.Draw(window, clock.getElapsedTime().asSeconds())) {
 
@@ -359,13 +371,43 @@ void EventManager::draw(RenderWindow& window) {
 		}
 		break;
 
-	case 6:
+	case 6:	//Batalla historia
 
 		BattleManager.Update();
 		BattleManager.draw(window);
 
+		ganador_partida = BattleManager.isfinished();
+		if (ganador_partida == 1) {					//Ha ganado el jugador
+			if (HistoryManager.NextCombat()) {		//Si modo historia completado
+				state = 8;							//Estado cinematica final
+			}
+			state = 5;								//Si terminada partida se va a la cinematica de la historia
+		}
+		else if (ganador_partida == 2) {			//Ha ganado la IA
+			DeadManager.Restart();
+			state = 9;
+		}
+ 		
 		break;
 
+	case 7: //Batalla duelo
+
+		BattleManager.Update();
+		BattleManager.draw(window);
+
+		if (BattleManager.isfinished() != 0) state = 1;	//Si terminada partida se va al menu
+		
+		break;
+
+	case 8: //Cinematica final
+
+		break;
+
+	case 9:	//Pantalla de muerte
+
+		DeadManager.Update();
+		if (DeadManager.Draw(window)) state = 1;		//Si terminada pantalla e muerte vamos al menu
+		break;
 	default:
 
 		exit(0);
