@@ -98,8 +98,8 @@ private:
 
 	bool mirrored = false;
 
-	EstadoIA estado;
-	Difficulty difficulty;
+	EstadoIA estado = EstadoIA::IDLE;
+	Difficulty difficulty = EASY;
 
 	int player = 0;	
 	int duracionEstadoActual = 0;

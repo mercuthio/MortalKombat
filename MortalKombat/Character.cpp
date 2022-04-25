@@ -42,6 +42,7 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 	if (internalTimer >= updateTime) {
 
 		internalTimer = 0.0f;
+
 		if (freeze && freezeTimer < 10) {
 			freezeTimer++;
 		}
@@ -50,7 +51,6 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 			freeze = false;
 			CheckIAAnimation(opponent);
 		}
-
 		DoAnimation();
 		CheckCollisions();
 
@@ -91,23 +91,25 @@ void Character::CheckIAAnimation(Character opponent) {
 }
 
 void Character::ChangeIAState(Character opponent) {
-	duracionEstadoActual++;
-	if (duracionEstadoActual > 10) {
+
 		int probabilidad = rand() % 100; // entre 0 y 99 (inclusive)
+		float distancia = abs(GetXPosition() - opponent.GetXPosition());
+		AnimationType anim = opponent.getAnimation();
 
 		// Cambiamos de estado
-		if (difficulty > probabilidad) {
-			duracionEstadoActual = 0;
-			bool siendoAtacado = opponent.isAttaking();
-			float distancia = GetXPosition() - opponent.GetXPosition();
-			AnimationType anim = opponent.getAnimation();
-
-			// Cambiar de estado dependiendo de varios factores
-			if (siendoAtacado && distancia < 15) {
-
+		bool siendoAtacado = opponent.isAttaking();
+		if (siendoAtacado && difficulty > probabilidad) {
+					
+		}
+		else {
+			if (distancia < 50) {
+				estado = EstadoIA::ALEJARSE;
+			}
+			else if (distancia > 300) {
+				estado = EstadoIA::ACERCARSE;
 			}
 		}
-	}
+	
 }
 
 void Character::initPosition(Vector2<float> initPos) {
