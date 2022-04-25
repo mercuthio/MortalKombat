@@ -390,7 +390,7 @@ void BattleManager::Update() {
 	if (twoPlayers) { 
 		player2.Update(0.05f); 
 	} else { 
-		player2.UpdateIA(0.05f); 
+		player2.UpdateIA(0.05f, player1); 
 	}
 
 	BackgroundManager.Update();

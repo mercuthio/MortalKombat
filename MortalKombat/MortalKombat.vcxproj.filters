@@ -87,9 +87,6 @@
     <ClCompile Include="FinishManager.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="IA.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h">
@@ -167,8 +164,8 @@
     <ClInclude Include="FinishManager.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="IA.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
+    <ClInclude Include="Playeable.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

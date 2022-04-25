@@ -36,6 +36,80 @@ void Character::Update(float tiempo) {
 	}
 }
 
+
+
+void Character::UpdateIA(float tiempo, Character opponent) {
+	if (internalTimer >= updateTime) {
+
+		internalTimer = 0.0f;
+		if (freeze && freezeTimer < 10) {
+			freezeTimer++;
+		}
+		else {
+			freezeTimer = 0;
+			freeze = false;
+			CheckIAAnimation(opponent);
+		}
+
+		DoAnimation();
+		CheckCollisions();
+
+		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
+		body.setPosition(global_position);
+	}
+	else {
+		internalTimer += 0.025f;
+	}
+}
+
+void Character::CheckIAAnimation(Character opponent) {
+	if (!doing_animation) {
+		ChangeIAState(opponent);
+		int probabilidad = rand() % 100; // entre 0 y 99 (inclusive)
+
+		switch (estado) {
+		case EstadoIA::IDLE:
+			animation_in_process = AnimationType::IDLE;
+			break;
+
+		case EstadoIA::ACERCARSE:
+			animation_in_process = AnimationType::WALK_FORW;
+			break;
+
+		case EstadoIA::ALEJARSE:
+			animation_in_process = AnimationType::WALK_BACK;
+			break;
+
+		case EstadoIA::MODO_ATAQUE:
+			// Check mas cosas
+			break;
+
+		case EstadoIA::MODO_SEXO:
+			break;
+		}
+	}
+}
+
+void Character::ChangeIAState(Character opponent) {
+	duracionEstadoActual++;
+	if (duracionEstadoActual > 10) {
+		int probabilidad = rand() % 100; // entre 0 y 99 (inclusive)
+
+		// Cambiamos de estado
+		if (difficulty > probabilidad) {
+			duracionEstadoActual = 0;
+			bool siendoAtacado = opponent.isAttaking();
+			float distancia = GetXPosition() - opponent.GetXPosition();
+			AnimationType anim = opponent.getAnimation();
+
+			// Cambiar de estado dependiendo de varios factores
+			if (siendoAtacado && distancia < 15) {
+
+			}
+		}
+	}
+}
+
 void Character::initPosition(Vector2<float> initPos) {
 	global_position = initPos;
 }
@@ -421,3 +495,6 @@ float Character::GetLife() {
 	return life;
 }
 
+bool Character::isAttaking() {
+	return isDamageMovement(animation_in_process);
+}

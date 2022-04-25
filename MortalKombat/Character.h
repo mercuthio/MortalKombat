@@ -25,6 +25,8 @@ public:
 	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_);
 	//~Character() = delete;
 
+	void UpdateIA(float time, Character opponent);
+
 	void Update(float time);
 	void debugDraw(RenderWindow& window);
 
@@ -73,6 +75,7 @@ private:
 	float internalTimer = 0.05f;
 
 	int life = 100;
+	int freezeTimer = 0;
 
 	bool doing_animation = false;
 
@@ -95,7 +98,11 @@ private:
 
 	bool mirrored = false;
 
+	EstadoIA estado;
+	Difficulty difficulty;
+
 	int player = 0;	
+	int duracionEstadoActual = 0;
 	
 	AnimationType animation_in_process;
 
@@ -109,6 +116,9 @@ private:
 	void CheckAnimation();
 	void CheckCollisions();
 	bool CheckScreenCollisions(float movement);
+	
+	void CheckIAAnimation(Character opponent);
+	void ChangeIAState(Character opponent);
 };
 
 /*
