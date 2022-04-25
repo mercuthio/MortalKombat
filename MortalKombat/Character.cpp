@@ -5,6 +5,7 @@ float moveYBack;
 
 
 Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_) {
+	srand(time(NULL));
 	body = _body;
 	shadow = _shadow;
 	animation_in_process = AnimationType::IDLE;
@@ -65,6 +66,7 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 void Character::CheckIAAnimation(Character opponent) {
 	if (!doing_animation) {
 		ChangeIAState(opponent);
+		AnimationType animOp = opponent.getAnimation();
 		int probabilidad = rand() % 100; // entre 0 y 99 (inclusive)
 
 		switch (estado) {
@@ -81,35 +83,92 @@ void Character::CheckIAAnimation(Character opponent) {
 			break;
 
 		case EstadoIA::MODO_ATAQUE:
-			// Check mas cosas
-			break;
+			
+			if (difficulty_lvl == DifficultyLevel::HARD) {
+				if (animOp == AnimationType::BLOCK) {
 
+				}
+			}
+			else {
+				cout << "ATACO";
+				int ataque = rand() % 4;
+				switch (ataque) {
+				case 0:
+					if (!on_air) {
+						animation_in_process = AnimationType::PUNCH;
+					}
+					else {
+						animation_in_process = AnimationType::PUNCH_FROM_AIR;
+					}
+
+					break;
+
+				case 1:
+					if (!on_air) {
+						animation_in_process = AnimationType::PUNCH_UPPER;
+					}
+
+					break;
+
+				case 2:
+					if (!on_air) {
+						animation_in_process = AnimationType::KICK;
+					}
+					else {
+						animation_in_process == AnimationType::KICK_FROM_AIR;
+					}
+					break;
+
+				case 3:
+					if (!on_air) {
+						animation_in_process = AnimationType::KICK_LOW;
+					}
+					break;
+				}
+				estado = EstadoIA::ALEJARSE;
+			}
 		case EstadoIA::MODO_SEXO:
 			break;
+			
 		}
 	}
 }
 
+/*
+	Esto está petado de bugs
+	No tiene ni puto sentido
+*/
 void Character::ChangeIAState(Character opponent) {
+		
+	int probabilidad = rand() % 100; // entre 0 y 99 (inclusive)
+	cout << probabilidad << "-";
+	float distancia = abs(GetXPosition() - opponent.GetXPosition());
+	AnimationType anim = opponent.getAnimation();
 
-		int probabilidad = rand() % 100; // entre 0 y 99 (inclusive)
-		float distancia = abs(GetXPosition() - opponent.GetXPosition());
-		AnimationType anim = opponent.getAnimation();
+	// Cambiamos de estado
+	bool siendoAtacado = opponent.isAttaking();
+	if (siendoAtacado && Difficulty[difficulty_lvl] > probabilidad) {
+		cout << "AHHHHHHHHHHHHHH";
+	}
+	else {
+		if (distancia < 100) {
+			cout << "\n" << Difficulty[difficulty_lvl] << " > ";
+			cout << probabilidad << endl;
 
-		// Cambiamos de estado
-		bool siendoAtacado = opponent.isAttaking();
-		if (siendoAtacado && difficulty > probabilidad) {
-					
-		}
-		else {
-			if (distancia < 50) {
+			if (Difficulty[difficulty_lvl] > probabilidad) {
+				cout << "Entro en modo ataque" << endl;
+				estado = EstadoIA::MODO_ATAQUE;
+			}
+			else {
+				cout << "Entro en modo me piro" << endl;
 				estado = EstadoIA::ALEJARSE;
 			}
-			else if (distancia > 300) {
-				estado = EstadoIA::ACERCARSE;
-			}
 		}
-	
+		else if (distancia > 400) {
+			cout << "\n" << "Entro en modo me acerco" << endl;
+			estado = EstadoIA::ACERCARSE;
+		}
+	}	
 }
 
 void Character::initPosition(Vector2<float> initPos) {
@@ -498,5 +557,5 @@ float Character::GetLife() {
 }
 
 bool Character::isAttaking() {
-	return isDamageMovement(animation_in_process);
+	return isAnyFightKeyPressed();
 }

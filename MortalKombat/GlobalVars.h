@@ -160,10 +160,10 @@ static bool isAnyKeyPressed() {
 }
 
 // probabilidad de fallar
-enum Difficulty {
-	EASY = 25, 
-	MEDIUM = 50,
-	HARD = 85
+enum class DifficultyLevel {
+	EASY, 
+	MEDIUM,
+	HARD
 };
 
 enum class EstadoIA {
@@ -173,5 +173,12 @@ enum class EstadoIA {
 	MODO_ATAQUE,
 	MODO_SEXO,
 };
+
+static map<DifficultyLevel, int> Difficulty = {
+		{DifficultyLevel::EASY, 25},
+		{DifficultyLevel::MEDIUM, 50},
+		{DifficultyLevel::HARD, 111}
+};
+
 
 #endif

@@ -99,8 +99,9 @@ private:
 	bool mirrored = false;
 
 	EstadoIA estado = EstadoIA::IDLE;
-	Difficulty difficulty = EASY;
+	DifficultyLevel difficulty_lvl = DifficultyLevel::MEDIUM;
 
+	
 	int player = 0;	
 	int duracionEstadoActual = 0;
 	
