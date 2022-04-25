@@ -24,6 +24,7 @@ public:
 	void Restart(int character);
 	void LoadTextures();
 	bool NextCombat();
+	void RestartVariables();
 
 private:
 
@@ -39,7 +40,6 @@ private:
 	float time;
 	
 	bool title_color;							//Color del titulo, true = azul, false = blanco
-	bool loaded;								//Indica si estan cargados todos los componentes de la pantalla
 	bool moving;
 	bool finish;
 

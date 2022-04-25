@@ -135,7 +135,6 @@ void HistoryManager::Restart(int character_) {
 	clock_flash = 0;
 	clock_move = 0;
 	finish = false;
-	loaded = false;
 
 	GetCharacters();
 	Objects.clear();
@@ -144,11 +143,18 @@ void HistoryManager::Restart(int character_) {
 	//NextCombat(); //DEBUG PARA VER EL MOVIMIENTO DEL ICONO
 }
 
+void HistoryManager::RestartVariables(){
+	clock = 0;
+	clock_flash = 0;
+	clock_move = 0;
+	finish = false;
+}
+
 bool HistoryManager::NextCombat() {
 	actual_combat++;
 	moving = true;
 
-	if (actual_combat > NUM_CHARS) return true;	//Ha ganado todos los combates
+	if (actual_combat == NUM_CHARS) return true;	//Ha ganado todos los combates
 	return false;
 }
 
@@ -202,6 +208,7 @@ void HistoryManager::Update() {
 
 	clock++;
 	clock_flash++;
+
 	if (moving) clock_move++;
 
 	if (clock_flash == 7 && !finish) {
@@ -232,7 +239,7 @@ void HistoryManager::Update() {
 
 	}
 
-	if (clock_move == 100) {
+	if (clock_move == 3) {
 		
 		clock_move = 0;
 

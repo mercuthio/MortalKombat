@@ -494,8 +494,9 @@ void BattleManager::Update() {
 
 			//Cuando golpee el contrario mostrar you win
 			//Pose de victoria
-			
+
 			//Si terminado lo anterior finished_game = 1
+			finished_game = true;
 		}
 		else {
 			//Stunear jugador contrario
@@ -505,8 +506,14 @@ void BattleManager::Update() {
 			//Pose de victoria
 
 			//Si terminado lo anterior finished_game = 1
+			finished_game = true;
 		}
 	}
+
+	Vector2f size_round = Vector2f(327.0f, 82.0f);
+	uvRect = HUD_vector[10].getTextureRect();
+	uvRect.top = 54 + 84 * round;
+	HUD_vector[10].setTextureRect(uvRect);
 
 }
 

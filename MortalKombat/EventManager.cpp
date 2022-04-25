@@ -343,7 +343,14 @@ void EventManager::draw(RenderWindow& window) {
 		PlayerSelector_hist.Update();
 		PlayerSelector_hist.Draw(window, clock.getElapsedTime().asSeconds());
 
-		if (PlayerSelector_hist.AnimationFinished()) { state = 5; music.historyTheme(); }
+		if (PlayerSelector_hist.AnimationFinished()) {
+			state = 5;
+			music.historyTheme();
+
+			stage = (background)(rand() % 3);
+			BattleManager.RestartCombat(character1, character2, stage, false);
+			BattleManager.Restart();
+		}
 
 		break;
 
@@ -352,7 +359,12 @@ void EventManager::draw(RenderWindow& window) {
 		PlayerSelector_duel.Update();
 		PlayerSelector_duel.Draw(window, clock.getElapsedTime().asSeconds());
 
-		if (PlayerSelector_duel.AnimationFinished()) state = 7;
+		if (PlayerSelector_duel.AnimationFinished()) {
+			state = 7;
+			stage = (background)(rand() % 3);
+			BattleManager.RestartCombat(character1, character2, stage, false);
+			BattleManager.Restart();
+		}
 		break;
 
 	case 4:	//Pantalla opcines
@@ -383,6 +395,7 @@ void EventManager::draw(RenderWindow& window) {
 				state = 8;							//Estado cinematica final
 			}
 			else {
+				HistoryManager.RestartVariables();
 				state = 5;							//Si terminada partida se va a la cinematica de la historia
 			}
 		}
@@ -390,7 +403,7 @@ void EventManager::draw(RenderWindow& window) {
 			DeadManager.Restart();
 			state = 9;
 		}
- 		
+
 		break;
 
 	case 7: //Batalla duelo
@@ -398,14 +411,18 @@ void EventManager::draw(RenderWindow& window) {
 		BattleManager.Update();
 		BattleManager.draw(window);
 
-		if (BattleManager.isfinished() != 0) state = 1;	//Si terminada partida se va al menu
+		if (BattleManager.isfinished() != 0) {
+			PlayerSelector_duel.Restart();
+			music.selectorTheme();
+			state = 3;	//Si terminada partida se va al selector de personajes
+		} 
 		
 		break;
 
 	case 8: //Cinematica final
 
 		FinishManager.Update();
-		if (FinishManager.Draw(window)) state = 1;		//Si terminada cinematica final vamos al menu
+		if (FinishManager.Draw(window)) music.mainTheme(); state = 1;		//Si terminada cinematica final vamos al menu
 		break;
 
 	case 9:	//Pantalla de muerte
