@@ -29,6 +29,7 @@
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FinishManager.cpp" />
     <ClCompile Include="HistoryManager.cpp" />
+    <ClCompile Include="IA.cpp" />
     <ClCompile Include="MusicManager.cpp" />
     <ClCompile Include="StartManager.cpp" />
     <ClCompile Include="MenuManager.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="Goro.h" />
     <ClInclude Include="HistoryManager.h" />
+    <ClInclude Include="IA.h" />
     <ClInclude Include="LiuKang.h" />
     <ClInclude Include="Movement.h" />
     <ClInclude Include="MusicManager.h" />

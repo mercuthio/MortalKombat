@@ -158,4 +158,20 @@ static bool isAnyKeyPressed() {
 		Keyboard::isKeyPressed(blockButton)
 	);
 }
+
+// probabilidad de fallar
+enum Difficulty {
+	EASY = 25, 
+	MEDIUM = 50,
+	HARD = 85
+};
+
+enum class EstadoIA {
+	IDLE,
+	ACERCARSE,
+	ALEJARSE,
+	MODO_ATAQUE,
+	MODO_SEXO,
+};
+
 #endif

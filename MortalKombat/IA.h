@@ -1,41 +1,21 @@
-#ifndef Character_H
-#define Character_H
+#pragma once
 
-#include <SFML/Graphics.hpp>
-#include <stdlib.h>
-#include <stdio.h>
+#include "Character.h";
+#include "GlobalVars.h";
 
-#include "Movement.h"
-#include "Recover.h"
-#include "GlobalVars.h"
-
-//--------------DEBUG-------------
-constexpr float gravedad = 1800;			// pixels/s^2
-constexpr float updateTime = 0.05;			// 50 milis
-constexpr bool DEBUG_POSITION = true;
-//--------------------------------
-
-
-using namespace sf;
-using namespace std;
-
-class Character {
+class IA {
 public:
-	Character() = default;
-	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_);
+	IA() = default;
+	IA(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape & _shadow, map<AnimationType, vector<RectangleShape>> _hitboxes, Difficulty _difficulty, Character _opponent);
 	//~Character() = delete;
 
 	void Update(float time);
-	void debugDraw(RenderWindow& window);
+	void UpdateIA(float time);
+	void debugDraw(RenderWindow & window);
 
 	void GetHit(int life);
 
 	void initPosition(Vector2<float> initPos);
-	bool isAttaking();
-
-	AnimationType getAnimation() {
-		return animation_in_process;
-	}
 
 	float GetLife();
 
@@ -60,17 +40,21 @@ public:
 	void setFreeze(bool freeze_) {
 		freeze = freeze_;
 	};
-
 private:
 	RectangleShape body;
 	RectangleShape shadow;
 	RectangleShape hitbox;
+	Character opponent;
+	Difficulty difficulty;
+	EstadoIA estado;
+	int duracionEstadoActual = 0;
 
 	Vector2<float> global_position;
 	map<AnimationType, Movement> animations; // mapa de enum -> animacion
 	map<AnimationType, vector<RectangleShape>> hitboxes;
 
 	float internalTimer = 0.05f;
+	int freezeTimer = 0;
 
 	int life = 100;
 
@@ -88,33 +72,24 @@ private:
 	bool freeze = true;		//Para el comienzo de partidas, no permite mover
 	bool mirrorOnEnd = false;
 	bool mirroring = false;
-	
+
 	LookingAt looking_at = LookingAt::LEFT;
 
 	Vector2<float> speed;
 
 	bool mirrored = false;
 
-	int player = 0;	
-	
+	int player = 0;
+
 	AnimationType animation_in_process;
 
-	void CheckDebugAnimations();
 	void EndAndResetAnimation();
 
 	void DoAnimation();
 	void EndAnimation();
-	void debug_animation();
 
 	void CheckAnimation();
 	void CheckCollisions();
 	bool CheckScreenCollisions(float movement);
+	void ChangeState();
 };
-
-/*
-	Define un personaje con su conjunto de animaciones
-
-	@param _animations: map compuesto de AnimationType que da un Movement
-	@param _body: RectangleShape que define el sprite en el mundo
-*/
-#endif 

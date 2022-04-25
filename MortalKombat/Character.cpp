@@ -36,26 +36,6 @@ void Character::Update(float tiempo) {
 	}
 }
 
-void Character::UpdateIA(float time) {
-	if (internalTimer >= updateTime) {
-
-		internalTimer = 0.0f;
-
-		//Elijo una acción dependiendo del jugador
-		DoAnimation();		// Realizo el siguiente frame de la animación
-
-		CheckCollisions();
-
-		shadow.setPosition(global_position);
-		body.setPosition(global_position);
-
-	}
-	else {
-		internalTimer += 0.025f;
-	}
-
-}
-
 void Character::initPosition(Vector2<float> initPos) {
 	global_position = initPos;
 }
