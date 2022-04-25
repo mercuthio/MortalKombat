@@ -344,6 +344,7 @@ void EventManager::draw(RenderWindow& window) {
 		PlayerSelector_hist.Draw(window, clock.getElapsedTime().asSeconds());
 
 		if (PlayerSelector_hist.AnimationFinished()) {
+			cout << "DEBUG" << endl;
 			state = 5;
 			music.historyTheme();
 

@@ -59,6 +59,7 @@
     <ClInclude Include="Recover.h" />
     <ClInclude Include="Scorpion.h" />
     <ClInclude Include="Sonya_Blade.h" />
+    <ClInclude Include="SpecialAttack.h" />
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="OptionsManager.h" />

@@ -167,5 +167,8 @@
     <ClInclude Include="Playeable.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="SpecialAttack.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
