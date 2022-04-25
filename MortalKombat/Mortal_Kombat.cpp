@@ -80,7 +80,13 @@ int main() {
     window.setKeyRepeatEnabled(true);
     window.setFramerateLimit(60);
 
+    std::chrono::high_resolution_clock::time_point start;
+    std::chrono::high_resolution_clock::time_point end;
+    float fps;
+    int tiempo = 0;
     while (window.isOpen()) {
+        tiempo++;
+        start = std::chrono::high_resolution_clock::now();
 
         while (window.pollEvent(event)) {
 
@@ -93,7 +99,8 @@ int main() {
 
         }
 
-        window.clear();
+        //window.clear();
+        window.clear(sf::Color(99, 99, 99, 255));
 
         window.setView(view);
 
@@ -101,6 +108,15 @@ int main() {
         window.draw(version);
 
         window.display();
+
+        end = std::chrono::high_resolution_clock::now();
+
+        fps = (float)1e9 / (float)std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+        if (tiempo == 250) {
+            tiempo = 0;
+            cout << fps << endl;
+        }
+
     }
 
     return 0;
