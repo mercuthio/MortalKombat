@@ -7,7 +7,6 @@
 
 #include "Movement.h"
 #include "Recover.h"
-#include "SpecialAttack.h"
 #include "GlobalVars.h"
 
 //--------------DEBUG-------------
@@ -107,8 +106,6 @@ private:
 	int duracionEstadoActual = 0;
 	
 	AnimationType animation_in_process;
-
-	SpecialAttack special;
 
 	void CheckDebugAnimations();
 	void EndAndResetAnimation();
