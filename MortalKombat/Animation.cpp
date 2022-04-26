@@ -29,19 +29,27 @@ Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_
 	el cual puede estar condicionado por factores externos
 */
 
-bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored, float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition) {
+bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored, float hitbox_positions_X[],
+		float hitbox_positions_Y[], Vector2<float> globalPosition, vector<RectangleShape> hitboxes) {
+
 	bool finished = !lock;
 
-	hitbox.setTexture(sprite_sheet);
 	shadow.setTexture(sprite_sheet);
 	body.setTexture(sprite_sheet);
 
-	float position_x = hitbox_positions_X[frame_number];
-	float position_y = hitbox_positions_Y[frame_number];
-	
-	hitbox.setPosition(globalPosition.x + position_x, globalPosition.y + position_y);
+	float position_x = hitbox_positions_X[frame_number-1];
+	float position_y = hitbox_positions_Y[frame_number-1];
+
+	cout << hitboxes.size() << "-----" << frame_number << endl;
+
+	if (hitboxes.size() >= frame_number) {		//No todas las animaciones tienen hitbox
+		hitbox = hitboxes[frame_number - 1];
+	}
 
 	if (mirrored) {
+
+		position_x = body.getSize().x - (position_x + hitbox.getSize().x);
+		hitbox.setPosition(globalPosition.x + position_x, globalPosition.y + position_y);
 
 		IntRect uRectBody;
 		uRectBody.left = this_frame.x - (size.x * -1);
@@ -59,6 +67,9 @@ bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, Rectan
 		shadow.setTextureRect(uRectShadow);
 	}
 	else {
+
+		hitbox.setPosition(globalPosition.x + position_x, globalPosition.y + position_y);
+
 		body.setTextureRect(IntRect(this_frame, size));
 		shadow.setTextureRect(IntRect(Vector2i(this_frame.x, this_frame.y + 228), size));
 	}

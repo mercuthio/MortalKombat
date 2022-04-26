@@ -106,6 +106,11 @@ void EventManager::Update(Event event) {
 			state = 1;
 			break;
 
+		case Keyboard::BackSpace:
+
+			music.mainTheme();
+			state = 1;
+			break;
 		}
 
 		PlayerSelector_hist.Update();
@@ -158,7 +163,6 @@ void EventManager::Update(Event event) {
 				BattleManager.Restart();
 
 			}
-
 			break;
 
 		case Keyboard::Up:
@@ -210,6 +214,11 @@ void EventManager::Update(Event event) {
 			state = 1;
 			break;
 
+		case Keyboard::BackSpace:
+
+			music.mainTheme();
+			state = 1;
+			break;
 		}
 
 		PlayerSelector_duel.Update();
@@ -230,43 +239,30 @@ void EventManager::Update(Event event) {
 
 			changedEstate = true;
 			OptionsManager.Enter();
-
-			if (OptionsManager.ChoosenOption() == 4) {
-
-				state = 1;
-				MenuManager.Update();
-			}
-
 			break;
 
 		case Keyboard::D:
+
 			changedEstate = true;
 			OptionsManager.Right();
-
-			if (OptionsManager.ChoosenOption() == 4) {
-
-				state = 1;
-				MenuManager.Update();
-			}
-
 			break;
 
 		case Keyboard::A:
+
 			changedEstate = true;
 			OptionsManager.Izquierda();
-
-			if (OptionsManager.ChoosenOption() == 4) {
-
-				state = 1;
-				MenuManager.Update();
-			}
 			break;
 
 		case Keyboard::Escape:
+
 			music.skipIntro();
 			state = 1;
 			break;
+		case Keyboard:: BackSpace:
 
+			music.skipIntro();
+			state = 1;
+			break;
 		}
 		OptionsManager.Update();
 		break;
@@ -344,15 +340,10 @@ void EventManager::draw(RenderWindow& window) {
 		PlayerSelector_hist.Draw(window, clock.getElapsedTime().asSeconds());
 
 		if (PlayerSelector_hist.AnimationFinished()) {
-			cout << "DEBUG" << endl;
 			state = 5;
 			music.historyTheme();
 
-			stage = (background)(rand() % 3);
-			BattleManager.RestartCombat(character1, character2, stage, false);
-			BattleManager.Restart();
 		}
-
 		break;
 
 	case 3:	//Selector de personajes en duelo
@@ -396,6 +387,7 @@ void EventManager::draw(RenderWindow& window) {
 				state = 8;							//Estado cinematica final
 			}
 			else {
+				music.historyTheme();
 				HistoryManager.RestartVariables();
 				state = 5;							//Si terminada partida se va a la cinematica de la historia
 			}
@@ -423,13 +415,19 @@ void EventManager::draw(RenderWindow& window) {
 	case 8: //Cinematica final
 
 		FinishManager.Update();
-		if (FinishManager.Draw(window)) music.mainTheme(); state = 1;		//Si terminada cinematica final vamos al menu
+		if (FinishManager.Draw(window)) {
+			music.mainTheme(); 
+			state = 1;		//Si terminada cinematica final vamos al menu
+		}
 		break;
 
 	case 9:	//Pantalla de muerte
 
 		DeadManager.Update();
-		if (DeadManager.Draw(window)) state = 1;		//Si terminada pantalla de muerte vamos al menu
+		if (DeadManager.Draw(window)) {
+			music.mainTheme();
+			state = 1;		//Si terminada pantalla de muerte vamos al menu
+		}
 		break;
 	default:
 

@@ -84,6 +84,7 @@ int main() {
     std::chrono::high_resolution_clock::time_point end;
     float fps;
     int tiempo = 0;
+
     while (window.isOpen()) {
         tiempo++;
         start = std::chrono::high_resolution_clock::now();
@@ -99,7 +100,6 @@ int main() {
 
         }
 
-        //window.clear();
         window.clear(sf::Color(99, 99, 99, 255));
 
         window.setView(view);
@@ -112,7 +112,7 @@ int main() {
         end = std::chrono::high_resolution_clock::now();
 
         fps = (float)1e9 / (float)std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-        if (tiempo == 250) {
+        if (tiempo == 200) {
             tiempo = 0;
             cout << fps << endl;
         }

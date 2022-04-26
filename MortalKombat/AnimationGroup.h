@@ -10,7 +10,7 @@ class AnimationGroup {
 public:
 	AnimationGroup() = default;
 	AnimationGroup(Animation anim);
-	bool DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored, float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition);
+	bool DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored, float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition, vector<RectangleShape> hitboxes);
 	void AddAnimation(Animation anim);
 	bool RecieveFlagEvent();
 	void ResetAnimation();

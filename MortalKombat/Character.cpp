@@ -437,9 +437,8 @@ void Character::DoAnimation() {
 	bool finished = false;
 
 	if (!fallen) {
-
 		finished = animations[animation_in_process].animation.DoAnimation(body, shadow, hitbox, mirrored,
-			animations[animation_in_process].hitbox_positions_X, animations[animation_in_process].hitbox_positions_Y, global_position);
+			animations[animation_in_process].hitbox_positions_X, animations[animation_in_process].hitbox_positions_Y, global_position, hitboxes[animation_in_process]);
 	}	
 
 	if (finished) {

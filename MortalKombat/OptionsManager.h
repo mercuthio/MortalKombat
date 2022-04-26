@@ -6,9 +6,10 @@
 
 using namespace sf;
 
-const int NUM_OPTIONS_OPT = 4;
+const int NUM_OPTIONS_OPT = 5;
 const int MAX_MUSIC = 5;
 const int MAX_EFFECTS = 5;
+const int MAX_SPEED = 4;
 
 
 class OptionsManager {
@@ -28,6 +29,7 @@ public:
 	int musicVolume;					//Valor del volumen de la musica
 	int effects;						//Valor del volumen de los efectos
 	bool difficulty;					//False = normal, True = dificil
+	int speed_game;
 
 private:
 
@@ -38,6 +40,7 @@ private:
 	Text text[NUM_OPTIONS_OPT + 1];		//Vector de textos de las opciones del menu
 	Text shadow[NUM_OPTIONS_OPT + 1];
 	Text dific;							//Texto de la dificultad
+	Text speed;
 	IntRect uvRect;						//IntRect del fondo
 	RectangleShape controls_backg;
 	RectangleShape backg;				//Objeto del fondo

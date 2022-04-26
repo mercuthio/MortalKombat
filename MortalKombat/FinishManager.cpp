@@ -60,7 +60,6 @@ void FinishManager::Restart(int character_) {
 bool FinishManager::Draw(RenderWindow& window) {
 
 	window.draw(backg);
-
 	return clock > 900;
 
 }

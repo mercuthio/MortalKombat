@@ -10,6 +10,7 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	effects = 3;
 	showing_controls = false;
 	difficulty = false;
+	speed_game = 1;
 
 	for (int i = 0; i < MAX_MUSIC; i++) {
 		musi[i].setSize(Vector2f(15, CHAR_SIZE));
@@ -23,6 +24,7 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	text[1].setString("EFFECTS");
 	text[2].setString("DIFFICULTY");
 	text[3].setString("CONTROLS");
+	text[4].setString("GAME SPEED");
 
 	for (int i = 0; i <= NUM_OPTIONS_OPT; i++) {
 		text[i].setFont(font);
@@ -31,6 +33,10 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 		shadow[i] = text[i];
 		shadow[i].setFillColor(Color::Black);
 	}
+
+	speed.setFont(font);
+	speed.setFillColor(Color::White);
+	speed.setCharacterSize(CHAR_SIZE);
 
 	dific.setFont(font);
 	dific.setFillColor(Color::White);
@@ -100,6 +106,19 @@ void OptionsManager::Update() {
 		dific.setString("NORMAL");
 	}
 
+	if (speed_game == 3) {
+		speed.setString("MORTAL");
+	}
+	else if (speed_game == 2) {
+		speed.setString("FAST");
+	}
+	else if (speed_game == 1) {
+		speed.setString("NORMAL");
+	}
+	else if (speed_game == 0) {
+		speed.setString("SLOW");
+	}
+
 }
 
 void OptionsManager::Right() {
@@ -126,6 +145,11 @@ void OptionsManager::Right() {
 		break;
 	case 3:
 		showing_controls = true;
+		break;
+	case 4:
+		if (speed_game + 1 < MAX_SPEED) {
+			speed_game++;
+		}
 		break;
 	}
 
@@ -160,6 +184,11 @@ void OptionsManager::Izquierda() {
 		difficulty = !difficulty;
 		music.moveOptions();
 		break;
+	case 4:
+		if (speed_game - 1 >= -1) {
+			speed_game--;
+		}
+		break;
 	}
 
 }
@@ -172,11 +201,25 @@ int OptionsManager::ChoosenOption() {
 
 void OptionsManager::draw(RenderWindow& window) {
 
+	switch (speed_game) {
+	case 0:
+		window.setFramerateLimit(45);
+		break;
+	case 1:
+		window.setFramerateLimit(60);
+		break;
+	case 2:
+		window.setFramerateLimit(100);
+		break;
+	case 3:
+		window.setFramerateLimit(144);
+		break;
+	}
+
 	backg.setSize(Vector2f(width_window, height_window));
 	window.draw(backg);
 
 	for (int i = 0; i < NUM_OPTIONS_OPT; i++) {
-		//text[i].setPosition(Vector2f(width_window / 10, height_window / 10 + CHAR_SIZE * (i * 1.3)));
 		text[i].setPosition(Vector2f(width_window / 5 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 100));
 		shadow[i].setPosition(Vector2f(width_window / 5 + 10 + 20, height_window / 7 + CHAR_SIZE * (i + 1) + 10 + 100));
 		if (i == choosenOption) {
@@ -200,6 +243,9 @@ void OptionsManager::draw(RenderWindow& window) {
 
 	dific.setPosition(Vector2f(width_window / 1.6, height_window / 7 + CHAR_SIZE * 3 + 100));
 	window.draw(dific);
+
+	speed.setPosition(Vector2f(width_window / 1.6, height_window / 7 + CHAR_SIZE * 5 + 100));
+	window.draw(speed);
 	
 	if (showing_controls) {
 		window.draw(controls_backg);
