@@ -28,12 +28,23 @@ static Keyboard::Key jumpButton = Keyboard::W;
 static Keyboard::Key forwButton = Keyboard::D;
 static Keyboard::Key backButton = Keyboard::A;
 static Keyboard::Key downButton = Keyboard::S;
-static Keyboard::Key punchButton = Keyboard::J;
-static Keyboard::Key punchButton2 = Keyboard::H;
-static Keyboard::Key kickButton = Keyboard::K;
-static Keyboard::Key grabButton = Keyboard::U;
-static Keyboard::Key specialButton = Keyboard::I;
-static Keyboard::Key blockButton = Keyboard::L;
+static Keyboard::Key punchButton = Keyboard::R;
+static Keyboard::Key punchButton2 = Keyboard::T;
+static Keyboard::Key kickButton = Keyboard::F;
+static Keyboard::Key grabButton = Keyboard::G;
+static Keyboard::Key specialButton = Keyboard::V;
+static Keyboard::Key blockButton = Keyboard::B;
+
+static Keyboard::Key jumpButtonP2 = Keyboard::Up;
+static Keyboard::Key forwButtonP2 = Keyboard::Right;
+static Keyboard::Key backButtonP2 = Keyboard::Left;
+static Keyboard::Key downButtonP2 = Keyboard::Down;
+static Keyboard::Key punchButtonP2 = Keyboard::J;
+static Keyboard::Key punchButton2P2 = Keyboard::K;
+static Keyboard::Key kickButtonP2 = Keyboard::I;
+static Keyboard::Key grabButtonP2 = Keyboard::O;
+static Keyboard::Key specialButtonP2 = Keyboard::N;
+static Keyboard::Key blockButtonP2 = Keyboard::M;
 
 enum class LookingAt {
 	LEFT, RIGHT

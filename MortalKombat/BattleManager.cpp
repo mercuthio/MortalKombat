@@ -333,6 +333,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	player2.initPosition(BackgroundManager.initPlayer2);
 	player2.setPlayer(2);
 	player2.Mirror();
+
 }
 
 void BattleManager::RestartRound() {
@@ -345,6 +346,10 @@ void BattleManager::RestartRound() {
 	inDanger2 = false;
 	showed_danger1 = false;
 	showed_danger2 = false;
+	finishing1 = false;
+	finishing2 = false;
+	P1WinnedPose = false;
+	P2WinnedPose = false;
 
 	fight_x = 0;
 	life1 = 100;
@@ -386,12 +391,14 @@ void BattleManager::Update() {
 
 	if (!showed_danger2 && (vida / 100.0f) <= 0.2f) inDanger2 = true;
 
-	player1.Update(0.05f);
+	player1.Update(0.05f, false);
 	if (twoPlayers) { 
-		player2.Update(0.05f); 
-	} else { 
+		player2.Update(0.05f, true); 
+	} else {
 		player2.UpdateIA(0.05f, player1); 
 	}
+
+	CheckCollisions();
 
 	BackgroundManager.Update();
 
@@ -400,10 +407,14 @@ void BattleManager::Update() {
 	clock_timer++;
 	clock_flash++;
 
-	if (showing_round && clock_timer == 60) { //Solo se ejecuta una vez
-
+	if (showing_round && clock_timer == 60) {
 		showing_round = false;
 		showing_fight = true;
+	}
+
+	if (showing_fight && clock_timer == 120) { //Solo se ejecuta una vez
+
+		showing_fight = false;
 		music.fight();
 		player1.setFreeze(false);
 		player2.setFreeze(false);
@@ -489,21 +500,24 @@ void BattleManager::Update() {
 
 	if (winned_game != 0) {
 		if (winned_game == 1) {
-			//Stunear jugador contrario
+			player2.animation_in_process = AnimationType::DYING;
 			//Mostrar letras finish him
 
+			finishing2 = true;
 			//Cuando golpee el contrario mostrar you win
-			//Pose de victoria
+			if (P1WinnedPose) player1.animation_in_process = AnimationType::WIN;
 
 			//Si terminado lo anterior finished_game = 1
 			finished_game = true;
 		}
 		else {
-			//Stunear jugador contrario
+			player2.animation_in_process = AnimationType::DYING;
 			//Mostrar letras finish him
 
+			finishing1 = true;
 			//Cuando golpee el contrario mostrar you win
 			//Pose de victoria
+			if (P2WinnedPose) player2.animation_in_process = AnimationType::WIN;
 
 			//Si terminado lo anterior finished_game = 1
 			finished_game = true;
@@ -514,6 +528,22 @@ void BattleManager::Update() {
 	uvRect = HUD_vector[10].getTextureRect();
 	uvRect.top = 54 + 84 * round;
 	HUD_vector[10].setTextureRect(uvRect);
+
+}
+
+void BattleManager::CheckCollisions() {
+	if (player1.hitbox.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds())) {
+
+		if (isDamageMovement(player1.animation_in_process)) {	//Le pega el jugador 1
+			if (finishing1) { P1WinnedPose = true; }//El jugador 1 golpea en finish him
+			player2.animation_in_process = AnimationType::FALL;
+
+		}else if (isDamageMovement(player2.animation_in_process)) {	//Le pega el jugador 
+			player1.animation_in_process = AnimationType::FALL;
+			if (finishing2) { P2WinnedPose = true; }//El jugador 1 golpea en finish him
+		}
+
+	}
 
 }
 

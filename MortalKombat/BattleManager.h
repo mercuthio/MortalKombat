@@ -35,6 +35,7 @@ public:
 	void RestartRound();								//Resetea las variables para una nueva ronda
 	void finished_round();
 	void increase_round(int);
+	void CheckCollisions();
 
 	int isfinished();
 
@@ -78,6 +79,10 @@ private:
 	bool showed_danger2;
 	bool twoPlayers;
 	bool finished_game;
+	bool finishing1;
+	bool finishing2;
+	bool P1WinnedPose;
+	bool P2WinnedPose;
 
 	Texture* texture;
 	Font font;											//Variable con la fuente de letra

@@ -27,7 +27,7 @@ public:
 
 	void UpdateIA(float time, Character opponent);
 
-	void Update(float time);
+	void Update(float time, bool seconPlayer);
 	void debugDraw(RenderWindow& window);
 
 	void GetHit(int life);
@@ -63,10 +63,13 @@ public:
 		freeze = freeze_;
 	};
 
+	RectangleShape hitbox;
+
+	AnimationType animation_in_process;
+
 private:
 	RectangleShape body;
 	RectangleShape shadow;
-	RectangleShape hitbox;
 
 	Vector2<float> global_position;
 	map<AnimationType, Movement> animations; // mapa de enum -> animacion
@@ -104,8 +107,6 @@ private:
 	
 	int player = 0;	
 	int duracionEstadoActual = 0;
-	
-	AnimationType animation_in_process;
 
 	void CheckDebugAnimations();
 	void EndAndResetAnimation();
@@ -115,6 +116,7 @@ private:
 	void debug_animation();
 
 	void CheckAnimation();
+	void CheckAnimationP2();
 	void CheckCollisions();
 	bool CheckScreenCollisions(float movement);
 	

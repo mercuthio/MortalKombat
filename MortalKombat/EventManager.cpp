@@ -96,7 +96,12 @@ void EventManager::Update(Event event) {
 				break;
 			}
 
+			stage = (background)(rand() % 3);
+			BattleManager.RestartCombat(character1, character2, stage, false);
+			BattleManager.Restart();
+
 			HistoryManager.Restart(character1);
+
 			changedEstate = true;
 
 			break;
@@ -354,7 +359,7 @@ void EventManager::draw(RenderWindow& window) {
 		if (PlayerSelector_duel.AnimationFinished()) {
 			state = 7;
 			stage = (background)(rand() % 3);
-			BattleManager.RestartCombat(character1, character2, stage, false);
+			BattleManager.RestartCombat(character1, character2, stage, true);
 			BattleManager.Restart();
 		}
 		break;

@@ -13,7 +13,7 @@ Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _
 	hitboxes = hitboxes_;
 }
 
-void Character::Update(float tiempo) {
+void Character::Update(float tiempo, bool secondPlayer) {
 	if (internalTimer >= updateTime) {
 
 		internalTimer = 0.0f;
@@ -23,7 +23,11 @@ void Character::Update(float tiempo) {
 			cout << "Origin: " << "(" << body.getOrigin().x << ", " << body.getOrigin().y << ")" << endl;
 		}*/
 
-		if (!freeze) CheckAnimation();	// Dependiendo de que ha pulsado el jugador hago una animación u otra
+		if (!freeze) {
+			if (!secondPlayer)	CheckAnimation();	// Dependiendo de que ha pulsado el jugador hago una animación u otra
+			else CheckAnimationP2();
+		}
+		
 		DoAnimation();		// Realizo el siguiente frame de la animación
 
 		CheckCollisions();
@@ -44,12 +48,8 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 
 		internalTimer = 0.0f;
 
-		if (freeze && freezeTimer < 10) {
-			freezeTimer++;
-		}
-		else {
-			freezeTimer = 0;
-			freeze = false;
+		
+		if (!freeze) {
 			CheckIAAnimation(opponent);
 		}
 		DoAnimation();
@@ -162,6 +162,8 @@ void Character::CheckIAAnimation(Character opponent) {
 	}
 }
 
+
+
 /*
 	Esto está petado de bugs
 	No tiene ni puto sentido
@@ -206,7 +208,7 @@ void Character::initPosition(Vector2<float> initPos) {
 void Character::CheckAnimation() {
 
 	CheckDebugAnimations();
-	
+
 	if (fightKeyPressed) {
 		if (!isAnyFightKeyPressed()) {
 			fightKeyPressed = false;
@@ -257,9 +259,9 @@ void Character::CheckAnimation() {
 		else {
 			if (!doing_animation) {
 				animation_in_process = AnimationType::DOWN;
-			}			
+			}
 		}
-	}	
+	}
 	else if (!doing_animation) {	// El personaje no está haciendo nada
 		if (Keyboard::isKeyPressed(downButton)) {													//Agacharse
 
@@ -285,7 +287,7 @@ void Character::CheckAnimation() {
 				else {
 					animation_in_process = AnimationType::PUNCH_UPPER;
 				}
-				
+
 				fightKeyPressed = true;
 				punching = true;
 			}
@@ -310,7 +312,7 @@ void Character::CheckAnimation() {
 				else {
 					animation_in_process = AnimationType::PUNCH;
 				}
-				
+
 				punching = true;
 				fightKeyPressed = true;
 			}
@@ -339,7 +341,7 @@ void Character::CheckAnimation() {
 			else {
 				animation_in_process = AnimationType::PUNCH;
 			}
-			
+
 			punching = true;
 			fightKeyPressed = true;
 		}
@@ -356,6 +358,163 @@ void Character::CheckAnimation() {
 	}
 	// else -> Nothing
 }
+
+
+void Character::CheckAnimationP2() {
+
+	CheckDebugAnimations();
+
+	if (fightKeyPressed) {
+		if (!isAnyFightKeyPressed()) {
+			fightKeyPressed = false;
+		}
+	}
+	if (fallen) {
+		if (isAnyKeyPressed()) {
+			fallen = false;
+			animation_in_process = AnimationType::RECOVER;
+		}
+	}
+	else if (on_air) {					// El personaje está en el aire
+		if (Keyboard::isKeyPressed(punchButton2P2)) {
+
+			EndAndResetAnimation();
+			animation_in_process = AnimationType::PUNCH_FROM_AIR;
+		}
+		else if (Keyboard::isKeyPressed(kickButtonP2)) {
+			EndAndResetAnimation();
+			animation_in_process = AnimationType::KICK_FROM_AIR;
+		}
+		// else -> nothing
+	}
+	else if (blocking) {
+		if (!Keyboard::isKeyPressed(blockButtonP2)) {
+			blocking = false;
+			animations[animation_in_process].animation.RecieveFlagEvent();
+		}
+	}
+	else if (crouching) {			// El personaje está agachado
+		if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2) && animation_in_process != AnimationType::PUNCH_FROM_DOWN) {
+			animations[animation_in_process].animation.ResetAnimation();
+			animation_in_process = AnimationType::PUNCH_FROM_DOWN;
+			fightKeyPressed = true;
+		}
+		else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {
+			animation_in_process = AnimationType::KICK_FROM_DOWN;
+			fightKeyPressed = true;
+		}
+		else if (Keyboard::isKeyPressed(blockButtonP2)) {												//H.Kick en parado
+			animation_in_process = AnimationType::BLOCK_LOW;
+			blocking = true;
+		}
+		else if (!Keyboard::isKeyPressed(downButtonP2)) {
+			crouching = false;
+			animations[animation_in_process].animation.RecieveFlagEvent();
+		}
+		else {
+			if (!doing_animation) {
+				animation_in_process = AnimationType::DOWN;
+			}
+		}
+	}
+	else if (!doing_animation) {	// El personaje no está haciendo nada
+		if (Keyboard::isKeyPressed(downButtonP2)) {													//Agacharse
+
+			if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {
+				animation_in_process = AnimationType::KICK_LOW;
+				fightKeyPressed = true;
+			}
+			else {
+				crouching = true;
+				animation_in_process = AnimationType::DOWN;
+			}
+		}
+		else if (Keyboard::isKeyPressed(forwButtonP2)) {												//Moverse derecha
+			if (Keyboard::isKeyPressed(jumpButtonP2)) {												//Salto hacia delante
+				animation_in_process = AnimationType::JUMP_AND_MOVE;
+				speed = Vector2<float>(-400, 700);
+				on_air = true;
+			}
+			else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2)) {											//L.Punch hacia delante
+				if (Keyboard::isKeyPressed(punchButton2P2)) {
+					animation_in_process = AnimationType::PUNCH_UPPER_MULTIPLE;
+				}
+				else {
+					animation_in_process = AnimationType::PUNCH_UPPER;
+				}
+
+				fightKeyPressed = true;
+				punching = true;
+			}
+			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {											//M.Punch hacia delante
+				animation_in_process = AnimationType::KICK_UPPER;
+				fightKeyPressed = true;
+			}
+			else {																					//Solo moverse
+				animation_in_process = AnimationType::WALK_FORW;
+			}
+		}
+		else if (Keyboard::isKeyPressed(backButtonP2)) {												//Moverse izquierda
+
+			if (Keyboard::isKeyPressed(jumpButtonP2)) {												//Salto hacia atras
+				animation_in_process = AnimationType::JUMP_AND_MOVE;
+				speed = Vector2<float>(400, 700);
+			}
+			else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2)) {												//Salto hacia delante
+				if (Keyboard::isKeyPressed(punchButton2P2)) {
+					animation_in_process = AnimationType::PUNCH_MULTIPLE;
+				}
+				else {
+					animation_in_process = AnimationType::PUNCH;
+				}
+
+				punching = true;
+				fightKeyPressed = true;
+			}
+			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {											//L.Punch hacia delante
+				animation_in_process = AnimationType::KICK;
+				fightKeyPressed = true;
+			}
+			else {																					//Solo moverse
+				animation_in_process = AnimationType::WALK_BACK;
+			}
+
+		}
+		else if (Keyboard::isKeyPressed(jumpButtonP2)) {												//Salto en parado
+			animation_in_process = AnimationType::JUMP;
+			speed = Vector2<float>(0, 700);
+			on_air = true;
+		}
+		else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {		//M.Punch, H.Punch en parado
+			animation_in_process = AnimationType::KICK;
+			fightKeyPressed = true;
+		}
+		else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2)) {												//L.Punch en parado
+			if (Keyboard::isKeyPressed(punchButton2P2)) {
+				animation_in_process = AnimationType::PUNCH_MULTIPLE;
+			}
+			else {
+				animation_in_process = AnimationType::PUNCH;
+			}
+
+			punching = true;
+			fightKeyPressed = true;
+		}
+		else if (Keyboard::isKeyPressed(specialButtonP2)) {		//L.Kick, M.Kick en parado
+			animation_in_process = AnimationType::SPECIAL;
+		}
+		else if (Keyboard::isKeyPressed(blockButtonP2)) {												//H.Kick en parado
+			animation_in_process = AnimationType::BLOCK;
+			blocking = true;
+		}
+		else if (Keyboard::isKeyPressed(grabButtonP2)) {
+			animation_in_process = AnimationType::CATCH;
+		}
+	}
+	// else -> Nothing
+}
+
+
 
 void Character::CheckDebugAnimations() {
 	if (Keyboard::isKeyPressed(Keyboard::Numpad0)) { // DEBUG
@@ -394,7 +553,7 @@ void Character::CheckDebugAnimations() {
 void Character::CheckCollisions() {
 	// CheckOpponentPosition()			// Giramos el sprite si nos hemos camiado de posición respecto al enemigo
 	if (isDamageMovement(animation_in_process)) {
-		// CheckHitboxesCollisions();	// Checkeamos hitboxes si estamos golpeando
+		//Detectar hitbox
 	}
 
 }
@@ -514,6 +673,11 @@ void Character::DoAnimation() {
 				Keyboard::Key aux = backButton;
 				backButton = forwButton;
 				forwButton = aux;
+			}
+			else {
+				Keyboard::Key aux = backButtonP2;
+				backButtonP2 = forwButtonP2;
+				forwButtonP2 = aux;
 			}
 			mirrored = !mirrored;
 		}
