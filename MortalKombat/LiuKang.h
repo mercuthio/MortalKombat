@@ -382,6 +382,10 @@ static Character CreateLiuKang() {
 	hitboxes[AnimationType::CATCH] = catchR;
 	hitboxes[AnimationType::DYING] = dyingR;
 
+
+	RectangleShape specialAtt = RectangleShape(Vector2<float>(68, 11));
+	specialAtt.setSize(Vector2f(68 * 3, 11 * 3));
+
 	Character LiuKang = Character(animations, body, shadow, hitboxes);
 
 	return LiuKang;
