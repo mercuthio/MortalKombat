@@ -224,12 +224,12 @@ void Character::CheckAnimation() {
 	CheckDebugAnimations();
 
 	if (fightKeyPressed) {
-		if (!isAnyFightKeyPressed()) {
+		if (!isAnyFightKeyPressed(player)) {
 			fightKeyPressed = false;
 		}
 	}
 	if (fallen) {
-		if (isAnyKeyPressed()) {
+		if (isAnyKeyPressed(player)) {
 			fallen = false;
 			animation_in_process = AnimationType::RECOVER;
 		}
@@ -379,12 +379,12 @@ void Character::CheckAnimationP2() {
 	CheckDebugAnimations();
 
 	if (fightKeyPressed) {
-		if (!isAnyFightKeyPressed()) {
+		if (!isAnyFightKeyPressed(player)) {
 			fightKeyPressed = false;
 		}
 	}
 	if (fallen) {
-		if (isAnyKeyPressed()) {
+		if (isAnyKeyPressed(player)) {
 			fallen = false;
 			animation_in_process = AnimationType::RECOVER;
 		}
@@ -798,5 +798,5 @@ float Character::GetLife() {
 }
 
 bool Character::isAttaking() {
-	return isAnyFightKeyPressed();
+	return isAnyFightKeyPressed(player);
 }

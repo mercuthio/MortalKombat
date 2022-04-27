@@ -34,6 +34,9 @@ public:
 
 	void initPosition(Vector2<float> initPos);
 	bool isAttaking();
+	bool isBlocking() {
+		return blocking;
+	}
 
 	AnimationType getAnimation() {
 		return animation_in_process;

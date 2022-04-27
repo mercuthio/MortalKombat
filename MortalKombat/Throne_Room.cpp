@@ -14,12 +14,12 @@ void Throne_Room::loadTextures() {
 
 	Vector2f sizeBackground = Vector2f(rectWidth * aspectRelation, height_window + 20);
 
-	initPlayer1 = Vector2<float>(-50, 200);
-	initPlayer2 = Vector2<float>(400, 200);
+	initPlayer1 = Vector2<float>(-50, 165);
+	initPlayer2 = Vector2<float>(400, 165);
 
 	screenLeftLimit = -180;
 	screenRightLimit = 580;
-	screenFloorLimit = 200;
+	screenFloorLimit = 165;
 
 	screenLeftHardLimit = -1500;
 	screenRightHardLimit = 1500;

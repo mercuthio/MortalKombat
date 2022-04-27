@@ -41,18 +41,18 @@ static Keyboard::Key punchButton2 = Keyboard::T;
 static Keyboard::Key kickButton = Keyboard::F;
 static Keyboard::Key grabButton = Keyboard::G;
 static Keyboard::Key specialButton = Keyboard::V;
-static Keyboard::Key blockButton = Keyboard::B;
+static Keyboard::Key blockButton = Keyboard::E;
 
 static Keyboard::Key jumpButtonP2 = Keyboard::Up;
 static Keyboard::Key forwButtonP2 = Keyboard::Right;
 static Keyboard::Key backButtonP2 = Keyboard::Left;
 static Keyboard::Key downButtonP2 = Keyboard::Down;
-static Keyboard::Key punchButtonP2 = Keyboard::J;
-static Keyboard::Key punchButton2P2 = Keyboard::K;
-static Keyboard::Key kickButtonP2 = Keyboard::I;
-static Keyboard::Key grabButtonP2 = Keyboard::O;
-static Keyboard::Key specialButtonP2 = Keyboard::N;
-static Keyboard::Key blockButtonP2 = Keyboard::M;
+static Keyboard::Key punchButtonP2 = Keyboard::I;
+static Keyboard::Key punchButton2P2 = Keyboard::U;
+static Keyboard::Key kickButtonP2 = Keyboard::J;
+static Keyboard::Key grabButtonP2 = Keyboard::K;
+static Keyboard::Key specialButtonP2 = Keyboard::M;
+static Keyboard::Key blockButtonP2 = Keyboard::O;
 
 
 const int life_PUNCH = 1;
@@ -189,26 +189,53 @@ static bool isDamageMovement(AnimationType anim) {
 static bool hasFlag(AnimationType anim) {
 	return (!isFixedMovement(anim) || anim == AnimationType::DOWN || anim == AnimationType::BLOCK || anim == AnimationType::BLOCK_LOW);
 }
-static bool isAnyFightKeyPressed() {
-	return(
-		Keyboard::isKeyPressed(punchButton) ||
-		Keyboard::isKeyPressed(kickButton) ||
-		Keyboard::isKeyPressed(grabButton) ||
-		Keyboard::isKeyPressed(specialButton)
-		);
+static bool isAnyFightKeyPressed(int player) {
+
+	if (player == 1) {
+		return(
+			Keyboard::isKeyPressed(punchButton) ||
+			Keyboard::isKeyPressed(kickButton) ||
+			Keyboard::isKeyPressed(grabButton) ||
+			Keyboard::isKeyPressed(specialButton)
+			);
+	}
+	else {
+		return(
+			Keyboard::isKeyPressed(punchButtonP2) ||
+			Keyboard::isKeyPressed(kickButtonP2) ||
+			Keyboard::isKeyPressed(grabButtonP2) ||
+			Keyboard::isKeyPressed(specialButtonP2)
+			);
+	}
 }
-static bool isAnyKeyPressed() {
-	return(
-		Keyboard::isKeyPressed(jumpButton) ||
-		Keyboard::isKeyPressed(forwButton) ||
-		Keyboard::isKeyPressed(backButton) ||
-		Keyboard::isKeyPressed(downButton) ||
-		Keyboard::isKeyPressed(punchButton) ||
-		Keyboard::isKeyPressed(kickButton) ||
-		Keyboard::isKeyPressed(grabButton) ||
-		Keyboard::isKeyPressed(specialButton) ||
-		Keyboard::isKeyPressed(blockButton)
-	);
+static bool isAnyKeyPressed(int player) {
+
+	if (player == 1) {
+		return(
+			Keyboard::isKeyPressed(jumpButton) ||
+			Keyboard::isKeyPressed(forwButton) ||
+			Keyboard::isKeyPressed(backButton) ||
+			Keyboard::isKeyPressed(downButton) ||
+			Keyboard::isKeyPressed(punchButton) ||
+			Keyboard::isKeyPressed(kickButton) ||
+			Keyboard::isKeyPressed(grabButton) ||
+			Keyboard::isKeyPressed(specialButton) ||
+			Keyboard::isKeyPressed(blockButton)
+			);
+	}
+	else {
+		return(
+			Keyboard::isKeyPressed(jumpButtonP2) ||
+			Keyboard::isKeyPressed(forwButtonP2) ||
+			Keyboard::isKeyPressed(backButtonP2) ||
+			Keyboard::isKeyPressed(downButtonP2) ||
+			Keyboard::isKeyPressed(punchButtonP2) ||
+			Keyboard::isKeyPressed(kickButtonP2) ||
+			Keyboard::isKeyPressed(grabButtonP2) ||
+			Keyboard::isKeyPressed(specialButtonP2) ||
+			Keyboard::isKeyPressed(blockButtonP2)
+			);
+	}
 }
 
 // probabilidad de fallar

@@ -575,6 +575,10 @@ void BattleManager::CheckCollisions() {
 
 void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 
+	if ((toPlayerTwo && player2.isBlocking()) || (!toPlayerTwo && player1.isBlocking())) {
+		return;
+	}
+
 	if (anim == AnimationType::PUNCH || anim == AnimationType::PUNCH_CLOSE || anim == AnimationType::PUNCH_FROM_DOWN) {
 		if (toPlayerTwo) {
 			life2 -= life_PUNCH;
@@ -631,24 +635,24 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 	else if (anim == AnimationType::KICK_LOW) {
 		if (toPlayerTwo) {
 			life2 -= life_KICK_LOW;
-			player2.animation_in_process = AnimationType::FALL_BACK;
+			player2.animation_in_process = AnimationType::FALL_UPPERCUT;
 			//Retroceder un poco a player2
 		}
 		else {
 			life1 -= life_KICK_LOW;
-			player1.animation_in_process = AnimationType::FALL_BACK;
+			player1.animation_in_process = AnimationType::FALL_UPPERCUT;
 			//Retroceder un poco a player1
 		}
 	}
 	else if (anim == AnimationType::KICK_FROM_DOWN) {
 		if (toPlayerTwo) {
 			life2 -= life_KICK_FROM_DOWN;
-			player2.animation_in_process = AnimationType::FALL;
+			player2.animation_in_process = AnimationType::FALL_UPPERCUT;
 			//Retroceder un poco a player2
 		}
 		else {
 			life1 -= life_KICK_FROM_DOWN;
-			player1.animation_in_process = AnimationType::FALL;
+			player1.animation_in_process = AnimationType::FALL_UPPERCUT;
 			//Retroceder un poco a player1
 		}
 	}

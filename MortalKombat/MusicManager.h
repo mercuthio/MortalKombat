@@ -96,8 +96,8 @@ private:
 	vector<SoundBuffer> bufferScorpion;
 	vector<SoundBuffer> bufferLiuKang;
 
-	float volumeMusic = 80.f;
-	float volumeEffects = 80.f;
+	float volumeMusic = 0.f;
+	float volumeEffects = 0.f;
 
 };
 
