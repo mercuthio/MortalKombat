@@ -48,8 +48,8 @@ void EventManager::Update(Event event) {
 			changedEstate = true;
 			state = MenuManager.ChoosenOption() + 2;
 
-			if (state == 2) { PlayerSelector_hist.Restart(); music.selectorTheme(); }
-			if (state == 3) { PlayerSelector_duel.Restart(); music.selectorTheme(); }
+			if (state == 2) { character1 = (CharacterType)0; character2 = (CharacterType)0; PlayerSelector_hist.Restart(); music.selectorTheme(); }
+			if (state == 3) { character1 = (CharacterType)0; character2 = (CharacterType)0; PlayerSelector_duel.Restart(); music.selectorTheme(); }
 			if (state == 4) OptionsManager.Update();
 			if (state == 5) exit(0);
 			break;
@@ -80,30 +80,30 @@ void EventManager::Update(Event event) {
 			break;
 
 		case Keyboard::Enter:
+			if (character1 != PlayerSelector_hist.ChoosenOption(true)) {
+				character1 = PlayerSelector_hist.ChoosenOption(true);
 
-			character1 = PlayerSelector_hist.ChoosenOption(true);
+				switch (character1)
+				{
+				case LIU_KANG:
+					music.LiuKang();
+					break;
+				case SCORPION:
+					music.Scorpion();
+					break;
+				case SONYA:
+					music.SonyaBlade();
+					break;
+				}
 
-			switch (character1)
-			{
-			case LIU_KANG:
-				music.LiuKang();
-				break;
-			case SCORPION:
-				music.Scorpion();
-				break;
-			case SONYA:
-				music.SonyaBlade();
-				break;
+				stage = (background)(rand() % 3);
+				BattleManager.RestartCombat(character1, character2, stage, false);
+				BattleManager.Restart();
+
+				HistoryManager.Restart(character1);
+
+				changedEstate = true;
 			}
-
-			stage = (background)(rand() % 3);
-			BattleManager.RestartCombat(character1, character2, stage, false);
-			BattleManager.Restart();
-
-			HistoryManager.Restart(character1);
-
-			changedEstate = true;
-
 			break;
 
 		case Keyboard::Escape:
@@ -143,30 +143,32 @@ void EventManager::Update(Event event) {
 
 		case Keyboard::Enter:
 
-			character1 = PlayerSelector_duel.ChoosenOption(true);
+			if (character1 != PlayerSelector_duel.ChoosenOption(true)) {
+				character1 = PlayerSelector_duel.ChoosenOption(true);
 
-			switch (character1)
-			{
-			case LIU_KANG:
-				music.LiuKang();
+				switch (character1)
+				{
+				case LIU_KANG:
+					music.LiuKang();
+					break;
+				case SCORPION:
+					music.Scorpion();
+					break;
+				case SONYA:
+					music.SonyaBlade();
+					break;
+				}
 				break;
-			case SCORPION:
-				music.Scorpion();
-				break;
-			case SONYA:
-				music.SonyaBlade();
-				break;
-			}
-			break;
 
-			if (PlayerSelector_duel.Choosen()) {
+				if (PlayerSelector_duel.Choosen()) {
 
-				changedEstate = true;
+					changedEstate = true;
 
-				stage = (background)(rand() % 3);
-				BattleManager.RestartCombat(character1, character2, stage, true);
-				BattleManager.Restart();
+					stage = (background)(rand() % 3);
+					BattleManager.RestartCombat(character1, character2, stage, true);
+					BattleManager.Restart();
 
+				}
 			}
 			break;
 
@@ -188,29 +190,31 @@ void EventManager::Update(Event event) {
 
 		case Keyboard::Space:
 
-			character2 = PlayerSelector_duel.ChoosenOption(false);
+			if (character2 != PlayerSelector_duel.ChoosenOption(false)) {
+				character2 = PlayerSelector_duel.ChoosenOption(false);
 
-			switch (character2)
-			{
-			case LIU_KANG:
-				music.LiuKang();
+				switch (character2)
+				{
+				case LIU_KANG:
+					music.LiuKang();
+					break;
+				case SCORPION:
+					music.Scorpion();
+					break;
+				case SONYA:
+					music.SonyaBlade();
+					break;
+				}
 				break;
-			case SCORPION:
-				music.Scorpion();
-				break;
-			case SONYA:
-				music.SonyaBlade();
-				break;
-			}
-			break;
 
-			if (PlayerSelector_duel.Choosen()) {
+				if (PlayerSelector_duel.Choosen()) {
 
-				changedEstate = true;
+					changedEstate = true;
 
-				stage = (background)(rand() % 3);
-				BattleManager.RestartCombat(character1, character2, stage, true);
-				BattleManager.Restart();
+					stage = (background)(rand() % 3);
+					BattleManager.RestartCombat(character1, character2, stage, true);
+					BattleManager.Restart();
+				}
 			}
 			break;
 
@@ -289,7 +293,7 @@ void EventManager::Update(Event event) {
 		BattleManager.Update(event);
 		break;
 
-	case 7: //Batalla historia
+	case 7: //Batalla duelo
 
 		if (event.key.code == Keyboard::Escape) {
 			music.mainTheme();
@@ -374,6 +378,7 @@ void EventManager::draw(RenderWindow& window) {
 		if (HistoryManager.Draw(window, clock.getElapsedTime().asSeconds())) {
 
 			state = 6;
+			character2 = (CharacterType)HistoryManager.getOpponent();
 			stage = (background)(rand() % 3);
 			BattleManager.RestartCombat(character1, character2, stage, false);
 			BattleManager.Restart();

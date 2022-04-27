@@ -54,6 +54,22 @@ static Keyboard::Key grabButtonP2 = Keyboard::O;
 static Keyboard::Key specialButtonP2 = Keyboard::N;
 static Keyboard::Key blockButtonP2 = Keyboard::M;
 
+
+const int life_PUNCH = 1;
+const int life_PUNCH_MULTIPLE = 0.5;
+const int life_PUNCH_CLOSE = 1;
+const int life_PUNCH_UPPER = 1;
+const int life_PUNCH_UPPER_MULTIPLE = 0.5;
+const int life_PUNCH_UPPER_CLOSE = 1;
+const int life_PUNCH_FROM_DOWN = 1;
+const int life_KICK = 1.7;
+const int life_KICK_UPPER = 1.7;
+const int life_KICK_LOW = 1.7;
+const int life_KICK_HIGH = 1.7;
+const int life_KICK_FROM_DOWN = 1.7;
+const int life_KICK_FROM_AIR = 1.7;
+const int life_CATCH = 2;
+
 enum class LookingAt {
 	LEFT, RIGHT
 };
@@ -142,6 +158,8 @@ enum class AnimationType {
 	TURN_RIGHT,
 };
 
+
+
 static bool isFixedMovement(AnimationType anim) {
 	return (anim != AnimationType::JUMP) &&
 		(anim != AnimationType::JUMP_AND_MOVE) &&
@@ -150,7 +168,21 @@ static bool isFixedMovement(AnimationType anim) {
 }
 
 static bool isDamageMovement(AnimationType anim) {
-	return (anim != AnimationType::PUNCH);
+	return (anim == AnimationType::PUNCH) ||
+		(anim == AnimationType::PUNCH_MULTIPLE) ||
+		(anim == AnimationType::PUNCH_CLOSE) ||
+		(anim == AnimationType::PUNCH_UPPER) ||
+		(anim == AnimationType::PUNCH_UPPER_MULTIPLE) ||
+		(anim == AnimationType::PUNCH_UPPER_CLOSE) ||
+		(anim == AnimationType::PUNCH_FROM_DOWN) ||
+		(anim == AnimationType::KICK) ||
+		(anim == AnimationType::KICK_UPPER) ||
+		(anim == AnimationType::KICK_LOW) ||
+		(anim == AnimationType::KICK_HIGH) ||
+		(anim == AnimationType::KICK_FROM_DOWN) ||
+		(anim == AnimationType::KICK_FROM_AIR) ||
+		(anim == AnimationType::CATCH) ||
+		(anim == AnimationType::FATALITY);
 }
 
 static bool hasFlag(AnimationType anim) {

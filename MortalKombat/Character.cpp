@@ -32,8 +32,6 @@ void Character::Update(float tiempo, bool secondPlayer) {
 		
 		DoAnimation();		// Realizo el siguiente frame de la animación
 
-		CheckCollisions();
-
 		if (player == 1) {
 
 			global_position += p1PositionOffset;
@@ -70,7 +68,6 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 			CheckIAAnimation(opponent);
 		}
 		DoAnimation();
-		CheckCollisions();
 
 		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		body.setPosition(global_position);
@@ -567,14 +564,6 @@ void Character::CheckDebugAnimations() {
 	}
 }
 
-void Character::CheckCollisions() {
-	// CheckOpponentPosition()			// Giramos el sprite si nos hemos camiado de posición respecto al enemigo
-	if (isDamageMovement(animation_in_process)) {
-		//Detectar hitbox
-	}
-
-}
-
 bool Character::CheckScreenCollisions(float movement) {
 	/*if (global_position.x < screenLeftHardLimit) {
 		global_position.x = screenLeftHardLimit;
@@ -585,7 +574,7 @@ bool Character::CheckScreenCollisions(float movement) {
 		return true;
 	}*/
 
-	cout << totalMoveXBack << endl;
+	//cout << totalMoveXBack << endl;
 
 	Vector2f opponentPos;
 	if (player == 1) {
@@ -770,6 +759,15 @@ void Character::debugDraw(RenderWindow& window) {
 	window.draw(hitbox);	//Para debug
 	window.draw(shadow);
 	window.draw(body);
+}
+
+void Character::RestartMirror(bool playerTwo) {
+
+	forwButton = Keyboard::D;
+	backButton = Keyboard::A;
+
+	mirroring = false;
+	mirrorOnEnd = false;
 }
 
 void Character::Mirror() {

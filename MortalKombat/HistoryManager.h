@@ -25,6 +25,7 @@ public:
 	void LoadTextures();
 	bool NextCombat();
 	void RestartVariables();
+	int getOpponent();
 
 private:
 

@@ -80,8 +80,12 @@ void BattleManager::LoadTextures() {
 	HUD_vector.push_back(rect);
 
 	rect.setTextureRect(uvRect);
+	rect.setOrigin(rect.getSize().x, rect.getSize().y);
+	rect.rotate(180);
 	rect.setPosition(531.0f, 92.0f);
 	HUD_vector.push_back(rect);
+	rect.rotate(180);
+	rect.setOrigin(0, 0);
 
 	//Nombres 4 y 5 
 	uvRect.width = 161.0f;
@@ -308,9 +312,8 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	player1.setFreeze(true);
 	player1.initPosition(BackgroundManager.initPlayer1);
 	player1.setPlayer(1);
+	player1.RestartMirror(false);
 
-	//if (character2 == 0) character2 = (CharacterType)(rand() % 7);
-	if (character2 == 0) character2 = LIU_KANG;
 	switch (character2) {
 	case CAGE:
 		player2 = Scorpion;
@@ -340,6 +343,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	player2.setFreeze(true);
 	player2.initPosition(BackgroundManager.initPlayer2);
 	player2.setPlayer(2);
+	player2.RestartMirror(true);
 	player2.Mirror();
 
 }
@@ -366,7 +370,17 @@ void BattleManager::RestartRound() {
 	round++;
 
 	player1.setFreeze(true);
+	player1.initPosition(BackgroundManager.initPlayer1);
+	player1.setPlayer(1);
+	player1.RestartMirror(false);
+
 	player2.setFreeze(true);
+	player2.initPosition(BackgroundManager.initPlayer2);
+	player2.setPlayer(2);
+	player2.RestartMirror(true);
+
+	player1.life = life1;
+	player2.life = life2;
 
 }
 
@@ -423,6 +437,7 @@ void BattleManager::Update() {
 	if (showing_fight && clock_timer == 120) { //Solo se ejecuta una vez
 
 		showing_fight = false;
+		started_game = true;
 		music.fight();
 		player1.setFreeze(false);
 		player2.setFreeze(false);
@@ -543,15 +558,116 @@ void BattleManager::CheckCollisions() {
 	if (player1.hitbox.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds())) {
 
 		if (isDamageMovement(player1.animation_in_process)) {	//Le pega el jugador 1
-			if (finishing1) { P1WinnedPose = true; }//El jugador 1 golpea en finish him
-			player2.animation_in_process = AnimationType::FALL;
+			if (finishing1) { P1WinnedPose = true; }			//El jugador 1 golpea en finish him
+			
+			ProcessHit(player1.animation_in_process, true);
+
 
 		}else if (isDamageMovement(player2.animation_in_process)) {	//Le pega el jugador 
-			player1.animation_in_process = AnimationType::FALL;
 			if (finishing2) { P2WinnedPose = true; }//El jugador 1 golpea en finish him
+
+			ProcessHit(player2.animation_in_process, false);
+
 		}
 
 	}
+
+}
+
+void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
+
+	if (anim == AnimationType::PUNCH || anim == AnimationType::PUNCH_CLOSE || anim == AnimationType::PUNCH_FROM_DOWN) {
+		if (toPlayerTwo) {
+			life2 -= life_PUNCH;
+			//player2.animation_in_process = AnimationType::HIT_STAND;
+		}
+		else {
+			life1 -= life_PUNCH;
+			//player1.animation_in_process = AnimationType::HIT_STAND;
+		}
+
+	}
+	else if (anim == AnimationType::PUNCH_UPPER || anim == AnimationType::PUNCH_UPPER_CLOSE) {
+		if (toPlayerTwo) {
+			life2 -= life_PUNCH_UPPER;
+			//player2.animation_in_process = AnimationType::HIT_STAND;
+		}
+		else {
+			life1 -= life_PUNCH_UPPER;
+			//player1.animation_in_process = AnimationType::HIT_STAND;
+		}
+	}
+	else if (anim == AnimationType::PUNCH_MULTIPLE) {
+		if (toPlayerTwo) {
+			life2 -= life_PUNCH_MULTIPLE;
+			//player2.animation_in_process = AnimationType::HIT_STAND;
+		}
+		else {
+			life1 -= life_PUNCH_MULTIPLE;
+			//player1.animation_in_process = AnimationType::HIT_STAND;
+		}
+	}
+	else if (anim == AnimationType::PUNCH_MULTIPLE || anim == AnimationType::PUNCH_UPPER_MULTIPLE) {
+		if (toPlayerTwo) {
+			life2 -= life_PUNCH_MULTIPLE;
+			//player2.animation_in_process = AnimationType::HIT_STAND;
+		}
+		else {
+			life1 -= life_PUNCH_MULTIPLE;
+			//player1.animation_in_process = AnimationType::HIT_STAND;
+		}
+	}
+	else if (anim == AnimationType::KICK || anim == AnimationType::KICK_UPPER || anim == AnimationType::KICK_HIGH || anim == AnimationType::KICK_FROM_AIR) {
+		if (toPlayerTwo) {
+			life2 -= life_KICK;
+			//player2.animation_in_process = AnimationType::HIT_STAND;
+			//Retroceder un poco a player2
+		}
+		else {
+			life1 -= life_KICK;
+			//player1.animation_in_process = AnimationType::HIT_STAND;
+			//Retroceder un poco a player1
+		}
+	}
+	else if (anim == AnimationType::KICK_LOW) {
+		if (toPlayerTwo) {
+			life2 -= life_KICK_LOW;
+			//player2.animation_in_process = AnimationType::FALL_BACK;
+			//Retroceder un poco a player2
+		}
+		else {
+			life1 -= life_KICK_LOW;
+			//player1.animation_in_process = AnimationType::FALL_BACK;
+			//Retroceder un poco a player1
+		}
+	}
+	else if (anim == AnimationType::KICK_FROM_DOWN) {
+		if (toPlayerTwo) {
+			life2 -= life_KICK_FROM_DOWN;
+			//player2.animation_in_process = AnimationType::FALL;
+			//Retroceder un poco a player2
+		}
+		else {
+			life1 -= life_KICK_FROM_DOWN;
+			//player1.animation_in_process = AnimationType::FALL;
+			//Retroceder un poco a player1
+		}
+	}
+	else if (anim == AnimationType::CATCH) {
+		if (toPlayerTwo) {
+			life2 -= life_CATCH;
+			player2.animation_in_process = AnimationType::GET_CAUGHT;
+			//Mover a player2
+		}
+		else {
+			life1 -= life_CATCH;
+			player1.animation_in_process = AnimationType::GET_CAUGHT;
+			//Mover a player1
+		}
+	}
+
+	player1.life = life1;
+	player2.life = life2;
 
 }
 

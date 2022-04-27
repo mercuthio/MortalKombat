@@ -53,6 +53,7 @@ public:
 		global_position.x += x;
 	}
 
+	void RestartMirror(bool playerTwo);
 	void Mirror();
 
 	void setPlayer(int p) {
@@ -74,6 +75,8 @@ public:
 
 	AnimationType animation_in_process;
 
+	int life = 100;
+
 private:
 	RectangleShape body;
 	RectangleShape shadow;
@@ -84,7 +87,6 @@ private:
 
 	float internalTimer = 0.05f;
 
-	int life = 100;
 	int freezeTimer = 0;
 
 	bool doing_animation = false;
@@ -124,7 +126,6 @@ private:
 
 	void CheckAnimation();
 	void CheckAnimationP2();
-	void CheckCollisions();
 	bool CheckScreenCollisions(float movement);
 	
 	void CheckIAAnimation(Character opponent);

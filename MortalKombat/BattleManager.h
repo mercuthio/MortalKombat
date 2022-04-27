@@ -36,6 +36,7 @@ public:
 	void finished_round();
 	void increase_round(int);
 	void CheckCollisions();
+	void ProcessHit(AnimationType, bool);
 
 	int isfinished();
 
