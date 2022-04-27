@@ -63,6 +63,13 @@ public:
 		freeze = freeze_;
 	};
 
+	Vector2f getPosition() {
+		return global_position;
+	};
+	void setPosition(Vector2f position) {
+		global_position = position;
+	};
+
 	RectangleShape hitbox;
 
 	AnimationType animation_in_process;

@@ -25,6 +25,9 @@ void Courtyard::loadTextures() {
 	screenRightLimit = 580;
 	screenFloorLimit = 200;
 
+	screenLeftHardLimit = -420;
+	screenRightHardLimit = 420;
+
 	IntRect uvRect;
 	RectangleShape tile;
 	uvRect.width = rectWidth;

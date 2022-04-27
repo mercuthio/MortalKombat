@@ -40,7 +40,7 @@ bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, Rectan
 	float position_x = hitbox_positions_X[frame_number-1];
 	float position_y = hitbox_positions_Y[frame_number-1];
 
-	cout << hitboxes.size() << "-----" << frame_number << endl;
+	//cout << hitboxes.size() << "-----" << frame_number << endl;
 
 	if (hitboxes.size() >= frame_number) {		//No todas las animaciones tienen hitbox
 		hitbox = hitboxes[frame_number - 1];

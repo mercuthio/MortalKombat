@@ -21,6 +21,9 @@ void Warrior_Shrine::loadTextures() {
 	screenRightLimit = 580;
 	screenFloorLimit = 200;
 
+	screenLeftHardLimit = -1000;
+	screenRightHardLimit = 1000;
+
 	IntRect uvRect;
 	RectangleShape tile;
 	uvRect.width = rectWidth;

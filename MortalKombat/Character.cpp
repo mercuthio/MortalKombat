@@ -3,6 +3,8 @@
 float moveXBack;
 float moveYBack;
 
+float totalMoveXBack = 0;
+
 
 Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_) {
 	srand(time(NULL));
@@ -31,6 +33,21 @@ void Character::Update(float tiempo, bool secondPlayer) {
 		DoAnimation();		// Realizo el siguiente frame de la animación
 
 		CheckCollisions();
+
+		if (player == 1) {
+
+			global_position += p1PositionOffset;
+			p1PositionOffset = Vector2f(0, 0);
+
+			p1Position = getPosition();
+		}
+		else if (player == 2) {
+
+			global_position += p2PositionOffset;
+			p2PositionOffset = Vector2f(0, 0);
+
+			p2Position = getPosition();
+		}
 
 		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		body.setPosition(global_position);
@@ -171,31 +188,31 @@ void Character::CheckIAAnimation(Character opponent) {
 void Character::ChangeIAState(Character opponent) {
 		
 	int probabilidad = rand() % 100; // entre 0 y 99 (inclusive)
-	cout << probabilidad << "-";
+	//cout << probabilidad << "-";
 	float distancia = abs(GetXPosition() - opponent.GetXPosition());
 	AnimationType anim = opponent.getAnimation();
 
 	// Cambiamos de estado
 	bool siendoAtacado = opponent.isAttaking();
 	if (siendoAtacado && Difficulty[difficulty_lvl] > probabilidad) {
-		cout << "AHHHHHHHHHHHHHH";
+		//cout << "AHHHHHHHHHHHHHH";
 	}
 	else {
 		if (distancia < 100) {
-			cout << "\n" << Difficulty[difficulty_lvl] << " > ";
-			cout << probabilidad << endl;
+			//cout << "\n" << Difficulty[difficulty_lvl] << " > ";
+			//cout << probabilidad << endl;
 
 			if (Difficulty[difficulty_lvl] > probabilidad) {
-				cout << "Entro en modo ataque" << endl;
+				//cout << "Entro en modo ataque" << endl;
 				estado = EstadoIA::MODO_ATAQUE;
 			}
 			else {
-				cout << "Entro en modo me piro" << endl;
+				//cout << "Entro en modo me piro" << endl;
 				estado = EstadoIA::ALEJARSE;
 			}
 		}
 		else if (distancia > 400) {
-			cout << "\n" << "Entro en modo me acerco" << endl;
+			//cout << "\n" << "Entro en modo me acerco" << endl;
 			estado = EstadoIA::ACERCARSE;
 		}
 	}	
@@ -559,22 +576,57 @@ void Character::CheckCollisions() {
 }
 
 bool Character::CheckScreenCollisions(float movement) {
-	if (global_position.x < screenLeftHardLimit) {
+	/*if (global_position.x < screenLeftHardLimit) {
 		global_position.x = screenLeftHardLimit;
 		return true;
 
 	} else if (global_position.x > screenRightHardLimit) {
 		global_position.x = screenRightHardLimit;
 		return true;
+	}*/
+
+	cout << totalMoveXBack << endl;
+
+	Vector2f opponentPos;
+	if (player == 1) {
+		opponentPos = p2Position;
+	}
+	else if (player == 2) {
+		opponentPos = p1Position;
 	}
 
 	if (global_position.x - movement <= screenLeftLimit) {
-		moveXBack += movement;
-		return true;
+
+		if ((opponentPos.x + movement >= screenRightLimit) || (totalMoveXBack <= screenLeftHardLimit)) {
+			return true;
+		}
+		else {
+			moveXBack += movement;
+			totalMoveXBack -= moveXBack;
+			if (player == 1) {
+				p2PositionOffset.x += movement;
+			}
+			else if (player == 2) {
+				p1PositionOffset.x += movement;
+			}
+			return true;
+		}
 
 	} else if (global_position.x - movement >= screenRightLimit) {
-		moveXBack += movement;
-		return true;
+
+		if ((opponentPos.x + movement <= screenLeftLimit) || (totalMoveXBack >= screenRightHardLimit)) {
+			return true;
+		} else {
+			moveXBack += movement;
+			totalMoveXBack -= moveXBack;
+			if (player == 1) {
+				p2PositionOffset.x += movement;
+			}
+			else if (player == 2) {
+				p1PositionOffset.x += movement;
+			}
+			return true;
+		}
 	}
 
 	if (global_position.y > screenFloorLimit) {

@@ -11,6 +11,14 @@ extern float loadingTime;
 extern float moveXBack;
 extern float moveYBack;
 
+extern float totalMoveXBack;
+
+extern Vector2f p1Position;
+extern Vector2f p2Position;
+
+extern Vector2f p1PositionOffset;
+extern Vector2f p2PositionOffset;
+
 extern int screenLeftLimit;
 extern int screenRightLimit;
 extern int screenFloorLimit;

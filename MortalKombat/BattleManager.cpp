@@ -5,6 +5,12 @@ using namespace std;
 
 float loadingTime;
 
+Vector2f p1Position;
+Vector2f p2Position;
+
+Vector2f p1PositionOffset;
+Vector2f p2PositionOffset;
+
 BattleManager::BattleManager(Texture* texture_, Font font_, Clock clock) {
 
 	this->clock = clock;
@@ -223,6 +229,8 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	inDanger2 = false;
 
 	fight_x = 0;
+
+	totalMoveXBack = 0;
 
 	//Cambiar escenario segun el valor de stage
 	switch (stage)

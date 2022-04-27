@@ -21,6 +21,9 @@ void The_Pit::loadTextures() {
 	screenRightLimit = 580;
 	screenFloorLimit = 135;
 
+	screenLeftHardLimit = -1000;
+	screenRightHardLimit = 1000;
+
 	IntRect uvRect;
 	RectangleShape tile;
 	uvRect.width = rectWidth;
