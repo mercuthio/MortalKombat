@@ -36,6 +36,7 @@
     <ClCompile Include="OptionsManager.cpp" />
     <ClCompile Include="PlayerSelector.cpp" />
     <ClCompile Include="The_Pit.cpp" />
+    <ClCompile Include="Throne_Room.cpp" />
     <ClCompile Include="TransitionManager.cpp" />
     <ClCompile Include="Warrior_Shrine.cpp" />
   </ItemGroup>
@@ -65,6 +66,7 @@
     <ClInclude Include="OptionsManager.h" />
     <ClInclude Include="PlayerSelector.h" />
     <ClInclude Include="The_Pit.h" />
+    <ClInclude Include="Throne_Room.h" />
     <ClInclude Include="TransitionManager.h" />
     <ClInclude Include="Warrior_Shrine.h" />
   </ItemGroup>

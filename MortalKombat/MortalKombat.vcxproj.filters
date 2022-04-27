@@ -87,6 +87,9 @@
     <ClCompile Include="FinishManager.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
+    <ClCompile Include="Throne_Room.cpp">
+      <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="SpecialAttack.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Throne_Room.h">
+      <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

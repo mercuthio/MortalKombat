@@ -90,9 +90,9 @@ enum background {
 	COURTYARD,
 	WARRIOR_SHRINE,
 	THE_PIT,
+	THRONE_ROOM,
 	GOROS_LAIR,
-	PALACE_GATES,
-	THRONE_ROOM
+	PALACE_GATES
 };
 
 enum class AnimationType {
@@ -128,6 +128,7 @@ enum class AnimationType {
 
 	// Get Hit - Block - Recover
 	HIT_STAND,
+	HIT_HEAD,
 	HIT_STAND_STRONG,
 	HIT_DOWN,
 

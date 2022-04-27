@@ -23,13 +23,15 @@ void BackgroundManager::Update() {
 
 	for (int i = 0; i < backgroundVector.size(); i++) {
 		if (i != 0) {
-
 			if (!(type == WARRIOR_SHRINE && i == 1)) {
 				if (i != backgroundVector.size() - 1) {
 					backgroundVector[i].setPosition(backgroundVector[i].getPosition().x + moveXBack / 1.5, backgroundVector[i].getPosition().y + moveYBack / 1.5);
 				}
-				else {
+				else if (type != THRONE_ROOM) {
 					backgroundVector[i].setPosition(backgroundVector[i].getPosition().x + moveXBack, backgroundVector[i].getPosition().y + moveYBack);
+				}
+				else {
+					backgroundVector[i].setPosition(backgroundVector[i].getPosition().x + moveXBack / 1.5, backgroundVector[i].getPosition().y + moveYBack / 1.5);
 				}
 			}
 		}

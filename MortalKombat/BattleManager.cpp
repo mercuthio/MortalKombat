@@ -269,19 +269,18 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 
 		break;
 	}
+	case THRONE_ROOM:
+	{
+		Throne_Room background;
+		background.loadTextures();
+		BackgroundManager = background;
+
+		music.thepitTheme();
+
+		break;
+	}
 	break;
 	}
-
-	/*	case GOROS_LAIR:
-		break;
-	case PALACE_GATES:
-		break;
-	case THE_PIT:
-		break;
-	case THRONE_ROOM:
-		break;
-	default:
-		break;*/
 
 	switch (character1){
 	case CAGE:
@@ -579,77 +578,77 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 	if (anim == AnimationType::PUNCH || anim == AnimationType::PUNCH_CLOSE || anim == AnimationType::PUNCH_FROM_DOWN) {
 		if (toPlayerTwo) {
 			life2 -= life_PUNCH;
-			//player2.animation_in_process = AnimationType::HIT_STAND;
+			player2.animation_in_process = AnimationType::HIT_STAND;
 		}
 		else {
 			life1 -= life_PUNCH;
-			//player1.animation_in_process = AnimationType::HIT_STAND;
+			player1.animation_in_process = AnimationType::HIT_STAND;
 		}
 
 	}
 	else if (anim == AnimationType::PUNCH_UPPER || anim == AnimationType::PUNCH_UPPER_CLOSE) {
 		if (toPlayerTwo) {
 			life2 -= life_PUNCH_UPPER;
-			//player2.animation_in_process = AnimationType::HIT_STAND;
+			player2.animation_in_process = AnimationType::HIT_HEAD;
 		}
 		else {
 			life1 -= life_PUNCH_UPPER;
-			//player1.animation_in_process = AnimationType::HIT_STAND;
+			player1.animation_in_process = AnimationType::HIT_HEAD;
 		}
 	}
 	else if (anim == AnimationType::PUNCH_MULTIPLE) {
 		if (toPlayerTwo) {
 			life2 -= life_PUNCH_MULTIPLE;
-			//player2.animation_in_process = AnimationType::HIT_STAND;
+			player2.animation_in_process = AnimationType::HIT_STAND_STRONG;
 		}
 		else {
 			life1 -= life_PUNCH_MULTIPLE;
-			//player1.animation_in_process = AnimationType::HIT_STAND;
+			player1.animation_in_process = AnimationType::HIT_STAND_STRONG;
 		}
 	}
 	else if (anim == AnimationType::PUNCH_MULTIPLE || anim == AnimationType::PUNCH_UPPER_MULTIPLE) {
 		if (toPlayerTwo) {
 			life2 -= life_PUNCH_MULTIPLE;
-			//player2.animation_in_process = AnimationType::HIT_STAND;
+			player2.animation_in_process = AnimationType::HIT_STAND_STRONG;
 		}
 		else {
 			life1 -= life_PUNCH_MULTIPLE;
-			//player1.animation_in_process = AnimationType::HIT_STAND;
+			player1.animation_in_process = AnimationType::HIT_STAND_STRONG;
 		}
 	}
 	else if (anim == AnimationType::KICK || anim == AnimationType::KICK_UPPER || anim == AnimationType::KICK_HIGH || anim == AnimationType::KICK_FROM_AIR) {
 		if (toPlayerTwo) {
 			life2 -= life_KICK;
-			//player2.animation_in_process = AnimationType::HIT_STAND;
+			player2.animation_in_process = AnimationType::HIT_STAND;
 			//Retroceder un poco a player2
 		}
 		else {
 			life1 -= life_KICK;
-			//player1.animation_in_process = AnimationType::HIT_STAND;
+			player1.animation_in_process = AnimationType::HIT_STAND;
 			//Retroceder un poco a player1
 		}
 	}
 	else if (anim == AnimationType::KICK_LOW) {
 		if (toPlayerTwo) {
 			life2 -= life_KICK_LOW;
-			//player2.animation_in_process = AnimationType::FALL_BACK;
+			player2.animation_in_process = AnimationType::FALL_BACK;
 			//Retroceder un poco a player2
 		}
 		else {
 			life1 -= life_KICK_LOW;
-			//player1.animation_in_process = AnimationType::FALL_BACK;
+			player1.animation_in_process = AnimationType::FALL_BACK;
 			//Retroceder un poco a player1
 		}
 	}
 	else if (anim == AnimationType::KICK_FROM_DOWN) {
 		if (toPlayerTwo) {
 			life2 -= life_KICK_FROM_DOWN;
-			//player2.animation_in_process = AnimationType::FALL;
+			player2.animation_in_process = AnimationType::FALL;
 			//Retroceder un poco a player2
 		}
 		else {
 			life1 -= life_KICK_FROM_DOWN;
-			//player1.animation_in_process = AnimationType::FALL;
+			player1.animation_in_process = AnimationType::FALL;
 			//Retroceder un poco a player1
 		}
 	}

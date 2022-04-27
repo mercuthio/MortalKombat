@@ -81,6 +81,11 @@ static Character CreateLiuKang() {
 	Animation turnLeft0 = Animation(3, spriteSheet, Vector2<int>(2138, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation turnRight0 = Animation(3, spriteSheet, Vector2<int>(3074, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
 
+	Animation hit0 = Animation(4, spriteSheet, Vector2<int>(32, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation hitHard0 = Animation(5, spriteSheet, Vector2<int>(2372, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation hitHead0 = Animation(4, spriteSheet, Vector2<int>(1202, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation hitDuck0 = Animation(3, spriteSheet, Vector2<int>(3776, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+
 	AnimationGroup idle = AnimationGroup(idle0);
 	AnimationGroup forwWalk = AnimationGroup(forw0);
 	AnimationGroup backWalk = AnimationGroup(back0);
@@ -115,6 +120,10 @@ static Character CreateLiuKang() {
 	AnimationGroup dying = AnimationGroup(dying0);
 	AnimationGroup turnLeft = AnimationGroup(turnLeft0);
 	AnimationGroup turnRight = AnimationGroup(turnRight0);
+	AnimationGroup hit = AnimationGroup(hit0);
+	AnimationGroup hitHard = AnimationGroup(hitHard0);
+	AnimationGroup hitHead = AnimationGroup(hitHead0);
+	AnimationGroup hitDuck = AnimationGroup(hitDuck0);
 
 	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0), { 68*3,69*3,66*3,65*3,65*3,65*3,65*3,69*3}, { 60*3,57*3,54*3,58*3,61*3,58*3,54*3,57*3 } };
 	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0), {76*3,90*3,91*3,95*3,91*3,87*3,93*3,93*3,89*3}, {53*3,49*3,51*3,50*3,54*3,50*3,50*3,50*3,55*3} };
@@ -149,6 +158,10 @@ static Character CreateLiuKang() {
 	Movement dyingMov = Movement{ dying, Vector2<float>(0.0, 0.0) };
 	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0) };
 	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0) };
+	Movement hitMov = Movement{ hit, Vector2<float>(0.0, 0.0) };
+	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0) };
+	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0) };
+	Movement hitDuckMov = Movement{ hitDuck, Vector2<float>(0.0, 0.0) };
 	
 
 	map<AnimationType, Movement> animations;
@@ -185,6 +198,10 @@ static Character CreateLiuKang() {
 	animations[AnimationType::DYING] = dyingMov;
 	animations[AnimationType::TURN_LEFT] = turnLeftMov;
 	animations[AnimationType::TURN_RIGHT] = turnRightMov;
+	animations[AnimationType::HIT_STAND] = hitMov;
+	animations[AnimationType::HIT_STAND_STRONG] = hitHardMov;
+	animations[AnimationType::HIT_HEAD] = hitHeadMov;
+	animations[AnimationType::HIT_DOWN] = hitDuckMov;
 	
 
 	//Tamaños hitboxes

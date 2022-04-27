@@ -80,6 +80,11 @@ static Character CreateScorpion() {
 	Animation turnLeft0 = Animation(4, spriteSheet, Vector2<int>(2372, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation turnRight0 = Animation(4, spriteSheet, Vector2<int>(3542, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
 
+	Animation hit0 = Animation(4, spriteSheet, Vector2<int>(32, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation hitHard0 = Animation(6, spriteSheet, Vector2<int>(2372, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation hitHead0 = Animation(4, spriteSheet, Vector2<int>(1202, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation hitDuck0 = Animation(3, spriteSheet, Vector2<int>(4010, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+
 	AnimationGroup idle = AnimationGroup(idle0);
 	AnimationGroup forwWalk = AnimationGroup(forw0);
 	AnimationGroup backWalk = AnimationGroup(back0);
@@ -114,6 +119,10 @@ static Character CreateScorpion() {
 	AnimationGroup dying = AnimationGroup(dying0);
 	AnimationGroup turnLeft = AnimationGroup(turnLeft0);
 	AnimationGroup turnRight = AnimationGroup(turnRight0);
+	AnimationGroup hit = AnimationGroup(hit0);
+	AnimationGroup hitHard = AnimationGroup(hitHard0);
+	AnimationGroup hitHead = AnimationGroup(hitHead0);
+	AnimationGroup hitDuck = AnimationGroup(hitDuck0);
 
 	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0), { 68 * 3,69 * 3,66 * 3,65 * 3,65 * 3,65 * 3,65 * 3,69 * 3}, { 60 * 3,57 * 3,54 * 3,58 * 3,61 * 3,58 * 3,54 * 3,57 * 3 } };
 	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0), {76 * 3,90 * 3,91 * 3,95 * 3,91 * 3,87 * 3,93 * 3,93 * 3,89 * 3}, {53 * 3,49 * 3,51 * 3,50 * 3,54 * 3,50 * 3,50 * 3,50 * 3,55 * 3} };
@@ -148,6 +157,10 @@ static Character CreateScorpion() {
 	Movement dyingMov = Movement{ dying, Vector2<float>(0.0, 0.0) };
 	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0) };
 	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0) };
+	Movement hitMov = Movement{ hit, Vector2<float>(0.0, 0.0) };
+	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0) };
+	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0) };
+	Movement hitDuckMov = Movement{ hitDuck, Vector2<float>(0.0, 0.0) };
 
 	map<AnimationType, Movement> animations;
 	animations[AnimationType::IDLE] = idleMov;
@@ -183,6 +196,10 @@ static Character CreateScorpion() {
 	animations[AnimationType::DYING] = dyingMov;
 	animations[AnimationType::TURN_LEFT] = turnLeftMov;
 	animations[AnimationType::TURN_RIGHT] = turnRightMov;
+	animations[AnimationType::HIT_STAND] = hitMov;
+	animations[AnimationType::HIT_STAND_STRONG] = hitHardMov;
+	animations[AnimationType::HIT_HEAD] = hitHeadMov;
+	animations[AnimationType::HIT_DOWN] = hitDuckMov;
 
 	Vector2f idleS[8] = { { 72 * 3, 123 * 3}, { 70 * 3,126 * 3}, {74 * 3,130 * 3}, {74 * 3,127 * 3}, {74 * 3,124 * 3}, {74 * 3,126 * 3}, {74 * 3,131 * 3}, {71 * 3,127 * 3} };
 	Vector2f forwS[9] = { {71 * 3,131 * 3}, {55 * 3,135 * 3}, {56 * 3,132 * 3}, {52 * 3,132 * 3}, {56 * 3,128 * 3}, {60 * 3,133 * 3}, {53 * 3,134 * 3}, {53 * 3,134 * 3}, {62 * 3,128 * 3} };
