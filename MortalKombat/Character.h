@@ -104,6 +104,7 @@ private:
 	bool doing_animation = false;
 
 	bool on_air = false;
+	bool on_ground = true;
 	bool punching = false;
 	bool crouching = false;
 	bool blocking = false;

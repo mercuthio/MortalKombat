@@ -57,7 +57,6 @@ void Character::Update(float tiempo, bool secondPlayer) {
 }
 
 
-
 void Character::UpdateIA(float tiempo, Character opponent) {
 	if (internalTimer >= updateTime) {
 
@@ -228,7 +227,7 @@ void Character::CheckAnimation() {
 			fightKeyPressed = false;
 		}
 	}
-	if (fallen) {
+	if (on_ground && fallen) {
 		//if (isAnyKeyPressed(player)) {
 			fallen = false;
 			animation_in_process = AnimationType::RECOVER;
@@ -541,6 +540,14 @@ void Character::CheckDebugAnimations() {
 		animation_in_process = AnimationType::FATALITY;
 	}
 	else if (Keyboard::isKeyPressed(Keyboard::Numpad3)) {
+		animations[animation_in_process].animation.ResetAnimation();
+		if (!mirrored) {
+			speed = Vector2<float>(100, 200);
+		}
+		else {
+			speed = Vector2<float>(-100, 200);
+		}
+		on_ground = false;
 		animation_in_process = AnimationType::FALL;
 	}
 	else if (Keyboard::isKeyPressed(Keyboard::Numpad4)) {
@@ -621,6 +628,8 @@ bool Character::CheckScreenCollisions(float movement) {
 	if (global_position.y > screenFloorLimit) {
 		global_position.y = screenFloorLimit;
 		speed = Vector2<float>(0, 0);
+		animations[animation_in_process].animation.RecieveFlagEvent();
+		on_ground = true;
 		return true;
 	}
 
@@ -677,9 +686,10 @@ void Character::DoAnimation() {
 			}
 		}
 
+
 		Vector2<float> pre_speed = speed;
 		speed.y = speed.y - gravedad * updateTime;
-
+		
 		// Pasamos de subir a bajar
 		if (pre_speed.y >= 0 && speed.y < 0) {
 			animations[animation_in_process].animation.RecieveFlagEvent();
@@ -737,7 +747,7 @@ void Character::EndAndResetAnimation() {
 }
 
 void Character::GetHit(int quantity) {
-
+	
 	EndAndResetAnimation();
 
 	if (animation_in_process == AnimationType::BLOCK) {

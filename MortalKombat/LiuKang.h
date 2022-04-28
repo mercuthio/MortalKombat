@@ -22,15 +22,15 @@ static Character CreateLiuKang() {
 
 	vector<int> null_vector{};
 	vector<int> jump_lock{ 1, 1 };
-	vector<int> jump_lock_2{ 7 };
-	vector<int> jump_lock_fall{ 3 };
+	vector<int> jump_lock_2{ 7, 7 };
+	vector<int> jump_lock_fall{ 1 };
 	vector<int> duck_lock{ 3 };
 	vector<int> blockUp_lock{ 3 };
 	vector<int> blockDown_lock{ 2 };
 	vector<int> win_lock{ 14 };
 	vector<int> punchOrKickAir_lock{ 5, 5 };
 	vector<int> fallBack_lock{ 6 };
-	vector<int> fall_lock{ 7, 7 };
+	vector<int> fall_lock{ 3, 7, 7 };
 
 	vector<Recover> punchRecovery{ {1, 1} };
 	vector<Recover> kickUpRecovery{ {3, 2} };
@@ -51,8 +51,9 @@ static Character CreateLiuKang() {
 	Animation bodyToBodyUp0 = Animation(5, spriteSheet, Vector2<int>(3542, 1052), sz, 5, false, false, noRecovery, null_vector, 2);
 
 	Animation jump0 = Animation(1, spriteSheet, Vector2<int>(32, 3090), sz, 5, false, true, noRecovery, jump_lock, 2);
-	Animation jumpMove0 = Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, noRecovery, jump_lock_2, 0);
-	//Animation jumpFall = Animation(3, spriteSheet, Vector2<int>(3308, 3089), sz, 5, false, true, 0, jump_lock_fall, 0);
+	Animation jumpMove0 = Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, noRecovery, null_vector, 0);
+	Animation jumpMove1 = Animation(7, spriteSheet, Vector2<int>(500, 3562), sz, 5, false, true, noRecovery, jump_lock_2, 0);
+	Animation jumpFall0 = Animation(1, spriteSheet, Vector2<int>(32, 58), sz, 5, false, false, noRecovery, null_vector, 0);
 
 	Animation kick0 = Animation(7, spriteSheet, Vector2<int>(32, 1574), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation kickUp0 = Animation(7, spriteSheet, Vector2<int>(2372, 2046), sz, 5, false, true, noRecovery, null_vector, 2);
@@ -97,8 +98,10 @@ static Character CreateLiuKang() {
 	AnimationGroup punchFromUp = AnimationGroup(punchFromUp0);
 	AnimationGroup bodyToBody = AnimationGroup(bodyToBody0);
 	AnimationGroup jump = AnimationGroup(jump0);
+	jump.AddAnimation(jumpFall0);
 	AnimationGroup jumpMove = AnimationGroup(jumpMove0);
-	jumpMove.AddAnimation(jumpMove0);
+	jumpMove.AddAnimation(jumpMove1);
+	jumpMove.AddAnimation(jumpFall0);
 	AnimationGroup kick = AnimationGroup(kick0);
 	AnimationGroup kickUp = AnimationGroup(kickUp0);
 	AnimationGroup kickFromDown = AnimationGroup(kickFromDown0);
