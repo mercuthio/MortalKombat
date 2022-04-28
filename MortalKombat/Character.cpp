@@ -229,10 +229,10 @@ void Character::CheckAnimation() {
 		}
 	}
 	if (fallen) {
-		if (isAnyKeyPressed(player)) {
+		//if (isAnyKeyPressed(player)) {
 			fallen = false;
 			animation_in_process = AnimationType::RECOVER;
-		}
+		//}
 	}
 	else if (on_air) {					// El personaje está en el aire
 		if (Keyboard::isKeyPressed(punchButton)) {
@@ -384,10 +384,10 @@ void Character::CheckAnimationP2() {
 		}
 	}
 	if (fallen) {
-		if (isAnyKeyPressed(player)) {
+		//if (isAnyKeyPressed(player)) {
 			fallen = false;
 			animation_in_process = AnimationType::RECOVER;
-		}
+		//}
 	}
 	else if (on_air) {					// El personaje está en el aire
 		if (Keyboard::isKeyPressed(punchButton2P2)) {

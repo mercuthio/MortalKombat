@@ -44,8 +44,10 @@ bool BloodEffect::bloodEffectAnimation() {
 	IntRect uvRect;
 	Vector2f size_right = Vector2f(60.0f, 31.0f);
 	Vector2f size_left = Vector2f(68.0f, 36.0f);
+	Vector2f size_ground = Vector2f(48.0f, 46.0f);
 
 	int maxFrames = totalFrames[(int) animationInProgress];
+	int frameAux;
 
 	if (frame < maxFrames) {
 		switch (animationInProgress)
@@ -71,6 +73,15 @@ bool BloodEffect::bloodEffectAnimation() {
 		case BloodType::UP:
 			break;
 		case BloodType::GROUND:
+			frameAux = frame;
+			if (frameAux > 2) frameAux = 2;
+			body.setSize(size_ground);
+			body.setScale(3.0f, 3.0f);
+			uvRect.left = 5609.0f + (size_ground.x + 1) * frameAux;
+			uvRect.top = 312.0f;
+			uvRect.width = size_ground.x;
+			uvRect.height = size_ground.y;
+			body.setTextureRect(uvRect);
 			break;
 		default:
 			break;

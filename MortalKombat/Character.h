@@ -74,6 +74,15 @@ public:
 		global_position = position;
 	};
 
+	void setOnAir(bool onAir) {
+		on_air = onAir;
+	}
+
+	void setSpeed(Vector2f _speed) {
+		speed = _speed;
+	}
+
+
 	RectangleShape hitbox;
 
 	AnimationType animation_in_process;

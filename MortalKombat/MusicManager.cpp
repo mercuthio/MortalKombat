@@ -17,6 +17,10 @@ MusicManager::MusicManager() {
 	bufferIntro[3].loadFromFile("audio/musiccues/selector.ogg");
 	intro[3].setBuffer(bufferIntro[3]);
 
+	//HITS
+	for (int i = 0; i < 1; i++) { bufferHits.push_back(buffer); hits.push_back(sound); }
+	bufferHits[0].loadFromFile("audio/hitsounds/mk1-00131.ogg");
+	hits[0].setBuffer(bufferHits[0]);
 
 	//MUSIC
 
@@ -135,7 +139,7 @@ void MusicManager::historyTheme() { stopMusic(); stopIntros(); music[2].setVolum
 
 void MusicManager::skipHistoryTheme() { music[2].setPlayingOffset(seconds(6.65f)); }
 
-
+void MusicManager::hit1() { hits[0].setVolume(volumeEffects); hits[0].play();}
 
 void MusicManager::courtyardTheme() { stopMusic(); stopIntros(); music[3].setVolume(volumeMusic); music[3].play(); music[3].setLoop(true); }
 void MusicManager::thepitTheme() { stopMusic(); stopIntros(); music[4].setVolume(volumeMusic); music[4].play(); music[4].setLoop(true); }

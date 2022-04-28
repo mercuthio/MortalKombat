@@ -30,6 +30,7 @@ static Character CreateScorpion() {
 	vector<int> win_lock{ 4 };
 	vector<int> punchOrKickAir_lock{ 5, 5 };
 	vector<int> fallBack_lock{ 6 };
+	vector<int> fall_lock{ 5, 5 };
 
 	vector<Recover> punchRecovery{ {1, 1} };
 	vector<Recover> kickUpRecovery{ {3, 2} };
@@ -67,7 +68,7 @@ static Character CreateScorpion() {
 	Animation fatality0 = Animation(24, spriteSheet, Vector2<int>(32, 7688), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation win0 = Animation(4, spriteSheet, Vector2<int>(32, 8810), sz, 5, false, true, noRecovery, win_lock, 2);
 
-	Animation fall0 = Animation(5, spriteSheet, Vector2<int>(32, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation fall0 = Animation(5, spriteSheet, Vector2<int>(32, 4606), sz, 5, false, true, noRecovery, fall_lock, 2);
 	Animation fallBack0 = Animation(6, spriteSheet, Vector2<int>(32, 5078), sz, 5, false, true, noRecovery, fallBack_lock, 2);		// Al morir sin fatality
 	Animation fallUppercut0 = Animation(6, spriteSheet, Vector2<int>(1436, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation nuts0 = Animation(4, spriteSheet, Vector2<int>(3074, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
@@ -110,6 +111,7 @@ static Character CreateScorpion() {
 	AnimationGroup fatality = AnimationGroup(fatality0);
 	AnimationGroup win = AnimationGroup(win0);
 	AnimationGroup fall = AnimationGroup(fall0);
+	fall.AddAnimation(fall0);
 	AnimationGroup fallBack = AnimationGroup(fallBack0);
 	AnimationGroup fallUppercut = AnimationGroup(fallUppercut0);
 	AnimationGroup recover = AnimationGroup(recover0);

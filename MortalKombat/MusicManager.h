@@ -24,6 +24,8 @@ public:
 
 	void skipHistoryTheme();
 
+	void hit1();
+
 	void courtyardTheme();
 	void thepitTheme();
 	void warriorshrineTheme();
@@ -87,6 +89,7 @@ private:
 	vector<Sound> arenas;
 	vector<Sound> scorpion;
 	vector<Sound> liukang;
+	vector<Sound> hits;
 
 	vector<SoundBuffer> bufferIntro;
 	vector<SoundBuffer> bufferMusic;
@@ -95,6 +98,7 @@ private:
 	vector<SoundBuffer> bufferArenas;
 	vector<SoundBuffer> bufferScorpion;
 	vector<SoundBuffer> bufferLiuKang;
+	vector<SoundBuffer> bufferHits;
 
 	float volumeMusic = 80.f;
 	float volumeEffects = 80.f;

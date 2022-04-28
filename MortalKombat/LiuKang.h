@@ -30,6 +30,7 @@ static Character CreateLiuKang() {
 	vector<int> win_lock{ 14 };
 	vector<int> punchOrKickAir_lock{ 5, 5 };
 	vector<int> fallBack_lock{ 6 };
+	vector<int> fall_lock{ 7, 7 };
 
 	vector<Recover> punchRecovery{ {1, 1} };
 	vector<Recover> kickUpRecovery{ {3, 2} };
@@ -68,7 +69,7 @@ static Character CreateLiuKang() {
 	Animation fatality0 = Animation(14, spriteSheet, Vector2<int>(32, 7688), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation win0 = Animation(14, spriteSheet, Vector2<int>(32, 8210), sz, 5, false, true, noRecovery, win_lock, 2);
 
-	Animation fall0 = Animation(7, spriteSheet, Vector2<int>(32, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation fall0 = Animation(7, spriteSheet, Vector2<int>(32, 4606), sz, 5, false, true, noRecovery, fall_lock, 2);
 	Animation fallBack0 = Animation(6, spriteSheet, Vector2<int>(32, 5078), sz, 5, false, true, noRecovery, fallBack_lock, 2);		// Al morir sin fatality
 	Animation fallUppercut0 = Animation(8, spriteSheet, Vector2<int>(1904, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation nuts0 = Animation(4, spriteSheet, Vector2<int>(4010, 4606), sz, 5, false, true, noRecovery, null_vector, 2);

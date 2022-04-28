@@ -172,7 +172,8 @@ static bool isFixedMovement(AnimationType anim) {
 	return (anim != AnimationType::JUMP) &&
 		(anim != AnimationType::JUMP_AND_MOVE) &&
 		(anim != AnimationType::PUNCH_FROM_AIR) &&
-		(anim != AnimationType::KICK_FROM_AIR);
+		(anim != AnimationType::KICK_FROM_AIR) &&
+		(anim != AnimationType::FALL);
 }
 
 static bool isDamageMovement(AnimationType anim) {
