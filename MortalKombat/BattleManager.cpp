@@ -389,12 +389,12 @@ void BattleManager::Update() {
 
 	finished_round();	//Comprobamos final de ronda
 
-	if (player1.lookingAt() == LookingAt::LEFT && player1.GetXPosition() > player2.GetXPosition() + 5) { //PLAYER 1 LEFT -> RIGHT
+	if (player1.lookingAt() == LookingAt::RIGHT && player1.GetXPosition() > player2.GetXPosition() + 5) { //PLAYER 1 LEFT -> RIGHT
 		player1.Mirror();
 		player1.SetXPosition(15.f);
 		player2.Mirror();
 	}
-	else if (player1.lookingAt() == LookingAt::RIGHT && player1.GetXPosition() + 5 < player2.GetXPosition()) { //PLAYER 1 RIGHT -> LEFT
+	else if (player1.lookingAt() == LookingAt::LEFT && player1.GetXPosition() + 5 < player2.GetXPosition()) { //PLAYER 1 RIGHT -> LEFT
 		player1.Mirror();
 		player1.SetXPosition(-15.f);
 		player2.Mirror();
@@ -520,6 +520,8 @@ void BattleManager::Update() {
 		}
 	}
 
+	blood.Update();
+
 	if (winned_game != 0) {
 		if (winned_game == 1) {
 			player2.animation_in_process = AnimationType::DYING;
@@ -594,10 +596,22 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 		if (toPlayerTwo) {
 			life2 -= life_PUNCH_UPPER;
 			player2.animation_in_process = AnimationType::HIT_HEAD;
+			if (player2.lookingAt() == LookingAt::LEFT) {
+				blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player2.getPosition().x + 141 * 3, player2.getPosition().y + 45 * 3));
+			}
+			else {
+				blood.bloodEffectAt(BloodType::LEFT, Vector2f(player2.getPosition().x + 15 * 3, player2.getPosition().y + 25 * 3));
+			}
 		}
 		else {
 			life1 -= life_PUNCH_UPPER;
 			player1.animation_in_process = AnimationType::HIT_HEAD;
+			if (player1.lookingAt() == LookingAt::LEFT) {
+				blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player1.getPosition().x + 141 * 3, player1.getPosition().y + 45 * 3));
+			}
+			else {
+				blood.bloodEffectAt(BloodType::LEFT, Vector2f(player1.getPosition().x + 15 * 3, player1.getPosition().y + 25 * 3));
+			}
 		}
 	}
 	else if (anim == AnimationType::PUNCH_MULTIPLE) {
@@ -718,6 +732,7 @@ void BattleManager::draw(RenderWindow& window) {
 	BackgroundManager.draw(window);
 	player1.debugDraw(window);
 	player2.debugDraw(window);
+	blood.draw(window);
 
 	int i = 0;
 	for (RectangleShape rect : HUD_vector) {

@@ -90,6 +90,9 @@
     <ClCompile Include="Throne_Room.cpp">
       <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
     </ClCompile>
+    <ClCompile Include="BloodEffect.cpp">
+      <Filter>Archivos de origen\GameManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="Throne_Room.h">
       <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="BloodEffect.h">
+      <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

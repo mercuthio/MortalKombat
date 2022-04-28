@@ -74,6 +74,13 @@ enum class LookingAt {
 	LEFT, RIGHT
 };
 
+enum class BloodType {
+	RIGHT,
+	LEFT,
+	UP,
+	GROUND,
+};
+
 enum CharacterType {
 	CAGE,
 	KANO,

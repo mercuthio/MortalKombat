@@ -107,7 +107,7 @@ private:
 	bool mirrorOnEnd = false;
 	bool mirroring = false;
 	
-	LookingAt looking_at = LookingAt::LEFT;
+	LookingAt looking_at = LookingAt::RIGHT;
 
 	Vector2<float> speed;
 

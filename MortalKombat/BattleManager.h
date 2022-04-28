@@ -5,6 +5,8 @@
 #include <iostream>
 #include "BackgroundManager.h"
 
+#include "BloodEffect.h"
+
 #include "LiuKang.h"
 #include "Scorpion.h"
 #include "Sonya_Blade.h"
@@ -95,6 +97,7 @@ private:
 	Character Scorpion;
 	Character SonyaBlade;
 
+	BloodEffect blood;
 
 	Character player1;
 	Character player2;

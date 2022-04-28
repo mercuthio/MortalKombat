@@ -23,6 +23,7 @@
     <ClCompile Include="AnimationGroup.cpp" />
     <ClCompile Include="BackgroundManager.cpp" />
     <ClCompile Include="BattleManager.cpp" />
+    <ClCompile Include="BloodEffect.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Courtyard.cpp" />
     <ClCompile Include="DeadManager.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="AnimationGroup.h" />
     <ClInclude Include="BackgroundManager.h" />
     <ClInclude Include="BattleManager.h" />
+    <ClInclude Include="BloodEffect.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Courtyard.h" />
     <ClInclude Include="DeadManager.h" />
