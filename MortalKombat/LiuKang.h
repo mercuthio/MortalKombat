@@ -126,43 +126,43 @@ static Character CreateLiuKang() {
 	AnimationGroup hitHead = AnimationGroup(hitHead0);
 	AnimationGroup hitDuck = AnimationGroup(hitDuck0);
 
-	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0), { 68*3,69*3,66*3,65*3,65*3,65*3,65*3,69*3}, { 60*3,57*3,54*3,58*3,61*3,58*3,54*3,57*3 } };
-	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0), {76*3,90*3,91*3,95*3,91*3,87*3,93*3,93*3,89*3}, {53*3,49*3,51*3,50*3,54*3,50*3,50*3,50*3,55*3} };
-	Movement backMov = Movement{ backWalk, Vector2<float>(-10, 0.0), {76 * 3,89 * 3,90 * 3,94 * 3,90 * 3,86 * 3,93 * 3,93 * 3,88 * 3}, {52 * 3,48 * 3,50 * 3,50 * 3,53 * 3,49 * 3,50 * 3,49 * 3,54 * 3} };
-	Movement punchMov = Movement{ punch, Vector2<float>(0.0, 0.0), {67*3,69*3,70*3,66*3}, {48*3,45*3,51*3,48*3} };
-	Movement punchMultMov = Movement{ punchMult, Vector2<float>(0.0, 0.0), {67*3,69*3,70*3,77*3,78*3,70*3,78*3,78*3,65*3}, {49*3,45*3,50*3,47*3,48*3,55*3,49*3,47*3,49*3} };
-	Movement punchUpMov = Movement{ punchUp, Vector2<float>(0.0, 0.0), {66*3,70*3,79*3,66*3}, {49*3,46*3,45*3,48*3} };
-	Movement punchFromUpMov = Movement{ punchFromUp, Vector2<float>(0.0, 0.0), {94*3,78*3,50*3,78*3,94*3}, {30*3,31*3,28*3,31*3,30*3} };
-	Movement punchUpMultMov = Movement{ punchUpMult, Vector2<float>(0.0, 0.0) };
-	Movement bodyToBodyMov = Movement{ bodyToBody, Vector2<float>(0.0, 0.0), {67*3,69*3,74*3,69*3,67*3}, {51*3,53*3,55*3,53*3,50*3} };
-	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0), {72*3}, {39*3} };
-	Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0), {72*3,90*3,92*3,91*3,92*3,91*3,73*3}, {50*3,47*3,49*3,50*3,49*3,46*3,50*3} };
-	Movement kickUpMov = Movement{ kickUp, Vector2<float>(0.0, 0.0), {47*3,66*3,94*3,100*3,103*3,88*3,75*3}, {49*3,53*3,63*3,50*3,73*3,830*3,55*3} };
-	Movement kickDownMov = Movement{ kickDown, Vector2<float>(0.0, 0.0), {72*3,64*3,74*3,79*3,85*3,93*3,60*3,70*3}, {50*3,94*3,123*3,129*3,128*3,123*3,81*3,49*3} };
-	Movement kickFromDownMov = Movement{ kickFromDown, Vector2<float>(0.0, 0.0), {68*3,67*3,67*3,67*3,68*3}, {64*3,93*3,107*3,93*3,64*3} };
-	Movement kickFromUpMov = Movement{ kickFromUp, Vector2<float>(0.0, 0.0), {81*3,81*3,82*3,81*3,80*3}, {37*3,43*3,43*3,43*3,37*3} };
-	Movement punchDownMov = Movement{ punchDown, Vector2<float>(0.0, 0.0), {66*3,71*3,74*3,87*3,62*3}, {74*3,60*3,52*3,39*3,53*3} };
-	Movement jumpMoveMov = Movement{ jumpMove, Vector2<float>(0.0, 0.0), {103 * 3,100 * 3,92 * 3,92 * 3,109 * 3,99 * 3,110 * 3}, {45 * 3,51 * 3,54 * 3,49 * 3,31 * 3,32 * 3,43 * 3} };
-	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0), {68*3,67*3,67*3,67*3,68*3}, {64*3,92*3,107*3,93*3,64*3} };
-	Movement blockUpMov = Movement{ blockUp, Vector2<float>(0.0,0.0) };
-	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0) };
-	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0) };
-	Movement fatalityMov = Movement{ fatality, Vector2<float>(0.0,0.0) };
-	Movement winMov = Movement{ win, Vector2<float>(0.0,0.0) };
-	Movement fallMov = Movement{ fall, Vector2<float>(0.0, 0.0) };
-	Movement fallBackMov = Movement{ fallBack, Vector2<float>(0.0, 0.0) };
-	Movement fallUppercutMov = Movement{ fallUppercut, Vector2<float>(0.0, 0.0) };
-	Movement nutsMov = Movement{ nuts, Vector2<float>(0.0, 0.0) };
-	Movement recoverMov = Movement{ recover, Vector2<float>(0.0, 0.0) };
-	Movement getCaughtMov = Movement{ getCaught, Vector2<float>(5.0, 0.0) };
-	Movement catchMov = Movement{ catchAnim, Vector2<float>(0.0, 0.0) };
-	Movement dyingMov = Movement{ dying, Vector2<float>(0.0, 0.0) };
-	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0) };
-	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0) };
-	Movement hitMov = Movement{ hit, Vector2<float>(0.0, 0.0) };
-	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0) };
-	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0) };
-	Movement hitDuckMov = Movement{ hitDuck, Vector2<float>(0.0, 0.0) };
+	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0), {83*3,85*3,81*3,83*3,82*3,83*3,84*3,83*3}, {59*3,54*3,51*3,56*3,59*3,57*3,52*3,54*3} };
+	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0), {93*3,96*3,98*3,98*3,99*3,98*3,98*3,95*3,95*3},{53*3,49*3,50*3,49*3,53*3,49*3,51*3,50*3,55*3} };
+	Movement backMov = Movement{ backWalk, Vector2<float>(-10, 0.0), {93 * 3,96 * 3,98 * 3,98 * 3,99 * 3,98 * 3,98 * 3,95 * 3,95 * 3},{53 * 3,49 * 3,50 * 3,49 * 3,53 * 3,49 * 3,51 * 3,50 * 3,55 * 3} };
+	Movement punchMov = Movement{ punch, Vector2<float>(0.0, 0.0),{92*3,102*3,108*3,92*3},{47*3,45*3,49*3,47*3} };
+	Movement punchMultMov = Movement{ punchMult, Vector2<float>(0.0, 0.0), {91*3,97*3,103*3,116*3,114*3,117*3,110*3,112*3,92*3},{46*3,42*3,48*3,45*3,47*3,54*3,46*3,45*3,47*3} };
+	Movement punchUpMov = Movement{ punchUp, Vector2<float>(0.0, 0.0), {94*3,104*3,111*3,94*3},{48*3,45*3,45*3,48*3} };
+	Movement punchFromUpMov = Movement{ punchFromUp, Vector2<float>(0.0, 0.0), {113*3,122*3,117*3,123*3,120*3},{29*3,29*3,28*3,30*3,28*3} };
+	Movement punchUpMultMov = Movement{ punchUpMult, Vector2<float>(0.0, 0.0), {97*3,101*3,112*3,113*3,117*3,112*3,117*3,113*3,94*3},{47*3,45*3,46*3,46*3,48*3,49*3,48*3,45*3,48*3} };
+	Movement bodyToBodyMov = Movement{ bodyToBody, Vector2<float>(0.0, 0.0), {93*3,100*3,108*3,102*3,96*3},{49*3,52*3,54*3,52*3,50*3} };
+	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0), {80*3},{37*3} };
+	Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0),  {86*3,94*3,95*3,100*3,93*3,92*3,87*3},{48*3,46*3,49*3,50*3,49*3,47*3,49*3} };
+	Movement kickUpMov = Movement{ kickUp, Vector2<float>(0.0, 0.0), {73*3,86*3,92*3,99*3,103*3,108*3,97*3},{48*3,52*3,63*3,48*3,87*3,76*3,52*3} };
+	Movement kickDownMov = Movement{ kickDown, Vector2<float>(0.0, 0.0), {89*3,78*3,73*3,79*3,86*3,98*3,105*3,87*3},{49*3,95*3,119*3,125*3,124*3,121*3,79*3,48*3} };
+	Movement kickFromDownMov = Movement{ kickFromDown, Vector2<float>(0.0, 0.0),{83*3,82*3,84*3,84*3,83*3},{102*3,104*3,109*3,105*3,104*3} };
+	Movement kickFromUpMov = Movement{ kickFromUp, Vector2<float>(0.0, 0.0), {92*3,99*3,101*3,96*3,91*3},{37*3,41*3,43*3,42*3,37*3} };
+	Movement punchDownMov = Movement{ punchDown, Vector2<float>(0.0, 0.0), {96*3,92*3,95*3,104*3,93*3},{74*3,58*3,50*3,51*3,53*3} };
+	Movement jumpMoveMov = Movement{ jumpMove, Vector2<float>(0.0, 0.0),  {109*3,101*3,95*3,101*3,105*3,100*3,108*3},{44*3,50*3,52*3,46*3,37*3,48*3,44*3} };
+	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0),  {},{} };
+	Movement blockUpMov = Movement{ blockUp, Vector2<float>(0.0,0.0), {},{} };
+	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0), {},{} };
+	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0), {},{} };
+	Movement fatalityMov = Movement{ fatality, Vector2<float>(0.0,0.0), {},{} };
+	Movement winMov = Movement{ win, Vector2<float>(0.0,0.0), {},{} };
+	Movement fallMov = Movement{ fall, Vector2<float>(0.0, 0.0), {},{} };
+	Movement fallBackMov = Movement{ fallBack, Vector2<float>(0.0, 0.0), {},{} };
+	Movement fallUppercutMov = Movement{ fallUppercut, Vector2<float>(0.0, 0.0) , {},{} };
+	Movement nutsMov = Movement{ nuts, Vector2<float>(0.0, 0.0), {},{} };
+	Movement recoverMov = Movement{ recover, Vector2<float>(0.0, 0.0), {},{} };
+	Movement getCaughtMov = Movement{ getCaught, Vector2<float>(5.0, 0.0) , {},{} };
+	Movement catchMov = Movement{ catchAnim, Vector2<float>(0.0, 0.0), {},{} };
+	Movement dyingMov = Movement{ dying, Vector2<float>(0.0, 0.0), {},{} };
+	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0), {},{} };
+	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0), {},{} };
+	Movement hitMov = Movement{ hit, Vector2<float>(0.0, 0.0), {},{} };
+	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0), {},{} };
+	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0), {},{} };
+	Movement hitDuckMov = Movement{ hitDuck, Vector2<float>(0.0, 0.0), {},{} };
 	
 
 	map<AnimationType, Movement> animations;
@@ -206,26 +206,28 @@ static Character CreateLiuKang() {
 	
 
 	//Tamaños hitboxes
-	Vector2f idleS[8] = { { 72 * 3, 123 * 3}, { 70 * 3,126 * 3}, {74 * 3,130 * 3}, {74 * 3,127 * 3}, {74 * 3,124 * 3}, {74 * 3,126 * 3}, {74 * 3,131 * 3}, {71 * 3,127 * 3} };
-	Vector2f forwS[9] = { {71 * 3,131 * 3}, {55 * 3,135 * 3}, {56 * 3,132 * 3}, {52 * 3,132 * 3}, {56 * 3,128 * 3}, {60 * 3,133 * 3}, {53 * 3,134 * 3}, {53 * 3,134 * 3}, {62 * 3,128 * 3} };
-	Vector2f backS[9] = { {62 * 3,128 * 3}, {53 * 3,134 * 3}, {53 * 3,134 * 3}, {60 * 3,133 * 3}, {56 * 3,128 * 3}, {52 * 3,132 * 3}, {56 * 3,132 * 3}, {55 * 3,135 * 3}, {71 * 3,131 * 3} };
+	Vector2f idleS[8] = { {31*3,123*3}, {31*3,129*3}, {35*3,134*3}, {33*3,128*3}, {31*3,125*3}, {32*3,128*3}, {31*3,133*3}, {33*3,130*3} };
+	Vector2f forwS[9] = { {35*3,129*3}, {27*3,134*3}, {28*3,134*3}, {32*3,133*3}, {29*3,129*3}, {27*3,134*3}, {30*3,132*3}, {34*3,134*3}, {34*3,127*3} };
+	Vector2f backS[9] = { {35 * 3,129 * 3}, {27 * 3,134 * 3}, {28 * 3,134 * 3}, {32 * 3,133 * 3}, {29 * 3,129 * 3}, {27 * 3,134 * 3}, {30 * 3,132 * 3}, {34 * 3,134 * 3}, {34 * 3,127 * 3} };
+	//down
 
-	Vector2f punchS[4] = { {72 * 3,137 * 3}, {81 * 3,139 * 3}, {115 * 3,130 * 3}, {73 * 3,136 * 3} };
-	Vector2f punchUpS[4] = { {73 * 3,135 * 3}, {80 * 3,137 * 3}, {106 * 3,137 * 3}, {71 * 3,137 * 3} };
-	Vector2f punchDownS[5] = { {73 * 3,110 * 3}, {89 * 3,125 * 3}, {92 * 3,136 * 3}, {54 * 3,149 * 3}, {86 * 3,129 * 3} };
-	Vector2f punchFromUpS[5] = { {73 * 3,84 * 3}, {104 * 3,78 * 3}, {145 * 3,82 * 3}, {104 * 3,77 * 3}, {73 * 3,84 * 3} };
-	Vector2f bodyToBodyS[5] = { {84 * 3,134 * 3}, {73 * 3,131 * 3}, {88 * 3,128 * 3}, {74 * 3,131 * 3}, {84 * 3,135 * 3} };
-	Vector2f punchMultS[9] = { {70*3,34*3}, {81*3,139*3}, {115*3,131*3}, {88*3,136*3}, {80*3,137*3}, {114*3,127*3}, {80*3,134*3}, {81*3,137*3}, {72*3,137*3} };
+	Vector2f punchS[4] = { {35*3,135*3},{34*3,138*3},{37*3,133*3},{38*3,138*3} };
+	Vector2f punchUpS[4] = { {36*3,136*3},{34*3,139*3},{36*3,138*3},{41*3,136*3} };
+	Vector2f punchDownS[5] = { {33*3,110*3},{35*3,124*3},{34*3,134*3},{26*3,136*3},{37*3,130*3} };
+	Vector2f punchFromUpS[5] = { {45*3,81*3},{41*3,73*3},{52*3,72*3},{38*3,74*3},{43*3,81*3} };
+	Vector2f bodyToBodyS[5] = { {41*3,136*3},{37*3,131*3},{40*3,128*3},{35*3,129*3},{39*3,135*3} };
+	Vector2f punchMultS[9] = { {35*3,138*3},{37*3,141*3},{43*3,134*3},{31*3,136*3},{32*3,135*3},{37*3,128*3},{38*3,136*3},{35*3,138*3},{39*3,137*3} };
+	Vector2f punchMultUpS[9] = { {32*3,138*3},{37*3,139*3},{36*3,137*3},{35*3,138*3},{33*3,136*3},{39*3,134*3},{33*3,136*3},{36*3,138*3},{36*3,136*3} };
 
-	Vector2f jumpS[4] = { {74 * 3,102 * 3}, {75 * 3,102 * 3}, {71 * 3,142 * 3 }, { 77 * 3,119 * 3 } };
-	Vector2f jumpMoveS[7] = { {50 * 3,70 * 3}, {62 * 3,64 * 3}, {70 * 3,43 * 3}, {63 * 3,59 * 3}, {46 * 3,69 * 3}, {60 * 3,64 * 3}, {64 * 3,60 * 3} };
+	Vector2f jumpS[4] = { {53*3,103*3},{35*3,99*3},{36*3,132*3},{35*3,116*3} };
+	Vector2f jumpMoveS[7] = { {45*3,71*3},{60*3,64*3},{66*3,51*3},{53*3,63*3},{50*3,62*3},{57*3,48*3},{48*3,61*3} };
 
-	Vector2f kickS[7] = { {68 * 3,135 * 3}, {62 * 3,133 * 3}, {58 * 3,131 * 3}, {109 * 3,130 * 3}, {57 * 3,132 * 3}, {61 * 3,136 * 3}, {65 * 3,133 * 3} };
-	Vector2f kickUpS[7] = { {94 * 3,133 * 3}, {77 * 3,130 * 3}, {58 * 3,119 * 3}, {89 * 3,134 * 3}, {52 * 3,110 * 3}, {55 * 3,104 * 3}, {66 * 3,128 * 3} };
-	Vector2f kickDownS[8] = { {68 * 3,133 * 3}, {78,89 * 3}, {70 * 3,65 * 3}, {101 * 3,62 * 3}, {124 * 3,60 * 3}, {51 * 3,89 * 3}, {89 * 3,102 * 3}, {70 * 3,135 * 3} };
-	Vector2f kickFromDownS[5] = { {62 * 3,80 * 3}, {84 * 3,76 * 3}, {87 * 3,91 * 3}, {85 * 3,77 * 3}, {62 * 3,79 * 3} };
-	Vector2f kickFromUpS[5] = { {78 * 3,78 * 3}, {90 * 3,79 * 3}, {110 * 3,74 * 3}, {91 * 3,77 * 3}, {77 * 3,79 * 3} };
-
+	Vector2f kickS[7] = { {35*3,133*3},{31*3,136*3},{32*3,133*3},{33*3,130*3},{33*3,133*3},{35*3,135*3},{31*3,133*3} };
+	Vector2f kickUpS[7] = { {42*3,134*3},{32*3,130*3},{37*3,120*3},{39*3,99*3},{35*3,96*3},{33*3,107*3},{40*3,131*3} };
+	Vector2f kickDownS[8] = { {30*3,133*3},{33*3,89*3},{65*3,67*3},{51*3,63*3},{48*3,63*3},{40*3,91*3},{36*3,104*3},{35*3,131*3} };
+	Vector2f kickFromDownS[5] = { {45*3,76*3},{49*3,77*3},{44*3,73*3},{40*3,77*3},{46*3,78*3} };
+	Vector2f kickFromUpS[5] = { {30*3,141*3},{47*3,84*3},{43*3,72*3},{46*3,81*3},{39*3,120*3} };
+	///
 	Vector2f duckS[5] = { {72 * 3,118 * 3}, {76 * 3,91 * 3}, {72 * 3,77 * 3}, {76 * 3,90 * 3}, {71 * 3,118 * 3} };
 
 	Vector2f blockUpS[5] = { {77 * 3,132 * 3}, {75 * 3,135 * 3}, {74 * 3,132 * 3}, {75 * 3,134 * 3}, {76 * 3,132 * 3} };
@@ -268,6 +270,11 @@ static Character CreateLiuKang() {
 	for (Vector2f size : punchUpS) {
 		rect.setSize(size);
 		punchUpR.push_back(rect);
+	}
+	vector<RectangleShape> punchUpMultR;
+	for (Vector2f size : punchMultUpS) {
+		rect.setSize(size);
+		punchUpMultR.push_back(rect);
 	}
 	vector<RectangleShape> punchDownR;
 	for (Vector2f size : punchDownS) {
@@ -378,6 +385,7 @@ static Character CreateLiuKang() {
 	hitboxes[AnimationType::PUNCH_FROM_AIR] = punchFromUpR;
 	hitboxes[AnimationType::PUNCH_CLOSE] = bodyToBodyR;
 	hitboxes[AnimationType::PUNCH_MULTIPLE] = punchMultR;
+	hitboxes[AnimationType::PUNCH_UPPER_MULTIPLE] = punchUpMultR;
 
 	hitboxes[AnimationType::JUMP] = jumpR;
 	hitboxes[AnimationType::JUMP_AND_MOVE] = jumpMoveR;
