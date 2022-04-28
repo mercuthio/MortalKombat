@@ -143,26 +143,26 @@ static Character CreateLiuKang() {
 	Movement kickFromUpMov = Movement{ kickFromUp, Vector2<float>(0.0, 0.0), {92*3,99*3,101*3,96*3,91*3},{37*3,41*3,43*3,42*3,37*3} };
 	Movement punchDownMov = Movement{ punchDown, Vector2<float>(0.0, 0.0), {96*3,92*3,95*3,104*3,93*3},{74*3,58*3,50*3,51*3,53*3} };
 	Movement jumpMoveMov = Movement{ jumpMove, Vector2<float>(0.0, 0.0),  {109*3,101*3,95*3,101*3,105*3,100*3,108*3},{44*3,50*3,52*3,46*3,37*3,48*3,44*3} };
-	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0),  {},{} };
-	Movement blockUpMov = Movement{ blockUp, Vector2<float>(0.0,0.0), {},{} };
-	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0), {},{} };
+	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0),  {80 * 3, 84 * 3, 91 * 3, 86 * 3, 85 * 3},{63 * 3, 92 * 3, 104 * 3, 92 * 3, 63 * 3} };
+	Movement blockUpMov = Movement{ blockUp, Vector2<float>(0.0,0.0), {91 * 3, 90 * 3, 87 * 3, 89 * 3, 91 * 3},{52 * 3, 52 * 3, 54 * 3, 52 * 3, 51 * 3} };
+	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0), {78 * 3, 72 * 3},{89 * 3, 87 * 3} };
 	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0), {},{} };
 	Movement fatalityMov = Movement{ fatality, Vector2<float>(0.0,0.0), {},{} };
 	Movement winMov = Movement{ win, Vector2<float>(0.0,0.0), {},{} };
 	Movement fallMov = Movement{ fall, Vector2<float>(0.0, 0.0), {},{} };
 	Movement fallBackMov = Movement{ fallBack, Vector2<float>(0.0, 0.0), {},{} };
 	Movement fallUppercutMov = Movement{ fallUppercut, Vector2<float>(0.0, 0.0) , {},{} };
-	Movement nutsMov = Movement{ nuts, Vector2<float>(0.0, 0.0), {},{} };
+	Movement nutsMov = Movement{ nuts, Vector2<float>(0.0, 0.0), {84 * 3, 81 * 3, 84 * 3, 84 * 3},{79 * 3, 91 * 3, 92 * 3, 63 * 3} };
 	Movement recoverMov = Movement{ recover, Vector2<float>(0.0, 0.0), {},{} };
 	Movement getCaughtMov = Movement{ getCaught, Vector2<float>(5.0, 0.0) , {},{} };
 	Movement catchMov = Movement{ catchAnim, Vector2<float>(0.0, 0.0), {},{} };
 	Movement dyingMov = Movement{ dying, Vector2<float>(0.0, 0.0), {},{} };
-	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0), {},{} };
-	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0), {},{} };
-	Movement hitMov = Movement{ hit, Vector2<float>(0.0, 0.0), {},{} };
-	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0), {},{} };
-	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0), {},{} };
-	Movement hitDuckMov = Movement{ hitDuck, Vector2<float>(0.0, 0.0), {},{} };
+	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0), {88 * 3, 88 * 3, 91 * 3},{54 * 3, 54 * 3, 53 * 3} };
+	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0), {92 * 3, 92 * 3, 87 * 3},{54 * 3, 54 * 3, 53 * 3} };
+	Movement hitMov = Movement{ hit, Vector2<float>(0.0, 0.0), {81 * 3, 80 * 3, 75 * 3, 78 * 3},{53 * 3, 53 * 3, 55 * 3, 53 * 3} };
+	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0), {77 * 3, 79 * 3, 86 * 3, 81 * 3, 85 * 3},{53 * 3, 43 * 3, 45 * 3, 47 * 3, 59 * 3} };
+	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0), {69 * 3, 77 * 3, 68 * 3, 79 * 3},{57 * 3, 47 * 3, 57 * 3, 45 * 3} };
+	Movement hitDuckMov = Movement{ hitDuck, Vector2<float>(0.0, 0.0), {60 * 3, 64 * 3, 73 * 3},{89 * 3, 82 * 3, 87 * 3} };
 	
 
 	map<AnimationType, Movement> animations;
@@ -227,15 +227,21 @@ static Character CreateLiuKang() {
 	Vector2f kickDownS[8] = { {30*3,133*3},{33*3,89*3},{65*3,67*3},{51*3,63*3},{48*3,63*3},{40*3,91*3},{36*3,104*3},{35*3,131*3} };
 	Vector2f kickFromDownS[5] = { {45*3,76*3},{49*3,77*3},{44*3,73*3},{40*3,77*3},{46*3,78*3} };
 	Vector2f kickFromUpS[5] = { {30*3,141*3},{47*3,84*3},{43*3,72*3},{46*3,81*3},{39*3,120*3} };
+	Vector2f duckS[5] = { {37 * 3,118 * 3}, {43 * 3,90 * 3}, {39 * 3,79 * 3}, {39 * 3,89 * 3}, {33 * 3,119 * 3} };
+
+	Vector2f blockUpS[5] = { {31 * 3,128 * 3}, {35 * 3,130 * 3}, {35 * 3,127 * 3}, {34 * 3,131 * 3}, {32 * 3,130 * 3} };
+	Vector2f blockDownS[2] = { {33 * 3,95 * 3}, {38 * 3,97 * 3} };
+
+	Vector2f turnLeftS[3] = { {28 * 3,130 * 3}, {30 * 3,139 * 3}, {36 * 3,129 * 3} };
+	Vector2f turnRightS[3] = { {31 * 3,129 * 3}, {30 * 3,130 * 3}, {31 * 3,130 * 3} };
+
+	Vector2f nutsS[4] = { {40 * 3,105 * 3}, {41 * 3,92 * 3}, {39 * 3,91 * 3}, {31 * 3,119 * 3} };
+	Vector2f hitS[4] = { {38 * 3,129 * 3}, {35 * 3,130 * 3}, {43 * 3,128 * 3}, {37 * 3,129 * 3} };
+	Vector2f hitHeadS[4] = { {46 * 3,126 * 3}, {37 * 3,136 * 3}, {39 * 3,126 * 3}, {33 * 3,136 * 3} };
+	Vector2f hitHardS[5] = { {31 * 3,128 * 3}, {33 * 3,141 * 3}, {33 * 3,136 * 3}, {37 * 3,133 * 3}, {35 * 3,123 * 3} };
+	Vector2f hitDuckS[3] = { {49 * 3,95 * 3}, {43 * 3,101 * 3}, {38 * 3,96 * 3}};
 	///
-	Vector2f duckS[5] = { {72 * 3,118 * 3}, {76 * 3,91 * 3}, {72 * 3,77 * 3}, {76 * 3,90 * 3}, {71 * 3,118 * 3} };
-
-	Vector2f blockUpS[5] = { {77 * 3,132 * 3}, {75 * 3,135 * 3}, {74 * 3,132 * 3}, {75 * 3,134 * 3}, {76 * 3,132 * 3} };
-	Vector2f blockDownS[2] = { {68 * 3,97 * 3}, {69 * 3,98 * 3} };
-
 	Vector2f specialS[8] = { {85 * 3,118 * 3}, {78 * 3,104 * 3}, {80 * 3,121 * 3}, {63 * 3,134 * 3}, {62 * 3,130 * 3}, {63 * 3,130 * 3}, {63 * 3,129 * 3}, {63 * 3,130 * 3} };
-
-	Vector2f nutsS[4] = { {68 * 3,105 * 3}, {67 * 3,91 * 3}, {77 * 3,90 * 3}, {73 * 3,118 * 3} };
 
 	Vector2f catchS[7] = { {92 * 3,128 * 3}, {106 * 3,112 * 3}, {90 * 3,126 * 3}, {86 * 3,144 * 3}, {74 * 3,157 * 3}, {86 * 3,138 * 3}, {93 * 3,110 * 3} };
 	Vector2f dyingS[7] = { {70 * 3,122 * 3}, {71 * 3,121 * 3}, {70 * 3,127 * 3}, {70 * 3,134 * 3}, {70 * 3,135 * 3}, {71 * 3,133 * 3}, {71 * 3,121 * 3} };
@@ -373,6 +379,35 @@ static Character CreateLiuKang() {
 		rect.setSize(size);
 		dyingR.push_back(rect);
 	}
+	vector<RectangleShape> turnLeftR;
+	for (Vector2f size : turnLeftS) {
+		rect.setSize(size);
+		turnLeftR.push_back(rect);
+	}
+	vector<RectangleShape> turnRightR;
+	for (Vector2f size : turnRightS) {
+		rect.setSize(size);
+		turnRightR.push_back(rect);
+	}
+	vector<RectangleShape> hitR;
+	for (Vector2f size : hitS) {
+		rect.setSize(size);
+		hitR.push_back(rect);
+	}
+	vector<RectangleShape> hitHardR;
+	for (Vector2f size : hitHardS) {
+		rect.setSize(size);
+		hitHardR.push_back(rect);
+	}
+	vector<RectangleShape> hitHeadR;
+	for (Vector2f size : hitHeadS) {
+		rect.setSize(size);
+		hitHeadR.push_back(rect);
+	}vector<RectangleShape> hitDuckR;
+	for (Vector2f size : hitDuckS) {
+		rect.setSize(size);
+		hitDuckR.push_back(rect);
+	}
 
 	map< AnimationType, vector<RectangleShape>> hitboxes;
 	hitboxes[AnimationType::IDLE] = idleR;
@@ -407,6 +442,9 @@ static Character CreateLiuKang() {
 
 	hitboxes[AnimationType::CATCH] = catchR;
 	hitboxes[AnimationType::DYING] = dyingR;
+
+	hitboxes[AnimationType::TURN_LEFT] = turnLeftR;
+	hitboxes[AnimationType::TURN_RIGHT] = turnRightR;
 
 
 	RectangleShape specialAtt = RectangleShape(Vector2<float>(68, 11));
