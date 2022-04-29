@@ -55,7 +55,7 @@ static Keyboard::Key specialButtonP2 = Keyboard::M;
 static Keyboard::Key blockButtonP2 = Keyboard::O;
 
 
-const int life_BLOCK = 2;//2
+const int life_BLOCK = 1;//2
 const int life_PUNCH = 2;//6
 const int life_PUNCH_MULTIPLE = 2;
 const int life_PUNCH_CLOSE = 2;

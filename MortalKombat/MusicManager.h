@@ -69,7 +69,7 @@ public:
 	void moveSelector();
 	void skipIntro();
 
-	void claps();
+	void clapsPublic();
 	void loosePublic();
 	void victoryPublic();
 

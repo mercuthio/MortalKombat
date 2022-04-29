@@ -126,7 +126,7 @@ MusicManager::MusicManager() {
 
 	for (int i = 0; i < 3; i++) { bufferArenas.push_back(buffer); arenas.push_back(sound); }
 
-	bufferArenas[0].loadFromFile("audio/arenas/claps.ogg");
+	bufferArenas[0].loadFromFile("audio/arenas/clapsPublic.ogg");
 	arenas[0].setBuffer(bufferArenas[0]);
 	bufferArenas[1].loadFromFile("audio/arenas/loosePublic.ogg");
 	arenas[1].setBuffer(bufferArenas[1]);
@@ -208,7 +208,7 @@ void MusicManager::moveOptions() { UI[1].setVolume(volumeEffects); UI[1].play();
 void MusicManager::moveSelector() { UI[2].setVolume(volumeEffects); UI[2].play(); }
 void MusicManager::skipIntro() { UI[3].setVolume(volumeEffects); UI[3].play(); }
 
-void MusicManager::claps() { arenas[0].setVolume(volumeEffects); arenas[0].play(); }
+void MusicManager::clapsPublic() { arenas[0].setVolume(volumeEffects); arenas[0].play(); }
 void MusicManager::loosePublic() { arenas[1].setVolume(volumeEffects); arenas[1].play(); }
 void MusicManager::victoryPublic() { arenas[2].setVolume(volumeEffects); arenas[2].play(); }
 

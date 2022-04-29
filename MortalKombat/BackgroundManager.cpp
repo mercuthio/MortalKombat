@@ -46,8 +46,8 @@ void BackgroundManager::Update() {
 
 		Vector2f sizeBackground_monks = Vector2f(rectWidth_monks * (height_window / 281.0), rectHeight_monks * (height_window / 281.0));
 
-		//uvRect.top = 32.0f + 136.0 * animation;
-		uvRect.top = 929.0f + 136.0 * animation;
+		uvRect.top = 32.0f + 136.0 * animation;
+		//uvRect.top = 929.0f + 136.0 * animation;
 		uvRect.left = 1121.0f;
 		uvRect.width = rectWidth_monks;
 		uvRect.height = rectHeight_monks;
