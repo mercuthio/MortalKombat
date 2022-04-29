@@ -55,21 +55,21 @@ static Keyboard::Key specialButtonP2 = Keyboard::M;
 static Keyboard::Key blockButtonP2 = Keyboard::O;
 
 
-const int life_BLOCK = 2;
-const int life_PUNCH = 6;
-const int life_PUNCH_MULTIPLE = 4;
-const int life_PUNCH_CLOSE = 8;
-const int life_PUNCH_UPPER = 8;
-const int life_PUNCH_UPPER_MULTIPLE = 4;
-const int life_PUNCH_UPPER_CLOSE = 10;
-const int life_PUNCH_FROM_DOWN = 20;
-const int life_KICK = 6;
-const int life_KICK_UPPER = 8;
-const int life_KICK_LOW = 16;
-const int life_KICK_HIGH = 8;
-const int life_KICK_FROM_DOWN = 10;
-const int life_KICK_FROM_AIR = 10;
-const int life_CATCH = 20;
+const int life_BLOCK = 2;//2
+const int life_PUNCH = 2;//6
+const int life_PUNCH_MULTIPLE = 2;
+const int life_PUNCH_CLOSE = 2;
+const int life_PUNCH_UPPER = 3;
+const int life_PUNCH_UPPER_MULTIPLE = 2;
+const int life_PUNCH_UPPER_CLOSE = 2;
+const int life_PUNCH_FROM_DOWN = 2;
+const int life_KICK = 4;
+const int life_KICK_UPPER = 5;
+const int life_KICK_LOW = 4;
+const int life_KICK_HIGH = 5;
+const int life_KICK_FROM_DOWN = 4;
+const int life_KICK_FROM_AIR = 4;
+const int life_CATCH = 8;
 
 enum class LookingAt {
 	LEFT, RIGHT

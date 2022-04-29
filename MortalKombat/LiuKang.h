@@ -137,23 +137,34 @@ static Character CreateLiuKang() {
 		{0,0,149*3,0},{0,0,74*3,0} };
 	/**/Movement punchMultMov = Movement{ punchMult, Vector2<float>(0.0, 0.0),{91*3,97*3,103*3,116*3,114*3,117*3,110*3,112*3,92*3},{46*3,42*3,48*3,45*3,47*3,54*3,46*3,45*3,47*3},
 		{0,0,150*3,0,0,157*3,0,0},{0,0,74*3,0,0,73*3,0,0} };
-	/**/Movement punchUpMov = Movement{ punchUp, Vector2<float>(0.0, 0.0), {94*3,104*3,111*3,94*3},{48*3,45*3,45*3,48*3} };
-	/**/Movement punchFromUpMov = Movement{ punchFromUp, Vector2<float>(0.0, 0.0), {113*3,122*3,117*3,123*3,120*3},{29*3,29*3,28*3,30*3,28*3} };
-	/**/Movement punchUpMultMov = Movement{ punchUpMult, Vector2<float>(0.0, 0.0), {97*3,101*3,112*3,113*3,117*3,112*3,117*3,113*3,94*3},{47*3,45*3,46*3,46*3,48*3,49*3,48*3,45*3,48*3} };
-	/**/Movement bodyToBodyMov = Movement{ bodyToBody, Vector2<float>(0.0, 0.0), {93*3,100*3,108*3,102*3,96*3},{49*3,52*3,54*3,52*3,50*3} };
+	/**/Movement punchUpMov = Movement{ punchUp, Vector2<float>(0.0, 0.0), {94 * 3,104 * 3,111 * 3,94 * 3},{48 * 3,45 * 3,45 * 3,48 * 3},
+		{0,0,153*3,0},{0,0,53*3,0}};
+	/**/Movement punchFromUpMov = Movement{ punchFromUp, Vector2<float>(0.0, 0.0), {113 * 3,122 * 3,117 * 3,123 * 3,120 * 3},{29 * 3,29 * 3,28 * 3,30 * 3,28 * 3},
+		{0,0,170*3,0,0},{0,0,71*3,0,0} };
+	/**/Movement punchUpMultMov = Movement{ punchUpMult, Vector2<float>(0.0, 0.0), {97*3,101*3,112*3,113*3,117*3,112*3,117*3,113*3,94*3},{47*3,45*3,46*3,46*3,48*3,49*3,48*3,45*3,48*3},
+		{0,0,153*3,0,0,155*3,0,0,0},{0,0,52*3,0,0,56*3,0,0,0} };
+	/**/Movement bodyToBodyMov = Movement{ bodyToBody, Vector2<float>(0.0, 0.0), {93 * 3,100 * 3,108 * 3,102 * 3,96 * 3},{49 * 3,52 * 3,54 * 3,52 * 3,50 * 3},
+		{0,0,149*3,0,0},{0,0,67*3,0,0} };
 	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0), {80*3},{37*3} };
-	/**/Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0),  {86*3,94*3,95*3,100*3,93*3,92*3,87*3},{48*3,46*3,49*3,50*3,49*3,47*3,49*3} };
-	/**/Movement kickUpMov = Movement{ kickUp, Vector2<float>(0.0, 0.0), {73*3,86*3,92*3,99*3,103*3,108*3,97*3},{48*3,52*3,63*3,48*3,87*3,76*3,52*3} };
-	/**/Movement kickDownMov = Movement{ kickDown, Vector2<float>(0.0, 0.0), {89*3,78*3,73*3,79*3,86*3,98*3,105*3,87*3},{49*3,95*3,119*3,125*3,124*3,121*3,79*3,48*3} };
-	/**/Movement kickFromDownMov = Movement{ kickFromDown, Vector2<float>(0.0, 0.0),{83*3,82*3,84*3,84*3,83*3},{102*3,104*3,109*3,105*3,104*3} };
-	/**/Movement kickFromUpMov = Movement{ kickFromUp, Vector2<float>(0.0, 0.0), {92*3,99*3,101*3,96*3,91*3},{37*3,41*3,43*3,42*3,37*3} };
-	/**/Movement punchDownMov = Movement{ punchDown, Vector2<float>(0.0, 0.0), {96*3,92*3,95*3,104*3,93*3},{74*3,58*3,50*3,51*3,53*3} };
+	/**/Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0),  {86*3,94*3,95*3,100*3,93*3,92*3,87*3},{48*3,46*3,49*3,50*3,49*3,47*3,49*3},
+		{0,0,0,158*3,0,0,0},{0,0,0,64*3,0,0,0} };
+	/**/Movement kickUpMov = Movement{ kickUp, Vector2<float>(0.0, 0.0), {73*3,86*3,92*3,99*3,103*3,108*3,97*3},{48*3,52*3,63*3,48*3,87*3,76*3,52*3},
+		{0,0,0,151*3,0,0,0},{0,0,0,44*3,0,0,0} };
+	/**/Movement kickDownMov = Movement{ kickDown, Vector2<float>(0.0, 0.0), {89*3,78*3,73*3,79*3,86*3,98*3,105*3,87*3},{49*3,95*3,119*3,125*3,124*3,121*3,79*3,48*3},
+		{0,0,0,0,161*3,0,0,0},{0,0,0,0,56*3,0,0,0} };
+	/**/Movement kickFromDownMov = Movement{ kickFromDown, Vector2<float>(0.0, 0.0),{83*3,82*3,84*3,84*3,83*3},{102*3,104*3,109*3,105*3,104*3},
+		{0,0,135*3,0,0},{0,0,91*3,0,0} };
+	/**/Movement kickFromUpMov = Movement{ kickFromUp, Vector2<float>(0.0, 0.0), {92*3,99*3,101*3,96*3,91*3},{37*3,41*3,43*3,42*3,37*3},
+		{0,0,146*3,0,0},{0,0,48*3,0,0} };
+	/**/Movement punchDownMov = Movement{ punchDown, Vector2<float>(0.0, 0.0), {96*3,92*3,95*3,104*3,93*3},{74*3,58*3,50*3,51*3,53*3},
+		{0,0,142*3,0,0},{0,0,52*3,0,0} };
 	Movement jumpMoveMov = Movement{ jumpMove, Vector2<float>(0.0, 0.0),  {109*3,101*3,95*3,101*3,105*3,100*3,108*3},{44*3,50*3,52*3,46*3,37*3,48*3,44*3} };
 	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0),  {80 * 3, 84 * 3, 91 * 3, 86 * 3, 85 * 3},{63 * 3, 92 * 3, 104 * 3, 92 * 3, 63 * 3} };
 	Movement blockUpMov = Movement{ blockUp, Vector2<float>(0.0,0.0), {91 * 3, 90 * 3, 87 * 3, 89 * 3, 91 * 3},{52 * 3, 52 * 3, 54 * 3, 52 * 3, 51 * 3} };
 	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0), {78 * 3, 72 * 3},{89 * 3, 87 * 3} };
-	/**/Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0), {68*3,63*3,61*3,63*3,60*3,61*3,61*3,61*3},{68*3,79*3,64*3,51*3,56*3,55*3,56*3,56*3} };
-	/**/Movement fatalityMov = Movement{ fatality, Vector2<float>(0.0,0.0), {},{} };
+	/**/Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0), {68*3,63*3,61*3,63*3,60*3,61*3,61*3,61*3},{68*3,79*3,64*3,51*3,56*3,55*3,56*3,56*3},
+		{},{} };
+	/**/Movement fatalityMov = Movement{ fatality, Vector2<float>(0.0,0.0), {},{},{},{} };
 	Movement winMov = Movement{ win, Vector2<float>(0.0,0.0)};
 	Movement fallMov = Movement{ fall, Vector2<float>(0.0, 0.0) };
 	Movement fallBackMov = Movement{ fallBack, Vector2<float>(0.0, 0.0) };
@@ -216,63 +227,23 @@ static Character CreateLiuKang() {
 	
 	//Tamaño damage hitboxes
 	Vector2f punchD[4] = { {0,0},{0,0},{35*3,13*3},{0,0} };
-	Vector2f punchUpD[4] = { {0,0},{0,0},{0,0},{0,0} };
-	Vector2f punchDownD[5] = { {0,0},{0,0},{0,0},{0,0} };
-	Vector2f punchFromUpD[5] = { {0,0},{0,0},{0,0},{0,0},{0,0} };
-	Vector2f bodyToBodyD[5] = { {0,0},{0,0},{0,0},{0,0},{0,0} };
+	Vector2f punchUpD[4] = { {0,0},{0,0},{32*3,19*3},{0,0} };
+	Vector2f punchDownD[5] = { {0,0},{0,0},{24*3,28*3},{0,0} };
+	Vector2f punchFromUpD[5] = { {0,0},{0,0},{23*3,26*3},{0,0},{0,0} };
+	Vector2f bodyToBodyD[5] = { {0,0},{0,0},{12*3,13*3},{0,0},{0,0} };
 	Vector2f punchMultD[9] = { {0,0},{0,0},{35*3,13*3},{0,0},{0,0},{25*3,15*3},{0,0},{0,0},{0,0} };
-	Vector2f punchMultUpD[9] = { {0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0} };
+	Vector2f punchMultUpD[9] = { {0,0},{0,0},{32*3,22*3},{0,0},{0,0},{29*3,17*3},{0,0},{0,0},{0,0} };
 
-	Vector2f kickD[7] = { {0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0} };
-	Vector2f kickUpD[7] = { {0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0} };
-	Vector2f kickDownD[8] = { {0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0} };
-	Vector2f kickFromDownD[5] = { {0,0},{0,0},{0,0},{0,0},{0,0} };
-	Vector2f kickFromUpD[5] = { {0,0},{0,0},{0,0},{0,0},{0,0} };
+	Vector2f kickD[7] = { {0,0},{0,0},{0,0},{42*3,34*3},{0,0},{0,0},{0,0} };
+	Vector2f kickUpD[7] = { {0,0},{0,0},{0,0},{37*3,35*3},{0,0},{0,0},{0,0} };
+	Vector2f kickDownD[8] = { {0,0},{0,0},{0,0},{0,0},{47*3,30*3},{0,0},{0,0},{0,0} };
+	Vector2f kickFromDownD[5] = { {0,0},{0,0},{29*3,41*3},{0,0},{0,0} };
+	Vector2f kickFromUpD[5] = { {0,0},{0,0},{24*3,33*3},{0,0},{0,0} };
 
-	Vector2f specialD[8] = { {0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0} };
-	Vector2f catchD[7] = { {0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0} };
-//
-	Vector2f idleD[8] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
-	Vector2f forwD[9] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
-	Vector2f backD[9] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
-
-	Vector2f jumpD[4] = { {0,0}, {0,0}, {0,0}, {0,0} };
-	Vector2f jumpMoveD[7] = { {0,0}, {0,0}, {0,0}, {0,0},{0,0}, {0,0}, {0,0} };
-
-	Vector2f duckD[5] = { {0,0}, {0,0}, {0,0}, {0,0},{0,0} };
-
-	Vector2f blockUpD[5] = { {0,0}, {0,0}, {0,0}, {0,0},{0,0} };
-	Vector2f blockDownD[2] = { {0,0}, {0,0} };
-
-	Vector2f turnLeftD[3] = { {0,0}, {0,0}, {0,0} };
-	Vector2f turnRightD[3] = { {0,0}, {0,0}, {0,0} };
-
-	Vector2f nutsD[4] = { {0,0}, {0,0}, {0,0}, {0,0} };
-	Vector2f hitD[4] = { {0,0}, {0,0}, {0,0}, {0,0} };
-	Vector2f hitHeadD[4] = { {0,0}, {0,0}, {0,0}, {0,0} };
-	Vector2f hitHardD[5] = { {0,0}, {0,0}, {0,0}, {0,0},{0,0} };
-	Vector2f hitDuckD[3] = { {0,0}, {0,0}, {0,0} };
-
-	Vector2f dyingD[7] = { {0,0}, {0,0}, {0,0}, {0,0},{0,0},{0,0}, {0,0} };
 
 	RectangleShape rect;
 	rect.setFillColor(Color::Red);
-	vector<RectangleShape> idleR;
-	for (Vector2f size : idleD) {
-		rect.setSize(size);
-		idleR.push_back(rect);
-	}
-	vector<RectangleShape> forwR;
-	for (Vector2f size : forwD) {
-		rect.setSize(size);
-		forwR.push_back(rect);
-	}
-	vector<RectangleShape> backR;
-	for (Vector2f size : backD) {
-		rect.setSize(size);
-		backR.push_back(rect);
-	}
-
+	
 	vector<RectangleShape> punchR;
 	for (Vector2f size : punchD) {
 		rect.setSize(size);
@@ -309,17 +280,6 @@ static Character CreateLiuKang() {
 		bodyToBodyR.push_back(rect);
 	}
 
-	vector<RectangleShape> jumpR;
-	for (Vector2f size : jumpD) {
-		rect.setSize(size);
-		jumpR.push_back(rect);
-	}
-	vector<RectangleShape> jumpMoveR;
-	for (Vector2f size : jumpMoveD) {
-		rect.setSize(size);
-		jumpMoveR.push_back(rect);
-	}
-
 	vector<RectangleShape> kickR;
 	for (Vector2f size : kickD) {
 		rect.setSize(size);
@@ -346,79 +306,7 @@ static Character CreateLiuKang() {
 		kickFromUpR.push_back(rect);
 	}
 
-	vector<RectangleShape> duckR;
-	for (Vector2f size : duckD) {
-		rect.setSize(size);
-		duckR.push_back(rect);
-	}
-
-	vector<RectangleShape> blockUpR;
-	for (Vector2f size : blockUpD) {
-		rect.setSize(size);
-		blockUpR.push_back(rect);
-	}
-	vector<RectangleShape> blockDownR;
-	for (Vector2f size : blockDownD) {
-		rect.setSize(size);
-		blockDownR.push_back(rect);
-	}
-
-	vector<RectangleShape> specialR;
-	for (Vector2f size : specialD) {
-		rect.setSize(size);
-		specialR.push_back(rect);
-	}
-
-	vector<RectangleShape> nutsR;
-	for (Vector2f size : nutsD) {
-		rect.setSize(size);
-		nutsR.push_back(rect);
-	}
-
-	vector<RectangleShape> catchR;
-	for (Vector2f size : catchD) {
-		rect.setSize(size);
-		catchR.push_back(rect);
-	}
-	vector<RectangleShape> dyingR;
-	for (Vector2f size : dyingD) {
-		rect.setSize(size);
-		dyingR.push_back(rect);
-	}
-	vector<RectangleShape> turnLeftR;
-	for (Vector2f size : turnLeftD) {
-		rect.setSize(size);
-		turnLeftR.push_back(rect);
-	}
-	vector<RectangleShape> turnRightR;
-	for (Vector2f size : turnRightD) {
-		rect.setSize(size);
-		turnRightR.push_back(rect);
-	}
-	vector<RectangleShape> hitR;
-	for (Vector2f size : hitD) {
-		rect.setSize(size);
-		hitR.push_back(rect);
-	}
-	vector<RectangleShape> hitHardR;
-	for (Vector2f size : hitHardD) {
-		rect.setSize(size);
-		hitHardR.push_back(rect);
-	}
-	vector<RectangleShape> hitHeadR;
-	for (Vector2f size : hitHeadD) {
-		rect.setSize(size);
-		hitHeadR.push_back(rect);
-	}vector<RectangleShape> hitDuckR;
-	for (Vector2f size : hitDuckD) {
-		rect.setSize(size);
-		hitDuckR.push_back(rect);
-	}
-
 	map< AnimationType, vector<RectangleShape>> damage_hitboxes;
-	damage_hitboxes[AnimationType::IDLE] = idleR;
-	damage_hitboxes[AnimationType::WALK_FORW] = forwR;
-	damage_hitboxes[AnimationType::WALK_BACK] = backR;
 
 	damage_hitboxes[AnimationType::PUNCH] = punchR;
 	damage_hitboxes[AnimationType::PUNCH_UPPER] = punchUpR;
@@ -428,8 +316,6 @@ static Character CreateLiuKang() {
 	damage_hitboxes[AnimationType::PUNCH_MULTIPLE] = punchMultR;
 	damage_hitboxes[AnimationType::PUNCH_UPPER_MULTIPLE] = punchUpMultR;
 
-	damage_hitboxes[AnimationType::JUMP] = jumpR;
-	damage_hitboxes[AnimationType::JUMP_AND_MOVE] = jumpMoveR;
 
 	damage_hitboxes[AnimationType::KICK] = kickR;
 	damage_hitboxes[AnimationType::KICK_UPPER] = kickUpR;
@@ -437,24 +323,6 @@ static Character CreateLiuKang() {
 	damage_hitboxes[AnimationType::KICK_FROM_DOWN] = kickFromDownR;
 	damage_hitboxes[AnimationType::KICK_FROM_AIR] = kickFromUpR;
 
-	damage_hitboxes[AnimationType::DOWN] = duckR;
-
-	damage_hitboxes[AnimationType::BLOCK] = blockUpR;
-	damage_hitboxes[AnimationType::BLOCK_LOW] = blockDownR;
-
-	damage_hitboxes[AnimationType::SPECIAL] = specialR;
-
-	damage_hitboxes[AnimationType::NUTS] = nutsR;
-
-	damage_hitboxes[AnimationType::CATCH] = catchR;
-	damage_hitboxes[AnimationType::DYING] = dyingR;
-
-	damage_hitboxes[AnimationType::TURN_LEFT] = turnLeftR;
-	damage_hitboxes[AnimationType::TURN_RIGHT] = turnRightR;
-
-	idleR.clear();
-	forwR.clear();
-	backR.clear();
 	punchR.clear();
 	punchUpR.clear();
 	punchDownR.clear();
@@ -462,22 +330,12 @@ static Character CreateLiuKang() {
 	bodyToBodyR.clear();
 	punchMultR.clear();
 	punchUpMultR.clear();
-	jumpR.clear();
-	jumpMoveR.clear();
 	kickR.clear();
 	kickUpR.clear();
 	kickDownR.clear();
 	kickFromDownR.clear();
 	kickFromUpR.clear();
-	duckR.clear();
-	blockUpR.clear();
-	blockDownR.clear();
-	specialR.clear();
-	nutsR.clear();
-	catchR.clear();
-	dyingR.clear();
-	turnLeftR.clear();
-	turnRightR.clear();
+
 
 	//Tamaños hitboxes
 	Vector2f idleS[8] = { {31*3,123*3}, {31*3,129*3}, {35*3,134*3}, {33*3,128*3}, {31*3,125*3}, {32*3,128*3}, {31*3,133*3}, {33*3,130*3} };
@@ -519,15 +377,18 @@ static Character CreateLiuKang() {
 	Vector2f catchS[7] = { {36*3,127*3}, {38*3,110*3}, {48*3,125*3}, {39*3,131*3}, {33*3,131*3}, {34*3,117*3}, {42*3,110*3} };
 	Vector2f dyingS[7] = { {39*3,121*3}, {36*3,123*3}, {35*3,126*3}, {35*3,132*3}, {35*3,134*3}, {31*3,131*3}, {34*3,122*3} };
 
+	vector<RectangleShape> idleR;
 	rect.setFillColor(Color::Green);
 	for (Vector2f size : idleS) {
 		rect.setSize(size);
 		idleR.push_back(rect);
 	}
+	vector<RectangleShape> forwR;
 	for (Vector2f size : forwS) {
 		rect.setSize(size);
 		forwR.push_back(rect);
 	}
+	vector<RectangleShape> backR;
 	for (Vector2f size : backS) {
 		rect.setSize(size);
 		backR.push_back(rect);
@@ -567,11 +428,12 @@ static Character CreateLiuKang() {
 		rect.setSize(size);
 		bodyToBodyR.push_back(rect);
 	}
-
+	vector<RectangleShape> jumpR;
 	for (Vector2f size : jumpS) {
 		rect.setSize(size);
 		jumpR.push_back(rect);
 	}
+	vector<RectangleShape> jumpMoveR;
 	for (Vector2f size : jumpMoveS) {
 		rect.setSize(size);
 		jumpMoveR.push_back(rect);
@@ -597,65 +459,67 @@ static Character CreateLiuKang() {
 		rect.setSize(size);
 		kickFromUpR.push_back(rect);
 	}
-
+	vector<RectangleShape> duckR;
 	for (Vector2f size : duckS) {
 		rect.setSize(size);
 		duckR.push_back(rect);
 	}
-
+	vector<RectangleShape> blockUpR;
 	for (Vector2f size : blockUpS) {
 		rect.setSize(size);
 		blockUpR.push_back(rect);
 	}
-
+	vector<RectangleShape> blockDownR;
 	for (Vector2f size : blockDownS) {
 		rect.setSize(size);
 		blockDownR.push_back(rect);
 	}
-
+	vector<RectangleShape> specialR;
 	for (Vector2f size : specialS) {
 		rect.setSize(size);
 		specialR.push_back(rect);
 	}
-
+	vector<RectangleShape> nutsR;
 	for (Vector2f size : nutsS) {
 		rect.setSize(size);
 		nutsR.push_back(rect);
 	}
-
+	vector<RectangleShape> catchR;
 	for (Vector2f size : catchS) {
 		rect.setSize(size);
 		catchR.push_back(rect);
 	}
-
+	vector<RectangleShape> dyingR;
 	for (Vector2f size : dyingS) {
 		rect.setSize(size);
 		dyingR.push_back(rect);
 	}
-
+	vector<RectangleShape> turnLeftR;
 	for (Vector2f size : turnLeftS) {
 		rect.setSize(size);
 		turnLeftR.push_back(rect);
 	}
-
+	vector<RectangleShape> turnRightR;
 	for (Vector2f size : turnRightS) {
 		rect.setSize(size);
 		turnRightR.push_back(rect);
 	}
-
+	vector<RectangleShape> hitR;
 	for (Vector2f size : hitS) {
 		rect.setSize(size);
 		hitR.push_back(rect);
 	}
+	vector<RectangleShape> hitHardR;
 	for (Vector2f size : hitHardS) {
 		rect.setSize(size);
 		hitHardR.push_back(rect);
 	}
-
+	vector<RectangleShape> hitHeadR;
 	for (Vector2f size : hitHeadS) {
 		rect.setSize(size);
 		hitHeadR.push_back(rect);
 	}
+	vector<RectangleShape> hitDuckR;
 	for (Vector2f size : hitDuckS) {
 		rect.setSize(size);
 		hitDuckR.push_back(rect);

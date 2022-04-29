@@ -82,7 +82,7 @@ bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, Rectan
 
 		position_x = damage_hitbox_positions_X[frame_number - 1];
 		position_y = damage_hitbox_positions_Y[frame_number - 1];
-		cout << position_x/3 << "---" << position_y/3 << endl;
+
 		damage_hitbox.setPosition(globalPosition.x + position_x, globalPosition.y + position_y);
 
 		body.setTextureRect(IntRect(this_frame, size));

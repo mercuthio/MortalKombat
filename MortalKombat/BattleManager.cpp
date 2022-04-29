@@ -588,12 +588,12 @@ void BattleManager::CheckCollisions() {
 
 void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 
-	if ((toPlayerTwo && !isFixedMovement(player2.animation_in_process))) {
-		return;
-	}
-	else if (!toPlayerTwo && !isFixedMovement(player1.animation_in_process)) {
-		return;
-	}
+	//if ((toPlayerTwo && !isFixedMovement(player2.animation_in_process))) {
+	//	return;
+	//}
+	//else if (!toPlayerTwo && !isFixedMovement(player1.animation_in_process)) {
+	//	return;
+	//}
 
 	if ((toPlayerTwo && player2.isBlocking())) {
 		life2 -= life_BLOCK;
