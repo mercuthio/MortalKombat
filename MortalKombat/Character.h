@@ -22,7 +22,7 @@ using namespace std;
 class Character {
 public:
 	Character() = default;
-	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_);
+	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, map<AnimationType, vector<RectangleShape>> damage_hitboxes_);
 	//~Character() = delete;
 
 	void UpdateIA(float time, Character opponent);
@@ -90,6 +90,7 @@ public:
 
 
 	RectangleShape hitbox;
+	RectangleShape damage_hitbox;
 
 	AnimationType animation_in_process;
 
@@ -102,6 +103,7 @@ private:
 	Vector2<float> global_position;
 	map<AnimationType, Movement> animations; // mapa de enum -> animacion
 	map<AnimationType, vector<RectangleShape>> hitboxes;
+	map<AnimationType, vector<RectangleShape>> damage_hitboxes;
 
 	float internalTimer = 0.05f;
 

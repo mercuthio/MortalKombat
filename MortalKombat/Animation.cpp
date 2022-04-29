@@ -29,8 +29,9 @@ Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_
 	el cual puede estar condicionado por factores externos
 */
 
-bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored, float hitbox_positions_X[],
-		float hitbox_positions_Y[], Vector2<float> globalPosition, vector<RectangleShape> hitboxes) {
+bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored,
+	float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition, vector<RectangleShape> hitboxes,
+	RectangleShape& damage_hitbox, float damage_hitbox_positions_X[], float damage_hitbox_positions_Y[], vector<RectangleShape> damage_hitboxes) {
 
 	bool finished = !lock;
 
@@ -46,10 +47,19 @@ bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, Rectan
 		hitbox = hitboxes[frame_number - 1];
 	}
 
+	if (damage_hitboxes.size() >= frame_number) {
+		damage_hitbox = damage_hitboxes[frame_number - 1];
+	}
+
 	if (mirrored) {
 
 		position_x = body.getSize().x - (position_x + hitbox.getSize().x);
 		hitbox.setPosition(globalPosition.x + position_x, globalPosition.y + position_y);
+
+		position_x = damage_hitbox_positions_X[frame_number - 1];
+		position_x = body.getSize().x - (position_x + hitbox.getSize().x);
+		position_y = damage_hitbox_positions_Y[frame_number - 1];
+		damage_hitbox.setPosition(globalPosition.x + position_x, globalPosition.y + position_y);
 
 		IntRect uRectBody;
 		uRectBody.left = this_frame.x - (size.x * -1);
@@ -69,6 +79,11 @@ bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, Rectan
 	else {
 
 		hitbox.setPosition(globalPosition.x + position_x, globalPosition.y + position_y);
+
+		position_x = damage_hitbox_positions_X[frame_number - 1];
+		position_y = damage_hitbox_positions_Y[frame_number - 1];
+		cout << position_x/3 << "---" << position_y/3 << endl;
+		damage_hitbox.setPosition(globalPosition.x + position_x, globalPosition.y + position_y);
 
 		body.setTextureRect(IntRect(this_frame, size));
 		shadow.setTextureRect(IntRect(Vector2i(this_frame.x, this_frame.y + 228), size));

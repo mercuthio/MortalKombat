@@ -20,7 +20,9 @@ public:
 	Animation() = default;
 	Animation(int _duration, Texture *_sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, vector<Recover> _recovery, vector<int> _flagged_frames, int _wait_until);
 	//~Animation() = delete;
-	bool DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored, float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition, vector<RectangleShape>);
+	bool DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored,
+		float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition, vector<RectangleShape> hitboxes,
+		RectangleShape& damage_hitbox, float damage_hitbox_positions_X[], float damage_hitbox_positions_Y[], vector<RectangleShape> damage_hitboxes);
 	void ResetAnimation();
 	bool RecieveFlagEvent();
 

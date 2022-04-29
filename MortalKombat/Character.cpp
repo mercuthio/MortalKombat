@@ -6,13 +6,14 @@ float moveYBack;
 float totalMoveXBack = 0;
 
 
-Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_) {
+Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, map<AnimationType, vector<RectangleShape>> damage_hitboxes_) {
 	srand(time(NULL));
 	body = _body;
 	shadow = _shadow;
 	animation_in_process = AnimationType::IDLE;
 	animations = _animations;
 	hitboxes = hitboxes_;
+	damage_hitboxes = damage_hitboxes_;
 }
 
 void Character::Update(float tiempo, bool secondPlayer) {
@@ -685,7 +686,8 @@ void Character::DoAnimation() {
 
 	if (!fallen) {
 		finished = animations[animation_in_process].animation.DoAnimation(body, shadow, hitbox, mirrored,
-			animations[animation_in_process].hitbox_positions_X, animations[animation_in_process].hitbox_positions_Y, global_position, hitboxes[animation_in_process]);
+			animations[animation_in_process].hitbox_positions_X, animations[animation_in_process].hitbox_positions_Y, global_position, hitboxes[animation_in_process],
+			damage_hitbox, animations[animation_in_process].damage_hitbox_positions_X, animations[animation_in_process].damage_hitbox_positions_Y, damage_hitboxes[animation_in_process]);
 	}	
 
 	if (finished) {
@@ -807,7 +809,8 @@ void Character::GetHit(int quantity) {
 }
 
 void Character::debugDraw(RenderWindow& window) {
-	//window.draw(hitbox);	//Para debug
+	window.draw(hitbox);	//Para debug
+	window.draw(damage_hitbox);	//Para debug
 	window.draw(shadow);
 	window.draw(body);
 }

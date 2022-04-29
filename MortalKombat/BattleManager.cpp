@@ -562,16 +562,21 @@ void BattleManager::Update() {
 
 void BattleManager::CheckCollisions() {
 
-	if (player1.hitbox.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds())) {
+	if (player1.damage_hitbox.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds())) {
 
 		if (isDamageMovement(player1.animation_in_process)) {	//Le pega el jugador 1
 			if (finishing1) { P1WinnedPose = true; }			//El jugador 1 golpea en finish him
 			
 			ProcessHit(player1.animation_in_process, true);
 
+		}
 
-		} else if (isDamageMovement(player2.animation_in_process)) {	//Le pega el jugador 
-			if (finishing2) { P2WinnedPose = true; }//El jugador 1 golpea en finish him
+	} 
+
+	if (player2.damage_hitbox.getGlobalBounds().intersects(player1.hitbox.getGlobalBounds())) {
+
+		if (isDamageMovement(player2.animation_in_process)) {	//Le pega el jugador 2
+			if (finishing1) { P2WinnedPose = true; }			//El jugador 2 golpea en finish him
 
 			ProcessHit(player2.animation_in_process, false);
 

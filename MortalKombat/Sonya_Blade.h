@@ -387,7 +387,8 @@ static Character CreateSonyaBlade() {
 	RectangleShape specialAtt = RectangleShape(Vector2<float>(68, 11));
 	specialAtt.setSize(Vector2f(68 * 3, 11 * 3));
 
-	Character SonyaBlade = Character(animations, body, shadow, hitboxes);
+	map< AnimationType, vector<RectangleShape>> damage_hitboxes;
+	Character SonyaBlade = Character(animations, body, shadow, hitboxes, damage_hitboxes);
 
 	return SonyaBlade;
 }
