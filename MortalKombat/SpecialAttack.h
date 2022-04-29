@@ -11,10 +11,14 @@ using namespace std;
 class SpecialAttack {
 public:
 	SpecialAttack();
-	~SpecialAttack() = default;
+	//~SpecialAttack() = default;
 
-	void Update(float time);
-	void Mirror();
+	void SpecialAttackAt(CharacterType type, Vector2f position, bool mirrored);
+
+	void Update();
+	void draw(RenderWindow&);
+
+	bool isFinished();
 
 private:
 	RectangleShape body;

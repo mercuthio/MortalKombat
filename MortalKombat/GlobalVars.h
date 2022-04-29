@@ -203,6 +203,7 @@ static bool isDamageMovement(AnimationType anim) {
 		(anim == AnimationType::KICK_FROM_DOWN) ||
 		(anim == AnimationType::KICK_FROM_AIR) ||
 		(anim == AnimationType::CATCH) ||
+		(anim == AnimationType::SPECIAL) ||
 		(anim == AnimationType::FATALITY);
 }
 
