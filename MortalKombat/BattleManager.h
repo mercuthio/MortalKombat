@@ -98,6 +98,8 @@ private:
 	Character SonyaBlade;
 
 	BloodEffect blood;
+	BloodEffect bloodGround1;
+	BloodEffect bloodGround2;
 
 	Character player1;
 	Character player2;

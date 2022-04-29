@@ -18,13 +18,35 @@ MusicManager::MusicManager() {
 	intro[3].setBuffer(bufferIntro[3]);
 
 	//HITS
-	for (int i = 0; i < 1; i++) { bufferHits.push_back(buffer); hits.push_back(sound); }
-	bufferHits[0].loadFromFile("audio/hitsounds/mk1-00131.ogg");
+	for (int i = 0; i < 10; i++) { bufferHits.push_back(buffer); hits.push_back(sound); }
+	bufferHits[0].loadFromFile("audio/hitsounds/mk1-00131.ogg"); //Blood
 	hits[0].setBuffer(bufferHits[0]);
+
+	bufferHits[1].loadFromFile("audio/hitsounds/mk1-00054.ogg"); //Hit
+	hits[1].setBuffer(bufferHits[1]);
+	bufferHits[2].loadFromFile("audio/hitsounds/mk1-00055.ogg");
+	hits[2].setBuffer(bufferHits[2]);
+	bufferHits[3].loadFromFile("audio/hitsounds/mk1-00056.ogg");
+	hits[4].setBuffer(bufferHits[3]);
+	bufferHits[4].loadFromFile("audio/hitsounds/mk1-00058.ogg");
+	hits[4].setBuffer(bufferHits[4]);
+
+	bufferHits[5].loadFromFile("audio/hitsounds/mk1-00059.ogg"); // No hit
+	hits[5].setBuffer(bufferHits[5]);
+	bufferHits[6].loadFromFile("audio/hitsounds/mk1-00060.ogg");
+	hits[6].setBuffer(bufferHits[6]);
+	bufferHits[7].loadFromFile("audio/hitsounds/mk1-00061.ogg");
+	hits[7].setBuffer(bufferHits[7]);
+
+	bufferHits[8].loadFromFile("audio/hitsounds/mk1-00061.ogg"); //Blood2
+	hits[8].setBuffer(bufferHits[8]);
+
+	bufferHits[9].loadFromFile("audio/hitsounds/mk1-00325.ogg"); //Block
+	hits[9].setBuffer(bufferHits[9]);
 
 	//MUSIC
 
-	for (int i = 0; i < 6; i++) { bufferMusic.push_back(buffer); music.push_back(sound); }
+	for (int i = 0; i < 7; i++) { bufferMusic.push_back(buffer); music.push_back(sound); }
 
 	bufferMusic[0].loadFromFile("audio/music/mainTheme.ogg");
 	music[0].setBuffer(bufferMusic[0]);
@@ -38,6 +60,8 @@ MusicManager::MusicManager() {
 	music[4].setBuffer(bufferMusic[4]);
 	bufferMusic[5].loadFromFile("audio/music/warriorshrineTheme.ogg");
 	music[5].setBuffer(bufferMusic[5]);
+	bufferMusic[6].loadFromFile("audio/music/throneroomTheme.ogg");
+	music[6].setBuffer(bufferMusic[6]);
 
 
 	//ANUNCIADOR
@@ -139,13 +163,26 @@ void MusicManager::historyTheme() { stopMusic(); stopIntros(); music[2].setVolum
 
 void MusicManager::skipHistoryTheme() { music[2].setPlayingOffset(seconds(6.65f)); }
 
-void MusicManager::hit1() { hits[0].setVolume(volumeEffects); hits[0].play();}
+void MusicManager::hit1() { hits[0].setVolume(volumeEffects); hits[0].play(); }
+void MusicManager::hit9() { hits[8].setVolume(volumeEffects); hits[8].play(); }
+
+void MusicManager::hit2() { hits[1].setVolume(volumeEffects); hits[1].play(); }
+void MusicManager::hit3() { hits[2].setVolume(volumeEffects); hits[2].play(); }
+void MusicManager::hit4() { hits[3].setVolume(volumeEffects); hits[3].play(); }
+void MusicManager::hit5() { hits[4].setVolume(volumeEffects); hits[4].play(); }
+
+void MusicManager::hit6() { hits[5].setVolume(volumeEffects); hits[5].play(); }
+void MusicManager::hit7() { hits[6].setVolume(volumeEffects); hits[6].play(); }
+void MusicManager::hit8() { hits[7].setVolume(volumeEffects); hits[7].play(); }
+
+void MusicManager::hitBlock() { hits[9].setVolume(volumeEffects); hits[9].play(); }
 
 void MusicManager::courtyardTheme() { stopMusic(); stopIntros(); music[3].setVolume(volumeMusic); music[3].play(); music[3].setLoop(true); }
 void MusicManager::thepitTheme() { stopMusic(); stopIntros(); music[4].setVolume(volumeMusic); music[4].play(); music[4].setLoop(true); }
 void MusicManager::warriorshrineTheme() { stopMusic(); stopIntros(); music[5].setVolume(volumeMusic); music[5].play(); music[5].setLoop(true); }
+void MusicManager::throneroomTheme() { stopMusic(); stopIntros(); music[6].setVolume(volumeMusic); music[6].play(); music[6].setLoop(true); }
 
-void MusicManager::excellente() { announcers[0].setVolume(volumeEffects); announcers[0].play(); }
+void MusicManager::excellent() { announcers[0].setVolume(volumeEffects); announcers[0].play(); }
 void MusicManager::fatality() { announcers[1].setVolume(volumeEffects); announcers[1].play(); }
 void MusicManager::fight() { announcers[2].setVolume(volumeEffects); announcers[2].play(); }
 void MusicManager::finishHer() { announcers[3].setVolume(volumeEffects); announcers[3].play(); }

@@ -82,6 +82,12 @@ public:
 		speed = _speed;
 	}
 
+	bool isCrouching() {
+		return crouching;
+	}
+
+	bool isOnAir() { return on_air; }
+
 
 	RectangleShape hitbox;
 

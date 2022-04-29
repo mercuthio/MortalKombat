@@ -20,10 +20,12 @@ public:
 	void Update();
 	void draw(RenderWindow&);
 
+	bool isFinished() { return finished; }
+
 private:
 	Texture* spriteSheet;
 	RectangleShape body;
-	int totalFrames[4] = { 5, 6, 7, 12 };
+	int totalFrames[4] = { 5, 6, 7, 18 };
 	int frame;
 	bool finished;
 	BloodType animationInProgress;

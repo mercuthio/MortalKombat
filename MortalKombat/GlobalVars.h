@@ -55,20 +55,21 @@ static Keyboard::Key specialButtonP2 = Keyboard::M;
 static Keyboard::Key blockButtonP2 = Keyboard::O;
 
 
-const int life_PUNCH = 1;
-const int life_PUNCH_MULTIPLE = 0.5;
-const int life_PUNCH_CLOSE = 1;
-const int life_PUNCH_UPPER = 1;
-const int life_PUNCH_UPPER_MULTIPLE = 0.5;
-const int life_PUNCH_UPPER_CLOSE = 1;
-const int life_PUNCH_FROM_DOWN = 1;
-const int life_KICK = 1.7;
-const int life_KICK_UPPER = 1.7;
-const int life_KICK_LOW = 1.7;
-const int life_KICK_HIGH = 1.7;
-const int life_KICK_FROM_DOWN = 1.7;
-const int life_KICK_FROM_AIR = 1.7;
-const int life_CATCH = 2;
+const int life_BLOCK = 2;
+const int life_PUNCH = 6;
+const int life_PUNCH_MULTIPLE = 4;
+const int life_PUNCH_CLOSE = 8;
+const int life_PUNCH_UPPER = 8;
+const int life_PUNCH_UPPER_MULTIPLE = 4;
+const int life_PUNCH_UPPER_CLOSE = 10;
+const int life_PUNCH_FROM_DOWN = 20;
+const int life_KICK = 6;
+const int life_KICK_UPPER = 8;
+const int life_KICK_LOW = 16;
+const int life_KICK_HIGH = 8;
+const int life_KICK_FROM_DOWN = 10;
+const int life_KICK_FROM_AIR = 10;
+const int life_CATCH = 20;
 
 enum class LookingAt {
 	LEFT, RIGHT
@@ -173,7 +174,18 @@ static bool isFixedMovement(AnimationType anim) {
 		(anim != AnimationType::JUMP_AND_MOVE) &&
 		(anim != AnimationType::PUNCH_FROM_AIR) &&
 		(anim != AnimationType::KICK_FROM_AIR) &&
-		(anim != AnimationType::FALL);
+		(anim != AnimationType::FALL) &&
+		(anim != AnimationType::HIT_DOWN) &&
+		(anim != AnimationType::HIT_HEAD) &&
+		(anim != AnimationType::HIT_STAND) &&
+		(anim != AnimationType::HIT_STAND_STRONG) &&
+		(anim != AnimationType::FALL_BACK) &&
+		(anim != AnimationType::FALL_UPPERCUT) &&
+		(anim != AnimationType::NUTS);
+}
+
+static bool isBlockingMovement(AnimationType anim) {
+	return (anim == AnimationType::BLOCK || anim == AnimationType::BLOCK_LOW);
 }
 
 static bool isDamageMovement(AnimationType anim) {

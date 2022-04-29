@@ -83,10 +83,12 @@ void Character::CheckIAAnimation(Character opponent) {
 		switch (ataque) {
 		case 0:
 			animation_in_process = AnimationType::PUNCH_FROM_AIR;
+			music.hit6();
 			break;
 
 		case 1:
 			animation_in_process == AnimationType::KICK_FROM_AIR;
+			music.hit7();
 			break;
 		}
 		estado = EstadoIA::ALEJARSE;
@@ -101,7 +103,7 @@ void Character::CheckIAAnimation(Character opponent) {
 			break;
 
 		case EstadoIA::ACERCARSE:			
-			if (salto > 20) {
+			if (salto > 23) {
 				speed = Vector2<float>(-400, 700);
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
 			}
@@ -112,7 +114,7 @@ void Character::CheckIAAnimation(Character opponent) {
 			break;
 
 		case EstadoIA::ALEJARSE:
-			if (salto > 20) {
+			if (salto > 23) {
 				speed = Vector2<float>(400, 700);
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
 			}
@@ -126,7 +128,7 @@ void Character::CheckIAAnimation(Character opponent) {
 
 			if (difficulty_lvl == DifficultyLevel::HARD) {
 				if (animOp == AnimationType::BLOCK) {
-
+					animation_in_process = AnimationType::WIN;
 				}
 			}
 			else {
@@ -136,9 +138,11 @@ void Character::CheckIAAnimation(Character opponent) {
 				case 0:
 					if (!on_air) {
 						animation_in_process = AnimationType::PUNCH;
+						music.hit6();
 					}
 					else {
 						animation_in_process = AnimationType::PUNCH_FROM_AIR;
+						music.hit8();
 					}
 
 					break;
@@ -146,6 +150,7 @@ void Character::CheckIAAnimation(Character opponent) {
 				case 1:
 					if (!on_air) {
 						animation_in_process = AnimationType::PUNCH_UPPER;
+						music.hit6();
 					}
 
 					break;
@@ -153,15 +158,18 @@ void Character::CheckIAAnimation(Character opponent) {
 				case 2:
 					if (!on_air) {
 						animation_in_process = AnimationType::KICK;
+						music.hit7();
 					}
 					else {
 						animation_in_process == AnimationType::KICK_FROM_AIR;
+						music.hit8();
 					}
 					break;
 
 				case 3:
 					if (!on_air) {
 						animation_in_process = AnimationType::KICK_LOW;
+						music.hit7();
 					}
 					break;
 				}
@@ -238,10 +246,12 @@ void Character::CheckAnimation() {
 
 			EndAndResetAnimation();
 			animation_in_process = AnimationType::PUNCH_FROM_AIR;
+			music.hit6();
 		}
 		else if (Keyboard::isKeyPressed(kickButton)) {
 			EndAndResetAnimation();
 			animation_in_process = AnimationType::KICK_FROM_AIR;
+			music.hit8();
 		}
 		// else -> nothing
 	}
@@ -255,10 +265,12 @@ void Character::CheckAnimation() {
 		if (!fightKeyPressed && Keyboard::isKeyPressed(punchButton) && animation_in_process != AnimationType::PUNCH_FROM_DOWN) {
 			animations[animation_in_process].animation.ResetAnimation();
 			animation_in_process = AnimationType::PUNCH_FROM_DOWN;
+			music.hit7();
 			fightKeyPressed = true;
 		}
 		else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButton)) {
 			animation_in_process = AnimationType::KICK_FROM_DOWN;
+			music.hit6();
 			fightKeyPressed = true;
 		}
 		else if (Keyboard::isKeyPressed(blockButton)) {												//H.Kick en parado
@@ -280,6 +292,7 @@ void Character::CheckAnimation() {
 
 			if (!fightKeyPressed && Keyboard::isKeyPressed(kickButton)) {
 				animation_in_process = AnimationType::KICK_LOW;
+				music.hit7();
 				fightKeyPressed = true;
 			}
 			else {
@@ -296,9 +309,11 @@ void Character::CheckAnimation() {
 			else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButton)) {											//L.Punch hacia delante
 				if (Keyboard::isKeyPressed(punchButton2)) {
 					animation_in_process = AnimationType::PUNCH_UPPER_MULTIPLE;
+					music.hit8();
 				}
 				else {
 					animation_in_process = AnimationType::PUNCH_UPPER;
+					music.hit6();
 				}
 
 				fightKeyPressed = true;
@@ -306,6 +321,7 @@ void Character::CheckAnimation() {
 			}
 			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButton)) {											//M.Punch hacia delante
 				animation_in_process = AnimationType::KICK_UPPER;
+				music.hit6();
 				fightKeyPressed = true;
 			}
 			else {																					//Solo moverse
@@ -321,9 +337,11 @@ void Character::CheckAnimation() {
 			else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButton)) {												//Salto hacia delante
 				if (Keyboard::isKeyPressed(punchButton2)) {
 					animation_in_process = AnimationType::PUNCH_MULTIPLE;
+					music.hit8();
 				}
 				else {
 					animation_in_process = AnimationType::PUNCH;
+					music.hit7();
 				}
 
 				punching = true;
@@ -331,6 +349,7 @@ void Character::CheckAnimation() {
 			}
 			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButton)) {											//L.Punch hacia delante
 				animation_in_process = AnimationType::KICK;
+				music.hit6();
 				fightKeyPressed = true;
 			}
 			else {																					//Solo moverse
@@ -345,14 +364,17 @@ void Character::CheckAnimation() {
 		}
 		else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButton)) {		//M.Punch, H.Punch en parado
 			animation_in_process = AnimationType::KICK;
+			music.hit7();
 			fightKeyPressed = true;
 		}
 		else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButton)) {												//L.Punch en parado
 			if (Keyboard::isKeyPressed(punchButton2)) {
 				animation_in_process = AnimationType::PUNCH_MULTIPLE;
+				music.hit8();
 			}
 			else {
 				animation_in_process = AnimationType::PUNCH;
+				music.hit7();
 			}
 
 			punching = true;
@@ -393,10 +415,12 @@ void Character::CheckAnimationP2() {
 
 			EndAndResetAnimation();
 			animation_in_process = AnimationType::PUNCH_FROM_AIR;
+			music.hit6();
 		}
 		else if (Keyboard::isKeyPressed(kickButtonP2)) {
 			EndAndResetAnimation();
 			animation_in_process = AnimationType::KICK_FROM_AIR;
+			music.hit7();
 		}
 		// else -> nothing
 	}
@@ -410,10 +434,12 @@ void Character::CheckAnimationP2() {
 		if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2) && animation_in_process != AnimationType::PUNCH_FROM_DOWN) {
 			animations[animation_in_process].animation.ResetAnimation();
 			animation_in_process = AnimationType::PUNCH_FROM_DOWN;
+			music.hit8();
 			fightKeyPressed = true;
 		}
 		else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {
 			animation_in_process = AnimationType::KICK_FROM_DOWN;
+			music.hit7();
 			fightKeyPressed = true;
 		}
 		else if (Keyboard::isKeyPressed(blockButtonP2)) {												//H.Kick en parado
@@ -435,6 +461,7 @@ void Character::CheckAnimationP2() {
 
 			if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {
 				animation_in_process = AnimationType::KICK_LOW;
+				music.hit7();
 				fightKeyPressed = true;
 			}
 			else {
@@ -451,9 +478,11 @@ void Character::CheckAnimationP2() {
 			else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2)) {											//L.Punch hacia delante
 				if (Keyboard::isKeyPressed(punchButton2P2)) {
 					animation_in_process = AnimationType::PUNCH_UPPER_MULTIPLE;
+					music.hit8();
 				}
 				else {
 					animation_in_process = AnimationType::PUNCH_UPPER;
+					music.hit6();
 				}
 
 				fightKeyPressed = true;
@@ -461,6 +490,7 @@ void Character::CheckAnimationP2() {
 			}
 			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {											//M.Punch hacia delante
 				animation_in_process = AnimationType::KICK_UPPER;
+				music.hit7();
 				fightKeyPressed = true;
 			}
 			else {																					//Solo moverse
@@ -475,10 +505,12 @@ void Character::CheckAnimationP2() {
 			}
 			else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2)) {												//Salto hacia delante
 				if (Keyboard::isKeyPressed(punchButton2P2)) {
+					music.hit8();
 					animation_in_process = AnimationType::PUNCH_MULTIPLE;
 				}
 				else {
 					animation_in_process = AnimationType::PUNCH;
+					music.hit6();
 				}
 
 				punching = true;
@@ -486,6 +518,7 @@ void Character::CheckAnimationP2() {
 			}
 			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {											//L.Punch hacia delante
 				animation_in_process = AnimationType::KICK;
+				music.hit8();
 				fightKeyPressed = true;
 			}
 			else {																					//Solo moverse
@@ -500,14 +533,17 @@ void Character::CheckAnimationP2() {
 		}
 		else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {		//M.Punch, H.Punch en parado
 			animation_in_process = AnimationType::KICK;
+			music.hit7();
 			fightKeyPressed = true;
 		}
 		else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2)) {												//L.Punch en parado
 			if (Keyboard::isKeyPressed(punchButton2P2)) {
 				animation_in_process = AnimationType::PUNCH_MULTIPLE;
+				music.hit8();
 			}
 			else {
 				animation_in_process = AnimationType::PUNCH;
+				music.hit6();
 			}
 
 			punching = true;
@@ -628,7 +664,9 @@ bool Character::CheckScreenCollisions(float movement) {
 	if (global_position.y > screenFloorLimit) {
 		global_position.y = screenFloorLimit;
 		speed = Vector2<float>(0, 0);
-		animations[animation_in_process].animation.RecieveFlagEvent();
+		if (!isBlockingMovement(animation_in_process)) {
+			animations[animation_in_process].animation.RecieveFlagEvent();
+		}
 		on_ground = true;
 		return true;
 	}
@@ -663,7 +701,7 @@ void Character::DoAnimation() {
 	}
 	
 
-	if (isFixedMovement(animation_in_process)) { // Sigue un desplazamiento fijado
+	if (isFixedMovement(animation_in_process) && !isBlockingMovement(animation_in_process)) { // Sigue un desplazamiento fijado
 		Vector2<float> mov = animations[animation_in_process].traslation;
 		mov.x = mirrored ? -mov.x : mov.x;
 		if (mov.x != 0) { 
@@ -672,6 +710,7 @@ void Character::DoAnimation() {
 			}
 		}
 	} else { // Sigue las físicas del mundo (gravedad)
+
 		Vector2<float> mov;
 		mov.y = speed.y * updateTime;
 		global_position.y -= mov.y;
@@ -692,7 +731,9 @@ void Character::DoAnimation() {
 		
 		// Pasamos de subir a bajar
 		if (pre_speed.y >= 0 && speed.y < 0) {
-			animations[animation_in_process].animation.RecieveFlagEvent();
+			if (!isBlockingMovement(animation_in_process)) {
+				animations[animation_in_process].animation.RecieveFlagEvent();
+			}
 		}
 	}
 
@@ -766,7 +807,7 @@ void Character::GetHit(int quantity) {
 }
 
 void Character::debugDraw(RenderWindow& window) {
-	window.draw(hitbox);	//Para debug
+	//window.draw(hitbox);	//Para debug
 	window.draw(shadow);
 	window.draw(body);
 }
@@ -775,6 +816,9 @@ void Character::RestartMirror(bool playerTwo) {
 
 	forwButton = Keyboard::D;
 	backButton = Keyboard::A;
+
+	forwButtonP2 = Keyboard::Right;
+	backButtonP2 = Keyboard::Left;
 
 	mirroring = false;
 	mirrorOnEnd = false;

@@ -24,13 +24,26 @@ public:
 
 	void skipHistoryTheme();
 
-	void hit1();
+	void hit1(); // Blood
+	void hit9();
+
+	void hit2(); // Hit
+	void hit3();
+	void hit4();
+	void hit5();
+
+	void hit6(); //No Hit
+	void hit7();
+	void hit8();
+
+	void hitBlock();
 
 	void courtyardTheme();
 	void thepitTheme();
 	void warriorshrineTheme();
+	void throneroomTheme();
 
-	void excellente();
+	void excellent();
 	void fatality();
 	void fight();
 	void finishHer();
@@ -80,6 +93,8 @@ public:
 
 	void stopIntros();
 	void stopMusic();
+
+	bool playingEffect = false;
 
 private:
 	vector<Sound> intro;

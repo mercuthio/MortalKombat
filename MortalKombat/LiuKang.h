@@ -34,6 +34,7 @@ static Character CreateLiuKang() {
 
 	vector<Recover> punchRecovery{ {1, 1} };
 	vector<Recover> kickUpRecovery{ {3, 2} };
+	vector<Recover> catchRecovery{ {1, 7} };
 	vector<Recover> noRecovery{};
 
 
@@ -77,7 +78,7 @@ static Character CreateLiuKang() {
 	Animation recover0 = Animation(7, spriteSheet, Vector2<int>(1670, 5078), sz, 5, false, true, noRecovery, null_vector, 2);
 
 	Animation getCaught0 = Animation(7, spriteSheet, Vector2<int>(1904, 5600), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation catch0 = Animation(7, spriteSheet, Vector2<int>(32, 5600), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation catch0 = Animation(7, spriteSheet, Vector2<int>(32, 5600), sz, 5, false, true, punchRecovery, null_vector, 2);
 	Animation dying0 = Animation(7, spriteSheet, Vector2<int>(32, 7166), sz, 5, false, true, noRecovery, null_vector, 2);
 
 	Animation turnLeft0 = Animation(3, spriteSheet, Vector2<int>(2138, 6122), sz, 5, false, true, noRecovery, null_vector, 2);

@@ -275,7 +275,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 		background.loadTextures();
 		BackgroundManager = background;
 
-		music.thepitTheme();
+		music.throneroomTheme();
 
 		break;
 	}
@@ -349,6 +349,19 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 
 void BattleManager::RestartRound() {
 
+	moveXBack = totalMoveXBack; //Movemos escenario a posicion inicial
+	totalMoveXBack = 0;
+
+	player1.setFreeze(true);
+	player1.initPosition(BackgroundManager.initPlayer1);
+	player1.setPlayer(1);
+	player1.RestartMirror(false);
+
+	player2.setFreeze(true);
+	player2.initPosition(BackgroundManager.initPlayer2);
+	player2.setPlayer(2);
+	player2.RestartMirror(true);
+
 	flash = false;
 	showing_fight = false;
 	started_game = false;
@@ -367,16 +380,6 @@ void BattleManager::RestartRound() {
 	life2 = 100;
 	time_left = 99;
 	round++;
-
-	player1.setFreeze(true);
-	player1.initPosition(BackgroundManager.initPlayer1);
-	player1.setPlayer(1);
-	player1.RestartMirror(false);
-
-	player2.setFreeze(true);
-	player2.initPosition(BackgroundManager.initPlayer2);
-	player2.setPlayer(2);
-	player2.RestartMirror(true);
 
 	player1.life = life1;
 	player2.life = life2;
@@ -521,6 +524,8 @@ void BattleManager::Update() {
 	}
 
 	blood.Update();
+	bloodGround1.Update();
+	bloodGround2.Update();
 
 	if (winned_game != 0) {
 		if (winned_game == 1) {
@@ -556,6 +561,7 @@ void BattleManager::Update() {
 }
 
 void BattleManager::CheckCollisions() {
+
 	if (player1.hitbox.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds())) {
 
 		if (isDamageMovement(player1.animation_in_process)) {	//Le pega el jugador 1
@@ -564,7 +570,7 @@ void BattleManager::CheckCollisions() {
 			ProcessHit(player1.animation_in_process, true);
 
 
-		}else if (isDamageMovement(player2.animation_in_process)) {	//Le pega el jugador 
+		} else if (isDamageMovement(player2.animation_in_process)) {	//Le pega el jugador 
 			if (finishing2) { P2WinnedPose = true; }//El jugador 1 golpea en finish him
 
 			ProcessHit(player2.animation_in_process, false);
@@ -577,42 +583,95 @@ void BattleManager::CheckCollisions() {
 
 void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 
-	if ((toPlayerTwo && player2.isBlocking()) || (!toPlayerTwo && player1.isBlocking())) {
+	if ((toPlayerTwo && !isFixedMovement(player2.animation_in_process))) {
 		return;
+	}
+	else if (!toPlayerTwo && !isFixedMovement(player1.animation_in_process)) {
+		return;
+	}
+
+	if ((toPlayerTwo && player2.isBlocking())) {
+		life2 -= life_BLOCK;
+		player2.setSpeed(Vector2f(200, 0));
+		music.hitBlock();
+		return;
+	} 
+	else if (!toPlayerTwo && player1.isBlocking()) {
+		life1 -= life_BLOCK;
+		player1.setSpeed(Vector2f(200, 0));
+		music.hitBlock();
+		return;
+	}
+
+	bool crouching = false;
+	if ((toPlayerTwo && player2.isCrouching()) || !toPlayerTwo && player1.isCrouching()) {
+		crouching = true;
 	}
 
 	if (anim == AnimationType::PUNCH || anim == AnimationType::PUNCH_CLOSE) {
 		if (toPlayerTwo) {
 			life2 -= life_PUNCH;
-			player2.animation_in_process = AnimationType::HIT_STAND;
+			if (crouching) {
+				player2.animation_in_process = AnimationType::HIT_DOWN;
+			}
+			else {
+				player2.animation_in_process = AnimationType::HIT_STAND;
+			}
+			music.hit2();
+			player2.setSpeed(Vector2f(250, 0));
 		}
 		else {
 			life1 -= life_PUNCH;
 			player1.animation_in_process = AnimationType::HIT_STAND;
+			music.hit2();
+			player1.setSpeed(Vector2f(250, 0));
 		}
 
 	}
 	else if (anim == AnimationType::PUNCH_UPPER || anim == AnimationType::PUNCH_UPPER_CLOSE) {
 		if (toPlayerTwo) {
 			life2 -= life_PUNCH_UPPER;
-			player2.animation_in_process = AnimationType::HIT_HEAD;
-			music.hit1();
-			if (player2.lookingAt() == LookingAt::LEFT) {
-				blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player2.getPosition().x + 141 * 3, player2.getPosition().y + 45 * 3));
+			if (crouching) {
+				player2.animation_in_process = AnimationType::HIT_DOWN;
 			}
 			else {
-				blood.bloodEffectAt(BloodType::LEFT, Vector2f(player2.getPosition().x + 15 * 3, player2.getPosition().y + 25 * 3));
+				player2.animation_in_process = AnimationType::HIT_HEAD;
+			}
+			music.hit9();
+
+			int random = rand() % 10;
+
+			player2.setSpeed(Vector2f(300, 0));
+
+			if (player2.lookingAt() == LookingAt::LEFT) {
+				if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player2.getPosition().x + 141 * 3, player2.getPosition().y + 45 * 3)); }
+				if (bloodGround1.isFinished() && random > 3) { bloodGround1.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x + 485, player2.getPosition().y + 415)); }
+				if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x + 550, player2.getPosition().y + 440)); }
+			}
+			else {
+				if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::LEFT, Vector2f(player2.getPosition().x + 15 * 3, player2.getPosition().y + 25 * 3)); }
+				if (bloodGround1.isFinished() && random > 3) { bloodGround1.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x, player2.getPosition().y + 413)); }
+				if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x - 40, player2.getPosition().y + 442)); }
 			}
 		}
 		else {
 			life1 -= life_PUNCH_UPPER;
 			player1.animation_in_process = AnimationType::HIT_HEAD;
-			music.hit1();
+			music.hit9();
+
+			int random = rand() % 10;
+
+			player1.setSpeed(Vector2f(300, 0));
+
 			if (player1.lookingAt() == LookingAt::LEFT) {
-				blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player1.getPosition().x + 141 * 3, player1.getPosition().y + 45 * 3));
+				if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player1.getPosition().x + 141 * 3, player1.getPosition().y + 45 * 3)); }
+				if (bloodGround1.isFinished() && random > 3) { bloodGround1.bloodEffectAt(BloodType::GROUND, Vector2f(player1.getPosition().x + 485, player1.getPosition().y + 415)); }
+				if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player1.getPosition().x + 550, player1.getPosition().y + 440)); }
 			}
 			else {
-				blood.bloodEffectAt(BloodType::LEFT, Vector2f(player1.getPosition().x + 15 * 3, player1.getPosition().y + 25 * 3));
+				if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::LEFT, Vector2f(player1.getPosition().x + 15 * 3, player1.getPosition().y + 25 * 3)); }
+				if (bloodGround1.isFinished() && random > 3) { bloodGround1.bloodEffectAt(BloodType::GROUND, Vector2f(player1.getPosition().x, player1.getPosition().y + 413)); }
+				if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player1.getPosition().x - 40, player1.getPosition().y + 442)); }
 			}
 		}
 	}
@@ -620,87 +679,173 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 		if (toPlayerTwo) {
 			life2 -= life_PUNCH_UPPER;
 			player2.animation_in_process = AnimationType::FALL;
-			player2.setOnAir(true);
 			music.hit1();
+
+			int random = rand() % 10;
+
+			player2.setOnAir(true);
+			player2.setSpeed(Vector2f(500, 500));
+
 			if (player2.lookingAt() == LookingAt::LEFT) {
-				player2.setSpeed(Vector2f(400, 1200));
-				blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player2.getPosition().x + 141 * 3, player2.getPosition().y + 45 * 3));
+				if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player2.getPosition().x + 141 * 3, player2.getPosition().y + 45 * 3)); }
+				if (bloodGround1.isFinished() && random > 3) { bloodGround1.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x + 485, player2.getPosition().y + 415)); }
+				if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x + 550, player2.getPosition().y + 440)); }
 			}
 			else {
-				player2.setSpeed(Vector2f(400, 1200));
-				blood.bloodEffectAt(BloodType::LEFT, Vector2f(player2.getPosition().x + 15 * 3, player2.getPosition().y + 25 * 3));
+				if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::LEFT, Vector2f(player2.getPosition().x + 15 * 3, player2.getPosition().y + 25 * 3)); }
+				if (bloodGround1.isFinished() && random > 3) { bloodGround1.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x, player2.getPosition().y + 413)); }
+				if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x - 40, player2.getPosition().y + 442)); }
 			}
 		}
 		else {
 			life1 -= life_PUNCH_UPPER;
 			player1.animation_in_process = AnimationType::FALL;
-			player1.setOnAir(true);
 			music.hit1();
+			
+			int random = rand() % 10;
+
+			player1.setOnAir(true);
+			player1.setSpeed(Vector2f(500, 500));
+
 			if (player1.lookingAt() == LookingAt::LEFT) {
-				player1.setSpeed(Vector2f(400, 1200));
-				blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player1.getPosition().x + 141 * 3, player1.getPosition().y + 45 * 3));
+				if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player1.getPosition().x + 141 * 3, player1.getPosition().y + 45 * 3)); }
+				if (bloodGround1.isFinished() && random > 3) { bloodGround1.bloodEffectAt(BloodType::GROUND, Vector2f(player1.getPosition().x + 485, player1.getPosition().y + 415)); }
+				if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player1.getPosition().x + 550, player1.getPosition().y + 440)); }
 			}
 			else {
-				player1.setSpeed(Vector2f(400, 1200));
-				blood.bloodEffectAt(BloodType::LEFT, Vector2f(player1.getPosition().x + 15 * 3, player1.getPosition().y + 25 * 3));
+				if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::LEFT, Vector2f(player1.getPosition().x + 15 * 3, player1.getPosition().y + 25 * 3)); }
+				if (bloodGround1.isFinished() && random > 3) { bloodGround1.bloodEffectAt(BloodType::GROUND, Vector2f(player1.getPosition().x, player1.getPosition().y + 413)); }
+				if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player1.getPosition().x - 40, player1.getPosition().y + 442)); }
 			}
 		}
-	
+		music.excellent();
 	}
 	else if (anim == AnimationType::PUNCH_MULTIPLE) {
 		if (toPlayerTwo) {
 			life2 -= life_PUNCH_MULTIPLE;
-			player2.animation_in_process = AnimationType::HIT_STAND_STRONG;
+			if (crouching) {
+				player2.animation_in_process = AnimationType::HIT_DOWN;
+			}
+			else {
+				player2.animation_in_process = AnimationType::HIT_STAND_STRONG;
+			}
+			music.hit5();
+			player2.setSpeed(Vector2f(400, 0));
 		}
 		else {
 			life1 -= life_PUNCH_MULTIPLE;
-			player1.animation_in_process = AnimationType::HIT_STAND_STRONG;
+			if (crouching) {
+				player1.animation_in_process = AnimationType::HIT_DOWN;
+			}
+			else {
+				player1.animation_in_process = AnimationType::HIT_STAND_STRONG;
+			}
+			music.hit5();
+			player1.setSpeed(Vector2f(400, 0));
 		}
 	}
 	else if (anim == AnimationType::PUNCH_MULTIPLE || anim == AnimationType::PUNCH_UPPER_MULTIPLE) {
 		if (toPlayerTwo) {
 			life2 -= life_PUNCH_MULTIPLE;
-			player2.animation_in_process = AnimationType::HIT_STAND_STRONG;
+			if (crouching) {
+				player2.animation_in_process = AnimationType::HIT_DOWN;
+			}
+			else {
+				player2.animation_in_process = AnimationType::HIT_STAND_STRONG;
+			}
+			music.hit3();
+			player2.setSpeed(Vector2f(400, 0));
 		}
 		else {
 			life1 -= life_PUNCH_MULTIPLE;
-			player1.animation_in_process = AnimationType::HIT_STAND_STRONG;
+			if (crouching) {
+				player1.animation_in_process = AnimationType::HIT_DOWN;
+			}
+			else {
+				player1.animation_in_process = AnimationType::HIT_STAND_STRONG;
+			}
+			music.hit3();
+			player1.setSpeed(Vector2f(400, 0));
 		}
 	}
 	else if (anim == AnimationType::KICK || anim == AnimationType::KICK_UPPER || anim == AnimationType::KICK_HIGH || anim == AnimationType::KICK_FROM_AIR) {
 		if (toPlayerTwo) {
 			life2 -= life_KICK;
-			player2.animation_in_process = AnimationType::HIT_STAND;
-			//Retroceder un poco a player2
+			if (crouching) {
+				player2.animation_in_process = AnimationType::HIT_DOWN;
+			}
+			else {
+				player2.animation_in_process = AnimationType::HIT_STAND;
+			}
+			music.hit3();
+			player2.setSpeed(Vector2f(250, 0));
 		}
 		else {
 			life1 -= life_KICK;
-			player1.animation_in_process = AnimationType::HIT_STAND;
-			//Retroceder un poco a player1
+			if (crouching) {
+				player1.animation_in_process = AnimationType::HIT_DOWN;
+			}
+			else {
+				player1.animation_in_process = AnimationType::HIT_STAND;
+			}
+			music.hit3();
+			player1.setSpeed(Vector2f(250, 0));
 		}
 	}
 	else if (anim == AnimationType::KICK_LOW) {
 		if (toPlayerTwo) {
 			life2 -= life_KICK_LOW;
-			player2.animation_in_process = AnimationType::FALL_UPPERCUT;
-			//Retroceder un poco a player2
+			player2.setOnAir(true);
+			player2.animation_in_process = AnimationType::FALL;
+			music.hit5();
+
+			int random = rand() % 10;
+
+			player2.setSpeed(Vector2f(400, 400));
+
+			if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::UP, Vector2f(player2.getPosition().x + 141 * 3, player2.getPosition().y + 45 * 3)); }
+			if (bloodGround1.isFinished() && random > 3) { bloodGround1.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x + 485, player2.getPosition().y + 415)); }
+			if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x + 600, player2.getPosition().y + 440)); }
 		}
 		else {
 			life1 -= life_KICK_LOW;
-			player1.animation_in_process = AnimationType::FALL_UPPERCUT;
-			//Retroceder un poco a player1
+			player1.setOnAir(true);
+			player1.animation_in_process = AnimationType::FALL;
+			music.hit5();
+			
+			int random = rand() % 10;
+
+			player1.setSpeed(Vector2f(400, 400));
+
+			if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::UP, Vector2f(player1.getPosition().x + 141 * 3, player1.getPosition().y + 45 * 3)); }
+			if (bloodGround1.isFinished() && random > 3) { bloodGround1.bloodEffectAt(BloodType::GROUND, Vector2f(player1.getPosition().x + 485, player1.getPosition().y + 415)); }
+			if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player1.getPosition().x + 580, player1.getPosition().y + 440)); }
 		}
 	}
 	else if (anim == AnimationType::KICK_FROM_DOWN) {
 		if (toPlayerTwo) {
 			life2 -= life_KICK_FROM_DOWN;
-			player2.animation_in_process = AnimationType::FALL_UPPERCUT;
-			//Retroceder un poco a player2
+			player2.setOnAir(true);
+			if (crouching) {
+				player2.animation_in_process = AnimationType::HIT_DOWN;
+			}
+			else {
+				player2.animation_in_process = AnimationType::NUTS;
+			}
+			music.hit2();
+			player2.setSpeed(Vector2f(250, 0));
 		}
 		else {
 			life1 -= life_KICK_FROM_DOWN;
-			player1.animation_in_process = AnimationType::FALL_UPPERCUT;
-			//Retroceder un poco a player1
+			player1.setOnAir(true);
+			if (crouching) {
+				player2.animation_in_process = AnimationType::HIT_DOWN;
+			}
+			else {
+				player2.animation_in_process = AnimationType::NUTS;
+			}
+			music.hit2();
+			player1.setSpeed(Vector2f(250, 0));
 		}
 	}
 	else if (anim == AnimationType::CATCH) {
@@ -763,8 +908,19 @@ void BattleManager::increase_round(int player) {
 void BattleManager::draw(RenderWindow& window) {
 
 	BackgroundManager.draw(window);
-	player1.debugDraw(window);
-	player2.debugDraw(window);
+
+	bloodGround1.draw(window);
+	bloodGround2.draw(window);
+
+	if (player2.isAttaking()) {
+		player1.debugDraw(window);
+		player2.debugDraw(window);
+	}
+	else {
+		player2.debugDraw(window);
+		player1.debugDraw(window);
+	}
+
 	blood.draw(window);
 
 	int i = 0;
