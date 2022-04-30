@@ -522,6 +522,17 @@ void BattleManager::Update() {
 		}
 	}
 
+
+	if (player1.animation_in_process == AnimationType::SPECIAL) {
+
+		if (liuKangSpecial.isFinished()) {
+			Vector2f pos = Vector2f(player1.getPosition().x + 420, player1.getPosition().y + 205);
+			liuKangSpecial.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
+		}
+	}
+
+	//liuKangSpecial.Update();
+
 	CheckCollisions();
 
 	blood.Update();
@@ -583,6 +594,11 @@ void BattleManager::CheckCollisions() {
 
 		}
 
+	}
+
+	if (liuKangSpecial.body.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds())) {
+		liuKangSpecial.setHit();
+		ProcessHit(AnimationType::SPECIAL, true);
 	}
 
 }
@@ -946,9 +962,6 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 		}
 	}
 	else if (anim == AnimationType::KICK_FROM_DOWN) {
-
-	cout << "eee" << endl;
-
 		if (toPlayerTwo) {
 			life2 -= life_KICK_FROM_DOWN;
 			if (crouching) {
@@ -981,6 +994,40 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			}
 			music.hit2();
 		}
+	}
+	else if (anim == AnimationType::SPECIAL) {
+	if (toPlayerTwo) {
+		life2 -= life_SPECIAL;
+		if (crouching) {
+			player2.animation_in_process = AnimationType::HIT_DOWN;
+			player2.setSpeed(Vector2f(150, 0));
+		}
+		else if (onAir) {
+			player2.animation_in_process = AnimationType::FALL;
+			player2.setSpeed(Vector2f(450, 100));
+		}
+		else {
+			player2.animation_in_process = AnimationType::HIT_STAND_STRONG;
+			player2.setSpeed(Vector2f(250, 0));
+		}
+		//music.hit2();
+	}
+	else {
+		life1 -= life_SPECIAL;
+		if (crouching) {
+			player1.animation_in_process = AnimationType::HIT_DOWN;
+			player1.setSpeed(Vector2f(150, 0));
+		}
+		else if (onAir) {
+			player1.animation_in_process = AnimationType::FALL;
+			player1.setSpeed(Vector2f(450, 100));
+		}
+		else {
+			player1.animation_in_process = AnimationType::HIT_STAND_STRONG;
+			player1.setSpeed(Vector2f(250, 0));
+		}
+		//music.hit2();
+	}
 	}
 	else if (anim == AnimationType::CATCH) {
 		if (toPlayerTwo) {
@@ -1056,6 +1103,7 @@ void BattleManager::draw(RenderWindow& window) {
 	}
 
 	blood.draw(window);
+	liuKangSpecial.draw(window);
 
 	int i = 0;
 	for (RectangleShape rect : HUD_vector) {

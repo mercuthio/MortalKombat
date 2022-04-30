@@ -13,19 +13,38 @@ public:
 	SpecialAttack();
 	//~SpecialAttack() = default;
 
-	void SpecialAttackAt(CharacterType type, Vector2f position, bool mirrored);
+	void SpecialAttackAt(SpecialType type, Vector2f position, bool mirrored);
+	bool SpecialAttackAnimation();
 
 	void Update();
 	void draw(RenderWindow&);
 
-	bool isFinished();
+	bool getHasHit() { return hasHit; }
+
+	void setHit() {
+
+		if (!hasHit) {
+			float posX = body.getPosition().x;
+			float posY = body.getPosition().y;
+			body.setPosition(Vector2f(posX + 5, posY - 5));
+			hasHit = true;
+		}
+	}
+
+	bool isFinished() { return finished; }
+
+	RectangleShape body;
 
 private:
-	RectangleShape body;
-	Vector2<float> global_position;
+	Texture* spriteSheet;
+	int totalFramesAnim[3] = { 2, 4, 1};
+	int totalFramesHit[3] = { 6, 4, 4 };
 	LookingAt looking_at = LookingAt::RIGHT;
-
-	void DoAnimation();
+	int frame;
+	float internalTimer;
+	SpecialType animationInProgress;
+	bool finished;
+	bool hasHit;
 
 };
 

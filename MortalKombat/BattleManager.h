@@ -6,6 +6,7 @@
 #include "BackgroundManager.h"
 
 #include "BloodEffect.h"
+#include "SpecialAttack.h"
 
 #include "LiuKang.h"
 #include "Scorpion.h"
@@ -100,6 +101,8 @@ private:
 	BloodEffect blood;
 	BloodEffect bloodGround1;
 	BloodEffect bloodGround2;
+
+	SpecialAttack liuKangSpecial;
 
 	Character player1;
 	Character player2;

@@ -16,7 +16,7 @@ BloodEffect::BloodEffect() {
 
 	body.setTexture(spriteSheet);
 
-	cout << "[*] Loaded blood textures!" << endl;
+	cout << "[!] Loaded blood textures." << endl;
 
 }
 

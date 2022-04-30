@@ -31,6 +31,7 @@
     <ClCompile Include="FinishManager.cpp" />
     <ClCompile Include="HistoryManager.cpp" />
     <ClCompile Include="MusicManager.cpp" />
+    <ClCompile Include="SpecialAttack.cpp" />
     <ClCompile Include="StartManager.cpp" />
     <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="Mortal_Kombat.cpp" />
