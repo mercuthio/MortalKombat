@@ -88,6 +88,13 @@ public:
 
 	bool isOnAir() { return on_air; }
 
+	void setDying(bool die) {
+		dying = die;
+	}
+	void setFallen(bool fall) {
+		fallen = fall;
+	}
+
 
 	RectangleShape hitbox;
 	RectangleShape damage_hitbox;

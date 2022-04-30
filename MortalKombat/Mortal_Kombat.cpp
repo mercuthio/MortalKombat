@@ -6,6 +6,8 @@
 using namespace sf;
 using namespace std;
 
+bool clapping;
+
 View getLetterboxView(View view, int windowWidth, int windowHeight) {
 
     float windowRatio = windowWidth / (float)windowHeight;

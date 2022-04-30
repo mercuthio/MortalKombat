@@ -26,6 +26,8 @@ BattleManager::BattleManager(Texture* texture_, Font font_, Clock clock) {
 	clock_finishHim = 0;
 	clock_finishRound = 0;
 
+	clapping = false;
+
 	LoadTextures();
 	LoadCharacters();
 
@@ -48,7 +50,7 @@ void BattleManager::LoadTextures() {
 	Vector2f size_danger = Vector2f(121.0f, 39.0f);
 	Vector2f size_clock = Vector2f(38.0f, 54.0f);
 	Vector2f size_fight = Vector2f(735.0f, 180.0f);
-	Vector2f size_winner = Vector2f(735.0f,161.0f);
+	Vector2f size_winner = Vector2f(735.0f, 161.0f);
 
 	IntRect uvRect;
 	RectangleShape rect;
@@ -207,7 +209,7 @@ void BattleManager::LoadTextures() {
 
 }
 
-void BattleManager::LoadCharacters(){
+void BattleManager::LoadCharacters() {
 	cout << "[*] Loading character textures..." << endl;
 	LiuKang = CreateLiuKang();
 	cout << "[+......] Character LiuKang loaded!" << endl;
@@ -314,7 +316,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	break;
 	}
 
-	switch (character1){
+	switch (character1) {
 	case CAGE:
 		player1 = Scorpion;
 		break;
@@ -384,14 +386,22 @@ void BattleManager::RestartRound() {
 	moveXBack = totalMoveXBack; //Movemos escenario a posicion inicial
 	totalMoveXBack = 0;
 
-	player1.damage_hitbox.setSize(Vector2f(0,0));
+	player1.damage_hitbox.setSize(Vector2f(0, 0));
+
+	player1.setFallen(false);
+	player1.setDying(false);
 	player1.animation_in_process = AnimationType::IDLE;
+
 	player1.setFreeze(true);
+
 	player1.initPosition(BackgroundManager.initPlayer1);
 	player1.setPlayer(1);
 	player1.RestartMirror(false);
 
 	player2.damage_hitbox.setSize(Vector2f(0, 0));
+
+	player2.setFallen(false);
+	player2.setDying(false);
 	player2.animation_in_process = AnimationType::IDLE;
 	player2.setFreeze(true);
 	player2.initPosition(BackgroundManager.initPlayer2);
@@ -425,6 +435,22 @@ void BattleManager::RestartRound() {
 	player1.life = life1;
 	player2.life = life2;
 
+	switch (stage)
+	{
+	case COURTYARD:
+		music.courtyardTheme();
+		break;
+	case WARRIOR_SHRINE:
+		music.warriorshrineTheme();
+		break;
+	case THE_PIT:
+		music.thepitTheme();
+		break;
+	case THRONE_ROOM:
+		music.throneroomTheme();
+		break;
+	}
+
 }
 
 void BattleManager::Update(Event event) {}
@@ -455,10 +481,11 @@ void BattleManager::Update() {
 	if (!showed_danger2 && (vida / 100.0f) <= 0.2f) inDanger2 = true;
 
 	player1.Update(0.05f, false);
-	if (twoPlayers) { 
-		player2.Update(0.05f, true); 
-	} else {
-		player2.UpdateIA(0.05f, player1); 
+	if (twoPlayers) {
+		player2.Update(0.05f, true);
+	}
+	else {
+		player2.UpdateIA(0.05f, player1);
 	}
 
 	BackgroundManager.Update();
@@ -485,7 +512,7 @@ void BattleManager::Update() {
 	}
 
 
-	if ( (!finishing1 && !finishing2) && started_game && clock_timer >= 60) {
+	if ((!finishing1 && !finishing2) && started_game && clock_timer >= 60) {
 
 		clock_timer = 0;
 		if (time_left > 0) time_left--;
@@ -541,13 +568,13 @@ void BattleManager::Update() {
 			//Letras victoria
 			RectangleShape rect = HUD_vector[17];
 			uvRect = rect.getTextureRect();
-			if (flash){
+			if (flash) {
 				uvRect.left = 4046.0f;
 			}
 			else {
 				uvRect.left = 3715.0f;
 			}
-			
+
 			rect.setTextureRect(uvRect);
 			HUD_vector[17] = rect;
 		}
@@ -588,7 +615,7 @@ void BattleManager::Update() {
 				showing_finishHim = false;
 			}
 			else {
-				
+
 				RectangleShape rect = HUD_vector[16];
 				uvRect = rect.getTextureRect();
 				uvRect.top = 16 + 72 * finish_him_x;
@@ -617,7 +644,7 @@ void BattleManager::Update() {
 	bloodGround2.Update();
 
 	if (finishing1 || finishing2) {
-		if (showing_finishHim && finishing1) HUD_vector[3].setSize(Vector2f(0,0));
+		if (showing_finishHim && finishing1) HUD_vector[3].setSize(Vector2f(0, 0));
 		else if (showing_finishHim && finishing2) HUD_vector[2].setSize(Vector2f(0, 0));
 
 		inDanger1 = false;
@@ -626,16 +653,22 @@ void BattleManager::Update() {
 		clock_finishRound++;
 
 		bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
-	
-		if (!inFinishHim && clock_finishRound >= 250) {			//Terminado periodo de victoria
+
+		if (!inFinishHim && clock_finishRound == 80) {
+			music.clapsPublic();
+			clapping = true;
+		}
+
+		if (!finishedFinishHim && !inFinishHim && clock_finishRound >= 350) {			//Terminado periodo de 
 			showing_win = false;
 			clock_finishRound = 0;
 			finishing1 = false;
 			finishing2 = false;
+			clapping = false;
 
 			RestartRound();
 		}
-		else if ((inFinishHim && clock_finishRound >= 350) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
+		else if ((inFinishHim && clock_finishRound == 250) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
 
 			showing_win = true;
 			clock_finishRound = 0;
@@ -646,12 +679,40 @@ void BattleManager::Update() {
 			P1WinnedPose = false;
 
 			if (finishing1) {
+
+				switch (character1) {
+				case 3:	//Liu Kang
+					music.LiuKangWins();
+					break;
+				case 4: //Scorpion
+					music.ScorpionWins();
+					break;
+				case 6:	//Sonya Blade
+					music.SonyaBladeWins();
+					break;
+				}
+
 				player1.animation_in_process = AnimationType::WIN;
 				player2.animation_in_process = AnimationType::FALL;
+				player2.setSpeed(Vector2f(500, 0));
 			}
 			else if (finishing2) {
+
+				switch (character2) {
+				case 3:	//Liu Kang
+					music.LiuKangWins();
+					break;
+				case 4: //Scorpion
+					music.ScorpionWins();
+					break;
+				case 6:	//Sonya Blade
+					music.SonyaBladeWins();
+					break;
+				}
+
 				player2.animation_in_process = AnimationType::WIN;
 				player1.animation_in_process = AnimationType::FALL;
+				player1.setSpeed(Vector2f(500, 0));
 			}
 
 			player1.setFreeze(true);
@@ -659,7 +720,7 @@ void BattleManager::Update() {
 
 		}
 
-		if (finishedFinishHim && clock_finishRound == 150) {
+		if (finishedFinishHim && clock_finishRound >= 350) {
 			finished_game = true;
 		}
 
@@ -669,8 +730,24 @@ void BattleManager::Update() {
 		int winner_round = finished_round();	//Comprobamos final de ronda
 
 		if (winner_round == 1) {										//Jugador 1 acaba de ganar una ronda
+
+			music.stopMusic();
+
 			if (rounds_won1 == 1) {										//Todavia no ha ganado la partida
-				finishing1 = true;										
+
+				switch (character1) {
+				case 3:	//Liu Kang
+					music.LiuKangWins();
+					break;
+				case 4: //Scorpion
+					music.ScorpionWins();
+					break;
+				case 6:	//Sonya Blade
+					music.SonyaBladeWins();
+					break;
+				}
+
+				finishing1 = true;
 				showing_win = true;
 
 				uvRect.width = 327;
@@ -684,6 +761,7 @@ void BattleManager::Update() {
 
 				player1.animation_in_process = AnimationType::WIN;
 				player2.animation_in_process = AnimationType::FALL;
+				player2.setSpeed(Vector2f(500, 0));
 
 				player1.setFreeze(true);
 				player2.setFreeze(true);
@@ -691,6 +769,7 @@ void BattleManager::Update() {
 			else {														//Acaba de ganar la partida
 				finishing1 = true;
 				showing_finishHim = true;
+				music.finishHim();
 
 				RectangleShape rect = HUD_vector[16];
 				uvRect = rect.getTextureRect();
@@ -698,6 +777,8 @@ void BattleManager::Update() {
 				rect.setTextureRect(uvRect);
 				HUD_vector[16] = rect;
 
+				player2.setDying(true);
+				player2.setFallen(false);
 				player2.animation_in_process = AnimationType::DYING;
 				player2.setFreeze(true);
 
@@ -707,6 +788,20 @@ void BattleManager::Update() {
 		else if (winner_round == 2) {
 
 			if (rounds_won2 == 1) {										//Todavia no ha ganado la partida
+
+				music.stopMusic();
+				switch (character2) {
+				case 3:	//Liu Kang
+					music.LiuKangWins();
+					break;
+				case 4: //Scorpion
+					music.ScorpionWins();
+					break;
+				case 6:	//Sonya Blade
+					music.SonyaBladeWins();
+					break;
+				}
+
 				finishing2 = true;
 				showing_win = true;
 
@@ -721,6 +816,7 @@ void BattleManager::Update() {
 
 				player2.animation_in_process = AnimationType::WIN;
 				player1.animation_in_process = AnimationType::FALL;
+				player1.setSpeed(Vector2f(500, 0));
 
 				player2.setFreeze(true);
 				player1.setFreeze(true);
@@ -728,6 +824,7 @@ void BattleManager::Update() {
 			else {														//Acaba de ganar la partida
 				finishing2 = true;
 				showing_finishHim = true;
+				music.finishHim();
 
 				RectangleShape rect = HUD_vector[16];
 				uvRect = rect.getTextureRect();
@@ -735,6 +832,8 @@ void BattleManager::Update() {
 				rect.setTextureRect(uvRect);
 				HUD_vector[16] = rect;
 
+				player1.setDying(true);
+				player1.setFallen(false);
 				player1.animation_in_process = AnimationType::DYING;
 				player1.setFreeze(true);
 
@@ -758,12 +857,12 @@ void BattleManager::CheckCollisions() {
 		if (isDamageMovement(player1.animation_in_process)) {	//Le pega el jugador 1
 			bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
 			if (inFinishHim && finishing1 && clock_finishRound > 5) { P1WinnedPose = true; }			//El jugador 1 golpea en finish him
-			
+
 			ProcessHit(player1.animation_in_process, true);
 
 		}
 
-	} 
+	}
 
 	if (player2.damage_hitbox.getGlobalBounds().intersects(player1.hitbox.getGlobalBounds())) {
 
@@ -792,7 +891,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 		music.hitBlock();
 		player2.life = life2;
 		return;
-	} 
+	}
 	else if (!toPlayerTwo && player1.isBlocking()) {
 		life1 -= life_BLOCK;
 		player1.setSpeed(Vector2f(200, 0));
@@ -914,7 +1013,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			int random = rand() % 10;
 
 			player2.setOnAir(true);
-			player2.setSpeed(Vector2f(500, 800));
+			player2.setSpeed(Vector2f(300, 1200));
 
 			if (player2.lookingAt() == LookingAt::LEFT) {
 				if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player2.getPosition().x + 141 * 3, player2.getPosition().y + 45 * 3)); }
@@ -931,11 +1030,11 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			life1 -= life_PUNCH_UPPER;
 			player1.animation_in_process = AnimationType::FALL;
 			music.hit1();
-			
+
 			int random = rand() % 10;
 
 			player1.setOnAir(true);
-			player1.setSpeed(Vector2f(500, 800));
+			player1.setSpeed(Vector2f(300, 1200));
 
 			if (player1.lookingAt() == LookingAt::LEFT) {
 				if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player1.getPosition().x + 141 * 3, player1.getPosition().y + 45 * 3)); }
@@ -1132,7 +1231,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			player1.setOnAir(true);
 			player1.animation_in_process = AnimationType::FALL_UPPERCUT;
 			music.hit5();
-			
+
 			int random = rand() % 10;
 
 			player1.setSpeed(Vector2f(400, 400));
@@ -1177,38 +1276,38 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 		}
 	}
 	else if (anim == AnimationType::SPECIAL) {
-	if (toPlayerTwo) {
-		life2 -= life_SPECIAL;
-		if (crouching) {
-			player2.animation_in_process = AnimationType::HIT_DOWN;
-			player2.setSpeed(Vector2f(150, 0));
-		}
-		else if (onAir) {
-			player2.animation_in_process = AnimationType::FALL;
-			player2.setSpeed(Vector2f(450, 100));
-		}
-		else {
-			player2.animation_in_process = AnimationType::HIT_STAND_STRONG;
-			player2.setSpeed(Vector2f(250, 0));
-		}
-		//music.hit2();
-	}
-	else {
-		life1 -= life_SPECIAL;
-		if (crouching) {
-			player1.animation_in_process = AnimationType::HIT_DOWN;
-			player1.setSpeed(Vector2f(150, 0));
-		}
-		else if (onAir) {
-			player1.animation_in_process = AnimationType::FALL;
-			player1.setSpeed(Vector2f(450, 100));
+		if (toPlayerTwo) {
+			life2 -= life_SPECIAL;
+			if (crouching) {
+				player2.animation_in_process = AnimationType::HIT_DOWN;
+				player2.setSpeed(Vector2f(150, 0));
+			}
+			else if (onAir) {
+				player2.animation_in_process = AnimationType::FALL;
+				player2.setSpeed(Vector2f(450, 100));
+			}
+			else {
+				player2.animation_in_process = AnimationType::HIT_STAND_STRONG;
+				player2.setSpeed(Vector2f(250, 0));
+			}
+			//music.hit2();
 		}
 		else {
-			player1.animation_in_process = AnimationType::HIT_STAND_STRONG;
-			player1.setSpeed(Vector2f(250, 0));
+			life1 -= life_SPECIAL;
+			if (crouching) {
+				player1.animation_in_process = AnimationType::HIT_DOWN;
+				player1.setSpeed(Vector2f(150, 0));
+			}
+			else if (onAir) {
+				player1.animation_in_process = AnimationType::FALL;
+				player1.setSpeed(Vector2f(450, 100));
+			}
+			else {
+				player1.animation_in_process = AnimationType::HIT_STAND_STRONG;
+				player1.setSpeed(Vector2f(250, 0));
+			}
+			//music.hit2();
 		}
-		//music.hit2();
-	}
 	}
 	else if (anim == AnimationType::CATCH) {
 		if (toPlayerTwo) {
@@ -1240,7 +1339,7 @@ int BattleManager::finished_round() {
 
 	if (time_left <= 0) {
 		if (life1 <= life2) {
-			increase_round(2);  
+			increase_round(2);
 			return 2;					//Gana el jugador 2
 		}
 		else {
@@ -1249,13 +1348,13 @@ int BattleManager::finished_round() {
 		}
 	}
 	if (life1 <= 0) {
-		increase_round(2); 
+		increase_round(2);
 		return 2;
-	}		
+	}
 	if (life2 <= 0) {
 		increase_round(1);
 		return 1;
-	}	
+	}
 	return 0;
 
 }

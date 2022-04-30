@@ -26,6 +26,8 @@ extern int screenFloorLimit;
 extern int screenLeftHardLimit;
 extern int screenRightHardLimit;
 
+extern bool clapping;
+
 const int NUMBER_TRACKS = 191;
 const double ASPECT_RATIO = 4.0/3.0;
 
