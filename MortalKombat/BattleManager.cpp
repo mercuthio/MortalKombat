@@ -23,6 +23,8 @@ BattleManager::BattleManager(Texture* texture_, Font font_, Clock clock) {
 	clock_timer = 0;
 	clock_flash = 0;
 	clock_fight = 0;
+	clock_finishHim = 0;
+	clock_finishRound = 0;
 
 	LoadTextures();
 	LoadCharacters();
@@ -45,7 +47,8 @@ void BattleManager::LoadTextures() {
 	Vector2f size_round = Vector2f(327.0f, 82.0f);
 	Vector2f size_danger = Vector2f(121.0f, 39.0f);
 	Vector2f size_clock = Vector2f(38.0f, 54.0f);
-	Vector2f size_fight = Vector2f(386.0f*2, 114.0f*2);
+	Vector2f size_fight = Vector2f(735.0f, 180.0f);
+	Vector2f size_winner = Vector2f(735.0f,161.0f);
 
 	IntRect uvRect;
 	RectangleShape rect;
@@ -172,12 +175,34 @@ void BattleManager::LoadTextures() {
 	//Letrero FIGHT 15
 	uvRect.width = 327.0f;
 	uvRect.height = 68.0f;
-	uvRect.left = 2646;
+	uvRect.left = 2647;
 	uvRect.top = 16;
 	rect.setSize(size_fight);
 
 	rect.setTextureRect(uvRect);
-	rect.setPosition(width_window / 2 - rect.getSize().x / 2, 254.0f/2);
+	rect.setPosition(width_window / 2 - rect.getSize().x / 2, 154.0f);
+	HUD_vector.push_back(rect);
+
+	//Letrero FINISH HIM 16
+	uvRect.width = 327.0f;
+	uvRect.height = 68.0f;
+	uvRect.left = 2983;
+	uvRect.top = 16;
+	rect.setSize(size_fight);
+
+	rect.setTextureRect(uvRect);
+	rect.setPosition(width_window / 2 - rect.getSize().x / 2, 154.0f);
+	HUD_vector.push_back(rect);
+
+	//Nombre ganador 17
+	uvRect.width = 327;
+	uvRect.height = 50.0f;
+	uvRect.left = 3715;
+	uvRect.top = 16;
+	rect.setSize(size_winner);
+
+	rect.setTextureRect(uvRect);
+	rect.setPosition(width_window / 2 - rect.getSize().x / 2, 154.0f);
 	HUD_vector.push_back(rect);
 
 }
@@ -198,8 +223,10 @@ void BattleManager::Restart() {
 	clock_timer = 0;
 	clock_flash = 0;
 	clock_fight = 0;
+	clock_finishHim = 0;
 	clock_inDanger1 = 0;
 	clock_inDanger2 = 0;
+	clock_finishRound = 0;
 
 	LoadTextures();
 
@@ -217,7 +244,6 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 
 	time_left = 99;
 	round = 0;
-	winned_game = 0;
 
 	points1 = 0;
 	points2 = 0;
@@ -227,12 +253,16 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 
 	finished_game = false;
 	showing_fight = false;
+	showing_win = false;
+	showing_finishHim = false;
 	started_game = false;
 	showing_round = true;
 	inDanger1 = false;
 	inDanger2 = false;
+	finishedFinishHim = false;
 
 	fight_x = 0;
+	finish_him_x = 0;
 
 	totalMoveXBack = 0;
 
@@ -352,11 +382,15 @@ void BattleManager::RestartRound() {
 	moveXBack = totalMoveXBack; //Movemos escenario a posicion inicial
 	totalMoveXBack = 0;
 
+	player1.damage_hitbox.setSize(Vector2f(0,0));
+	player1.animation_in_process = AnimationType::IDLE;
 	player1.setFreeze(true);
 	player1.initPosition(BackgroundManager.initPlayer1);
 	player1.setPlayer(1);
 	player1.RestartMirror(false);
 
+	player2.damage_hitbox.setSize(Vector2f(0, 0));
+	player2.animation_in_process = AnimationType::IDLE;
 	player2.setFreeze(true);
 	player2.initPosition(BackgroundManager.initPlayer2);
 	player2.setPlayer(2);
@@ -364,6 +398,8 @@ void BattleManager::RestartRound() {
 
 	flash = false;
 	showing_fight = false;
+	showing_win = false;
+	showing_finishHim = false;
 	started_game = false;
 	showing_round = true;
 	inDanger1 = false;
@@ -374,12 +410,15 @@ void BattleManager::RestartRound() {
 	finishing2 = false;
 	P1WinnedPose = false;
 	P2WinnedPose = false;
+	finishedFinishHim = false;
 
 	fight_x = 0;
+	finish_him_x = 0;
 	life1 = 100;
 	life2 = 100;
 	time_left = 99;
 	round++;
+	clock_timer = 0;
 
 	player1.life = life1;
 	player2.life = life2;
@@ -389,8 +428,6 @@ void BattleManager::RestartRound() {
 void BattleManager::Update(Event event) {}
 
 void BattleManager::Update() {
-
-	finished_round();	//Comprobamos final de ronda
 
 	if (player1.lookingAt() == LookingAt::RIGHT && player1.GetXPosition() > player2.GetXPosition() + 5) { //PLAYER 1 LEFT -> RIGHT
 		player1.Mirror();
@@ -445,7 +482,8 @@ void BattleManager::Update() {
 
 	}
 
-	if (started_game && clock_timer >= 60) {
+
+	if ( (!finishing1 && !finishing2) && started_game && clock_timer >= 60) {
 
 		clock_timer = 0;
 		if (time_left > 0) time_left--;
@@ -492,9 +530,25 @@ void BattleManager::Update() {
 		else {
 			uvRect.left = 5435;
 		}
-
+		//Danger
 		HUD_vector[11].setTextureRect(uvRect);
 		HUD_vector[12].setTextureRect(uvRect);
+
+		if (finishing1 || finishing2) {
+
+			//Letras victoria
+			RectangleShape rect = HUD_vector[17];
+			uvRect = rect.getTextureRect();
+			if (flash){
+				uvRect.left = 4046.0f;
+			}
+			else {
+				uvRect.left = 3715.0f;
+			}
+			
+			rect.setTextureRect(uvRect);
+			HUD_vector[17] = rect;
+		}
 
 	}
 
@@ -505,7 +559,6 @@ void BattleManager::Update() {
 
 			clock_fight = 0;
 			fight_x++;
-
 			if (fight_x == 18) {
 				showing_fight = false;
 				started_game = true;
@@ -522,6 +575,28 @@ void BattleManager::Update() {
 		}
 	}
 
+	if (showing_finishHim) {
+		clock_finishHim++;
+
+		if (clock_finishHim == 7) {
+
+			clock_finishHim = 0;
+			finish_him_x++;
+			if (finish_him_x == 18) {
+				showing_finishHim = false;
+			}
+			else {
+				
+				RectangleShape rect = HUD_vector[16];
+				uvRect = rect.getTextureRect();
+				uvRect.top = 16 + 72 * finish_him_x;
+				rect.setTextureRect(uvRect);
+				HUD_vector[16] = rect;
+
+			}
+		}
+
+	}
 
 	if (player1.animation_in_process == AnimationType::SPECIAL) {
 
@@ -539,30 +614,130 @@ void BattleManager::Update() {
 	bloodGround1.Update();
 	bloodGround2.Update();
 
-	if (winned_game != 0) {
-		if (winned_game == 1) {
-			player2.animation_in_process = AnimationType::DYING;
-			//Mostrar letras finish him
+	if (finishing1 || finishing2) {
+		if (showing_finishHim && finishing1) HUD_vector[3].setSize(Vector2f(0,0));
+		else if (showing_finishHim && finishing2) HUD_vector[2].setSize(Vector2f(0, 0));
 
-			finishing2 = true;
-			//Cuando golpee el contrario mostrar you win
-			if (P1WinnedPose) player1.animation_in_process = AnimationType::WIN;
+		inDanger1 = false;
+		inDanger2 = false;
 
-			//Si terminado lo anterior finished_game = 1
+		clock_finishRound++;
+
+		bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
+
+		if (!inFinishHim && clock_finishRound >= 250) {			//Terminado periodo de victoria
+			showing_win = false;
+			clock_finishRound = 0;
+			finishing1 = false;
+			finishing2 = false;
+			if (!finishedFinishHim) RestartRound();
+			else finished_game = true;
+		}
+		else if ((inFinishHim && clock_finishRound >= 350) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
+
+			showing_win = true;
+			clock_finishRound = 0;
+			rounds_won1 = 0;
+			rounds_won2 = 0;
+			finishedFinishHim = true;
+
+			if (finishing1) {
+				player1.animation_in_process = AnimationType::WIN;
+				player2.animation_in_process = AnimationType::FALL;
+			}
+			else if (finishing2) {
+				player2.animation_in_process = AnimationType::WIN;
+				player1.animation_in_process = AnimationType::FALL;
+			}
+
+			player1.setFreeze(true);
+			player2.setFreeze(true);
+
+		}
+
+		if (finishedFinishHim && clock_finishRound == 150) {
 			finished_game = true;
 		}
-		else {
-			player2.animation_in_process = AnimationType::DYING;
-			//Mostrar letras finish him
 
-			finishing1 = true;
-			//Cuando golpee el contrario mostrar you win
-			//Pose de victoria
-			if (P2WinnedPose) player2.animation_in_process = AnimationType::WIN;
+	}
+	else {
 
-			//Si terminado lo anterior finished_game = 1
-			finished_game = true;
+		int winner_round = finished_round();	//Comprobamos final de ronda
+
+		if (winner_round == 1) {										//Jugador 1 acaba de ganar una ronda
+			if (rounds_won1 == 1) {										//Todavia no ha ganado la partida
+				finishing1 = true;										
+				showing_win = true;
+
+				uvRect.width = 327;
+				uvRect.height = 50.0f;
+				uvRect.left = 3715;
+				uvRect.top = 16 + (character1 * 52);
+
+				RectangleShape rect = HUD_vector[17];
+				rect.setTextureRect(uvRect);
+				HUD_vector[17] = rect;
+
+				player1.animation_in_process = AnimationType::WIN;
+				player2.animation_in_process = AnimationType::FALL;
+
+				player1.setFreeze(true);
+				player2.setFreeze(true);
+			}
+			else {														//Acaba de ganar la partida
+				finishing1 = true;
+				showing_finishHim = true;
+
+				RectangleShape rect = HUD_vector[16];
+				uvRect = rect.getTextureRect();
+				if (character2 == CharacterType::SONYA) uvRect.left = 3317.0f;
+				rect.setTextureRect(uvRect);
+				HUD_vector[16] = rect;
+
+				player2.animation_in_process = AnimationType::DYING;
+				player2.setFreeze(true);
+
+			}
+
 		}
+		else if (winner_round == 2) {
+
+			if (rounds_won2 == 1) {										//Todavia no ha ganado la partida
+				finishing2 = true;
+				showing_win = true;
+
+				uvRect.width = 327;
+				uvRect.height = 50.0f;
+				uvRect.left = 3715;
+				uvRect.top = 16 + (character2 * 52);
+
+				RectangleShape rect = HUD_vector[17];
+				rect.setTextureRect(uvRect);
+				HUD_vector[17] = rect;
+
+				player2.animation_in_process = AnimationType::WIN;
+				player1.animation_in_process = AnimationType::FALL;
+
+				player2.setFreeze(true);
+				player1.setFreeze(true);
+			}
+			else {														//Acaba de ganar la partida
+				finishing2 = true;
+				showing_finishHim = true;
+
+				RectangleShape rect = HUD_vector[16];
+				uvRect = rect.getTextureRect();
+				if (character1 == CharacterType::SONYA) uvRect.left = 3317.0f;
+				rect.setTextureRect(uvRect);
+				HUD_vector[16] = rect;
+
+				player1.animation_in_process = AnimationType::DYING;
+				player1.setFreeze(true);
+
+			}
+
+		}
+
 	}
 
 	Vector2f size_round = Vector2f(327.0f, 82.0f);
@@ -577,7 +752,8 @@ void BattleManager::CheckCollisions() {
 	if (player1.damage_hitbox.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds())) {
 
 		if (isDamageMovement(player1.animation_in_process)) {	//Le pega el jugador 1
-			if (finishing1) { P1WinnedPose = true; }			//El jugador 1 golpea en finish him
+			bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
+			if (inFinishHim && finishing1 && clock_finishRound > 5) { P1WinnedPose = true; }			//El jugador 1 golpea en finish him
 			
 			ProcessHit(player1.animation_in_process, true);
 
@@ -588,7 +764,8 @@ void BattleManager::CheckCollisions() {
 	if (player2.damage_hitbox.getGlobalBounds().intersects(player1.hitbox.getGlobalBounds())) {
 
 		if (isDamageMovement(player2.animation_in_process)) {	//Le pega el jugador 2
-			if (finishing1) { P2WinnedPose = true; }			//El jugador 2 golpea en finish him
+			bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
+			if (inFinishHim && finishing2 && clock_finishRound > 5) { P2WinnedPose = true; }			//El jugador 2 golpea en finish him
 
 			ProcessHit(player2.animation_in_process, false);
 
@@ -1055,33 +1232,37 @@ int BattleManager::isfinished() {
 	return 0;
 }
 
-void BattleManager::finished_round() {
+int BattleManager::finished_round() {
 
 	if (time_left <= 0) {
-		if (life1 <= life2) increase_round(2);	//Gana el jugador 2
-		else increase_round(1);					//Gana el jugador 1
-		RestartRound();
+		if (life1 <= life2) {
+			increase_round(2);  
+			return 2;					//Gana el jugador 2
+		}
+		else {
+			increase_round(1);
+			return 1;					//Gana el jugador 1
+		}
 	}
 	if (life1 <= 0) {
-		increase_round(1); 	
-		RestartRound();
+		increase_round(2); 
+		return 2;
 	}		
 	if (life2 <= 0) {
-		increase_round(2);  
-		RestartRound();
+		increase_round(1);
+		return 1;
 	}	
+	return 0;
 
 }
 
 void BattleManager::increase_round(int player) {
 
-	if (player) {
+	if (player == 1) {
 		rounds_won1++;
-		if (rounds_won1 >= 2) winned_game = 1;
 	}
 	else {
 		rounds_won2++;
-		if (rounds_won2 >= 2) winned_game = 2;
 	}
 
 }
@@ -1132,6 +1313,13 @@ void BattleManager::draw(RenderWindow& window) {
 			break;
 		case 15:
 			if (showing_fight) { window.draw(rect); }
+			break;
+		case 16:	//FINISH HIM
+			if (showing_finishHim) window.draw(rect);
+			else if (showing_finishHim) window.draw(rect);
+			break;
+		case 17:	//CHARACTER WINS
+			if (showing_win) { window.draw(rect); }
 			break;
 		default:
 			window.draw(rect);

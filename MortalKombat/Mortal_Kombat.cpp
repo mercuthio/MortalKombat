@@ -71,7 +71,7 @@ int main() {
     Text version;
     version.setFont(font);
     version.setFillColor(Color::White);
-    version.setString("Beta v0.5.1");
+    version.setString("Beta v0.5.2");
     version.setCharacterSize(25);
     version.setPosition(Vector2f(30.0, height_window - 45.0));
 
@@ -114,7 +114,7 @@ int main() {
         fps = (float)1e9 / (float)std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
         if (tiempo == 200) {
             tiempo = 0;
-            cout << fps << endl;
+            cout << "FPS: " << fps << endl;
         }
 
     }

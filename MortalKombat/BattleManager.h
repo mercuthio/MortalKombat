@@ -37,11 +37,11 @@ public:
 	void LoadTextures();
 	void LoadCharacters();
 	void RestartRound();								//Resetea las variables para una nueva ronda
-	void finished_round();
 	void increase_round(int);
 	void CheckCollisions();
 	void ProcessHit(AnimationType, bool);
 
+	int finished_round();
 	int isfinished();
 
 private:
@@ -57,7 +57,6 @@ private:
 	int stage;
 	int time_left;
 	int round;
-	int winned_game;
 
 	int points1;
 	int points2;
@@ -71,12 +70,17 @@ private:
 	int clock_start;
 	int clock_inDanger1;
 	int clock_inDanger2;
+	int clock_finishRound;
+	int clock_finishHim;
 
 	int fight_x;
+	int finish_him_x;
 
 	bool flash;
 	bool started_game;
 	bool showing_fight;
+	bool showing_win;
+	bool showing_finishHim;
 	bool showing_round;
 	bool inDanger1;
 	bool inDanger2;
@@ -88,6 +92,7 @@ private:
 	bool finishing2;
 	bool P1WinnedPose;
 	bool P2WinnedPose;
+	bool finishedFinishHim;
 
 	Texture* texture;
 	Font font;											//Variable con la fuente de letra
