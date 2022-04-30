@@ -640,6 +640,8 @@ void BattleManager::Update() {
 			rounds_won1 = 0;
 			rounds_won2 = 0;
 			finishedFinishHim = true;
+			P1WinnedPose = false;
+			P1WinnedPose = false;
 
 			if (finishing1) {
 				player1.animation_in_process = AnimationType::WIN;
@@ -654,8 +656,10 @@ void BattleManager::Update() {
 			player2.setFreeze(true);
 
 		}
-
+		cout << finishedFinishHim << endl;
+		cout << clock_finishRound << endl;
 		if (finishedFinishHim && clock_finishRound == 150) {
+			cout << "DENTRO " << endl;
 			finished_game = true;
 		}
 
