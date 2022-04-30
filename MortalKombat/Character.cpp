@@ -825,6 +825,7 @@ void Character::RestartMirror(bool playerTwo) {
 
 	mirroring = false;
 	mirrorOnEnd = false;
+
 }
 
 void Character::Mirror() {

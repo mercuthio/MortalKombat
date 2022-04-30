@@ -260,6 +260,8 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	inDanger1 = false;
 	inDanger2 = false;
 	finishedFinishHim = false;
+	finishing1 = false;
+	finishing2 = false;
 
 	fight_x = 0;
 	finish_him_x = 0;
@@ -624,14 +626,14 @@ void BattleManager::Update() {
 		clock_finishRound++;
 
 		bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
-
+	
 		if (!inFinishHim && clock_finishRound >= 250) {			//Terminado periodo de victoria
 			showing_win = false;
 			clock_finishRound = 0;
 			finishing1 = false;
 			finishing2 = false;
-			if (!finishedFinishHim) RestartRound();
-			else finished_game = true;
+
+			RestartRound();
 		}
 		else if ((inFinishHim && clock_finishRound >= 350) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
 
@@ -656,10 +658,8 @@ void BattleManager::Update() {
 			player2.setFreeze(true);
 
 		}
-		cout << finishedFinishHim << endl;
-		cout << clock_finishRound << endl;
+
 		if (finishedFinishHim && clock_finishRound == 150) {
-			cout << "DENTRO " << endl;
 			finished_game = true;
 		}
 
@@ -1230,7 +1230,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 
 int BattleManager::isfinished() {
 	if (finished_game) {
-		if (life1 >= life2) return 1;
+		if (life1 > life2) return 1;
 		return 2;
 	}
 	return 0;
