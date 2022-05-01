@@ -659,7 +659,7 @@ void BattleManager::Update() {
 			clapping = true;
 		}
 
-		if (!finishedFinishHim && !inFinishHim && clock_finishRound >= 350) {			//Terminado periodo de 
+		if (!finishedFinishHim && !inFinishHim && clock_finishRound >= 325) {			//Terminado periodo de 
 			showing_win = false;
 			clock_finishRound = 0;
 			finishing1 = false;
@@ -668,12 +668,10 @@ void BattleManager::Update() {
 
 			RestartRound();
 		}
-		else if ((inFinishHim && clock_finishRound == 250) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
+		else if (!finishedFinishHim && (inFinishHim && clock_finishRound == 250) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
 
 			showing_win = true;
 			clock_finishRound = 0;
-			rounds_won1 = 0;
-			rounds_won2 = 0;
 			finishedFinishHim = true;
 			P1WinnedPose = false;
 			P1WinnedPose = false;
@@ -720,7 +718,7 @@ void BattleManager::Update() {
 
 		}
 
-		if (finishedFinishHim && clock_finishRound >= 350) {
+		if (finishedFinishHim && clock_finishRound >= 325) {	//Acabar partida
 			finished_game = true;
 		}
 

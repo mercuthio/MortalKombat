@@ -81,6 +81,10 @@ static Character CreateSonyaBlade() {
 	Animation turnLeft0 = Animation(3, spriteSheet, Vector2<int>(2372, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation turnRight0 = Animation(3, spriteSheet, Vector2<int>(3308, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
 
+	Animation hit0 = Animation(4, spriteSheet, Vector2<int>(32, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation hitHard0 = Animation(6, spriteSheet, Vector2<int>(2137, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation hitHead0 = Animation(3, spriteSheet, Vector2<int>(1202, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation hitDuck0 = Animation(3, spriteSheet, Vector2<int>(3776, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
 
 	AnimationGroup idle = AnimationGroup(idle0);
 	AnimationGroup forwWalk = AnimationGroup(forw0);
@@ -116,27 +120,43 @@ static Character CreateSonyaBlade() {
 	AnimationGroup dying = AnimationGroup(dying0);
 	AnimationGroup turnLeft = AnimationGroup(turnLeft0);
 	AnimationGroup turnRight = AnimationGroup(turnRight0);
+	AnimationGroup hit = AnimationGroup(hit0);
+	AnimationGroup hitHard = AnimationGroup(hitHard0);
+	AnimationGroup hitHead = AnimationGroup(hitHead0);
+	AnimationGroup hitDuck = AnimationGroup(hitDuck0);
 
-	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0), { 68 * 3,69 * 3,66 * 3,65 * 3,65 * 3,65 * 3,65 * 3,69 * 3}, { 60 * 3,57 * 3,54 * 3,58 * 3,61 * 3,58 * 3,54 * 3,57 * 3 } };
-	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0), {76 * 3,90 * 3,91 * 3,95 * 3,91 * 3,87 * 3,93 * 3,93 * 3,89 * 3}, {53 * 3,49 * 3,51 * 3,50 * 3,54 * 3,50 * 3,50 * 3,50 * 3,55 * 3} };
-	Movement backMov = Movement{ backWalk, Vector2<float>(-10, 0.0), {76 * 3,89 * 3,90 * 3,94 * 3,90 * 3,86 * 3,93 * 3,93 * 3,88 * 3}, {52 * 3,48 * 3,50 * 3,50 * 3,53 * 3,49 * 3,50 * 3,49 * 3,54 * 3} };
-	Movement punchMov = Movement{ punch, Vector2<float>(0.0, 0.0), {67 * 3,69 * 3,70 * 3,66 * 3}, {48 * 3,45 * 3,51 * 3,48 * 3} };
-	Movement punchMultMov = Movement{ punchMult, Vector2<float>(0.0, 0.0), {67 * 3,69 * 3,70 * 3,77 * 3,78 * 3,70 * 3,78 * 3,78 * 3,65 * 3}, {49 * 3,45 * 3,50 * 3,47 * 3,48 * 3,55 * 3,49 * 3,47 * 3,49 * 3} };
-	Movement punchUpMov = Movement{ punchUp, Vector2<float>(0.0, 0.0), {66 * 3,70 * 3,79 * 3,66 * 3}, {49 * 3,46 * 3,45 * 3,48 * 3} };
-	Movement punchFromUpMov = Movement{ punchFromUp, Vector2<float>(0.0, 0.0), {94 * 3,78 * 3,50 * 3,78 * 3,94 * 3}, {30 * 3,31 * 3,28 * 3,31 * 3,30 * 3} };
-	Movement punchUpMultMov = Movement{ punchUpMult, Vector2<float>(0.0, 0.0) };
-	Movement bodyToBodyMov = Movement{ bodyToBody, Vector2<float>(0.0, 0.0), {67 * 3,69 * 3,74 * 3,69 * 3,67 * 3}, {51 * 3,53 * 3,55 * 3,53 * 3,50 * 3} };
-	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0), {72 * 3}, {39 * 3} };
-	Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0), {72 * 3,90 * 3,92 * 3,91 * 3,92 * 3,91 * 3,73 * 3}, {50 * 3,47 * 3,49 * 3,50 * 3,49 * 3,46 * 3,50 * 3} };
-	Movement kickUpMov = Movement{ kickUp, Vector2<float>(0.0, 0.0), {47 * 3,66 * 3,94 * 3,100 * 3,103 * 3,88 * 3,75 * 3}, {49 * 3,53 * 3,63 * 3,50 * 3,73 * 3,830 * 3,55 * 3} };
-	Movement kickDownMov = Movement{ kickDown, Vector2<float>(0.0, 0.0), {72 * 3,64 * 3,74 * 3,79 * 3,85 * 3,93 * 3,60 * 3,70 * 3}, {50 * 3,94 * 3,123 * 3,129 * 3,128 * 3,123 * 3,81 * 3,49 * 3} };
-	Movement kickFromDownMov = Movement{ kickFromDown, Vector2<float>(0.0, 0.0), {68 * 3,67 * 3,67 * 3,67 * 3,68 * 3}, {64 * 3,93 * 3,107 * 3,93 * 3,64 * 3} };
-	Movement kickFromUpMov = Movement{ kickFromUp, Vector2<float>(0.0, 0.0), {81 * 3,81 * 3,82 * 3,81 * 3,80 * 3}, {37 * 3,43 * 3,43 * 3,43 * 3,37 * 3} };
-	Movement punchDownMov = Movement{ punchDown, Vector2<float>(0.0, 0.0), {66 * 3,71 * 3,74 * 3,87 * 3,62 * 3}, {74 * 3,60 * 3,52 * 3,39 * 3,53 * 3} };
-	Movement jumpMoveMov = Movement{ jumpMove, Vector2<float>(0.0, 0.0), {103 * 3,100 * 3,92 * 3,92 * 3,109 * 3,99 * 3,110 * 3}, {45 * 3,51 * 3,54 * 3,49 * 3,31 * 3,32 * 3,43 * 3} };
-	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0), {68 * 3,67 * 3,67 * 3,67 * 3,68 * 3}, {64 * 3,92 * 3,107 * 3,93 * 3,64 * 3} };
-	Movement blockUpMov = Movement{ blockUp, Vector2<float>(0.0,0.0) };
-	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0) };
+	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0), {85*3,85*3,86*3,84*3,85*3,85*3,85*3}, {52*3,54*3,55*3,55*3,54*3,51*3,51*3} };
+	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0), {87*3,88*3,88*3,85*3,85*3,86*3,85*3,86*3,85*3}, {49*3,48*3,48*3,50*3,49*3,49*3,47*3,45*3,49*3} };
+	Movement backMov = Movement{ backWalk, Vector2<float>(-10, 0.0), {87*3,88*3,88*3,85*3,85*3,86*3,85*3,86*3,85*3}, {49*3,48*3,48*3,50*3,49*3,49*3,47*3,45*3,49*3} };
+	Movement punchMov = Movement{ punch, Vector2<float>(0.0, 0.0), {90*3,101*3,111*3,97*3,90*3}, {50*3,48*3,52*3,48*3,51*3},
+		{0,0,143*3,0,0},{0,0,70*3,0,0} };
+	Movement punchMultMov = Movement{ punchMult, Vector2<float>(0.0, 0.0), {90*3,98*3,110*3,108*3,105*3,111*3,109*3,110*3,102*3,91*3}, {52*3,47*3,51*3,48*3,49*3,55*3,48*3,47*3,47*3,52*3},
+		{0,0,140*3,0,0,139*3,0,0,0,0},{0,0,68*3,0,0,71*3,0,0,0,0} };
+	Movement punchUpMov = Movement{ punchUp, Vector2<float>(0.0, 0.0), {91*3,101*3,107*3,101*3,92*3}, {52*3,48*3,47*3,48*3,52*3},
+		{0,0,137*3,0,0},{0,0,48*3,0,0} };
+	Movement punchFromUpMov = Movement{ punchFromUp, Vector2<float>(0.0, 0.0), {95*3,114*3,109*3}, {55*3,55*3,58*3},
+		{0,167*3,0},{0,87*3,0} };
+	Movement punchUpMultMov = Movement{ punchUpMult, Vector2<float>(0.0, 0.0), {92*3,101*3,107*3,108*3,108*3,102*3,108*3,109*3,98*3,92*3}, {51*3,48*3,47*3,48*3,48*3,49*3,48*3,48*3,48*3,52*3},
+		{0,0,137*3,0,0,137*3,0,0,0,0},{0,0,47*3,0,0,49*3,0,0,0,0} };
+	Movement bodyToBodyMov = Movement{ bodyToBody, Vector2<float>(0.0, 0.0), {87*3,93*3,98*3,95*3,86*3}, {51*3,41*3,44*3,42*3,52*3},
+		{0,0,128*3,0,0},{0,0,41*3,0,0} };
+	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0), {86*3}, {52*3} };
+	Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0), {92*3,98*3,99*3,99*3,97*3,98*3,96*3,96*3,93*3}, {54*3,50*3,50*3,50*3,50*3,50*3,50*3,52*3,54*3},
+		{0,0,0,153*3,0,0,0,0,0},{0,0,0,76*3,0,0,0,0,0} };
+	Movement kickUpMov = Movement{ kickUp, Vector2<float>(0.0, 0.0), {94*3,98*3,101*3,103*3,103*3,99*3,98*3,95*3,94*3}, {54*3,49*3,49*3,49*3,50*3,49*3,49*3,52*3,54*3},
+		{0,0,0,142*3,0,0,0,0,0},{0,0,0,49*3,0,0,0,0,0} };
+	Movement kickDownMov = Movement{ kickDown, Vector2<float>(0.0, 0.0), {86*3,83*3,72*3,81*3,81*3,89*3,96*3}, {78*3,122*3,117*3,111*3,109*3,101*3,64*3},
+		{0,0,0,0,143*3,0,0},{0,0,0,0,164*3,0,0} };
+	Movement kickFromDownMov = Movement{ kickFromDown, Vector2<float>(0.0, 0.0), {78*3,68*3,66*3,70*3,70*3,78*3}, {117*3,127*3,132*3,132*3,134*3,119*3},
+		{0,0,132*3,0,0,0},{0,0,108*3,0,0,0} };
+	Movement kickFromUpMov = Movement{ kickFromUp, Vector2<float>(0.0, 0.0), {89*3,101*3,87*3}, {44*3,49*3,45*3},
+		{0,145*3,0},{0,62*3,0} };
+	Movement punchDownMov = Movement{ punchDown, Vector2<float>(0.0, 0.0), {85*3,98*3,102*3,102*3,93*3}, {101*3,82*3,53*3,47*3,51*3},
+		{0,0,138*3,0,0},{0,0,51*3,0,0} };
+	Movement jumpMoveMov = Movement{ jumpMove, Vector2<float>(0.0, 0.0), {95*3,90*3,75*3,73*3,87*3,84*3,86*3}, {58*3,65*3,69*3,61*3,46*3,44*3,64*3} };
+	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0), {89*3,85*3,88*3}, {82*3,111*3,82*3} };
+	Movement blockUpMov = Movement{ blockUp, Vector2<float>(0.0,0.0), {84*3,80*3,68*3,79*3,83*3},{49*3,50*3,54*3,50*3,49*3} };
+	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0),{74*3,65*3,72*3},{96*3,99*3,96*3} };
 	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0) };
 	Movement fatalityMov = Movement{ fatality, Vector2<float>(0.0,0.0) };
 	Movement winMov = Movement{ win, Vector2<float>(0.0,0.0) };
@@ -147,10 +167,15 @@ static Character CreateSonyaBlade() {
 	Movement recoverMov = Movement{ recover, Vector2<float>(0.0, 0.0) };
 	Movement getCaughtMov = Movement{ getCaught, Vector2<float>(5.0, 0.0) };
 	Movement catchMov = Movement{ catchAnim, Vector2<float>(0.0, 0.0) };
-	Movement dyingMov = Movement{ dying, Vector2<float>(0.0, 0.0) };
-	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0) };
-	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0) };
+	Movement dyingMov = Movement{ dying, Vector2<float>(0.0, 0.0),{70*3,76*3,87*3,89*3,78*3,70*3,65*3},{55*3,58*3,62*3,55*3,49*3,51*3,56*3} };
+	
+	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0),{82,83,85},{48,49,49} };
+	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0), {87,86,83},{49,49,49} };
 
+	Movement hitMov = Movement{ hit, Vector2<float>(0.0, 0.0), {},{} };
+	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0), {},{} };
+	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0), {},{} };
+	Movement hitDuckMov = Movement{ hitDuck, Vector2<float>(0.0, 0.0), {},{} };
 
 	map<AnimationType, Movement> animations;
 	animations[AnimationType::IDLE] = idleMov;
