@@ -213,45 +213,155 @@ static Character CreateSonyaBlade() {
 	animations[AnimationType::TURN_RIGHT] = turnRightMov;
 
 
-	//Tamaños hitboxes
-	Vector2f idleS[8] = { { 72 * 3, 123 * 3}, { 70 * 3,126 * 3}, {74 * 3,130 * 3}, {74 * 3,127 * 3}, {74 * 3,124 * 3}, {74 * 3,126 * 3}, {74 * 3,131 * 3}, {71 * 3,127 * 3} };
-	Vector2f forwS[9] = { {71 * 3,131 * 3}, {55 * 3,135 * 3}, {56 * 3,132 * 3}, {52 * 3,132 * 3}, {56 * 3,128 * 3}, {60 * 3,133 * 3}, {53 * 3,134 * 3}, {53 * 3,134 * 3}, {62 * 3,128 * 3} };
-	Vector2f backS[9] = { {62 * 3,128 * 3}, {53 * 3,134 * 3}, {53 * 3,134 * 3}, {60 * 3,133 * 3}, {56 * 3,128 * 3}, {52 * 3,132 * 3}, {56 * 3,132 * 3}, {55 * 3,135 * 3}, {71 * 3,131 * 3} };
+	//Tamaño damage hitboxes
+	Vector2f punchD[4] = { {0,0},{0,0},{37 * 3,13 * 3},{0,0} };
+	Vector2f punchUpD[4] = { {0,0},{0,0},{36 * 3,24 * 3},{0,0} };
+	Vector2f punchDownD[5] = { {0,0},{0,0},{25 * 3,27 * 3},{0,0} };
+	Vector2f punchFromUpD[5] = { {0,0},{29*3,19*3},{0,0}, };
+	Vector2f bodyToBodyD[5] = { {0,0},{0,0},{19 * 3,36 * 3},{0,0},{0,0} };
+	Vector2f punchMultD[10] = { {0,0},{0,0},{40 * 3,15 * 3},{0,0},{0,0},{39 * 3,17 * 3},{0,0},{0,0},{0,0},{0,0} };
+	Vector2f punchMultUpD[10] = { {0,0},{0,0},{37 * 3,25 * 3},{0,0},{0,0},{35 * 3,20 * 3},{0,0},{0,0},{0,0},{0,0} };
 
-	Vector2f punchS[4] = { {72 * 3,137 * 3}, {81 * 3,139 * 3}, {115 * 3,130 * 3}, {73 * 3,136 * 3} };
-	Vector2f punchUpS[4] = { {73 * 3,135 * 3}, {80 * 3,137 * 3}, {106 * 3,137 * 3}, {71 * 3,137 * 3} };
-	Vector2f punchDownS[5] = { {73 * 3,110 * 3}, {89 * 3,125 * 3}, {92 * 3,136 * 3}, {54 * 3,149 * 3}, {86 * 3,129 * 3} };
-	Vector2f punchFromUpS[5] = { {73 * 3,84 * 3}, {104 * 3,78 * 3}, {145 * 3,82 * 3}, {104 * 3,77 * 3}, {73 * 3,84 * 3} };
-	Vector2f bodyToBodyS[5] = { {84 * 3,134 * 3}, {73 * 3,131 * 3}, {88 * 3,128 * 3}, {74 * 3,131 * 3}, {84 * 3,135 * 3} };
-	Vector2f punchMultS[9] = { {70 * 3,34 * 3}, {81 * 3,139 * 3}, {115 * 3,131 * 3}, {88 * 3,136 * 3}, {80 * 3,137 * 3}, {114 * 3,127 * 3}, {80 * 3,134 * 3}, {81 * 3,137 * 3}, {72 * 3,137 * 3} };
+	Vector2f kickD[9] = { {0,0},{0,0},{0,0},{43 * 3,24 * 3},{0,0},{0,0},{0,0},{0,0},{0,0} };
+	Vector2f kickUpD[9] = { {0,0},{0,0},{0,0},{43 * 3,39 * 3},{0,0},{0,0},{0,0},{0,0},{0,0} };
+	Vector2f kickDownD[7] = { {0,0},{0,0},{0,0},{0,0},{52 * 3,26 * 3},{0,0},{0,0} };
+	Vector2f kickFromDownD[6] = { {0,0},{0,0},{40 * 3,20 * 3},{0,0},{0,0},{0,0} };
+	Vector2f kickFromUpD[3] = { {0,0},{29*3,27*3},{0,0} };
 
-	Vector2f jumpS[4] = { {74 * 3,102 * 3}, {75 * 3,102 * 3}, {71 * 3,142 * 3 }, { 77 * 3,119 * 3 } };
-	Vector2f jumpMoveS[7] = { {50 * 3,70 * 3}, {62 * 3,64 * 3}, {70 * 3,43 * 3}, {63 * 3,59 * 3}, {46 * 3,69 * 3}, {60 * 3,64 * 3}, {64 * 3,60 * 3} };
-
-	Vector2f kickS[7] = { {68 * 3,135 * 3}, {62 * 3,133 * 3}, {58 * 3,131 * 3}, {109 * 3,130 * 3}, {57 * 3,132 * 3}, {61 * 3,136 * 3}, {65 * 3,133 * 3} };
-	Vector2f kickUpS[7] = { {94 * 3,133 * 3}, {77 * 3,130 * 3}, {58 * 3,119 * 3}, {89 * 3,134 * 3}, {52 * 3,110 * 3}, {55 * 3,104 * 3}, {66 * 3,128 * 3} };
-	Vector2f kickDownS[8] = { {68 * 3,133 * 3}, {78,89 * 3}, {70 * 3,65 * 3}, {101 * 3,62 * 3}, {124 * 3,60 * 3}, {51 * 3,89 * 3}, {89 * 3,102 * 3}, {70 * 3,135 * 3} };
-	Vector2f kickFromDownS[5] = { {62 * 3,80 * 3}, {84 * 3,76 * 3}, {87 * 3,91 * 3}, {85 * 3,77 * 3}, {62 * 3,79 * 3} };
-	Vector2f kickFromUpS[5] = { {78 * 3,78 * 3}, {90 * 3,79 * 3}, {110 * 3,74 * 3}, {91 * 3,77 * 3}, {77 * 3,79 * 3} };
-
-	Vector2f duckS[5] = { {72 * 3,118 * 3}, {76 * 3,91 * 3}, {72 * 3,77 * 3}, {76 * 3,90 * 3}, {71 * 3,118 * 3} };
-
-	Vector2f blockUpS[5] = { {77 * 3,132 * 3}, {75 * 3,135 * 3}, {74 * 3,132 * 3}, {75 * 3,134 * 3}, {76 * 3,132 * 3} };
-	Vector2f blockDownS[2] = { {68 * 3,97 * 3}, {69 * 3,98 * 3} };
-
-	Vector2f specialS[8] = { {85 * 3,118 * 3}, {78 * 3,104 * 3}, {80 * 3,121 * 3}, {63 * 3,134 * 3}, {62 * 3,130 * 3}, {63 * 3,130 * 3}, {63 * 3,129 * 3}, {63 * 3,130 * 3} };
-
-	Vector2f nutsS[4] = { {68 * 3,105 * 3}, {67 * 3,91 * 3}, {77 * 3,90 * 3}, {73 * 3,118 * 3} };
-
-	Vector2f catchS[7] = { {92 * 3,128 * 3}, {106 * 3,112 * 3}, {90 * 3,126 * 3}, {86 * 3,144 * 3}, {74 * 3,157 * 3}, {86 * 3,138 * 3}, {93 * 3,110 * 3} };
-	Vector2f dyingS[7] = { {70 * 3,122 * 3}, {71 * 3,121 * 3}, {70 * 3,127 * 3}, {70 * 3,134 * 3}, {70 * 3,135 * 3}, {71 * 3,133 * 3}, {71 * 3,121 * 3} };
 
 	RectangleShape rect;
+	rect.setFillColor(Color::Red);
+
+	vector<RectangleShape> punchR;
+	for (Vector2f size : punchD) {
+		rect.setSize(size);
+		punchR.push_back(rect);
+	}
+	vector<RectangleShape> punchUpR;
+	for (Vector2f size : punchUpD) {
+		rect.setSize(size);
+		punchUpR.push_back(rect);
+	}
+	vector<RectangleShape> punchUpMultR;
+	for (Vector2f size : punchMultUpD) {
+		rect.setSize(size);
+		punchUpMultR.push_back(rect);
+	}
+	vector<RectangleShape> punchDownR;
+	for (Vector2f size : punchDownD) {
+		rect.setSize(size);
+		punchDownR.push_back(rect);
+	}
+	vector<RectangleShape> punchFromUpR;
+	for (Vector2f size : punchFromUpD) {
+		rect.setSize(size);
+		punchFromUpR.push_back(rect);
+	}
+	vector<RectangleShape> punchMultR;
+	for (Vector2f size : punchMultD) {
+		rect.setSize(size);
+		punchMultR.push_back(rect);
+	}
+	vector<RectangleShape> bodyToBodyR;
+	for (Vector2f size : bodyToBodyD) {
+		rect.setSize(size);
+		bodyToBodyR.push_back(rect);
+	}
+
+	vector<RectangleShape> kickR;
+	for (Vector2f size : kickD) {
+		rect.setSize(size);
+		kickR.push_back(rect);
+	}
+	vector<RectangleShape> kickUpR;
+	for (Vector2f size : kickUpD) {
+		rect.setSize(size);
+		kickUpR.push_back(rect);
+	}
+	vector<RectangleShape> kickDownR;
+	for (Vector2f size : kickDownD) {
+		rect.setSize(size);
+		kickDownR.push_back(rect);
+	}
+	vector<RectangleShape> kickFromDownR;
+	for (Vector2f size : kickFromDownD) {
+		rect.setSize(size);
+		kickFromDownR.push_back(rect);
+	}
+	vector<RectangleShape> kickFromUpR;
+	for (Vector2f size : kickFromUpD) {
+		rect.setSize(size);
+		kickFromUpR.push_back(rect);
+	}
+
+	map< AnimationType, vector<RectangleShape>> damage_hitboxes;
+
+	damage_hitboxes[AnimationType::PUNCH] = punchR;
+	damage_hitboxes[AnimationType::PUNCH_UPPER] = punchUpR;
+	damage_hitboxes[AnimationType::PUNCH_FROM_DOWN] = punchDownR;
+	damage_hitboxes[AnimationType::PUNCH_FROM_AIR] = punchFromUpR;
+	damage_hitboxes[AnimationType::PUNCH_CLOSE] = bodyToBodyR;
+	damage_hitboxes[AnimationType::PUNCH_MULTIPLE] = punchMultR;
+	damage_hitboxes[AnimationType::PUNCH_UPPER_MULTIPLE] = punchUpMultR;
+
+
+	damage_hitboxes[AnimationType::KICK] = kickR;
+	damage_hitboxes[AnimationType::KICK_UPPER] = kickUpR;
+	damage_hitboxes[AnimationType::KICK_LOW] = kickDownR;
+	damage_hitboxes[AnimationType::KICK_FROM_DOWN] = kickFromDownR;
+	damage_hitboxes[AnimationType::KICK_FROM_AIR] = kickFromUpR;
+
+	punchR.clear();
+	punchUpR.clear();
+	punchDownR.clear();
+	punchFromUpR.clear();
+	bodyToBodyR.clear();
+	punchMultR.clear();
+	punchUpMultR.clear();
+	kickR.clear();
+	kickUpR.clear();
+	kickDownR.clear();
+	kickFromDownR.clear();
+	kickFromUpR.clear();
+
+	//Tamaños hitboxes
+	Vector2f idleS[7] = { {27*3,130*3},{26*3,130*3},{25*3,126*3},{27*3,127*3},{27*3,127*3},{26*3,131*3},{26*3,132*3} };
+	Vector2f forwS[9] = { {28*3,134*3},{27*3,134*3},{27*3,136*3},{28*3,134*3},{28*3,134*3},{28*3,136*3},{33*3,137*3},{28*3,138*3},{28*3,134*3} };
+	Vector2f backS[9] = { {28*3,134*3},{27*3,134*3},{27*3,136*3},{28*3,134*3},{28*3,134*3},{28*3,136*3},{33*3,137*3},{28*3,138*3},{28*3,134*3} };
+
+	Vector2f punchS[5] = { {30*3,132*3},{29*3,134*3},{32*3,129*3},{32*3,137*3},{31*3,131*3} };
+	Vector2f punchUpS[5] = { {32*3,130*3},{29*3,135*3},{28*3,136*3},{32*3,136*3},{33*3,131*3} };
+	Vector2f punchDownS[5] = { {45*3,85*3},{38*3,103*3},{30*3,131*3},{30*3,138*3},{31*3,132*3} };
+	Vector2f punchFromUpS[3] = { {58*3,67*3},{52*3,68*3},{44*3,64*3} };
+	Vector2f bodyToBodyS[5] = { {29*3,131*3},{34*3,143*3},{31*3,139*3},{32*3,141*3},{29*3,130*3} };
+	Vector2f punchMultS[10] = { {33*3,131*3},{34*3,137*3},{29*3,131*3},{33*3,136*3},{31*3,136*3},{28*3,129*3},{28*3,136*3},{29*3,137*3},{30*3,137*3},{31*3,131*3} };
+	Vector2f punchMultUpS[10] = { {32*3,132*3},{30*3,136*3},{29*3,136*3},{33*3,136*3},{30*3,135*3},{35*3,135*3},{32*3,136*3},{30*3,135*3},{37*3,136*3},{33*3,131*3} };
+
+	Vector2f jumpS[4] = { {27*3,118*3},{28*3,120*3},{28*3,118*3},{29*3,102*3} };
+	Vector2f jumpMoveS[7] = { {49*3,75*3},{60*3,68*3},{75*3,51*3},{69*3,62*3},{50*3,75*3},{62*3,69*3},{74*3,50*3} };
+
+	Vector2f kickS[9] = { {33*3,129*3},{34*3,134*3},{33*3,134*3},{34*3,134*3},{34*3,134*3},{34*3,133*3},{33*3,133*3}, {35*3,131*3}, {29*3,128*3} };
+	Vector2f kickUpS[7] = { {33*3,123*3},{37*3,130*3},{43*3,134*3},{39*3,141*3},{34*3,142*3},{39*3,145*3},{35*3,146*3} };
+	Vector2f kickDownS[8] = { {32*3,104*3},{43*3,62*3},{63*3,72*3},{52*3,78*3},{51*3,80*3},{51*3,95*3},{40*3,93*3} };
+	Vector2f kickFromDownS[6] = { {54*3,68*3},{52*3,60*3},{49*3,56*3},{49*3,55*3},{48*3,53*3},{38*3,66*3} };
+	Vector2f kickFromUpS[5] = { {28*3,140*3},{31*3,83*3},{30*3,138*3} };
+
+	Vector2f duckS[5] = { {23*3,101*3},{35*3,73*3},{25*3,100*3} };
+
+	Vector2f blockUpS[5] = { {25*3,134*3},{28*3,132*3},{33*3,129*3},{27*3,133*3},{27*3,134*3} };
+	Vector2f blockDownS[3] = { {35*3,88*3},{41*3,86*3}, {34*3,89*3} };
+
+	Vector2f specialS[8] = { {},{},{},{},{},{},{},{} };
+
+	Vector2f nutsS[4] = { {},{},{},{} };
+
+	Vector2f catchS[7] = { {},{},{},{},{},{},{} };
+	Vector2f dyingS[7] = { {52*3,129*3},{42*3,127*3},{28*3,122*3},{28*3,129*3},{28*3,133*3},{35*3,132*3},{36*3,127*3} };
+
 	rect.setFillColor(Color::Green);
 	vector<RectangleShape> idleR;
 	int i = 0;
 	for (Vector2f size : idleS) {
-		//rect.setOrigin(animations);
 		rect.setSize(size);
 		idleR.push_back(rect);
 		i++;
@@ -267,32 +377,26 @@ static Character CreateSonyaBlade() {
 		backR.push_back(rect);
 	}
 
-	vector<RectangleShape> punchR;
 	for (Vector2f size : punchS) {
 		rect.setSize(size);
 		punchR.push_back(rect);
 	}
-	vector<RectangleShape> punchUpR;
 	for (Vector2f size : punchUpS) {
 		rect.setSize(size);
 		punchUpR.push_back(rect);
 	}
-	vector<RectangleShape> punchDownR;
 	for (Vector2f size : punchDownS) {
 		rect.setSize(size);
 		punchDownR.push_back(rect);
 	}
-	vector<RectangleShape> punchFromUpR;
 	for (Vector2f size : punchFromUpS) {
 		rect.setSize(size);
 		punchFromUpR.push_back(rect);
 	}
-	vector<RectangleShape> punchMultR;
 	for (Vector2f size : punchMultS) {
 		rect.setSize(size);
 		punchMultR.push_back(rect);
 	}
-	vector<RectangleShape> bodyToBodyR;
 	for (Vector2f size : bodyToBodyS) {
 		rect.setSize(size);
 		bodyToBodyR.push_back(rect);
@@ -309,27 +413,22 @@ static Character CreateSonyaBlade() {
 		jumpMoveR.push_back(rect);
 	}
 
-	vector<RectangleShape> kickR;
 	for (Vector2f size : kickS) {
 		rect.setSize(size);
 		kickR.push_back(rect);
 	}
-	vector<RectangleShape> kickUpR;
 	for (Vector2f size : kickUpS) {
 		rect.setSize(size);
 		kickUpR.push_back(rect);
 	}
-	vector<RectangleShape> kickDownR;
 	for (Vector2f size : kickDownS) {
 		rect.setSize(size);
 		kickDownR.push_back(rect);
 	}
-	vector<RectangleShape> kickFromDownR;
 	for (Vector2f size : kickFromDownS) {
 		rect.setSize(size);
 		kickFromDownR.push_back(rect);
 	}
-	vector<RectangleShape> kickFromUpR;
 	for (Vector2f size : kickFromUpS) {
 		rect.setSize(size);
 		kickFromUpR.push_back(rect);
@@ -412,7 +511,6 @@ static Character CreateSonyaBlade() {
 	RectangleShape specialAtt = RectangleShape(Vector2<float>(68, 11));
 	specialAtt.setSize(Vector2f(68 * 3, 11 * 3));
 
-	map< AnimationType, vector<RectangleShape>> damage_hitboxes;
 	Character SonyaBlade = Character(animations, body, shadow, hitboxes, damage_hitboxes);
 
 	return SonyaBlade;
