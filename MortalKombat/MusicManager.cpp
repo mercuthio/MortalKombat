@@ -16,9 +16,15 @@ MusicManager::MusicManager() {
 	intro[2].setBuffer(bufferIntro[2]);
 	bufferIntro[3].loadFromFile("audio/musiccues/selector.ogg");
 	intro[3].setBuffer(bufferIntro[3]);
+	
+	//MALE
+	for (int i = 0; i < 1; i++) { bufferMale.push_back(buffer); male.push_back(sound); }
+	bufferMale[0].loadFromFile("audio/male/mk1-00215.ogg");
+	male[0].setBuffer(bufferMale[0]);
+
 
 	//HITS
-	for (int i = 0; i < 10; i++) { bufferHits.push_back(buffer); hits.push_back(sound); }
+	for (int i = 0; i < 11; i++) { bufferHits.push_back(buffer); hits.push_back(sound); }
 	bufferHits[0].loadFromFile("audio/hitsounds/mk1-00131.ogg"); //Blood
 	hits[0].setBuffer(bufferHits[0]);
 
@@ -43,6 +49,10 @@ MusicManager::MusicManager() {
 
 	bufferHits[9].loadFromFile("audio/hitsounds/mk1-00325.ogg"); //Block
 	hits[9].setBuffer(bufferHits[9]);
+
+	bufferHits[10].loadFromFile("audio/hitsounds/mk1-90059.ogg"); //Double jump
+	hits[10].setBuffer(bufferHits[10]);
+
 
 	//MUSIC
 
@@ -163,6 +173,8 @@ void MusicManager::historyTheme() { stopMusic(); stopIntros(); music[2].setVolum
 
 void MusicManager::skipHistoryTheme() { music[2].setPlayingOffset(seconds(6.65f)); }
 
+void MusicManager::maleJump() { male[0].setVolume(volumeEffects); male[0].play(); }
+
 void MusicManager::hit1() { hits[0].setVolume(volumeEffects); hits[0].play(); }
 void MusicManager::hit9() { hits[8].setVolume(volumeEffects); hits[8].play(); }
 
@@ -174,6 +186,8 @@ void MusicManager::hit5() { hits[4].setVolume(volumeEffects); hits[4].play(); }
 void MusicManager::hit6() { hits[5].setVolume(volumeEffects); hits[5].play(); }
 void MusicManager::hit7() { hits[6].setVolume(volumeEffects); hits[6].play(); }
 void MusicManager::hit8() { hits[7].setVolume(volumeEffects); hits[7].play(); }
+
+void MusicManager::doubleJump() { hits[10].setVolume(volumeEffects); hits[10].play(); }
 
 void MusicManager::hitBlock() { hits[9].setVolume(volumeEffects); hits[9].play(); }
 

@@ -10,7 +10,7 @@
 #include "GlobalVars.h"
 
 //--------------DEBUG-------------
-constexpr float gravedad = 1800;			// pixels/s^2
+constexpr float gravedad = 2500;			// pixels/s^2
 constexpr float updateTime = 0.05;			// 50 milis
 constexpr bool DEBUG_POSITION = true;
 //--------------------------------
@@ -95,6 +95,8 @@ public:
 		fallen = fall;
 	}
 
+	bool CheckScreenCollisions(float movement);
+
 
 	RectangleShape hitbox;
 	RectangleShape damage_hitbox;
@@ -154,7 +156,6 @@ private:
 
 	void CheckAnimation();
 	void CheckAnimationP2();
-	bool CheckScreenCollisions(float movement);
 	
 	void CheckIAAnimation(Character opponent);
 	void ChangeIAState(Character opponent);

@@ -459,13 +459,13 @@ void BattleManager::Update() {
 
 	if (player1.lookingAt() == LookingAt::RIGHT && player1.GetXPosition() > player2.GetXPosition() + 5) { //PLAYER 1 LEFT -> RIGHT
 		player1.Mirror();
-		player1.SetXPosition(15.f);
 		player2.Mirror();
+		player1.SetXPosition(10.f);
 	}
 	else if (player1.lookingAt() == LookingAt::LEFT && player1.GetXPosition() + 5 < player2.GetXPosition()) { //PLAYER 1 RIGHT -> LEFT
 		player1.Mirror();
-		player1.SetXPosition(-15.f);
 		player2.Mirror();
+		player1.SetXPosition(-10.f);
 	}
 
 	float vida = player1.GetLife();
@@ -872,6 +872,38 @@ void BattleManager::CheckCollisions() {
 
 		}
 
+	}
+
+	if (player1.hitbox.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds()) 
+		&& player1.animation_in_process == AnimationType::WALK_FORW
+		&& player2.animation_in_process != AnimationType::WALK_FORW) {
+
+		Vector2f p2Pos = player2.getPosition();
+		float addX = (player1.lookingAt() == LookingAt::RIGHT) ? 15.f : -15.f;
+		if (!player2.CheckScreenCollisions(-addX)) {
+			player2.setPosition(Vector2f(p2Pos.x + addX, p2Pos.y));
+		}
+	}
+	else if (player2.hitbox.getGlobalBounds().intersects(player1.hitbox.getGlobalBounds()) 
+		&& player2.animation_in_process == AnimationType::WALK_FORW
+		&& player1.animation_in_process != AnimationType::WALK_FORW) {
+
+		Vector2f p1Pos = player1.getPosition();
+		float addX = (player2.lookingAt() == LookingAt::RIGHT) ? 15.f : -15.f;
+		if (!player1.CheckScreenCollisions(-addX)) {
+			player1.setPosition(Vector2f(p1Pos.x + addX, p1Pos.y));
+		}
+	}
+	else if (player2.hitbox.getGlobalBounds().intersects(player1.hitbox.getGlobalBounds())
+		&& player2.animation_in_process == AnimationType::WALK_FORW
+		&& player1.animation_in_process == AnimationType::WALK_FORW) {
+		Vector2f p1Pos = player1.getPosition();
+		Vector2f p2Pos = player2.getPosition();
+
+		float addXP1 = (player1.lookingAt() == LookingAt::RIGHT) ? 15.f : -15.f;
+		float addXP2 = (player2.lookingAt() == LookingAt::RIGHT) ? 15.f : -15.f;
+		player1.setPosition(Vector2f(p1Pos.x + addXP2, p1Pos.y));
+		player2.setPosition(Vector2f(p2Pos.x + addXP1, p2Pos.y));
 	}
 
 	if (liuKangSpecial.body.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds())) {

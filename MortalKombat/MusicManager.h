@@ -24,6 +24,9 @@ public:
 
 	void skipHistoryTheme();
 
+	void maleJump();
+	void doubleJump();
+
 	void hit1(); // Blood
 	void hit9();
 
@@ -105,6 +108,7 @@ private:
 	vector<Sound> scorpion;
 	vector<Sound> liukang;
 	vector<Sound> hits;
+	vector<Sound> male;
 
 	vector<SoundBuffer> bufferIntro;
 	vector<SoundBuffer> bufferMusic;
@@ -114,6 +118,7 @@ private:
 	vector<SoundBuffer> bufferScorpion;
 	vector<SoundBuffer> bufferLiuKang;
 	vector<SoundBuffer> bufferHits;
+	vector<SoundBuffer> bufferMale;
 
 	float volumeMusic = 80.f;
 	float volumeEffects = 80.f;
