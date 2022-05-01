@@ -25,6 +25,7 @@
     <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="BloodEffect.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="ControlsManager.cpp" />
     <ClCompile Include="Courtyard.cpp" />
     <ClCompile Include="DeadManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -49,6 +50,7 @@
     <ClInclude Include="BattleManager.h" />
     <ClInclude Include="BloodEffect.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="ControlsManager.h" />
     <ClInclude Include="Courtyard.h" />
     <ClInclude Include="DeadManager.h" />
     <ClInclude Include="EventManager.h" />
@@ -59,10 +61,10 @@
     <ClInclude Include="LiuKang.h" />
     <ClInclude Include="Movement.h" />
     <ClInclude Include="MusicManager.h" />
-    <ClInclude Include="Playeable.h" />
     <ClInclude Include="Recover.h" />
     <ClInclude Include="Scorpion.h" />
     <ClInclude Include="Sonya_Blade.h" />
+    <ClInclude Include="SoundEffects.h" />
     <ClInclude Include="SpecialAttack.h" />
     <ClInclude Include="StartManager.h" />
     <ClInclude Include="MenuManager.h" />

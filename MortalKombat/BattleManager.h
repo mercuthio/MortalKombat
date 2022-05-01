@@ -7,6 +7,7 @@
 
 #include "BloodEffect.h"
 #include "SpecialAttack.h"
+#include "SoundEffects.h"
 
 #include "LiuKang.h"
 #include "Scorpion.h"

@@ -690,6 +690,7 @@ void BattleManager::Update() {
 					break;
 				}
 
+				characterFall03(character2);
 				player1.animation_in_process = AnimationType::WIN;
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(500, 0));
@@ -708,6 +709,7 @@ void BattleManager::Update() {
 					break;
 				}
 
+				characterFall03(character1);
 				player2.animation_in_process = AnimationType::WIN;
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(500, 0));
@@ -757,6 +759,7 @@ void BattleManager::Update() {
 				rect.setTextureRect(uvRect);
 				HUD_vector[17] = rect;
 
+				characterFall02(character2);
 				player1.animation_in_process = AnimationType::WIN;
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(500, 0));
@@ -812,6 +815,7 @@ void BattleManager::Update() {
 				rect.setTextureRect(uvRect);
 				HUD_vector[17] = rect;
 
+				characterFall02(character1);
 				player2.animation_in_process = AnimationType::WIN;
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(500, 0));
@@ -947,6 +951,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall01(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
 			}
@@ -963,6 +968,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall01(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
 			}
@@ -982,6 +988,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
 			}
@@ -1011,6 +1018,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
 			}
@@ -1039,6 +1047,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			life2 -= life_PUNCH_UPPER;
 			player2.animation_in_process = AnimationType::FALL;
 			music.hit1();
+			characterFall01(character2);
 
 			int random = rand() % 10;
 
@@ -1060,6 +1069,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			life1 -= life_PUNCH_UPPER;
 			player1.animation_in_process = AnimationType::FALL;
 			music.hit1();
+			characterFall01(character1);
 
 			int random = rand() % 10;
 
@@ -1087,6 +1097,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
 			}
@@ -1103,6 +1114,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
 			}
@@ -1121,6 +1133,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall01(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
 			}
@@ -1137,6 +1150,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall01(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
 			}
@@ -1155,6 +1169,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
 			}
@@ -1184,6 +1199,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
 			}
@@ -1215,6 +1231,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall01(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(350, 100));
 			}
@@ -1231,6 +1248,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall01(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(350, 100));
 			}
@@ -1247,6 +1265,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			player2.setOnAir(true);
 			player2.animation_in_process = AnimationType::FALL_UPPERCUT;
 			music.hit5();
+			characterFall01(character2);
 
 			int random = rand() % 10;
 
@@ -1261,6 +1280,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			player1.setOnAir(true);
 			player1.animation_in_process = AnimationType::FALL_UPPERCUT;
 			music.hit5();
+			characterFall01(character1);
 
 			int random = rand() % 10;
 
@@ -1279,6 +1299,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
 			}
@@ -1295,6 +1316,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
 			}
@@ -1313,10 +1335,12 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			player2.setSpeed(Vector2f(300, 0));
 		}
 		else if (onAir) {
+			characterFall04(character2);
 			player2.animation_in_process = AnimationType::FALL;
 			player2.setSpeed(Vector2f(500, 500));
 		}
 		else {
+			characterFall04(character2);
 			player2.animation_in_process = AnimationType::FALL;
 			player2.setSpeed(Vector2f(500, 500));
 		}
@@ -1329,10 +1353,12 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			player1.setSpeed(Vector2f(300, 0));
 		}
 		else if (onAir) {
+			characterFall04(character1);
 			player1.animation_in_process = AnimationType::FALL;
 			player1.setSpeed(Vector2f(500, 500));
 		}
 		else {
+			characterFall04(character2);
 			player1.animation_in_process = AnimationType::FALL;
 			player1.setSpeed(Vector2f(500, 500));
 		}

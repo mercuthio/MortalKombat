@@ -688,7 +688,7 @@ void Character::DoAnimation() {
 	bool finished = false;
 
 	if (!fallen) {
-		finished = animations[animation_in_process].animation.DoAnimation(body, shadow, hitbox, mirrored,
+		finished = animations[animation_in_process].animation.DoAnimation(body, shadow, hitbox, mirrored, (player == 2),
 			animations[animation_in_process].hitbox_positions_X, animations[animation_in_process].hitbox_positions_Y, global_position, hitboxes[animation_in_process],
 			damage_hitbox, animations[animation_in_process].damage_hitbox_positions_X, animations[animation_in_process].damage_hitbox_positions_Y, damage_hitboxes[animation_in_process]);
 	}	

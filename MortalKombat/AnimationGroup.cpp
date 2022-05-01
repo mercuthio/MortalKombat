@@ -24,11 +24,11 @@ void AnimationGroup::ResetAnimation() {
 
 
 
-bool AnimationGroup::DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored,
+bool AnimationGroup::DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored, bool player2,
 		float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition, vector<RectangleShape> hitboxes,
 		RectangleShape& damage_hitbox, float damage_hitbox_positions_X[], float damage_hitbox_positions_Y[], vector<RectangleShape> damage_hitboxes) {
 
-	bool finished = animations[current_animation].DoAnimation(body, shadow, hitbox, mirrored, hitbox_positions_X, hitbox_positions_Y, globalPosition,
+	bool finished = animations[current_animation].DoAnimation(body, shadow, hitbox, mirrored, player2, hitbox_positions_X, hitbox_positions_Y, globalPosition,
 		hitboxes, damage_hitbox, damage_hitbox_positions_X, damage_hitbox_positions_Y, damage_hitboxes);
 	if (finished) {
 		current_animation++;

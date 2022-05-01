@@ -3,6 +3,7 @@
 
 #include "SFML/Graphics.hpp"
 #include <SFML/Audio/Music.hpp>
+#include "ControlsManager.h"
 
 using namespace sf;
 
@@ -35,6 +36,8 @@ private:
 
 	bool showing_controls;
 	int choosenOption;					//Entero que guarda la opcion elegida
+
+	//ControlsManager ControlsManager;
 
 	Font font;							//Variable con la fuente de la letra
 	Text text[NUM_OPTIONS_OPT + 1];		//Vector de textos de las opciones del menu

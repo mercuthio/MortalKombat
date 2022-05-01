@@ -81,6 +81,10 @@ public:
 
 	void liuKangPunch01();
 	void liuKangKick01();
+	void liuKangFall01();
+	void liuKangFall02();
+	void liuKangFall03();
+	void liuKangFall04();
 
 	void reduceVolumeMusic() { volumeMusic -= 20.f;};
 	void addVolumeMusic() { volumeMusic += 20.f;};

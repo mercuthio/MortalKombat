@@ -1,9 +1,10 @@
 #include "Animation.h"
 
-Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, vector<Recover> _recovery, vector<int> _flagged_frames, int _wait_until) {
+Animation::Animation(int _duration, Texture* _sprite_sheet, Texture* _sprite_sheetP2, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, vector<Recover> _recovery, vector<int> _flagged_frames, int _wait_until) {
 
 	duration = _duration;
 	sprite_sheet = _sprite_sheet;
+	sprite_sheetP2 = _sprite_sheetP2;
 	first_frame = _first_frame;
 	size = _size;
 	wait_until = _wait_until;
@@ -29,14 +30,20 @@ Animation::Animation(int _duration, Texture* _sprite_sheet, Vector2<int> _first_
 	el cual puede estar condicionado por factores externos
 */
 
-bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored,
+bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored, bool player2,
 	float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition, vector<RectangleShape> hitboxes,
 	RectangleShape& damage_hitbox, float damage_hitbox_positions_X[], float damage_hitbox_positions_Y[], vector<RectangleShape> damage_hitboxes) {
 
 	bool finished = !lock;
 
 	shadow.setTexture(sprite_sheet);
-	body.setTexture(sprite_sheet);
+
+	if (player2) {
+		body.setTexture(sprite_sheetP2);
+	}
+	else {
+		body.setTexture(sprite_sheet);
+	}
 
 	float position_x = hitbox_positions_X[frame_number-1];
 	float position_y = hitbox_positions_Y[frame_number-1];

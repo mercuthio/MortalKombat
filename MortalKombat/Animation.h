@@ -18,11 +18,11 @@ using namespace std;
 class Animation {
 public:
 	Animation() = default;
-	Animation(int _duration, Texture *_sprite_sheet, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, vector<Recover> _recovery, vector<int> _flagged_frames, int _wait_until);
+	Animation(int _duration, Texture *_sprite_sheet, Texture* _sprite_sheetP2, Vector2<int> _first_frame, Vector2<int> _size, int _offset, bool backwards, bool _lock, vector<Recover> _recovery, vector<int> _flagged_frames, int _wait_until);
 	//~Animation() = delete;
-	bool DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored,
-		float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition, vector<RectangleShape> hitboxes,
-		RectangleShape& damage_hitbox, float damage_hitbox_positions_X[], float damage_hitbox_positions_Y[], vector<RectangleShape> damage_hitboxes);
+	bool DoAnimation(RectangleShape& body, RectangleShape& shadow, RectangleShape& hitbox, bool mirrored, bool player2,
+			float hitbox_positions_X[], float hitbox_positions_Y[], Vector2<float> globalPosition, vector<RectangleShape> hitboxes,
+			RectangleShape& damage_hitbox, float damage_hitbox_positions_X[], float damage_hitbox_positions_Y[], vector<RectangleShape> damage_hitboxes);
 	void ResetAnimation();
 	bool RecieveFlagEvent();
 
@@ -30,6 +30,7 @@ public:
 
 private:
 	Texture* sprite_sheet;						// Spritesheet de la animacion
+	Texture* sprite_sheetP2;
 
 	int	duration = 0;							// Total de imagenes de la animacion
 	bool isPersistent = false;

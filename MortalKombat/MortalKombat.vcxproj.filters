@@ -13,177 +13,216 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Archivos de encabezado\GameManager">
-      <UniqueIdentifier>{f43cfddc-0e58-440c-b675-53a4e26e1e2f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\GameManager">
       <UniqueIdentifier>{d0b3a3f3-f150-46a2-a7b8-5d2625472287}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\GameManager\Backgrounds">
+    <Filter Include="Archivos de encabezado\SoundManager">
+      <UniqueIdentifier>{173ca69c-807d-4dca-b686-15cba894cd68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\GameManager">
+      <UniqueIdentifier>{13048d8c-065c-4fe5-bf40-7ef28b51ef03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\EffectsManager">
+      <UniqueIdentifier>{c69568cb-9126-430e-9fcd-9b86fce433e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\MenuManager">
+      <UniqueIdentifier>{5d124785-26dc-444f-901b-c9c81977f337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Utils">
+      <UniqueIdentifier>{2eb0d98c-164b-4cb6-9f06-8bc158f50171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\PlayerManager">
+      <UniqueIdentifier>{4379333c-2836-411d-af33-50473cfe6824}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\BackgroundManager">
+      <UniqueIdentifier>{30005cec-6ce5-4ec5-ba2c-3cd289d4d400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\BackgroundManager\BackgroundTypes">
       <UniqueIdentifier>{3e4ce046-9f3e-43ba-beee-c4dd95c60a5e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\GameManager\Backgrounds">
-      <UniqueIdentifier>{63d3b42b-0905-4f4a-b6f7-573f47054206}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\GameManager\Characters">
+    <Filter Include="Archivos de encabezado\PlayerManager\CharacterTypes">
       <UniqueIdentifier>{8d1dbdee-aa27-4796-90c4-29895cdd4e70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\EffectsManager">
+      <UniqueIdentifier>{4ede6ef3-0b69-4f60-a58c-d962aad2984c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\MenuManager">
+      <UniqueIdentifier>{3809d1c8-84a8-4670-a7ae-a2e14bfdcc4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\BackgroundManager">
+      <UniqueIdentifier>{0272ee53-25d3-46f0-8b3e-f3e850033449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\PlayerManager">
+      <UniqueIdentifier>{1a2543cd-911f-4406-983d-9432b00a900a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\SoundManager">
+      <UniqueIdentifier>{e98af836-8d67-4a33-a340-e857f70e63b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\BackgroundManager\BackgroundTypes">
+      <UniqueIdentifier>{63d3b42b-0905-4f4a-b6f7-573f47054206}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mortal_Kombat.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="EventManager.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
+    <ClCompile Include="Courtyard.cpp">
+      <Filter>Archivos de origen\BackgroundManager\BackgroundTypes</Filter>
     </ClCompile>
-    <ClCompile Include="StartManager.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
+    <ClCompile Include="Warrior_Shrine.cpp">
+      <Filter>Archivos de origen\BackgroundManager\BackgroundTypes</Filter>
     </ClCompile>
-    <ClCompile Include="MenuManager.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
+    <ClCompile Include="The_Pit.cpp">
+      <Filter>Archivos de origen\BackgroundManager\BackgroundTypes</Filter>
     </ClCompile>
-    <ClCompile Include="OptionsManager.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
+    <ClCompile Include="Throne_Room.cpp">
+      <Filter>Archivos de origen\BackgroundManager\BackgroundTypes</Filter>
     </ClCompile>
-    <ClCompile Include="TransitionManager.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Archivos de origen\PlayerManager</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerSelector.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
-    </ClCompile>
-    <ClCompile Include="HistoryManager.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
+    <ClCompile Include="AnimationGroup.cpp">
+      <Filter>Archivos de origen\PlayerManager</Filter>
     </ClCompile>
     <ClCompile Include="BackgroundManager.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Courtyard.cpp">
-      <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
+      <Filter>Archivos de origen\BackgroundManager</Filter>
     </ClCompile>
     <ClCompile Include="BattleManager.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="Warrior_Shrine.cpp">
-      <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
-    </ClCompile>
-    <ClCompile Include="The_Pit.cpp">
-      <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimationGroup.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
+    <ClCompile Include="BloodEffect.cpp">
+      <Filter>Archivos de origen\EffectsManager</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
-    </ClCompile>
-    <ClCompile Include="MusicManager.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
+      <Filter>Archivos de origen\PlayerManager</Filter>
     </ClCompile>
     <ClCompile Include="DeadManager.cpp">
+      <Filter>Archivos de origen\MenuManager</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
       <Filter>Archivos de origen\GameManager</Filter>
     </ClCompile>
     <ClCompile Include="FinishManager.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
+      <Filter>Archivos de origen\MenuManager</Filter>
     </ClCompile>
-    <ClCompile Include="Throne_Room.cpp">
-      <Filter>Archivos de origen\GameManager\Backgrounds</Filter>
+    <ClCompile Include="TransitionManager.cpp">
+      <Filter>Archivos de origen\MenuManager</Filter>
     </ClCompile>
-    <ClCompile Include="BloodEffect.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
+    <ClCompile Include="StartManager.cpp">
+      <Filter>Archivos de origen\MenuManager</Filter>
     </ClCompile>
     <ClCompile Include="SpecialAttack.cpp">
-      <Filter>Archivos de origen\GameManager</Filter>
+      <Filter>Archivos de origen\PlayerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="HistoryManager.cpp">
+      <Filter>Archivos de origen\MenuManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuManager.cpp">
+      <Filter>Archivos de origen\MenuManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicManager.cpp">
+      <Filter>Archivos de origen\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsManager.cpp">
+      <Filter>Archivos de origen\MenuManager</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSelector.cpp">
+      <Filter>Archivos de origen\MenuManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlsManager.cpp">
+      <Filter>Archivos de origen\MenuManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EventManager.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="StartManager.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuManager.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="OptionsManager.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="TransitionManager.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSelector.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="HistoryManager.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="BackgroundManager.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
     <ClInclude Include="Courtyard.h">
-      <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
+      <Filter>Archivos de encabezado\BackgroundManager\BackgroundTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Warrior_Shrine.h">
+      <Filter>Archivos de encabezado\BackgroundManager\BackgroundTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="The_Pit.h">
+      <Filter>Archivos de encabezado\BackgroundManager\BackgroundTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Goro.h">
+      <Filter>Archivos de encabezado\PlayerManager\CharacterTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LiuKang.h">
+      <Filter>Archivos de encabezado\PlayerManager\CharacterTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scorpion.h">
+      <Filter>Archivos de encabezado\PlayerManager\CharacterTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Sonya_Blade.h">
+      <Filter>Archivos de encabezado\PlayerManager\CharacterTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Throne_Room.h">
+      <Filter>Archivos de encabezado\BackgroundManager\BackgroundTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Archivos de encabezado\PlayerManager</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationGroup.h">
+      <Filter>Archivos de encabezado\PlayerManager</Filter>
     </ClInclude>
     <ClInclude Include="BattleManager.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="GlobalVars.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Warrior_Shrine.h">
-      <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
-    </ClInclude>
-    <ClInclude Include="The_Pit.h">
-      <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationGroup.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
+    <ClInclude Include="BloodEffect.h">
+      <Filter>Archivos de encabezado\EffectsManager</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Movement.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Goro.h">
-      <Filter>Archivos de encabezado\GameManager\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="LiuKang.h">
-      <Filter>Archivos de encabezado\GameManager\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Scorpion.h">
-      <Filter>Archivos de encabezado\GameManager\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Sonya_Blade.h">
-      <Filter>Archivos de encabezado\GameManager\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="MusicManager.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Recover.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
+      <Filter>Archivos de encabezado\PlayerManager</Filter>
     </ClInclude>
     <ClInclude Include="DeadManager.h">
+      <Filter>Archivos de encabezado\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
       <Filter>Archivos de encabezado\GameManager</Filter>
     </ClInclude>
     <ClInclude Include="FinishManager.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
+      <Filter>Archivos de encabezado\MenuManager</Filter>
     </ClInclude>
-    <ClInclude Include="Playeable.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="GlobalVars.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="HistoryManager.h">
+      <Filter>Archivos de encabezado\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuManager.h">
+      <Filter>Archivos de encabezado\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Movement.h">
+      <Filter>Archivos de encabezado\PlayerManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicManager.h">
+      <Filter>Archivos de encabezado\SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionsManager.h">
+      <Filter>Archivos de encabezado\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSelector.h">
+      <Filter>Archivos de encabezado\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Recover.h">
+      <Filter>Archivos de encabezado\PlayerManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEffects.h">
+      <Filter>Archivos de encabezado\SoundManager</Filter>
     </ClInclude>
     <ClInclude Include="SpecialAttack.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
+      <Filter>Archivos de encabezado\PlayerManager</Filter>
     </ClInclude>
-    <ClInclude Include="Throne_Room.h">
-      <Filter>Archivos de encabezado\GameManager\Backgrounds</Filter>
+    <ClInclude Include="StartManager.h">
+      <Filter>Archivos de encabezado\MenuManager</Filter>
     </ClInclude>
-    <ClInclude Include="BloodEffect.h">
-      <Filter>Archivos de encabezado\GameManager</Filter>
+    <ClInclude Include="TransitionManager.h">
+      <Filter>Archivos de encabezado\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundManager.h">
+      <Filter>Archivos de encabezado\BackgroundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlsManager.h">
+      <Filter>Archivos de encabezado\MenuManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
