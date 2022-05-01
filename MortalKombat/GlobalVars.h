@@ -65,6 +65,7 @@ const int life_PUNCH_UPPER = 3;
 const int life_PUNCH_UPPER_MULTIPLE = 2;
 const int life_PUNCH_UPPER_CLOSE = 2;
 const int life_PUNCH_FROM_DOWN = 2;
+const int life_PUNCH_FROM_AIR = 2;
 const int life_KICK = 4;
 const int life_KICK_UPPER = 5;
 const int life_KICK_LOW = 4;
@@ -205,6 +206,7 @@ static bool isDamageMovement(AnimationType anim) {
 		(anim == AnimationType::PUNCH_UPPER_MULTIPLE) ||
 		(anim == AnimationType::PUNCH_UPPER_CLOSE) ||
 		(anim == AnimationType::PUNCH_FROM_DOWN) ||
+		(anim == AnimationType::PUNCH_FROM_AIR) ||
 		(anim == AnimationType::KICK) ||
 		(anim == AnimationType::KICK_UPPER) ||
 		(anim == AnimationType::KICK_LOW) ||

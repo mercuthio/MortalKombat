@@ -654,7 +654,7 @@ void BattleManager::Update() {
 
 		bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
 
-		if (!inFinishHim && clock_finishRound == 80) {
+		if ((finishedFinishHim || !inFinishHim) && clock_finishRound == 80) {
 			music.clapsPublic();
 			clapping = true;
 		}
@@ -1272,6 +1272,40 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			}
 			music.hit2();
 		}
+	}
+	else if (anim == AnimationType::PUNCH_FROM_AIR) {
+	if (toPlayerTwo) {
+		life2 -= life_PUNCH_FROM_AIR;
+		if (crouching) {
+			player2.animation_in_process = AnimationType::HIT_DOWN;
+			player2.setSpeed(Vector2f(300, 0));
+		}
+		else if (onAir) {
+			player2.animation_in_process = AnimationType::FALL;
+			player2.setSpeed(Vector2f(500, 500));
+		}
+		else {
+			player2.animation_in_process = AnimationType::FALL;
+			player2.setSpeed(Vector2f(500, 500));
+		}
+		music.hit2();
+	}
+	else {
+		life1 -= life_PUNCH_FROM_AIR;
+		if (crouching) {
+			player1.animation_in_process = AnimationType::HIT_DOWN;
+			player1.setSpeed(Vector2f(300, 0));
+		}
+		else if (onAir) {
+			player1.animation_in_process = AnimationType::FALL;
+			player1.setSpeed(Vector2f(500, 500));
+		}
+		else {
+			player1.animation_in_process = AnimationType::FALL;
+			player1.setSpeed(Vector2f(500, 500));
+		}
+		music.hit2();
+	}
 	}
 	else if (anim == AnimationType::SPECIAL) {
 		if (toPlayerTwo) {
