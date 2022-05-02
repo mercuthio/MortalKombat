@@ -327,6 +327,9 @@ void EventManager::Update(Event event) {
 		case Keyboard::BackSpace:
 			state = 4;
 			break;
+		default:
+			ControlsManager.changeKey(event.key.code);
+			break;
 		}
 		ControlsManager.Update();
 		break;

@@ -19,14 +19,19 @@ public:
 	void Enter();						//Pulsa la tecla enter
 	void Izquierda();					//Mueve una opcion a la izquierda
 	void MoveCursor(bool);				//Mueve el curso arriba si parametro true, abajo si false
-
+	void changeKey(Keyboard::Key k);
 
 private:
 
+	int clock_flash;
+	bool flash;
+
+	bool changing_key;
 	bool playerTwo;
 	int choosenOption;					//Entero que guarda la opcion elegida
 	Font font;							//Variable con la fuente de la letra
 	Text text[16];						//Vector de textos de las opciones del menu
+	Text keys[16];
 	Text shadow[16];
 	IntRect uvRect;						//IntRect del fondo
 	RectangleShape backg;				//Objeto del fondo
