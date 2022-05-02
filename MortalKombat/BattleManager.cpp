@@ -213,7 +213,7 @@ void BattleManager::LoadCharacters() {
 	cout << "[*] Loading character textures..." << endl;
 	LiuKang = CreateLiuKang();
 	cout << "[+......] Character LiuKang loaded!" << endl;
-	Scorpion = CreateScorpion();
+	//Scorpion = CreateScorpion();
 	cout << "[++.....] Character Scorpion loaded!" << endl;
 	SonyaBlade = CreateSonyaBlade();
 	cout << "[+++....] Character Sonya Blade loaded!" << endl;
@@ -627,14 +627,72 @@ void BattleManager::Update() {
 	}
 
 	if (player1.animation_in_process == AnimationType::SPECIAL) {
-
-		if (liuKangSpecial.isFinished()) {
-			Vector2f pos = Vector2f(player1.getPosition().x + 420, player1.getPosition().y + 205);
-			liuKangSpecial.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
+		if (player1Special.isFinished()) {
+			if (player1.lookingAt() == LookingAt::RIGHT) {
+				Vector2f pos = Vector2f(player1.getPosition().x + 375, player1.getPosition().y + 205);
+				switch (character1)
+				{
+				case LIU_KANG:
+					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
+					break;
+				case SCORPION:
+					break;
+				case SONYA:
+					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
+					break;
+				}
+			}
+			else {
+				Vector2f pos = Vector2f(player1.getPosition().x + 75, player1.getPosition().y + 205);
+				switch (character1)
+				{
+				case LIU_KANG:
+					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
+					break;
+				case SCORPION:
+					break;
+				case SONYA:
+					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
+					break;
+				}
+			}
 		}
 	}
 
-	//liuKangSpecial.Update();
+	if (player2.animation_in_process == AnimationType::SPECIAL) {
+		if (player1Special.isFinished()) {
+			if (player2.lookingAt() == LookingAt::RIGHT) {
+				Vector2f pos = Vector2f(player2.getPosition().x + 375, player2.getPosition().y + 205);
+				switch (character2)
+				{
+				case LIU_KANG:
+					player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
+					break;
+				case SCORPION:
+					break;
+				case SONYA:
+					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
+					break;
+				}
+			}
+			else {
+				Vector2f pos = Vector2f(player2.getPosition().x + 75, player2.getPosition().y + 205);
+				switch (character1)
+				{
+				case LIU_KANG:
+					player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
+					break;
+				case SCORPION:
+					break;
+				case SONYA:
+					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
+					break;
+				}
+			}
+		}
+	}
+
+	player1Special.Update();
 
 	CheckCollisions();
 
@@ -909,9 +967,13 @@ void BattleManager::CheckCollisions() {
 		player2.setPosition(Vector2f(p2Pos.x + addXP1, p2Pos.y));
 	}
 
-	if (liuKangSpecial.body.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds())) {
-		liuKangSpecial.setHit();
+	if (player1Special.body.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds()) && !player1Special.isFinished()) {
+		player1Special.setHit();
 		ProcessHit(AnimationType::SPECIAL, true);
+	}
+	if (player2Special.body.getGlobalBounds().intersects(player1.hitbox.getGlobalBounds()) && !player2Special.isFinished()) {
+		player2Special.setHit();
+		ProcessHit(AnimationType::SPECIAL, false);
 	}
 
 }
@@ -1476,7 +1538,8 @@ void BattleManager::draw(RenderWindow& window) {
 	}
 
 	blood.draw(window);
-	liuKangSpecial.draw(window);
+	player2Special.draw(window);
+	player1Special.draw(window);
 
 	int i = 0;
 	for (RectangleShape rect : HUD_vector) {

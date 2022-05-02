@@ -108,7 +108,8 @@ private:
 	BloodEffect bloodGround1;
 	BloodEffect bloodGround2;
 
-	SpecialAttack liuKangSpecial;
+	SpecialAttack player1Special;
+	SpecialAttack player2Special;
 
 	Character player1;
 	Character player2;

@@ -21,27 +21,37 @@ SpecialAttack::SpecialAttack() {
 
 void SpecialAttack::Update() {
 
-	if (internalTimer >= 0.05) {
-		internalTimer = 0.0f;
+	if (!finished) {
+		if (initInternalTimer >= 0.37) {
 
-		if (looking_at == LookingAt::RIGHT && body.getPosition().x >= screenRightHardLimit) {
-			finished = true;
-		} else if (looking_at == LookingAt::LEFT && body.getPosition().x - body.getSize().x <= screenLeftHardLimit) {
-			finished = true;
-		}
+			cout << "DALEEE" << endl;
 
-		if (!finished) {
-			if (!hasHit) {
-				float posX = body.getPosition().x;
-				float posY = body.getPosition().y;
-				body.setPosition(Vector2f(posX + 25, posY));
+			if (internalTimer >= 0.05) {
+				internalTimer = 0.0f;
+
+				if ((looking_at == LookingAt::RIGHT && body.getPosition().x >= screenRightHardLimit)
+					|| (looking_at == LookingAt::LEFT && body.getPosition().x - body.getSize().x <= screenLeftHardLimit)) {
+					finished = true;
+					started = !finished;
+				}
+				else {
+					if (!hasHit) {
+						float posX = body.getPosition().x;
+						float posY = body.getPosition().y;
+						body.setPosition(Vector2f(posX + 25, posY));
+					}
+
+					finished = SpecialAttackAnimation();
+					started = !finished;
+				}
 			}
-
-			finished = SpecialAttackAnimation();
+			else {
+				internalTimer += 0.025f;
+			}
 		}
-	}
-	else {
-		internalTimer += 0.025f;
+		else {
+			initInternalTimer += 0.01f;
+		}
 	}
 }
 
@@ -49,11 +59,12 @@ void SpecialAttack::SpecialAttackAt(SpecialType type, Vector2f position, bool mi
 	animationInProgress = type;
 	body.setPosition(position);
 	finished = false;
+	started = false;
 	hasHit = false;
+	initInternalTimer = 0;
 }
 
 bool SpecialAttack::SpecialAttackAnimation() {
-
 	IntRect uvRect;
 	Vector2f size_liuAnim = Vector2f(68.0f, 11.0f);
 	Vector2f size_liuHit = Vector2f(65.0f, 87.0f);
@@ -103,6 +114,32 @@ bool SpecialAttack::SpecialAttackAnimation() {
 		case SpecialType::SCORPION:
 			break;
 		case SpecialType::SONYA:
+			if (!hasHit) {
+				body.setSize(size_sonyaAnim);
+				body.setScale(3.0f, 3.0f);
+				uvRect.left = 2.0f;
+				uvRect.top = 454.0f;
+				uvRect.width = size_sonyaAnim.x;
+				uvRect.height = size_sonyaAnim.y;
+				body.setTextureRect(uvRect);
+
+				if (frame == maxFrames - 1) {
+					frame = 0;
+				}
+				else {
+					frame++;
+				}
+			}
+			else {
+				body.setSize(size_sonyaHit);
+				body.setScale(3.0f, 3.0f);
+				uvRect.left = 43.0f + (size_sonyaHit.x + 2) * frame;
+				uvRect.top = 129.0f;
+				uvRect.width = size_sonyaHit.x;
+				uvRect.height = size_sonyaHit.y;
+				body.setTextureRect(uvRect);
+				frame++;
+			}
 			break;
 		default:
 			break;
@@ -116,7 +153,8 @@ bool SpecialAttack::SpecialAttackAnimation() {
 }
 
 void SpecialAttack::draw(RenderWindow& window) {
-	if (!finished) {
+	if (started) {
+		cout << "UWUU" << endl;
 		window.draw(body);
 	}
 }

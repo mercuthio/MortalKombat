@@ -8,7 +8,7 @@ Keyboard::Key punchButton = Keyboard::F;
 Keyboard::Key punchButton2 = Keyboard::G;    
 Keyboard::Key kickButton = Keyboard::H;        
 Keyboard::Key grabButton = Keyboard::Unknown;
-Keyboard::Key specialButton = Keyboard::Unknown;
+Keyboard::Key specialButton = Keyboard::V;
 Keyboard::Key blockButton = Keyboard::T;        
 
 Keyboard::Key jumpButtonP2 = Keyboard::Up;

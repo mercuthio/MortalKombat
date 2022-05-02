@@ -37,13 +37,15 @@ public:
 
 private:
 	Texture* spriteSheet;
-	int totalFramesAnim[3] = { 2, 4, 1};
+	int totalFramesAnim[3] = { 2, 4, 2};
 	int totalFramesHit[3] = { 6, 4, 4 };
 	LookingAt looking_at = LookingAt::RIGHT;
 	int frame;
+	float initInternalTimer;
 	float internalTimer;
 	SpecialType animationInProgress;
 	bool finished;
+	bool started;
 	bool hasHit;
 
 };
