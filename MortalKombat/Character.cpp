@@ -84,7 +84,7 @@ void Character::CheckIAAnimation(Character opponent) {
 		falling = false;
 		animation_in_process = AnimationType::RECOVER;
 	}
-	else if (!falling) {
+	else if (!falling && !dying) {
 		if (on_air && estado == EstadoIA::MODO_ATAQUE) {
 			int ataque = rand() % 2;
 			switch (ataque) {
@@ -105,92 +105,101 @@ void Character::CheckIAAnimation(Character opponent) {
 			AnimationType animOp = opponent.getAnimation();
 			int probabilidad = rand() % 100; // entre 0 y 99 (inclusive)
 			int salto = rand() % 25;
+			float distanceBetween = mirrored ? (GetXPosition() - opponent.GetXPosition()) * -1 : (GetXPosition() - opponent.GetXPosition());
 			switch (estado) {
-			case EstadoIA::IDLE:
-				animation_in_process = AnimationType::IDLE;
-				break;
-
-			case EstadoIA::ACERCARSE:
-				if (salto > 23) {
-					speed = Vector2<float>(-400, 700);
-					animation_in_process = AnimationType::JUMP_AND_MOVE;
-					music.maleJump();
-					music.doubleJump();
-				}
-				else {
-					animation_in_process = AnimationType::WALK_FORW;
-				}
-
-				break;
-
-			case EstadoIA::ALEJARSE:
-				if (salto > 23) {
-					speed = Vector2<float>(400, 700);
-					animation_in_process = AnimationType::JUMP_AND_MOVE;
-					music.maleJump();
-					music.doubleJump();
-				}
-				else {
-					animation_in_process = AnimationType::WALK_BACK;
-
-					animation_in_process = AnimationType::WALK_BACK;
+				case EstadoIA::IDLE:
+					animation_in_process = AnimationType::IDLE;
 					break;
 
-			case EstadoIA::MODO_ATAQUE:
-
-				if (difficulty_lvl == DifficultyLevel::HARD) {
-					if (animOp == AnimationType::BLOCK) {
-						animation_in_process = AnimationType::WIN;
+				case EstadoIA::ACERCARSE:
+					if (salto > 23) {
+						speed = Vector2<float>(-400, 700);
+						animation_in_process = AnimationType::JUMP_AND_MOVE;
+						music.maleJump();
+						music.doubleJump();
 					}
-				}
-				else {
-					cout << "ATACO";
-					int ataque = rand() % 4;
-					switch (ataque) {
-					case 0:
-						if (!on_air) {
-							animation_in_process = AnimationType::PUNCH;
-							music.hit6();
-						}
-						else {
-							animation_in_process = AnimationType::PUNCH_FROM_AIR;
-							music.hit8();
-						}
-
-						break;
-
-					case 1:
-						if (!on_air) {
-							animation_in_process = AnimationType::PUNCH_UPPER;
-							music.hit6();
-						}
-
-						break;
-
-					case 2:
-						if (!on_air) {
-							animation_in_process = AnimationType::KICK;
-							music.hit7();
-						}
-						else {
-							animation_in_process == AnimationType::KICK_FROM_AIR;
-							music.hit8();
-						}
-						break;
-
-					case 3:
-						if (!on_air) {
-							animation_in_process = AnimationType::KICK_LOW;
-							music.hit7();
-						}
-						break;
+					else {
+						animation_in_process = AnimationType::WALK_FORW;
 					}
-					estado = EstadoIA::ALEJARSE;
-				}
-			case EstadoIA::MODO_SEXO:
-				break;
 
-				}
+					break;
+
+				case EstadoIA::ALEJARSE:
+					if (salto > 23) {
+						speed = Vector2<float>(400, 700);
+						animation_in_process = AnimationType::JUMP_AND_MOVE;
+						music.maleJump();
+						music.doubleJump();
+					}
+					else {
+						animation_in_process = AnimationType::WALK_BACK;
+					}
+					break;
+
+				case EstadoIA::MODO_ATAQUE:
+
+					if (difficulty_lvl == DifficultyLevel::HARD) {
+						if (animOp == AnimationType::BLOCK) {
+							animation_in_process = AnimationType::WIN;
+						}
+					}
+					else {
+						cout << "ATACO";
+						int ataque = rand() % 4;
+						switch (ataque) {
+						case 0:
+							if (!on_air) {
+								animation_in_process = AnimationType::PUNCH;
+								music.hit6();
+							}
+							else {
+								animation_in_process = AnimationType::PUNCH_FROM_AIR;
+								music.hit8();
+							}
+
+							break;
+
+						case 1:
+							if (!on_air) {
+								animation_in_process = AnimationType::PUNCH_UPPER;
+								music.hit6();
+							}
+
+							break;
+
+						case 2:
+							if (!on_air) {
+								animation_in_process = AnimationType::KICK;
+								music.hit7();
+							}
+							else {
+								animation_in_process == AnimationType::KICK_FROM_AIR;
+								music.hit8();
+							}
+							break;
+
+						case 3:
+							if (!on_air) {
+								animation_in_process = AnimationType::KICK_LOW;
+								music.hit7();
+							}
+							break;
+						}
+						estado = EstadoIA::ALEJARSE;
+					}
+
+				case EstadoIA::SOBREPASAR_IZQ:
+					speed = distanceBetween > 0 ? Vector2<float>(400, 700) : Vector2<float>(-400, 700) ;
+					animation_in_process = AnimationType::JUMP_AND_MOVE;
+					
+					break;
+				case EstadoIA::SOBREPASAR_DCHA:
+					speed = distanceBetween > 0 ? Vector2<float>(-400, 700) : Vector2<float>(400, 700);
+					animation_in_process = AnimationType::JUMP_AND_MOVE;
+					break;
+
+				case EstadoIA::MODO_SEXO:
+					break;
 			}
 		}
 	}
@@ -216,7 +225,15 @@ void Character::ChangeIAState(Character opponent) {
 		//cout << "AHHHHHHHHHHHHHH";
 	}
 	else {
-		if (distancia < 100) {
+		float distIzq = abs(screenLeftHardLimit - global_position.x);
+		float distDcha = abs(screenRightHardLimit - global_position.x);
+		if (distIzq < 100) {
+			estado = EstadoIA::SOBREPASAR_IZQ;
+		}
+		else if (distDcha < 100) {
+			estado = EstadoIA::SOBREPASAR_DCHA;
+		}
+		else if (distancia < 170) {
 			//cout << "\n" << Difficulty[difficulty_lvl] << " > ";
 			//cout << probabilidad << endl;
 
@@ -229,7 +246,7 @@ void Character::ChangeIAState(Character opponent) {
 				estado = EstadoIA::ALEJARSE;
 			}
 		}
-		else if (distancia > 400) {
+		else if (distancia > 400 ){
 			//cout << "\n" << "Entro en modo me acerco" << endl;
 			estado = EstadoIA::ACERCARSE;
 		}
@@ -420,7 +437,6 @@ void Character::CheckAnimation() {
 	
 }
 
-
 void Character::CheckAnimationP2() {
 
 	CheckDebugAnimations();
@@ -597,7 +613,6 @@ void Character::CheckAnimationP2() {
 		// else -> Nothing
 	}	
 }
-
 
 void Character::CheckDebugAnimations() {
 	if (Keyboard::isKeyPressed(Keyboard::Numpad0)) { // DEBUG

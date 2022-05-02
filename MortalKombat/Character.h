@@ -90,6 +90,10 @@ public:
 
 	void setDying(bool die) {
 		dying = die;
+		if (die) {
+			animation_in_process = AnimationType::DYING;
+			global_position.y = screenFloorLimit;
+		}		
 	}
 	void setFallen(bool fall) {
 		fallen = fall;
