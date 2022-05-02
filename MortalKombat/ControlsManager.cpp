@@ -1,5 +1,27 @@
 #include "ControlsManager.h"
 
+Keyboard::Key jumpButton = Keyboard::W;
+Keyboard::Key forwButton = Keyboard::D;
+Keyboard::Key backButton = Keyboard::A;
+Keyboard::Key downButton = Keyboard::S;
+Keyboard::Key punchButton = Keyboard::F;        
+Keyboard::Key punchButton2 = Keyboard::G;    
+Keyboard::Key kickButton = Keyboard::H;        
+Keyboard::Key grabButton = Keyboard::Unknown;
+Keyboard::Key specialButton = Keyboard::Unknown;
+Keyboard::Key blockButton = Keyboard::T;        
+
+Keyboard::Key jumpButtonP2 = Keyboard::Up;
+Keyboard::Key forwButtonP2 = Keyboard::Right;
+Keyboard::Key backButtonP2 = Keyboard::Left;
+Keyboard::Key downButtonP2 = Keyboard::Down;
+Keyboard::Key punchButtonP2 = Keyboard::J;    
+Keyboard::Key punchButton2P2 = Keyboard::K;    
+Keyboard::Key kickButtonP2 = Keyboard::L;    
+Keyboard::Key grabButtonP2 = Keyboard::Unknown;    
+Keyboard::Key specialButtonP2 = Keyboard::Unknown;    
+Keyboard::Key blockButtonP2 = Keyboard::I;    
+
 ControlsManager::ControlsManager(Texture* texture, Font font_) {
 
 	font = font_;
@@ -59,6 +81,7 @@ void ControlsManager::Update() {
 
 	for (int i = 0; i < NUM_CONTROLS; i++) {
 		text[i].setFillColor(Color::White);
+		keys[i].setFillColor(Color::White);
 	}
 
 	text[choosenOption].setFillColor(yellow);
@@ -189,58 +212,59 @@ void ControlsManager::MoveCursor(bool arriba) {
 
 void ControlsManager::changeKey(Keyboard::Key k) {
 
-	switch (choosenOption) {
-	case 0:
-		backButton = k;
-		break;
-	case 1:
-		forwButton = k;
-		break;
-	case 2:
-		jumpButton = k;
-		break;
-	case 3:
-		downButton = k;
-		break;
-	case 4:
-		blockButton = k;
-		break;
-	case 5:
-		punchButton = k;
-		break;
-	case 6:
-		punchButton2 = k;
-		break;
-	case 7:
-		kickButton = k;
-		break;
-	case 8:
-		backButtonP2 = k;
-		break;
-	case 9:
-		forwButtonP2 = k;
-		break;
-	case 10:
-		jumpButtonP2 = k;
-		break;
-	case 11:
-		downButtonP2 = k;
-		break;
-	case 12:
-		blockButtonP2 = k;
-		break;
-	case 13:
-		punchButtonP2 = k;
-		break;
-	case 14:
-		punchButton2P2 = k;
-		break;
-	case 15:
-		kickButtonP2 = k;
-		break;
+	if (changing_key) {
+		switch (choosenOption) {
+		case 0:
+			backButton = k;
+			break;
+		case 1:
+			forwButton = k;
+			break;
+		case 2:
+			jumpButton = k;
+			break;
+		case 3:
+			downButton = k;
+			break;
+		case 4:
+			blockButton = k;
+			break;
+		case 5:
+			punchButton = k;
+			break;
+		case 6:
+			punchButton2 = k;
+			break;
+		case 7:
+			kickButton = k;
+			break;
+		case 8:
+			backButtonP2 = k;
+			break;
+		case 9:
+			forwButtonP2 = k;
+			break;
+		case 10:
+			jumpButtonP2 = k;
+			break;
+		case 11:
+			downButtonP2 = k;
+			break;
+		case 12:
+			blockButtonP2 = k;
+			break;
+		case 13:
+			punchButtonP2 = k;
+			break;
+		case 14:
+			punchButton2P2 = k;
+			break;
+		case 15:
+			kickButtonP2 = k;
+			break;
+		}
+
+		changing_key = false;
+		Update();
 	}
-
-	changing_key = false;
-	Update();
-
 }

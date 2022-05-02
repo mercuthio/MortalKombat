@@ -34,27 +34,27 @@ const double ASPECT_RATIO = 4.0/3.0;
 static float width_window = 1024;
 static float height_window = 768;
 
-static Keyboard::Key jumpButton = Keyboard::W;
-static Keyboard::Key forwButton = Keyboard::D;
-static Keyboard::Key backButton = Keyboard::A;
-static Keyboard::Key downButton = Keyboard::S;
-static Keyboard::Key punchButton = Keyboard::F;		//R
-static Keyboard::Key punchButton2 = Keyboard::G;	//T
-static Keyboard::Key kickButton = Keyboard::H;		//F
-static Keyboard::Key grabButton = Keyboard::Unknown;//G
-static Keyboard::Key specialButton = Keyboard::Unknown;//V
-static Keyboard::Key blockButton = Keyboard::T;		//E
+extern Keyboard::Key jumpButton;
+extern Keyboard::Key forwButton;
+extern Keyboard::Key backButton;
+extern Keyboard::Key downButton;
+extern Keyboard::Key punchButton;
+extern Keyboard::Key punchButton2;
+extern Keyboard::Key kickButton;
+extern Keyboard::Key grabButton;
+extern Keyboard::Key specialButton;
+extern Keyboard::Key blockButton;
 
-static Keyboard::Key jumpButtonP2 = Keyboard::Up;
-static Keyboard::Key forwButtonP2 = Keyboard::Right;
-static Keyboard::Key backButtonP2 = Keyboard::Left;
-static Keyboard::Key downButtonP2 = Keyboard::Down;
-static Keyboard::Key punchButtonP2 = Keyboard::J;	//I
-static Keyboard::Key punchButton2P2 = Keyboard::K;	//U
-static Keyboard::Key kickButtonP2 = Keyboard::L;	//J
-static Keyboard::Key grabButtonP2 = Keyboard::Unknown;	//K
-static Keyboard::Key specialButtonP2 = Keyboard::Unknown;	//M
-static Keyboard::Key blockButtonP2 = Keyboard::I;	//O
+extern Keyboard::Key jumpButtonP2;
+extern Keyboard::Key forwButtonP2;
+extern Keyboard::Key backButtonP2;
+extern Keyboard::Key downButtonP2;
+extern Keyboard::Key punchButtonP2;
+extern Keyboard::Key punchButton2P2;
+extern Keyboard::Key kickButtonP2;
+extern Keyboard::Key grabButtonP2;
+extern Keyboard::Key specialButtonP2;
+extern Keyboard::Key blockButtonP2;
 
 
 const int life_BLOCK = 1;

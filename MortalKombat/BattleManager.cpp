@@ -211,11 +211,11 @@ void BattleManager::LoadTextures() {
 
 void BattleManager::LoadCharacters() {
 	cout << "[*] Loading character textures..." << endl;
-	//LiuKang = CreateLiuKang();
+	LiuKang = CreateLiuKang();
 	cout << "[+......] Character LiuKang loaded!" << endl;
-	//Scorpion = CreateScorpion();
+	Scorpion = CreateScorpion();
 	cout << "[++.....] Character Scorpion loaded!" << endl;
-	//SonyaBlade = CreateSonyaBlade();
+	SonyaBlade = CreateSonyaBlade();
 	cout << "[+++....] Character Sonya Blade loaded!" << endl;
 	cout << "[+++++++] All characters loaded succesfully!" << endl;
 }
