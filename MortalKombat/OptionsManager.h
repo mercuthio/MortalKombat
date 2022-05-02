@@ -3,7 +3,6 @@
 
 #include "SFML/Graphics.hpp"
 #include <SFML/Audio/Music.hpp>
-#include "ControlsManager.h"
 
 using namespace sf;
 
@@ -22,7 +21,7 @@ public:
 	void draw(RenderWindow&);			//Dibuja el menu de opciones
 	void Update();					//Actualiza los sprites de opciones
 	void Right();					//Pulsa la tecla D
-	void Enter();					//Pulsa la tecla enter
+	bool Enter();					//Pulsa la tecla enter, devuelve true si ha seleccionado controles
 	void Izquierda();				//Mueve una opcion a la izquierda
 	int ChoosenOption();				//Devuelve la opcion elegida
 	void MoveCursor(bool);				//Mueve el curso arriba si parametro true, abajo si false
@@ -34,7 +33,6 @@ public:
 
 private:
 
-	bool showing_controls;
 	int choosenOption;					//Entero que guarda la opcion elegida
 
 	//ControlsManager ControlsManager;
@@ -45,7 +43,6 @@ private:
 	Text dific;							//Texto de la dificultad
 	Text speed;
 	IntRect uvRect;						//IntRect del fondo
-	RectangleShape controls_backg;
 	RectangleShape backg;				//Objeto del fondo
 	RectangleShape logo;
 	RectangleShape musi[MAX_MUSIC];	//Vector de objetos de la musica

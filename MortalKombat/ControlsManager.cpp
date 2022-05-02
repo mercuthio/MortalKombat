@@ -4,6 +4,7 @@ ControlsManager::ControlsManager(Texture* texture, Font font_) {
 
 	font = font_;
 	choosenOption = 0;
+	playerTwo = false;
 
 	text[0].setString("J1 ATRAS");
 	text[1].setString("J1 DELANTE");
@@ -50,13 +51,12 @@ void ControlsManager::Update() {
 
 	Color yellow = Color(255, 255, 0, 255);
 
+	for (int i = 0; i < NUM_CONTROLS; i++) {
+		text[i].setFillColor(Color::White);
+	}
+
 	text[choosenOption].setFillColor(yellow);
 
-	for (int i = 0; i < NUM_CONTROLS; i++) {
-		if (i != choosenOption && text[i].getFillColor() == yellow) {
-			text[i].setFillColor(Color::White);
-		}
-	}
 }
 
 void ControlsManager::draw(RenderWindow& window) {
@@ -64,14 +64,66 @@ void ControlsManager::draw(RenderWindow& window) {
 	window.draw(backg);
 
 	for (int i = 0; i < NUM_CONTROLS / 2; i++) {
-		text[i].setPosition(Vector2f(width_window / 5 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i + 1) + 100));
-		shadow[i].setPosition(Vector2f(width_window / 5 + 10 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i + 1) + 10 + 100));
+		text[i].setPosition(Vector2f(width_window / 6 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i + 1) + 100));
+		shadow[i].setPosition(Vector2f(width_window / 6 + 5 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i + 1) + 5 + 100));
 		if (i == choosenOption) {
-			logo.setPosition(text[i].getPosition().x - 85, text[i].getPosition().y + 15);
+			logo.setPosition(text[i].getPosition().x - 50, text[i].getPosition().y + 10);
 		}
 
 		window.draw(shadow[i]);
 		window.draw(text[i]);
 		window.draw(logo);
 	}
+
+	for (int i = NUM_CONTROLS / 2; i < NUM_CONTROLS; i++) {
+		text[i].setPosition(Vector2f(width_window / 1.9 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i- (NUM_CONTROLS / 2) + 1) + 100));
+		shadow[i].setPosition(Vector2f(width_window / 1.9 + 5 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i - (NUM_CONTROLS / 2) + 1) + 5 + 100));
+		if (i == choosenOption) {
+			logo.setPosition(text[i].getPosition().x - 50, text[i].getPosition().y + 10);
+		}
+
+		window.draw(shadow[i]);
+		window.draw(text[i]);
+		window.draw(logo);
+	}
+
+}
+
+void ControlsManager::Right() {
+
+	playerTwo = true;
+	choosenOption += NUM_CONTROLS / 2;
+
+}
+
+void ControlsManager::Enter() {
+
+}
+
+void ControlsManager::Izquierda() {
+
+	playerTwo = false;
+	choosenOption -= NUM_CONTROLS / 2;
+
+}
+
+void ControlsManager::MoveCursor(bool arriba) {
+
+	if (!playerTwo) {
+		if (arriba) {
+			if (choosenOption - 1 >= 0) { music.moveOptions();  choosenOption--; }
+		}
+		else {
+			if (choosenOption + 1 < NUM_CONTROLS / 2) { music.moveOptions(); choosenOption++; }
+		}
+	}
+	else {
+		if (arriba) {
+			if (choosenOption - 1 >= NUM_CONTROLS / 2) { music.moveOptions();  choosenOption--; }
+		}
+		else {
+			if (choosenOption + 1 < NUM_CONTROLS) { music.moveOptions(); choosenOption++; }
+		}
+	}
+
 }

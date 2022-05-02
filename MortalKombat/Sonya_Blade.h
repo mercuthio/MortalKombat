@@ -59,6 +59,7 @@ static Character CreateSonyaBlade() {
 
 	Animation jump0 = Animation(1, spriteSheet, spriteSheetP2, Vector2<int>(32, 3090), sz, 5, false, true, noRecovery, jump_lock, 2);
 	Animation jumpMove0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(500, 3562), sz, 5, false, true, noRecovery, jump_lock_2, 0);
+	Animation jumpMove1 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(500, 3562), sz, 5, false, true, noRecovery, jump_lock_2, 0);
 	Animation jumpFall0 = Animation(3, spriteSheet, spriteSheetP2, Vector2<int>(2372, 3090), sz, 5, false, true, noRecovery, jump_lock_fall, 2);
 
 	Animation kick0 = Animation(9, spriteSheet, spriteSheetP2, Vector2<int>(32, 1574), sz, 5, false, true, noRecovery, null_vector, 2);
@@ -106,7 +107,7 @@ static Character CreateSonyaBlade() {
 	AnimationGroup jump = AnimationGroup(jump0);
 	jump.AddAnimation(jumpFall0);
 	AnimationGroup jumpMove = AnimationGroup(jumpMove0);
-	jumpMove.AddAnimation(jumpMove0);
+	jumpMove.AddAnimation(jumpMove1);
 	jumpMove.AddAnimation(jumpFall0);
 	AnimationGroup kick = AnimationGroup(kick0);
 	AnimationGroup kickUp = AnimationGroup(kickUp0);
@@ -150,7 +151,7 @@ static Character CreateSonyaBlade() {
 		{0,0,137*3,0,0,137*3,0,0,0,0},{0,0,47*3,0,0,49*3,0,0,0,0} };
 	Movement bodyToBodyMov = Movement{ bodyToBody, Vector2<float>(0.0, 0.0), {87*3,93*3,98*3,95*3,86*3}, {51*3,41*3,44*3,42*3,52*3},
 		{0,0,128*3,0,0},{0,0,41*3,0,0} };
-	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0), {86*3}, {52*3} };
+	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0), {86 * 3},{52*3} };
 	Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0), {92*3,98*3,99*3,99*3,97*3,98*3,96*3,96*3,93*3}, {54*3,50*3,50*3,50*3,50*3,50*3,50*3,52*3,54*3},
 		{0,0,0,153*3,0,0,0,0,0},{0,0,0,76*3,0,0,0,0,0} };
 	Movement kickUpMov = Movement{ kickUp, Vector2<float>(0.0, 0.0), {94*3,98*3,101*3,103*3,103*3,99*3,98*3,95*3,94*3}, {54*3,49*3,49*3,49*3,50*3,49*3,49*3,52*3,54*3},
@@ -179,12 +180,12 @@ static Character CreateSonyaBlade() {
 	Movement catchMov = Movement{ catchAnim, Vector2<float>(0.0, 0.0) };
 	Movement dyingMov = Movement{ dying, Vector2<float>(0.0, 0.0),{70*3,76*3,87*3,89*3,78*3,70*3,65*3},{55*3,58*3,62*3,55*3,49*3,51*3,56*3} };
 	
-	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0),{82,83,85},{48,49,49} };
-	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0), {87,86,83},{49,49,49} };
+	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0),{82*3,83*3,85*3},{48*3,49*3,49*3} };
+	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0), {87*3,86*3,83*3},{49*3,49*3,49*3} };
 
 	Movement hitMov = Movement{ hit, Vector2<float>(0.0, 0.0), {81 * 3, 80 * 3, 75 * 3, 78 * 3},{53 * 3, 53 * 3, 55 * 3, 53 * 3} };
-	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0), {77 * 3, 79 * 3, 86 * 3, 81 * 3, 85 * 3},{53 * 3, 43 * 3, 45 * 3, 47 * 3, 59 * 3} };
-	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0), {69 * 3, 77 * 3, 68 * 3, 79 * 3},{57 * 3, 47 * 3, 57 * 3, 45 * 3} };
+	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0), {77 * 3, 79 * 3, 86 * 3, 81 * 3, 85 * 3, 85*3},{53 * 3, 43 * 3, 45 * 3, 47 * 3, 59 * 3,59*3} };
+	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0), {69 * 3, 77 * 3, 68 * 3},{57 * 3, 47 * 3, 57 * 3} };
 	Movement hitDuckMov = Movement{ hitDuck, Vector2<float>(0.0, 0.0), {60 * 3, 64 * 3, 73 * 3},{89 * 3, 82 * 3, 87 * 3} };
 
 	map<AnimationType, Movement> animations;
@@ -221,11 +222,14 @@ static Character CreateSonyaBlade() {
 	animations[AnimationType::DYING] = dyingMov;
 	animations[AnimationType::TURN_LEFT] = turnLeftMov;
 	animations[AnimationType::TURN_RIGHT] = turnRightMov;
-
+	animations[AnimationType::HIT_STAND] = hitMov;
+	animations[AnimationType::HIT_STAND_STRONG] = hitHardMov;
+	animations[AnimationType::HIT_HEAD] = hitHeadMov;
+	animations[AnimationType::HIT_DOWN] = hitDuckMov;
 
 	//Tamaño damage hitboxes
-	Vector2f punchD[4] = { {0,0},{0,0},{37 * 3,13 * 3},{0,0} };
-	Vector2f punchUpD[4] = { {0,0},{0,0},{36 * 3,24 * 3},{0,0} };
+	Vector2f punchD[5] = { {0,0},{0,0},{37 * 3,13 * 3},{0,0},{0,0} };
+	Vector2f punchUpD[5] = { {0,0},{0,0},{36 * 3,24 * 3},{0,0},{0,0} };
 	Vector2f punchDownD[5] = { {0,0},{0,0},{25 * 3,27 * 3},{0,0},{0,0} };
 	Vector2f punchFromUpD[3] = { {0,0},{29*3,19*3},{0,0}, };
 	Vector2f bodyToBodyD[5] = { {0,0},{0,0},{19 * 3,36 * 3},{0,0},{0,0} };
@@ -366,11 +370,11 @@ static Character CreateSonyaBlade() {
 
 	Vector2f nutsS[4] = { {40 * 3,105 * 3}, {41 * 3,92 * 3}, {39 * 3,91 * 3}, {31 * 3,119 * 3} };
 	Vector2f hitS[4] = { {38 * 3,129 * 3}, {35 * 3,130 * 3}, {43 * 3,128 * 3}, {37 * 3,129 * 3} };
-	Vector2f hitHeadS[4] = { {46 * 3,126 * 3}, {37 * 3,136 * 3}, {39 * 3,126 * 3}, {33 * 3,136 * 3} };
-	Vector2f hitHardS[5] = { {31 * 3,128 * 3}, {33 * 3,141 * 3}, {33 * 3,136 * 3}, {37 * 3,133 * 3}, {35 * 3,123 * 3} };
+	Vector2f hitHeadS[3] = { {46 * 3,126 * 3}, {37 * 3,136 * 3}, {39 * 3,126 * 3} };
+	Vector2f hitHardS[6] = { {31 * 3,128 * 3}, {33 * 3,141 * 3}, {33 * 3,136 * 3}, {37 * 3,133 * 3}, {35 * 3,123 * 3}, {35 * 3,123 * 3} };
 	Vector2f hitDuckS[3] = { {49 * 3,95 * 3}, {43 * 3,101 * 3}, {38 * 3,96 * 3} };
 
-	Vector2f specialS[8] = { {41 * 3,116 * 3}, {39 * 3,105 * 3}, {38 * 3,121 * 3}, {38 * 3,134 * 3}, {32 * 3,128 * 3}, {31 * 3,131 * 3}, {37 * 3,128 * 3}, {32 * 3,128 * 3} };
+	Vector2f specialS[5] = { {41 * 3,116 * 3}, {39 * 3,105 * 3}, {38 * 3,121 * 3}, {38 * 3,134 * 3}, {32 * 3,128 * 3} };
 
 	Vector2f catchS[7] = { {36 * 3,127 * 3}, {38 * 3,110 * 3}, {48 * 3,125 * 3}, {39 * 3,131 * 3}, {33 * 3,131 * 3}, {34 * 3,117 * 3}, {42 * 3,110 * 3} };
 	Vector2f dyingS[7] = { {52*3,129*3},{42*3,127*3},{28*3,122*3},{28*3,129*3},{28*3,133*3},{35*3,132*3},{36*3,127*3} };
@@ -396,27 +400,36 @@ static Character CreateSonyaBlade() {
 		rect.setSize(size);
 		punchR.push_back(rect);
 	}
+
 	for (Vector2f size : punchUpS) {
 		rect.setSize(size);
 		punchUpR.push_back(rect);
 	}
+
+	for (Vector2f size : punchMultUpS) {
+		rect.setSize(size);
+		punchUpMultR.push_back(rect);
+	}
+
 	for (Vector2f size : punchDownS) {
 		rect.setSize(size);
 		punchDownR.push_back(rect);
 	}
+
 	for (Vector2f size : punchFromUpS) {
 		rect.setSize(size);
 		punchFromUpR.push_back(rect);
 	}
+
 	for (Vector2f size : punchMultS) {
 		rect.setSize(size);
 		punchMultR.push_back(rect);
 	}
+
 	for (Vector2f size : bodyToBodyS) {
 		rect.setSize(size);
 		bodyToBodyR.push_back(rect);
 	}
-
 	vector<RectangleShape> jumpR;
 	for (Vector2f size : jumpS) {
 		rect.setSize(size);
@@ -448,13 +461,11 @@ static Character CreateSonyaBlade() {
 		rect.setSize(size);
 		kickFromUpR.push_back(rect);
 	}
-
 	vector<RectangleShape> duckR;
 	for (Vector2f size : duckS) {
 		rect.setSize(size);
 		duckR.push_back(rect);
 	}
-
 	vector<RectangleShape> blockUpR;
 	for (Vector2f size : blockUpS) {
 		rect.setSize(size);
@@ -465,19 +476,16 @@ static Character CreateSonyaBlade() {
 		rect.setSize(size);
 		blockDownR.push_back(rect);
 	}
-
 	vector<RectangleShape> specialR;
 	for (Vector2f size : specialS) {
 		rect.setSize(size);
 		specialR.push_back(rect);
 	}
-
 	vector<RectangleShape> nutsR;
 	for (Vector2f size : nutsS) {
 		rect.setSize(size);
 		nutsR.push_back(rect);
 	}
-
 	vector<RectangleShape> catchR;
 	for (Vector2f size : catchS) {
 		rect.setSize(size);
@@ -516,6 +524,7 @@ static Character CreateSonyaBlade() {
 	vector<RectangleShape> hitDuckR;
 	for (Vector2f size : hitDuckS) {
 		rect.setSize(size);
+		hitDuckR.push_back(rect);
 	}
 
 	map< AnimationType, vector<RectangleShape>> hitboxes;
@@ -529,6 +538,7 @@ static Character CreateSonyaBlade() {
 	hitboxes[AnimationType::PUNCH_FROM_AIR] = punchFromUpR;
 	hitboxes[AnimationType::PUNCH_CLOSE] = bodyToBodyR;
 	hitboxes[AnimationType::PUNCH_MULTIPLE] = punchMultR;
+	hitboxes[AnimationType::PUNCH_UPPER_MULTIPLE] = punchUpMultR;
 
 	hitboxes[AnimationType::JUMP] = jumpR;
 	hitboxes[AnimationType::JUMP_AND_MOVE] = jumpMoveR;
@@ -553,6 +563,7 @@ static Character CreateSonyaBlade() {
 
 	hitboxes[AnimationType::TURN_LEFT] = turnLeftR;
 	hitboxes[AnimationType::TURN_RIGHT] = turnRightR;
+
 
 	RectangleShape specialAtt = RectangleShape(Vector2<float>(68, 11));
 	specialAtt.setSize(Vector2f(68 * 3, 11 * 3));

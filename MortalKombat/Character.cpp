@@ -30,7 +30,7 @@ void Character::Update(float tiempo, bool secondPlayer) {
 			if (!secondPlayer)	CheckAnimation();	// Dependiendo de que ha pulsado el jugador hago una animación u otra
 			else CheckAnimationP2();
 		}
-		
+
 		DoAnimation();		// Realizo el siguiente frame de la animación
 
 		if (player == 1) {
@@ -686,7 +686,6 @@ void Character::DoAnimation() {
 	//debug_animation();
 
 	bool finished = false;
-
 	if (!fallen) {
 		finished = animations[animation_in_process].animation.DoAnimation(body, shadow, hitbox, mirrored, (player == 2),
 			animations[animation_in_process].hitbox_positions_X, animations[animation_in_process].hitbox_positions_Y, global_position, hitboxes[animation_in_process],

@@ -211,9 +211,9 @@ void BattleManager::LoadTextures() {
 
 void BattleManager::LoadCharacters() {
 	cout << "[*] Loading character textures..." << endl;
-	LiuKang = CreateLiuKang();
+	//LiuKang = CreateLiuKang();
 	cout << "[+......] Character LiuKang loaded!" << endl;
-	Scorpion = CreateScorpion();
+	//Scorpion = CreateScorpion();
 	cout << "[++.....] Character Scorpion loaded!" << endl;
 	//SonyaBlade = CreateSonyaBlade();
 	cout << "[+++....] Character Sonya Blade loaded!" << endl;
@@ -487,7 +487,6 @@ void BattleManager::Update() {
 	else {
 		player2.UpdateIA(0.05f, player1);
 	}
-
 	BackgroundManager.Update();
 
 	IntRect uvRect;
@@ -692,7 +691,7 @@ void BattleManager::Update() {
 
 				characterFall03(character2);
 				player1.animation_in_process = AnimationType::WIN;
-				player2.animation_in_process = AnimationType::FALL;
+				player2.animation_in_process = AnimationType::FALL_BACK;
 				player2.setSpeed(Vector2f(500, 0));
 			}
 			else if (finishing2) {
@@ -711,7 +710,7 @@ void BattleManager::Update() {
 
 				characterFall03(character1);
 				player2.animation_in_process = AnimationType::WIN;
-				player1.animation_in_process = AnimationType::FALL;
+				player1.animation_in_process = AnimationType::FALL_BACK;
 				player1.setSpeed(Vector2f(500, 0));
 			}
 

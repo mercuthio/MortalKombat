@@ -4,7 +4,7 @@ MusicManager music;
 
 EventManager::EventManager(Texture textures[], Font font, Clock clock) : BattleManager(&textures[0], font, clock), StartManager(&textures[0], &textures[1]),
 MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false),
-PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0],0), DeadManager(&textures[0]), FinishManager(&textures[2]) {
+PlayerSelector_duel(&textures[0], true), HistoryManager(&textures[0],0), DeadManager(&textures[0]), FinishManager(&textures[2]), ControlsManager(&textures[0],font) {
 
 	this->clock = clock;
 
@@ -141,7 +141,7 @@ void EventManager::Update(Event event) {
 			PlayerSelector_duel.MoveCursor(-1, 0, true);
 			break;
 
-		case Keyboard::Enter:
+		case Keyboard::Space:
 
 			if (character1 != PlayerSelector_duel.ChoosenOption(true)) {
 				character1 = PlayerSelector_duel.ChoosenOption(true);
@@ -158,7 +158,6 @@ void EventManager::Update(Event event) {
 					music.SonyaBlade();
 					break;
 				}
-				break;
 
 				if (PlayerSelector_duel.Choosen()) {
 
@@ -188,11 +187,10 @@ void EventManager::Update(Event event) {
 			PlayerSelector_duel.MoveCursor(-1, 0, false);
 			break;
 
-		case Keyboard::Space:
+		case Keyboard::Enter:
 
 			if (character2 != PlayerSelector_duel.ChoosenOption(false)) {
 				character2 = PlayerSelector_duel.ChoosenOption(false);
-
 				switch (character2)
 				{
 				case LIU_KANG:
@@ -205,7 +203,6 @@ void EventManager::Update(Event event) {
 					music.SonyaBlade();
 					break;
 				}
-				break;
 
 				if (PlayerSelector_duel.Choosen()) {
 
@@ -247,7 +244,11 @@ void EventManager::Update(Event event) {
 		case Keyboard::Enter:
 
 			changedEstate = true;
-			OptionsManager.Enter();
+			if (OptionsManager.Enter()) {
+				changedEstate = true;
+				state = 10;
+				ControlsManager.Update();
+			}
 			break;
 
 		case Keyboard::D:
@@ -301,6 +302,33 @@ void EventManager::Update(Event event) {
 			BattleManager.Restart();
 		}
 		BattleManager.Update(event);
+		break;
+	case 10: //Controles
+
+		switch (event.key.code) {
+		case Keyboard::D:
+			ControlsManager.Right();
+			break;
+		case Keyboard::Enter:
+			ControlsManager.Enter();
+			break;
+		case Keyboard::A:
+			ControlsManager.Izquierda();
+			break;
+		case Keyboard::S:
+			ControlsManager.MoveCursor(false);
+			break;
+		case Keyboard::W:
+			ControlsManager.MoveCursor(true);
+			break;
+		case Keyboard::Escape:
+			state = 4;
+			break;
+		case Keyboard::BackSpace:
+			state = 4;
+			break;
+		}
+		ControlsManager.Update();
 		break;
 	}
 
@@ -413,7 +441,6 @@ void EventManager::draw(RenderWindow& window) {
 
 		BattleManager.Update();
 		BattleManager.draw(window);
-
 		if (BattleManager.isfinished() != 0) {
 			PlayerSelector_duel.Restart();
 			music.selectorTheme();
@@ -439,6 +466,12 @@ void EventManager::draw(RenderWindow& window) {
 			state = 1;		//Si terminada pantalla de muerte vamos al menu
 		}
 		break;
+
+	case 10:	//Controles
+
+		ControlsManager.draw(window);
+		break;
+
 	default:
 
 		exit(0);

@@ -230,8 +230,7 @@ static Character CreateLiuKang() {
 	animations[AnimationType::HIT_STAND_STRONG] = hitHardMov;
 	animations[AnimationType::HIT_HEAD] = hitHeadMov;
 	animations[AnimationType::HIT_DOWN] = hitDuckMov;
-	animations[AnimationType::TURN_LEFT] = turnLeftMov;
-	animations[AnimationType::TURN_RIGHT] = turnRightMov;
+
 	
 	//Tamaño damage hitboxes
 	Vector2f punchD[4] = { {0,0},{0,0},{35*3,13*3},{0,0} };

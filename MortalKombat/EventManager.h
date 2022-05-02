@@ -13,6 +13,7 @@
 #include "MusicManager.h"
 #include "DeadManager.h"
 #include "FinishManager.h"
+#include "ControlsManager.h"
 
 #include <chrono>
 #include <thread>
@@ -52,6 +53,7 @@ private:
 	BattleManager BattleManager;
 	DeadManager DeadManager;
 	FinishManager FinishManager;
+	ControlsManager ControlsManager;
 
 	RectangleShape loading_screen;
 	Texture* texture;

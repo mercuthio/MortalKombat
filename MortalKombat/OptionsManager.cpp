@@ -7,7 +7,6 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	choosenOption = 0;
 	musicVolume = 3;
 	effects = 3;
-	showing_controls = false;
 	difficulty = false;
 	speed_game = 1;
 
@@ -55,12 +54,6 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	logo.setTexture(texture2);
 	logo.setPosition(0, 0);
 	logo.setSize(Vector2f(CHAR_SIZE, CHAR_SIZE));
-
-	//texture2->loadFromFile("resources/Imagenes/Menus/Controls.png");
-	//controls_backg.setTexture(texture);
-	controls_backg.setSize(Vector2f(width_window / 2, height_window / 2));
-	controls_backg.setOrigin(controls_backg.getSize().x / 2, controls_backg.getSize().y / 2);
-	controls_backg.setPosition(width_window/2, height_window/2);
 
 }
 
@@ -142,9 +135,6 @@ void OptionsManager::Right() {
 		difficulty = !difficulty;
 		music.moveOptions();
 		break;
-	case 3:
-		showing_controls = true;
-		break;
 	case 4:
 		if (speed_game + 1 < MAX_SPEED) {
 			speed_game++;
@@ -154,11 +144,12 @@ void OptionsManager::Right() {
 
 }
 
-void OptionsManager::Enter() {
+bool OptionsManager::Enter() {
 
 	if (choosenOption == 3){
-		showing_controls = !showing_controls;
+		return true;
 	}
+	return false;
 }
 
 void OptionsManager::Izquierda() {
@@ -245,10 +236,6 @@ void OptionsManager::draw(RenderWindow& window) {
 
 	speed.setPosition(Vector2f(width_window / 1.6, height_window / 7 + CHAR_SIZE * 5 + 100));
 	window.draw(speed);
-	
-	if (showing_controls) {
-		window.draw(controls_backg);
-	}
 
 }
 
