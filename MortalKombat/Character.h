@@ -30,7 +30,7 @@ public:
 	void Update(float time, bool seconPlayer);
 	void debugDraw(RenderWindow& window);
 
-	void GetHit(int life);
+	void GetHit();
 
 	void initPosition(Vector2<float> initPos);
 	bool isAttaking();
@@ -121,11 +121,11 @@ private:
 	bool doing_animation = false;
 
 	bool on_air = false;
-	bool on_ground = true;
 	bool punching = false;
 	bool crouching = false;
 	bool blocking = false;
 	bool fallen = false;
+	bool falling = false;
 	bool dying = false;
 	bool wait_air = false;
 	bool fightKeyPressed = false;

@@ -1012,6 +1012,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player2.GetHit();
 				characterFall01(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1029,6 +1030,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player1.GetHit();
 				characterFall01(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1049,6 +1051,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player2.GetHit();
 				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1079,6 +1082,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player1.GetHit();
 				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1105,14 +1109,13 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 	}
 	else if (anim == AnimationType::PUNCH_FROM_DOWN) {
 		if (toPlayerTwo) {
+			player2.GetHit();
 			life2 -= life_PUNCH_UPPER;
 			player2.animation_in_process = AnimationType::FALL;
 			music.hit1();
 			characterFall01(character2);
 
 			int random = rand() % 10;
-
-			player2.setOnAir(true);
 			player2.setSpeed(Vector2f(300, 1200));
 
 			if (player2.lookingAt() == LookingAt::LEFT) {
@@ -1127,14 +1130,13 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			}
 		}
 		else {
+			player1.GetHit();
 			life1 -= life_PUNCH_UPPER;
 			player1.animation_in_process = AnimationType::FALL;
 			music.hit1();
 			characterFall01(character1);
 
 			int random = rand() % 10;
-
-			player1.setOnAir(true);
 			player1.setSpeed(Vector2f(300, 1200));
 
 			if (player1.lookingAt() == LookingAt::LEFT) {
@@ -1158,6 +1160,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player2.GetHit();
 				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1175,6 +1178,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player1.GetHit();
 				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1194,6 +1198,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player2.GetHit();
 				characterFall01(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1211,6 +1216,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player1.GetHit();
 				characterFall01(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1230,6 +1236,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player2.GetHit();
 				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1260,6 +1267,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player1.GetHit();
 				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1292,6 +1300,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player2.GetHit();
 				characterFall01(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(350, 100));
@@ -1309,6 +1318,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player1.GetHit();
 				characterFall01(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(350, 100));
@@ -1322,8 +1332,8 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 	}
 	else if (anim == AnimationType::KICK_LOW) {
 		if (toPlayerTwo) {
+			player2.GetHit();
 			life2 -= life_KICK_LOW;
-			player2.setOnAir(true);
 			player2.animation_in_process = AnimationType::FALL_UPPERCUT;
 			music.hit5();
 			characterFall01(character2);
@@ -1337,8 +1347,8 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x + 600, player2.getPosition().y + 440)); }
 		}
 		else {
+			player1.GetHit();
 			life1 -= life_KICK_LOW;
-			player1.setOnAir(true);
 			player1.animation_in_process = AnimationType::FALL_UPPERCUT;
 			music.hit5();
 			characterFall01(character1);
@@ -1360,6 +1370,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player2.GetHit();
 				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1377,6 +1388,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player1.GetHit();
 				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1389,42 +1401,44 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 		}
 	}
 	else if (anim == AnimationType::PUNCH_FROM_AIR) {
-	if (toPlayerTwo) {
-		life2 -= life_PUNCH_FROM_AIR;
-		if (crouching) {
-			player2.animation_in_process = AnimationType::HIT_DOWN;
-			player2.setSpeed(Vector2f(300, 0));
-		}
-		else if (onAir) {
-			characterFall04(character2);
-			player2.animation_in_process = AnimationType::FALL;
-			player2.setSpeed(Vector2f(500, 500));
-		}
-		else {
-			characterFall04(character2);
-			player2.animation_in_process = AnimationType::FALL;
-			player2.setSpeed(Vector2f(500, 500));
-		}
-		music.hit2();
-	}
-	else {
-		life1 -= life_PUNCH_FROM_AIR;
-		if (crouching) {
-			player1.animation_in_process = AnimationType::HIT_DOWN;
-			player1.setSpeed(Vector2f(300, 0));
-		}
-		else if (onAir) {
-			characterFall04(character1);
-			player1.animation_in_process = AnimationType::FALL;
-			player1.setSpeed(Vector2f(500, 500));
+		if (toPlayerTwo) {
+			life2 -= life_PUNCH_FROM_AIR;
+			if (crouching) {
+				player2.animation_in_process = AnimationType::HIT_DOWN;
+				player2.setSpeed(Vector2f(300, 0));
+			}
+			else if (onAir) {
+				player2.GetHit();
+				characterFall04(character2);
+				player2.animation_in_process = AnimationType::FALL;
+				player2.setSpeed(Vector2f(500, 500));
+			}
+			else {
+				characterFall04(character2);
+				player2.animation_in_process = AnimationType::FALL;
+				player2.setSpeed(Vector2f(500, 500));
+			}
+			music.hit2();
 		}
 		else {
-			characterFall04(character2);
-			player1.animation_in_process = AnimationType::FALL;
-			player1.setSpeed(Vector2f(500, 500));
+			life1 -= life_PUNCH_FROM_AIR;
+			if (crouching) {
+				player1.animation_in_process = AnimationType::HIT_DOWN;
+				player1.setSpeed(Vector2f(300, 0));
+			}
+			else if (onAir) {
+				player1.GetHit();
+				characterFall04(character1);
+				player1.animation_in_process = AnimationType::FALL;
+				player1.setSpeed(Vector2f(500, 500));
+			}
+			else {
+				characterFall04(character2);
+				player1.animation_in_process = AnimationType::FALL;
+				player1.setSpeed(Vector2f(500, 500));
+			}
+			music.hit2();
 		}
-		music.hit2();
-	}
 	}
 	else if (anim == AnimationType::SPECIAL) {
 		if (toPlayerTwo) {
@@ -1434,6 +1448,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player2.GetHit();
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
 			}
@@ -1450,6 +1465,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
+				player1.GetHit();
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
 			}
@@ -1473,8 +1489,8 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 		}
 	}
 
-	player1.life = life1;
-	player2.life = life2;
+	player1.life = life1 > 0 ? life1 : 0;
+	player2.life = life2 > 0 ? life2 : 0;
 
 }
 

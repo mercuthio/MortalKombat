@@ -32,7 +32,7 @@ static Character CreateLiuKang() {
 	vector<int> null_vector{};
 	vector<int> jump_lock{ 1, 1 };
 	vector<int> jump_lock_2{ 7, 7 };
-	vector<int> jump_lock_fall{ 1 };
+	vector<int> jump_lock_fall{ 2 };
 	vector<int> duck_lock{ 3 };
 	vector<int> blockUp_lock{ 3 };
 	vector<int> blockDown_lock{ 2 };
@@ -63,7 +63,7 @@ static Character CreateLiuKang() {
 	Animation jump0 = Animation(1, spriteSheet, spriteSheetP2, Vector2<int>(32, 3090), sz, 5, false, true, noRecovery, jump_lock, 2);
 	Animation jumpMove0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(500, 3562), sz, 5, false, true, noRecovery, null_vector, 0);
 	Animation jumpMove1 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(500, 3562), sz, 5, false, true, noRecovery, jump_lock_2, 0);
-	Animation jumpFall0 = Animation(1, spriteSheet, spriteSheetP2, Vector2<int>(32, 58), sz, 5, false, false, noRecovery, null_vector, 0);
+	Animation jumpFall0 = Animation(2, spriteSheet, spriteSheetP2, Vector2<int>(32, 58), sz, 5, false, false, noRecovery, null_vector, 0);
 
 	Animation kick0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(32, 1574), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation kickUp0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(2372, 2046), sz, 5, false, true, noRecovery, null_vector, 2);
