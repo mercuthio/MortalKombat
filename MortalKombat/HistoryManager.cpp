@@ -282,8 +282,6 @@ void HistoryManager::Update() {
 
 int HistoryManager::getOpponent() {
 
-	int character = characters[(NUM_CHARS-1) - actual_combat];
-	if (character != 3 && character != 4) character = 3;
-	return character;
+	return characters[(NUM_CHARS - 1) - actual_combat];
 
 }

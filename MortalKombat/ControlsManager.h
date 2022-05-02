@@ -4,7 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "GlobalVars.h"
 
-const int NUM_CONTROLS = 16;
+const int NUM_CONTROLS = 11;
 const int CHAR_SIZE_CONTROLS = 35;
 
 class ControlsManager {
