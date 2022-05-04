@@ -154,7 +154,7 @@ MusicManager::MusicManager() {
 
 	//LiuKang
 
-	for (int i = 0; i < 6; i++) { bufferLiuKang.push_back(buffer); liukang.push_back(sound); }
+	for (int i = 0; i < 8; i++) { bufferLiuKang.push_back(buffer); liukang.push_back(sound); }
 
 	bufferLiuKang[0].loadFromFile("audio/liukang/mk1-00228.ogg"); //Hit 1
 	liukang[0].setBuffer(bufferLiuKang[0]);
@@ -168,6 +168,10 @@ MusicManager::MusicManager() {
 	liukang[4].setBuffer(bufferLiuKang[4]);
 	bufferLiuKang[5].loadFromFile("audio/liukang/mk1-00230.ogg"); //Fall 4
 	liukang[5].setBuffer(bufferLiuKang[5]);
+	bufferLiuKang[6].loadFromFile("audio/hitsounds/mk1-00250.ogg"); //Special fireball
+	liukang[6].setBuffer(bufferLiuKang[6]);
+	bufferLiuKang[7].loadFromFile("audio/hitsounds/mk1-00242.ogg"); //Special Hit
+	liukang[7].setBuffer(bufferLiuKang[7]);
 }
 
 void MusicManager::startIntro() { intro[0].setVolume(volumeMusic); intro[0].play(); }
@@ -243,6 +247,8 @@ void MusicManager::liuKangFall01() { liukang[2].setVolume(volumeEffects); liukan
 void MusicManager::liuKangFall02() { liukang[3].setVolume(volumeEffects); liukang[3].play(); }
 void MusicManager::liuKangFall03() { liukang[4].setVolume(volumeEffects); liukang[4].play(); }
 void MusicManager::liuKangFall04() { liukang[5].setVolume(volumeEffects); liukang[5].play(); }
+void MusicManager::liuKangSpecial01() { liukang[6].setVolume(volumeEffects); liukang[6].play(); }
+void MusicManager::liuKangSpecial02() { liukang[7].setVolume(volumeEffects); liukang[7].play(); }
 
 void MusicManager::stopIntros() {
 	for (int i = 0; i < intro.size(); i++) {

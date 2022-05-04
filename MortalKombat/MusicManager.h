@@ -85,6 +85,8 @@ public:
 	void liuKangFall02();
 	void liuKangFall03();
 	void liuKangFall04();
+	void liuKangSpecial01();
+	void liuKangSpecial02();
 
 	void reduceVolumeMusic() { volumeMusic -= 20.f;};
 	void addVolumeMusic() { volumeMusic += 20.f;};
