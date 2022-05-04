@@ -38,7 +38,7 @@ public:
 private:
 	Texture* spriteSheet;
 	int totalFramesAnim[3] = { 2, 4, 2};
-	int totalFramesHit[3] = { 6, 4, 4 };
+	int totalFramesHit[3] = { 6, 2, 4 };
 	LookingAt looking_at = LookingAt::RIGHT;
 	int frame;
 	float initInternalTimer;
@@ -47,6 +47,20 @@ private:
 	bool finished;
 	bool started;
 	bool hasHit;
+
+	float initY;
+
+	Vector2f size_liuAnim = Vector2f(68.0f, 11.0f);
+	Vector2f size_liuHit = Vector2f(65.0f, 87.0f);
+
+	Vector2f size_scorpionAnim = Vector2f(321.0f, 27.0f);
+	Vector2f size_scorpionHit = Vector2f(258.0f, 27.0f);
+	Vector2f size_scorpionGetRow1 = Vector2f(50.0f, 27.0f);
+	Vector2f size_scorpionGetRow2 = Vector2f(50.0f, 27.0f);
+	Vector2f size_scorpionGetRow3 = Vector2f(71.0f, 27.0f);
+
+	Vector2f size_sonyaAnim = Vector2f(41.0f, 35.0f);
+	Vector2f size_sonyaHit = Vector2f(43.0f, 129.0f);
 
 };
 

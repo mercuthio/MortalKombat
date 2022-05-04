@@ -20,8 +20,27 @@ SpecialAttack::SpecialAttack() {
 }
 
 void SpecialAttack::Update() {
+
+	float maxInitTimer = 0.f;
+
+	switch (animationInProgress)
+	{
+	case SpecialType::LIU_KANG:
+		maxInitTimer = 0.33f;
+		break;
+	case SpecialType::SCORPION:
+		maxInitTimer = 0.05f;
+		break;
+	case SpecialType::SONYA:
+		maxInitTimer = 0.10f;
+		break;
+	default:
+		break;
+	}
+
+
 	if (!finished) {
-		if (initInternalTimer >= 0.36f) {
+		if (initInternalTimer >= maxInitTimer) {
 			if (internalTimer >= 0.05f) {
 				internalTimer = 0.0f;
 
@@ -34,7 +53,11 @@ void SpecialAttack::Update() {
 					if (!hasHit) {
 						float posX = body.getPosition().x;
 						float posY = body.getPosition().y;
-						body.setPosition(Vector2f(posX + 50, posY));
+						body.setPosition(Vector2f(posX + 60, posY));
+					}
+					else {
+						cout << "debug" << endl;
+						body.setPosition(Vector2f(body.getPosition().x, initY - 50*3));
 					}
 
 					finished = SpecialAttackAnimation();
@@ -50,7 +73,6 @@ void SpecialAttack::Update() {
 			initInternalTimer += 0.01f;
 		}
 		else {
-			cout << initInternalTimer << endl;
 			initInternalTimer += 0.01f;
 		}
 	}
@@ -59,6 +81,16 @@ void SpecialAttack::Update() {
 void SpecialAttack::SpecialAttackAt(SpecialType type, Vector2f position, bool mirrored) {
 	animationInProgress = type;
 	body.setPosition(position);
+	switch (type)
+	{
+	case SpecialType::SCORPION:
+		body.setOrigin(size_scorpionAnim.x, 0);
+		break;
+	default:
+		body.setOrigin(0, 0);
+		break;
+	}
+	initY = position.y;
 	finished = false;
 	started = false;
 	hasHit = false;
@@ -67,11 +99,6 @@ void SpecialAttack::SpecialAttackAt(SpecialType type, Vector2f position, bool mi
 
 bool SpecialAttack::SpecialAttackAnimation() {
 	IntRect uvRect;
-	Vector2f size_liuAnim = Vector2f(68.0f, 11.0f);
-	Vector2f size_liuHit = Vector2f(65.0f, 87.0f);
-
-	Vector2f size_sonyaAnim = Vector2f(41.0f, 35.0f);
-	Vector2f size_sonyaHit = Vector2f(43.0f, 129.0f);
 
 	int maxFrames;
 	if (!hasHit) {
@@ -113,6 +140,32 @@ bool SpecialAttack::SpecialAttackAnimation() {
 			}
 			break;
 		case SpecialType::SCORPION:
+			if (!hasHit) {
+				body.setSize(size_scorpionAnim);
+				body.setScale(3.0f, 3.0f);
+				uvRect.left = 3.0f;
+				uvRect.top = 124.0f + (size_scorpionAnim.y + 2) * frame;
+				uvRect.width = size_scorpionAnim.x;
+				uvRect.height = size_scorpionAnim.y;
+				body.setTextureRect(uvRect);
+
+				if (frame == maxFrames - 1) {
+					frame = 0;
+				}
+				else {
+					frame++;
+				}
+			}
+			else {
+				body.setSize(size_scorpionHit);
+				body.setScale(3.0f, 3.0f);
+				uvRect.left = 3.0f;
+				uvRect.top = 262.0f + (size_scorpionHit.y + 2) * frame;
+				uvRect.width = size_scorpionHit.x;
+				uvRect.height = size_scorpionHit.y;
+				body.setTextureRect(uvRect);
+				frame++;
+			}
 			break;
 		case SpecialType::SONYA:
 			if (!hasHit) {
@@ -134,8 +187,8 @@ bool SpecialAttack::SpecialAttackAnimation() {
 			else {
 				body.setSize(size_sonyaHit);
 				body.setScale(3.0f, 3.0f);
-				uvRect.left = 43.0f + (size_sonyaHit.x + 2) * frame;
-				uvRect.top = 129.0f;
+				uvRect.left = 47.0f + (size_sonyaHit.x + 2) * frame;
+				uvRect.top = 400.0f;
 				uvRect.width = size_sonyaHit.x;
 				uvRect.height = size_sonyaHit.y;
 				body.setTextureRect(uvRect);

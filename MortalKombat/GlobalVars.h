@@ -73,7 +73,7 @@ const int life_KICK_HIGH = 5;
 const int life_KICK_FROM_DOWN = 4;
 const int life_KICK_FROM_AIR = 4;
 const int life_CATCH = 8;
-const int life_SPECIAL = 5;
+const int life_SPECIAL = 20;
 
 enum class LookingAt {
 	LEFT, RIGHT
