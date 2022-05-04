@@ -213,9 +213,9 @@ void BattleManager::LoadCharacters() {
 	cout << "[*] Loading character textures..." << endl;
 	LiuKang = CreateLiuKang();
 	cout << "[+......] Character LiuKang loaded!" << endl;
-	Scorpion = CreateScorpion();
+	//Scorpion = CreateScorpion();
 	cout << "[++.....] Character Scorpion loaded!" << endl;
-	//SonyaBlade = CreateSonyaBlade();
+	SonyaBlade = CreateSonyaBlade();
 	cout << "[+++....] Character Sonya Blade loaded!" << endl;
 	cout << "[+++++++] All characters loaded succesfully!" << endl;
 }
@@ -653,6 +653,7 @@ void BattleManager::Update() {
 					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
 					break;
 				case SCORPION:
+					player1Special.SpecialAttackAt(SpecialType::SCORPION, pos, false);
 					break;
 				case SONYA:
 					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
@@ -1547,6 +1548,15 @@ void BattleManager::draw(RenderWindow& window) {
 	bloodGround1.draw(window);
 	bloodGround2.draw(window);
 
+	if (!player2Special.getHasHit()) {
+		player2Special.draw(window);
+	}
+
+	if (!player1Special.getHasHit()) {
+		player1Special.draw(window);
+	}
+
+
 	if (player2.isAttaking()) {
 		player1.debugDraw(window);
 		player2.debugDraw(window);
@@ -1556,9 +1566,16 @@ void BattleManager::draw(RenderWindow& window) {
 		player1.debugDraw(window);
 	}
 
+	if (player2Special.getHasHit()) {
+		player2Special.draw(window);
+	}
+
+	if (player1Special.getHasHit()) {
+		player1Special.draw(window);
+	}
+
 	blood.draw(window);
-	player2Special.draw(window);
-	player1Special.draw(window);
+	
 
 	int i = 0;
 	for (RectangleShape rect : HUD_vector) {

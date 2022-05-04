@@ -29,7 +29,7 @@ void SpecialAttack::Update() {
 		maxInitTimer = 0.33f;
 		break;
 	case SpecialType::SCORPION:
-		maxInitTimer = 0.05f;
+		maxInitTimer = 0.00f;
 		break;
 	case SpecialType::SONYA:
 		maxInitTimer = 0.10f;
@@ -56,7 +56,6 @@ void SpecialAttack::Update() {
 						body.setPosition(Vector2f(posX + 60, posY));
 					}
 					else {
-						cout << "debug" << endl;
 						body.setPosition(Vector2f(body.getPosition().x, initY - 50*3));
 					}
 
@@ -144,7 +143,7 @@ bool SpecialAttack::SpecialAttackAnimation() {
 				body.setSize(size_scorpionAnim);
 				body.setScale(3.0f, 3.0f);
 				uvRect.left = 3.0f;
-				uvRect.top = 124.0f + (size_scorpionAnim.y + 2) * frame;
+				uvRect.top = 144.0f + (size_scorpionAnim.y + 2) * frame;
 				uvRect.width = size_scorpionAnim.x;
 				uvRect.height = size_scorpionAnim.y;
 				body.setTextureRect(uvRect);
@@ -157,12 +156,12 @@ bool SpecialAttack::SpecialAttackAnimation() {
 				}
 			}
 			else {
-				body.setSize(size_scorpionHit);
+				body.setSize(size_scorpionHit1);
 				body.setScale(3.0f, 3.0f);
 				uvRect.left = 3.0f;
-				uvRect.top = 262.0f + (size_scorpionHit.y + 2) * frame;
-				uvRect.width = size_scorpionHit.x;
-				uvRect.height = size_scorpionHit.y;
+				uvRect.top = 262.0f + (size_scorpionHit1.y + 2) * frame;
+				uvRect.width = size_scorpionHit1.x;
+				uvRect.height = size_scorpionHit1.y;
 				body.setTextureRect(uvRect);
 				frame++;
 			}
