@@ -121,7 +121,7 @@ private:
 	float internalTimer = 0.05f;
 
 	int freezeTimer = 0;
-
+	int ia_state_counter = 10;
 	bool doing_animation = false;
 
 	bool on_air = false;
