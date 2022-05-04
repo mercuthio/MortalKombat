@@ -20,25 +20,21 @@ SpecialAttack::SpecialAttack() {
 }
 
 void SpecialAttack::Update() {
-
 	if (!finished) {
-		if (initInternalTimer >= 0.37) {
-
-			cout << "DALEEE" << endl;
-
-			if (internalTimer >= 0.05) {
+		if (initInternalTimer >= 0.36f) {
+			if (internalTimer >= 0.05f) {
 				internalTimer = 0.0f;
 
 				if ((looking_at == LookingAt::RIGHT && body.getPosition().x >= screenRightHardLimit)
 					|| (looking_at == LookingAt::LEFT && body.getPosition().x - body.getSize().x <= screenLeftHardLimit)) {
 					finished = true;
-					started = !finished;
+					started = false;
 				}
 				else {
 					if (!hasHit) {
 						float posX = body.getPosition().x;
 						float posY = body.getPosition().y;
-						body.setPosition(Vector2f(posX + 25, posY));
+						body.setPosition(Vector2f(posX + 50, posY));
 					}
 
 					finished = SpecialAttackAnimation();
@@ -49,7 +45,12 @@ void SpecialAttack::Update() {
 				internalTimer += 0.025f;
 			}
 		}
+		else if (initInternalTimer == 0.17f) {
+			music.liuKangSpecial01();
+			initInternalTimer += 0.01f;
+		}
 		else {
+			cout << initInternalTimer << endl;
 			initInternalTimer += 0.01f;
 		}
 	}
@@ -153,8 +154,7 @@ bool SpecialAttack::SpecialAttackAnimation() {
 }
 
 void SpecialAttack::draw(RenderWindow& window) {
-	if (started) {
-		cout << "UWUU" << endl;
+	if (started && !finished) {
 		window.draw(body);
 	}
 }

@@ -628,6 +628,7 @@ void BattleManager::Update() {
 
 	if (player1.animation_in_process == AnimationType::SPECIAL) {
 		if (player1Special.isFinished()) {
+			cout << "SPECIAL 1" << endl;
 			if (player1.lookingAt() == LookingAt::RIGHT) {
 				Vector2f pos = Vector2f(player1.getPosition().x + 375, player1.getPosition().y + 205);
 				switch (character1)
@@ -967,11 +968,11 @@ void BattleManager::CheckCollisions() {
 		player2.setPosition(Vector2f(p2Pos.x + addXP1, p2Pos.y));
 	}
 
-	if (player1Special.body.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds()) && !player1Special.isFinished()) {
+	if (player1Special.body.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds()) && !player1Special.isFinished() && !player2Special.getHasHit()) {
 		player1Special.setHit();
 		ProcessHit(AnimationType::SPECIAL, true);
 	}
-	if (player2Special.body.getGlobalBounds().intersects(player1.hitbox.getGlobalBounds()) && !player2Special.isFinished()) {
+	if (player2Special.body.getGlobalBounds().intersects(player1.hitbox.getGlobalBounds()) && !player2Special.isFinished() && !player2Special.getHasHit()) {
 		player2Special.setHit();
 		ProcessHit(AnimationType::SPECIAL, false);
 	}
@@ -1445,7 +1446,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			life2 -= life_SPECIAL;
 			if (crouching) {
 				player2.animation_in_process = AnimationType::HIT_DOWN;
-				player2.setSpeed(Vector2f(150, 0));
+				player2.setSpeed(Vector2f(250, 0));
 			}
 			else if (onAir) {
 				player2.GetHit();
@@ -1454,15 +1455,15 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			}
 			else {
 				player2.animation_in_process = AnimationType::HIT_STAND_STRONG;
-				player2.setSpeed(Vector2f(250, 0));
+				player2.setSpeed(Vector2f(300, 0));
 			}
-			//music.hit2();
+			music.liuKangSpecial02();
 		}
 		else {
 			life1 -= life_SPECIAL;
 			if (crouching) {
 				player1.animation_in_process = AnimationType::HIT_DOWN;
-				player1.setSpeed(Vector2f(150, 0));
+				player1.setSpeed(Vector2f(250, 0));
 			}
 			else if (onAir) {
 				player1.GetHit();
@@ -1471,9 +1472,9 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			}
 			else {
 				player1.animation_in_process = AnimationType::HIT_STAND_STRONG;
-				player1.setSpeed(Vector2f(250, 0));
+				player1.setSpeed(Vector2f(300, 0));
 			}
-			//music.hit2();
+			music.liuKangSpecial02();
 		}
 	}
 	else if (anim == AnimationType::CATCH) {
