@@ -37,6 +37,7 @@ static Character CreateSonyaBlade() {
 	vector<int> blockDown_lock{ 2 };
 	vector<int> win_lock{ 8 };
 	vector<int> punchOrKickAir_lock{ 3, 3 };
+	vector<int> fall_lock{ 3, 6 };
 	vector<int> fallBack_lock{ 6 };
 
 	vector<Recover> punchRecovery{ {1, 1} };
@@ -77,7 +78,7 @@ static Character CreateSonyaBlade() {
 	Animation fatality0 = Animation(11, spriteSheet, spriteSheetP2, Vector2<int>(32, 7688), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation win0 = Animation(8, spriteSheet, spriteSheetP2, Vector2<int>(32, 8782), sz, 5, false, true, noRecovery, win_lock, 2);
 
-	Animation fall0 = Animation(6, spriteSheet, spriteSheetP2, Vector2<int>(32, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation fall0 = Animation(6, spriteSheet, spriteSheetP2, Vector2<int>(32, 4606), sz, 5, false, true, noRecovery, fall_lock, 2);
 	Animation fallBack0 = Animation(6, spriteSheet, spriteSheetP2, Vector2<int>(32, 5078), sz, 5, false, true, noRecovery, fallBack_lock, 2);		// Al morir sin fatality
 	Animation fallUppercut0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(1670, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation nuts0 = Animation(3, spriteSheet, spriteSheetP2, Vector2<int>(1202, 4084), sz, 5, false, true, noRecovery, null_vector, 2);			//No tiene NUTS !!!

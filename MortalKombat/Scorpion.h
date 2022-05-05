@@ -38,7 +38,7 @@ static Character CreateScorpion() {
 	vector<int> win_lock{ 4 };
 	vector<int> punchOrKickAir_lock{ 5, 5 };
 	vector<int> fallBack_lock{ 6 };
-	vector<int> fall_lock{ 5, 5 };
+	vector<int> fall_lock{ 2, 5 };
 
 	vector<Recover> punchRecovery{ {1, 1} };
 	vector<Recover> kickUpRecovery{ {3, 2} };
@@ -122,7 +122,6 @@ static Character CreateScorpion() {
 	AnimationGroup fatality = AnimationGroup(fatality0);
 	AnimationGroup win = AnimationGroup(win0);
 	AnimationGroup fall = AnimationGroup(fall0);
-	fall.AddAnimation(fall0);
 	AnimationGroup fallBack = AnimationGroup(fallBack0);
 	AnimationGroup fallUppercut = AnimationGroup(fallUppercut0);
 	AnimationGroup recover = AnimationGroup(recover0);

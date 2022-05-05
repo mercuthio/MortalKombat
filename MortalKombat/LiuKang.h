@@ -39,11 +39,10 @@ static Character CreateLiuKang() {
 	vector<int> win_lock{ 14 };
 	vector<int> punchOrKickAir_lock{ 5, 5 };
 	vector<int> fallBack_lock{ 6 };
-	vector<int> fall_lock{ 3, 7, 7 };
+	vector<int> fall_lock{ 3, 7 };
 
 	vector<Recover> punchRecovery{ {1, 1} };
 	vector<Recover> kickUpRecovery{ {3, 2} };
-	vector<Recover> catchRecovery{ {1, 7} };
 	vector<Recover> noRecovery{};
 
 
