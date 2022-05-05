@@ -821,11 +821,16 @@ void BattleManager::Update() {
 			else {														//Acaba de ganar la partida
 				finishing1 = true;
 				showing_finishHim = true;
-				music.finishHim();
 
 				RectangleShape rect = HUD_vector[16];
 				uvRect = rect.getTextureRect();
-				if (character2 == CharacterType::SONYA) uvRect.left = 3317.0f;
+				if (character2 == CharacterType::SONYA) { 
+					uvRect.left = 3317.0f;
+					music.finishHer();
+				}
+				else {
+					music.finishHim();
+				}
 				rect.setTextureRect(uvRect);
 				HUD_vector[16] = rect;
 
@@ -1514,14 +1519,12 @@ int BattleManager::finished_round() {
 }
 
 void BattleManager::increase_round(int player) {
-
 	if (player == 1) {
 		rounds_won1++;
 	}
 	else {
 		rounds_won2++;
 	}
-
 }
 
 void BattleManager::draw(RenderWindow& window) {
