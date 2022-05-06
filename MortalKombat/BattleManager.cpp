@@ -347,7 +347,6 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	player1.setFreeze(true);
 	player1.initPosition(BackgroundManager.initPlayer1);
 	player1.setPlayer(1);
-	player1.RestartMirror(false);
 
 	switch (character2) {
 	case CAGE:
@@ -378,7 +377,6 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	player2.setFreeze(true);
 	player2.initPosition(BackgroundManager.initPlayer2);
 	player2.setPlayer(2);
-	player2.RestartMirror(true);
 	player2.Mirror();
 
 }
@@ -390,25 +388,17 @@ void BattleManager::RestartRound() {
 
 	player1.damage_hitbox.setSize(Vector2f(0, 0));
 
-	player1.setFallen(false);
-	player1.setDying(false);
-	player1.animation_in_process = AnimationType::IDLE;
-
-	player1.setFreeze(true);
+	player1.fullReset();
+	player2.fullReset();
 
 	player1.initPosition(BackgroundManager.initPlayer1);
 	player1.setPlayer(1);
-	player1.RestartMirror(false);
 
 	player2.damage_hitbox.setSize(Vector2f(0, 0));
 
-	player2.setFallen(false);
-	player2.setDying(false);
-	player2.animation_in_process = AnimationType::IDLE;
-	player2.setFreeze(true);
 	player2.initPosition(BackgroundManager.initPlayer2);
 	player2.setPlayer(2);
-	player2.RestartMirror(true);
+	player2.Mirror();
 
 	flash = false;
 	showing_fight = false;
@@ -720,7 +710,7 @@ void BattleManager::Update() {
 			clapping = true;
 		}
 
-		if (!finishedFinishHim && !inFinishHim && clock_finishRound >= 325) {			//Terminado periodo de 
+		if (!finishedFinishHim && !inFinishHim && clock_finishRound >= 425) {			//Terminado periodo de 
 			showing_win = false;
 			clock_finishRound = 0;
 			finishing1 = false;
@@ -729,7 +719,7 @@ void BattleManager::Update() {
 
 			RestartRound();
 		}
-		else if (!finishedFinishHim && (inFinishHim && clock_finishRound == 250) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
+		else if (!finishedFinishHim && (inFinishHim && clock_finishRound == 300) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
 
 			showing_win = true;
 			clock_finishRound = 0;
@@ -781,7 +771,7 @@ void BattleManager::Update() {
 
 		}
 
-		if (finishedFinishHim && clock_finishRound >= 325) {	//Acabar partida
+		if (finishedFinishHim && clock_finishRound >= 425) {	//Acabar partida
 			finished_game = true;
 		}
 
@@ -831,19 +821,21 @@ void BattleManager::Update() {
 			else {														//Acaba de ganar la partida
 				finishing1 = true;
 				showing_finishHim = true;
-				music.finishHim();
 
 				RectangleShape rect = HUD_vector[16];
 				uvRect = rect.getTextureRect();
-				if (character2 == CharacterType::SONYA) uvRect.left = 3317.0f;
+				if (character2 == CharacterType::SONYA) { 
+					uvRect.left = 3317.0f;
+					music.finishHer();
+				}
+				else {
+					music.finishHim();
+				}
 				rect.setTextureRect(uvRect);
 				HUD_vector[16] = rect;
 
 				player2.setDying(true);
-				player2.setFallen(false);
-				player2.animation_in_process = AnimationType::DYING;
 				player2.setFreeze(true);
-
 			}
 
 		}
@@ -891,19 +883,20 @@ void BattleManager::Update() {
 
 				RectangleShape rect = HUD_vector[16];
 				uvRect = rect.getTextureRect();
-				if (character1 == CharacterType::SONYA) uvRect.left = 3317.0f;
+				if (character1 == CharacterType::SONYA) {
+					uvRect.left = 3317.0f;
+					music.finishHer();
+				}
+				else {
+					music.finishHim();
+				}
 				rect.setTextureRect(uvRect);
 				HUD_vector[16] = rect;
 
 				player1.setDying(true);
-				player1.setFallen(false);
-				player1.animation_in_process = AnimationType::DYING;
 				player1.setFreeze(true);
-
 			}
-
 		}
-
 	}
 
 	Vector2f size_round = Vector2f(327.0f, 82.0f);
@@ -1008,15 +1001,22 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 		onAir = true;
 	}
 
+	if (toPlayerTwo) {
+		player2.GetHit();
+	}
+	else {
+		player1.GetHit();
+	}
+
+
 	if (anim == AnimationType::PUNCH || anim == AnimationType::PUNCH_CLOSE) {
-		if (toPlayerTwo) {
+		if (toPlayerTwo) {			;
 			life2 -= life_PUNCH;
 			if (crouching) {
 				player2.animation_in_process = AnimationType::HIT_DOWN;
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player2.GetHit();
 				characterFall01(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1034,7 +1034,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player1.GetHit();
+				
 				characterFall01(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1055,7 +1055,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player2.GetHit();
+				
 				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1086,7 +1086,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player1.GetHit();
+				
 				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1113,7 +1113,6 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 	}
 	else if (anim == AnimationType::PUNCH_FROM_DOWN) {
 		if (toPlayerTwo) {
-			player2.GetHit();
 			life2 -= life_PUNCH_UPPER;
 			player2.animation_in_process = AnimationType::FALL;
 			music.hit1();
@@ -1134,7 +1133,6 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			}
 		}
 		else {
-			player1.GetHit();
 			life1 -= life_PUNCH_UPPER;
 			player1.animation_in_process = AnimationType::FALL;
 			music.hit1();
@@ -1164,7 +1162,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player2.GetHit();
+				
 				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1182,7 +1180,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player1.GetHit();
+				
 				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1202,7 +1200,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player2.GetHit();
+				
 				characterFall01(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1220,7 +1218,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player1.GetHit();
+				
 				characterFall01(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1240,7 +1238,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player2.GetHit();
+				
 				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1271,7 +1269,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player1.GetHit();
+				
 				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1304,7 +1302,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player2.GetHit();
+				
 				characterFall01(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(350, 100));
@@ -1322,7 +1320,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player1.GetHit();
+				
 				characterFall01(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(350, 100));
@@ -1336,7 +1334,6 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 	}
 	else if (anim == AnimationType::KICK_LOW) {
 		if (toPlayerTwo) {
-			player2.GetHit();
 			life2 -= life_KICK_LOW;
 			player2.animation_in_process = AnimationType::FALL_UPPERCUT;
 			music.hit5();
@@ -1351,7 +1348,6 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			if (bloodGround2.isFinished() && random > 7) { bloodGround2.bloodEffectAt(BloodType::GROUND, Vector2f(player2.getPosition().x + 600, player2.getPosition().y + 440)); }
 		}
 		else {
-			player1.GetHit();
 			life1 -= life_KICK_LOW;
 			player1.animation_in_process = AnimationType::FALL_UPPERCUT;
 			music.hit5();
@@ -1374,7 +1370,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player2.GetHit();
+				
 				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
@@ -1392,7 +1388,6 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(150, 0));
 			}
 			else if (onAir) {
-				player1.GetHit();
 				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
@@ -1412,7 +1407,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(300, 0));
 			}
 			else if (onAir) {
-				player2.GetHit();
+				
 				characterFall04(character2);
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(500, 500));
@@ -1430,8 +1425,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.animation_in_process = AnimationType::HIT_DOWN;
 				player1.setSpeed(Vector2f(300, 0));
 			}
-			else if (onAir) {
-				player1.GetHit();
+			else if (onAir) {				
 				characterFall04(character1);
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(500, 500));
@@ -1452,7 +1446,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.setSpeed(Vector2f(250, 0));
 			}
 			else if (onAir) {
-				player2.GetHit();
+				
 				player2.animation_in_process = AnimationType::FALL;
 				player2.setSpeed(Vector2f(450, 100));
 			}
@@ -1469,7 +1463,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.setSpeed(Vector2f(250, 0));
 			}
 			else if (onAir) {
-				player1.GetHit();
+				
 				player1.animation_in_process = AnimationType::FALL;
 				player1.setSpeed(Vector2f(450, 100));
 			}
@@ -1531,14 +1525,12 @@ int BattleManager::finished_round() {
 }
 
 void BattleManager::increase_round(int player) {
-
 	if (player == 1) {
 		rounds_won1++;
 	}
 	else {
 		rounds_won2++;
 	}
-
 }
 
 void BattleManager::draw(RenderWindow& window) {

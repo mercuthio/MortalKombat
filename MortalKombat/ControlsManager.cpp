@@ -1,5 +1,10 @@
 #include "ControlsManager.h"
 
+Keyboard::Key forwButton_aux = Keyboard::D;
+Keyboard::Key backButton_aux = Keyboard::A;
+Keyboard::Key forwButton_auxP2 = Keyboard::Right;
+Keyboard::Key backButton_auxP2 = Keyboard::Left;
+
 Keyboard::Key jumpButton = Keyboard::W;
 Keyboard::Key forwButton = Keyboard::D;
 Keyboard::Key backButton = Keyboard::A;
@@ -31,18 +36,22 @@ ControlsManager::ControlsManager(Texture* texture, Font font_) {
 	playerTwo = false;
 	changing_key = false;
 
-	text[0].setString("J1 SALTAR");
-	text[1].setString("J1 AGACHAR");
-	text[2].setString("J1 BLOQUEAR");
-	text[3].setString("J1 PUÑETAZO");
-	text[4].setString("J1 MULTI-PUÑO");
-	text[5].setString("J1 PATADA");
-	text[6].setString("J2 SALTAR");
-	text[7].setString("J2 AGACHAR");
-	text[8].setString("J2 BLOQUEAR");
-	text[9].setString("J2 PUÑETAZO");
-	text[10].setString("J2 MULTI-PUÑO");
-	text[11].setString("J2 PATADA");
+	text[0].setString("J1 ATRAS");
+	text[1].setString("J1 ADELANTE");
+	text[2].setString("J1 SALTAR");
+	text[3].setString("J1 AGACHAR");
+	text[4].setString("J1 BLOQUEAR");
+	text[5].setString("J1 PUÑETAZO");
+	text[6].setString("J1 MULTI-PUÑO");
+	text[7].setString("J1 PATADA");
+	text[8].setString("J2 ATRAS");
+	text[9].setString("J2 ADELANTE");
+	text[10].setString("J2 SALTAR");
+	text[11].setString("J2 AGACHAR");
+	text[12].setString("J2 BLOQUEAR");
+	text[13].setString("J2 PUÑETAZO");
+	text[14].setString("J2 MULTI-PUÑO");
+	text[15].setString("J2 PATADA");
 
 	for (int i = 0; i < NUM_CONTROLS; i++) {
 		text[i].setFont(font);
@@ -83,18 +92,22 @@ void ControlsManager::Update() {
 	text[choosenOption].setFillColor(yellow);
 
 	//Keys
-	keys[0].setString(fromKtoS(jumpButton));
-	keys[1].setString(fromKtoS(downButton));
-	keys[2].setString(fromKtoS(blockButton));
-	keys[3].setString(fromKtoS(punchButton));
-	keys[4].setString(fromKtoS(punchButton2));
-	keys[5].setString(fromKtoS(kickButton));
-	keys[6].setString(fromKtoS(jumpButtonP2));
-	keys[7].setString(fromKtoS(downButtonP2));
-	keys[8].setString(fromKtoS(blockButtonP2));
-	keys[9].setString(fromKtoS(punchButtonP2));
-	keys[10].setString(fromKtoS(punchButton2P2));
-	keys[11].setString(fromKtoS(kickButtonP2));
+	keys[0].setString(fromKtoS(backButton_aux));
+	keys[1].setString(fromKtoS(forwButton_aux));
+	keys[2].setString(fromKtoS(jumpButton));
+	keys[3].setString(fromKtoS(downButton));
+	keys[4].setString(fromKtoS(blockButton));
+	keys[5].setString(fromKtoS(punchButton));
+	keys[6].setString(fromKtoS(punchButton2));
+	keys[7].setString(fromKtoS(kickButton));
+	keys[8].setString(fromKtoS(backButton_auxP2));
+	keys[9].setString(fromKtoS(forwButton_auxP2));
+	keys[10].setString(fromKtoS(jumpButtonP2));
+	keys[11].setString(fromKtoS(downButtonP2));
+	keys[12].setString(fromKtoS(blockButtonP2));
+	keys[13].setString(fromKtoS(punchButtonP2));
+	keys[14].setString(fromKtoS(punchButton2P2));
+	keys[15].setString(fromKtoS(kickButtonP2));
 
 }
 
@@ -128,10 +141,10 @@ void ControlsManager::draw(RenderWindow& window) {
 		window.draw(logo);
 	}
 
-	for (int i = (NUM_CONTROLS / 2)+1; i < NUM_CONTROLS; i++) {
-		text[i].setPosition(Vector2f(width_window / 1.9 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i - (NUM_CONTROLS / 2)) + 100));
-		shadow[i].setPosition(Vector2f(width_window / 1.9 + 5 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i - (NUM_CONTROLS / 2)) + 5 + 100));
-		keys[i].setPosition(Vector2f(width_window / 1.3 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i - (NUM_CONTROLS / 2)) + 100));
+	for (int i = (NUM_CONTROLS / 2); i < NUM_CONTROLS; i++) {
+		text[i].setPosition(Vector2f(width_window / 1.9 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i - (NUM_CONTROLS / 2) + 1) + 100));
+		shadow[i].setPosition(Vector2f(width_window / 1.9 + 5 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i - (NUM_CONTROLS / 2) + 1) + 5 + 100));
+		keys[i].setPosition(Vector2f(width_window / 1.3 + 20, height_window / 7 + CHAR_SIZE_CONTROLS * (i - (NUM_CONTROLS / 2) + 1) + 100));
 		if (i == choosenOption) {
 			logo.setPosition(text[i].getPosition().x - 50, text[i].getPosition().y + 10);
 		}
@@ -147,7 +160,7 @@ void ControlsManager::draw(RenderWindow& window) {
 void ControlsManager::Right() {
 
 	if (!changing_key) {
-		if (!playerTwo)	choosenOption += (NUM_CONTROLS / 2)+1;
+		if (!playerTwo)	choosenOption += (NUM_CONTROLS / 2);
 		playerTwo = true;
 	}
 	else {
@@ -168,7 +181,7 @@ void ControlsManager::Enter() {
 void ControlsManager::Izquierda() {
 
 	if (!changing_key) {
-		if (playerTwo) choosenOption -= (NUM_CONTROLS / 2)+1;
+		if (playerTwo) choosenOption -= (NUM_CONTROLS / 2);
 		playerTwo = false;
 	}
 	else {
@@ -207,39 +220,55 @@ void ControlsManager::changeKey(Keyboard::Key k) {
 	if (changing_key) {
 		switch (choosenOption) {
 		case 0:
-			jumpButton = k;
+			backButton_aux = k;
+			backButton = k;
 			break;
 		case 1:
-			downButton = k;
+			forwButton_aux = k;
+			forwButton = k;
 			break;
 		case 2:
-			blockButton = k;
+			jumpButton = k;
 			break;
 		case 3:
-			punchButton = k;
+			downButton = k;
 			break;
 		case 4:
-			punchButton2 = k;
+			blockButton = k;
 			break;
 		case 5:
-			kickButton = k;
+			punchButton = k;
 			break;
 		case 6:
-			jumpButtonP2 = k;
+			punchButton2 = k;
 			break;
 		case 7:
-			downButtonP2 = k;
+			kickButton = k;
 			break;
 		case 8:
-			blockButtonP2 = k;
+			backButton_auxP2 = k;
+			backButtonP2 = k;
 			break;
 		case 9:
-			punchButtonP2 = k;
+			forwButton_auxP2 = k;
+			forwButtonP2 = k;
 			break;
 		case 10:
-			punchButton2P2 = k;
+			jumpButtonP2 = k;
 			break;
 		case 11:
+			downButtonP2 = k;
+			break;
+		case 12:
+			blockButtonP2 = k;
+			break;
+		case 13:
+			punchButtonP2 = k;
+			break;
+		case 14:
+			punchButton2P2 = k;
+			break;
+		case 15:
 			kickButtonP2 = k;
 			break;
 		}

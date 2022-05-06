@@ -425,6 +425,7 @@ void EventManager::draw(RenderWindow& window) {
 		if (ganador_partida == 1) {					//Ha ganado el jugador
 			if (HistoryManager.NextCombat()) {		//Si modo historia completado
 				FinishManager.Restart(character1);
+				music.victoryTheme();
 				state = 8;							//Estado cinematica final
 			}
 			else {
@@ -435,6 +436,7 @@ void EventManager::draw(RenderWindow& window) {
 		}
 		else if (ganador_partida == 2) {			//Ha ganado la IA
 			DeadManager.Restart();
+			music.defeatTheme();
 			state = 9;
 		}
 
@@ -446,8 +448,8 @@ void EventManager::draw(RenderWindow& window) {
 		BattleManager.draw(window);
 		if (BattleManager.isfinished() != 0) {
 			PlayerSelector_duel.Restart();
-			music.selectorTheme();
-			state = 3;	//Si terminada partida se va al selector de personajes
+			music.mainTheme();
+			state = 1;	//Si terminada partida se va al selector de personajes
 		} 
 		
 		break;

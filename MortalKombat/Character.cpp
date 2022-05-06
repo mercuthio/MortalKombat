@@ -79,22 +79,17 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 
 void Character::CheckIAAnimation(Character opponent) {
 	ChangeIAState(opponent);
-	if (fallen) {
-		fallen = false;
-		falling = false;
-		animation_in_process = AnimationType::RECOVER;
-	}
-	else if (!falling && !dying) {
+	if (!falling && !dying) {
 		if (on_air && estado == EstadoIA::MODO_ATAQUE) {
 			int ataque = rand() % 2;
 			switch (ataque) {
 			case 0:
-				animation_in_process = AnimationType::PUNCH_FROM_AIR;
+				//animation_in_process = AnimationType::PUNCH_FROM_AIR;
 				music.hit6();
 				break;
 
 			case 1:
-				animation_in_process == AnimationType::KICK_FROM_AIR;
+				//animation_in_process == AnimationType::KICK_FROM_AIR;
 				music.hit7();
 				break;
 			}
@@ -111,9 +106,11 @@ void Character::CheckIAAnimation(Character opponent) {
 					break;
 
 				case EstadoIA::ACERCARSE:
-					if (salto > 75) {
+					if (salto > 80) {
+						cout << "PROBABILIDAD SALTO: " << salto << endl;
 						speed = Vector2<float>(-400, 700);
 						animation_in_process = AnimationType::JUMP_AND_MOVE;
+						on_air = true;
 						music.maleJump();
 						music.doubleJump();
 					}
@@ -124,9 +121,11 @@ void Character::CheckIAAnimation(Character opponent) {
 					break;
 
 				case EstadoIA::ALEJARSE:
-					if (salto > 50) {
+					if (salto > 80) {
+						cout << "PROBABILIDAD SALTO: " << salto << endl;
 						speed = Vector2<float>(400, 700);
 						animation_in_process = AnimationType::JUMP_AND_MOVE;
+						on_air = true;
 						music.maleJump();
 						music.doubleJump();
 					}
@@ -196,18 +195,17 @@ void Character::CheckIAAnimation(Character opponent) {
 						}
 						estado = EstadoIA::ALEJARSE;
 					}
+					break;
 
 				case EstadoIA::SOBREPASAR_IZQ:
 					speed = distanceBetween > 0 ? Vector2<float>(400, 700) : Vector2<float>(-400, 700) ;
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
-					
+					on_air = true;
 					break;
 				case EstadoIA::SOBREPASAR_DCHA:
 					speed = distanceBetween > 0 ? Vector2<float>(-400, 700) : Vector2<float>(400, 700);
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
-					break;
-
-				case EstadoIA::MODO_SEXO:
+					on_air = true;
 					break;
 			}
 		}
@@ -216,10 +214,6 @@ void Character::CheckIAAnimation(Character opponent) {
 
 
 
-/*
-	Esto está petado de bugs
-	No tiene ni puto sentido
-*/
 void Character::ChangeIAState(Character opponent) {
 		
 	int probabilidad = rand() % 100; // entre 0 y 99 (inclusive)
@@ -235,35 +229,22 @@ void Character::ChangeIAState(Character opponent) {
 		cout << "MODO DEFENSA ACTIVADO" << endl;
 	}
 	else {
-		float distIzq = abs(screenLeftHardLimit - global_position.x);
-		float distDcha = abs(screenRightHardLimit - global_position.x);
-		if (distIzq < 50 || distDcha < 50) {
-			cout << "MODO ALEJARSE DE PARED" << endl;
-			estado = EstadoIA::ACERCARSE;
-		}
-		else if (Difficulty[difficulty_lvl] < probabilidadIdle) {
-			cout << "MODO IDLE ACTIVADO" << endl;
-			estado = EstadoIA::IDLE;
-		}
-		else if (distancia < 180 && Difficulty[difficulty_lvl] > probabilidad) {
+		if (distancia < 170) {
+			//cout << "\n" << Difficulty[difficulty_lvl] << " > ";
+			cout << "PROBABILIDAD EVENTO: " << probabilidad << endl;
 
-			estado = EstadoIA::MODO_ATAQUE;
-			cout << "MODO ATAQUE ACTIVADO" << endl;			
-		}
-		else if(distancia < 150) {
-			cout << "MODO HUIDA ACTIVADO" << endl;
-			estado = EstadoIA::ALEJARSE;
-		}
-		else if (distancia > 250 ){
-			cout << "MODO ACERCAMIENTO ACTIVADO" << endl;
-			estado = EstadoIA::ACERCARSE;
-		}
-		else if (estado == EstadoIA::IDLE) {
-			// idle_counter++;
-			// if (idle_couter > 10){
-				//idle_counter = 0;
+			if (Difficulty[difficulty_lvl] > probabilidad) {
+				//cout << "Entro en modo ataque" << endl;
+				estado = EstadoIA::MODO_ATAQUE;
+			}
+			else {
+				//cout << "Entro en modo me piro" << endl;
 				estado = EstadoIA::ALEJARSE;
-			// }
+			}
+		}
+		else if (distancia > 400) {
+			//cout << "\n" << "Entro en modo me acerco" << endl;
+			estado = EstadoIA::ACERCARSE;
 		}
 	}
 }
@@ -281,14 +262,7 @@ void Character::CheckAnimation() {
 			fightKeyPressed = false;
 		}
 	}
-	if (fallen) {
-		if (isAnyKeyPressed(player)) {
-			fallen = false;
-			falling = false;
-			animation_in_process = AnimationType::RECOVER;
-		}
-	}
-	else if (!falling) {
+	if (!falling && !dying) {
 		if (on_air) {					// El personaje está en el aire
 			if (Keyboard::isKeyPressed(punchButton)) {
 
@@ -459,14 +433,7 @@ void Character::CheckAnimationP2() {
 			fightKeyPressed = false;
 		}
 	}
-	if (fallen) {
-		if (isAnyKeyPressed(player)) {
-			fallen = false;
-			falling = false;
-			animation_in_process = AnimationType::RECOVER;
-		}
-	}
-	else if (!falling) {
+	else if (!falling && !dying) {
 		if (on_air) {					// El personaje está en el aire
 			if (Keyboard::isKeyPressed(punchButton2P2)) {
 
@@ -724,41 +691,61 @@ bool Character::CheckScreenCollisions(float movement) {
 	return false;
 }
 
+
+void Character::setDying(bool die) {
+	if (!dying && die) {
+		EndAndResetAnimation();
+		dying = true;
+		doing_animation = true;
+		animation_in_process = AnimationType::DYING;
+		global_position.y = screenFloorLimit;
+	}
+}
 /*
 	Comprueba que tecla está presionando el usuario y realiza una animación dependiendo de eso
 */
 void Character::DoAnimation() {
 	doing_animation = true;
-	//debug_animation();
-
 	bool finished = false;
 
-	if(!fallen)
-	finished = animations[animation_in_process].animation.DoAnimation(
-		body, 
-		shadow, 
-		hitbox, 
-		mirrored, 
-		(player == 2),
-		animations[animation_in_process].hitbox_positions_X, 
-		animations[animation_in_process].hitbox_positions_Y, 
-		global_position, 
-		hitboxes[animation_in_process],
-		damage_hitbox, 
-		animations[animation_in_process].damage_hitbox_positions_X, 
-		animations[animation_in_process].damage_hitbox_positions_Y, 
-		damage_hitboxes[animation_in_process]
-	);
+	if (!fallen) {
+		finished = animations[animation_in_process].animation.DoAnimation(
+			body,
+			shadow,
+			hitbox,
+			mirrored,
+			(player == 2),
+			animations[animation_in_process].hitbox_positions_X,
+			animations[animation_in_process].hitbox_positions_Y,
+			global_position,
+			hitboxes[animation_in_process],
+			damage_hitbox,
+			animations[animation_in_process].damage_hitbox_positions_X,
+			animations[animation_in_process].damage_hitbox_positions_Y,
+			damage_hitboxes[animation_in_process]
+		);
+	}
 	
-
 	if (finished) {
-		if (animation_in_process == AnimationType::FALL || animation_in_process == AnimationType::FALL_UPPERCUT || animation_in_process == AnimationType::FALL_BACK) {
-			fallen = true;
+		if (animation_in_process == AnimationType::FALL || animation_in_process == AnimationType::FALL_UPPERCUT) {
 			finished = false;
+			if (life == 0) {
+				fallen = true;
+			}
+			else {
+				animation_in_process = AnimationType::RECOVER;
+			}			
+		}
+		else if (animation_in_process == AnimationType::FALL_BACK) {
+			finished = false;
+			fallen = true;
 		}
 		else if (animation_in_process == AnimationType::DYING) {
-			finished = false;			
 			animations[animation_in_process].animation.ResetAnimation();
+			finished = false;
+		}
+		else if (animation_in_process == AnimationType::RECOVER) {
+			falling = false;
 		}
 		punching = false;
 	}
@@ -851,8 +838,11 @@ void Character::EndAndResetAnimation() {
 void Character::GetHit() {
 	
 	EndAndResetAnimation();
-	falling = true;
-	animation_in_process = AnimationType::FALL;
+	doing_animation = true;
+	if (on_air) {
+		falling = true;
+	}
+	
 	/*
 	if (animation_in_process == AnimationType::BLOCK && upperBodyHit == true || animation_in_process == AnimationType::BLOCK_LOW && upperBodyHit == false) {
 		life -= quantity / 2;
@@ -881,11 +871,11 @@ void Character::debugDraw(RenderWindow& window) {
 
 void Character::RestartMirror(bool playerTwo) {
 
-	forwButton = Keyboard::D;
-	backButton = Keyboard::A;
+	forwButton = forwButton_aux;
+	backButton = backButton_aux;
 
-	forwButtonP2 = Keyboard::Right;
-	backButtonP2 = Keyboard::Left;
+	forwButtonP2 = forwButton_auxP2;
+	backButtonP2 = backButton_auxP2;
 
 	mirroring = false;
 	mirrorOnEnd = false;
@@ -897,28 +887,53 @@ void Character::Mirror() {
 	mirrorOnEnd = !mirrorOnEnd;
 }
 
-void Character::debug_animation() {
-	cout << "Realizando Animacion: ";
-	switch (animation_in_process) {
-	case (AnimationType::IDLE):
-		cout << "idle";
-		break;
-	case (AnimationType::WALK_FORW):
-		cout << "forward walk";
-		break;
-	case (AnimationType::WALK_BACK):
-		cout << "back walk";
-		break;
-	default:
-		cout << "unknown";
-	}
-	cout << "\tVelocidad: " << speed.x << " " << speed.y << "\t";
-}
-
 float Character::GetLife() {
 	return life;
 }
 
 bool Character::isAttaking() {
 	return isAnyFightKeyPressed(player);
+}
+
+void Character::fullReset() {
+	
+	animations[animation_in_process].animation.ResetAnimation();
+	looking_at = LookingAt::RIGHT;
+
+	if (mirrored) {
+		if (player == 1) {
+			Keyboard::Key aux = backButton;
+			backButton = forwButton;
+			forwButton = aux;
+		}
+		else {
+			Keyboard::Key aux = backButtonP2;
+			backButtonP2 = forwButtonP2;
+			forwButtonP2 = aux;
+		}
+	}
+
+	mirrored = false;	
+	doing_animation = false;
+	on_air = false;
+	punching = false;
+	crouching = false;
+	blocking = false;
+	fallen = false;
+	falling = false;
+	dying = false;
+	wait_air = false;
+	fightKeyPressed = false;
+	removePunchNext = false;
+	freeze = true;
+	mirrorOnEnd = false;
+	mirroring = false;
+
+	animation_in_process = AnimationType::IDLE;
+	
+	speed = { 0, 0 };
+	estado = EstadoIA::IDLE;
+	duracionEstadoActual = 0;
+	life = 100;
+
 }

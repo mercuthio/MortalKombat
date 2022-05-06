@@ -25,6 +25,7 @@ public:
 	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, map<AnimationType, vector<RectangleShape>> damage_hitboxes_);
 	//~Character() = delete;
 
+	void fullReset();
 	void UpdateIA(float time, Character opponent);
 
 	void Update(float time, bool seconPlayer);
@@ -88,13 +89,7 @@ public:
 
 	bool isOnAir() { return on_air; }
 
-	void setDying(bool die) {
-		dying = die;
-		if (die) {
-			animation_in_process = AnimationType::DYING;
-			global_position.y = screenFloorLimit;
-		}		
-	}
+	void setDying(bool die);
 	void setFallen(bool fall) {
 		fallen = fall;
 	}
@@ -156,7 +151,6 @@ private:
 
 	void DoAnimation();
 	void EndAnimation();
-	void debug_animation();
 
 	void CheckAnimation();
 	void CheckAnimationP2();

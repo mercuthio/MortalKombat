@@ -56,7 +56,7 @@ MusicManager::MusicManager() {
 
 	//MUSIC
 
-	for (int i = 0; i < 7; i++) { bufferMusic.push_back(buffer); music.push_back(sound); }
+	for (int i = 0; i < 9; i++) { bufferMusic.push_back(buffer); music.push_back(sound); }
 
 	bufferMusic[0].loadFromFile("audio/music/mainTheme.ogg");
 	music[0].setBuffer(bufferMusic[0]);
@@ -72,6 +72,10 @@ MusicManager::MusicManager() {
 	music[5].setBuffer(bufferMusic[5]);
 	bufferMusic[6].loadFromFile("audio/music/throneroomTheme.ogg");
 	music[6].setBuffer(bufferMusic[6]);
+	bufferMusic[7].loadFromFile("audio/music/victoryTheme.ogg");
+	music[7].setBuffer(bufferMusic[7]);
+	bufferMusic[8].loadFromFile("audio/music/defeatTheme.ogg");
+	music[8].setBuffer(bufferMusic[8]);
 
 
 	//ANUNCIADOR
@@ -172,6 +176,23 @@ MusicManager::MusicManager() {
 	liukang[6].setBuffer(bufferLiuKang[6]);
 	bufferLiuKang[7].loadFromFile("audio/hitsounds/mk1-00242.ogg"); //Special Hit
 	liukang[7].setBuffer(bufferLiuKang[7]);
+
+	//Sonya
+
+	for (int i = 0; i < 6; i++) { bufferSonya.push_back(buffer); sonya.push_back(sound); }
+
+	bufferSonya[0].loadFromFile("audio/sonya/mk1-00432.ogg");
+	sonya[0].setBuffer(bufferSonya[0]);
+	bufferSonya[1].loadFromFile("audio/sonya/mk1-00433.ogg");
+	sonya[1].setBuffer(bufferSonya[1]);
+	bufferSonya[2].loadFromFile("audio/sonya/mk1-00442.ogg");
+	sonya[2].setBuffer(bufferSonya[2]);
+	bufferSonya[3].loadFromFile("audio/sonya/mk1-00443.ogg");
+	sonya[3].setBuffer(bufferSonya[3]);
+	bufferSonya[4].loadFromFile("audio/sonya/mk1-00444.ogg");
+	sonya[4].setBuffer(bufferSonya[4]);
+	bufferSonya[5].loadFromFile("audio/sonya/mk1-00445.ogg");
+	sonya[5].setBuffer(bufferSonya[5]);
 }
 
 void MusicManager::startIntro() { intro[0].setVolume(volumeMusic); intro[0].play(); }
@@ -182,6 +203,8 @@ void MusicManager::selectorIntro() { intro[3].setVolume(volumeMusic); intro[3].p
 void MusicManager::mainTheme() { stopMusic(); stopIntros(); music[0].setVolume(volumeMusic); music[0].play(); music[0].setLoop(true); }
 void MusicManager::selectorTheme() { stopMusic(); stopIntros(); music[1].setVolume(volumeMusic); music[1].play(); music[1].setLoop(true); }
 void MusicManager::historyTheme() { stopMusic(); stopIntros(); music[2].setVolume(volumeMusic); music[2].play(); music[2].setLoop(false); }
+void MusicManager::victoryTheme() { stopMusic(); stopIntros(); music[7].setVolume(volumeMusic); music[7].play(); music[7].setLoop(true); }
+void MusicManager::defeatTheme() { stopMusic(); stopIntros(); music[8].setVolume(volumeMusic); music[8].play(); music[8].setLoop(true); }
 
 void MusicManager::skipHistoryTheme() { music[2].setPlayingOffset(seconds(6.65f)); }
 
@@ -249,6 +272,13 @@ void MusicManager::liuKangFall03() { liukang[4].setVolume(volumeEffects); liukan
 void MusicManager::liuKangFall04() { liukang[5].setVolume(volumeEffects); liukang[5].play(); }
 void MusicManager::liuKangSpecial01() { liukang[6].setVolume(volumeEffects); liukang[6].play(); }
 void MusicManager::liuKangSpecial02() { liukang[7].setVolume(volumeEffects); liukang[7].play(); }
+
+void MusicManager::sonyaPunch01() { sonya[0].setVolume(volumeEffects); sonya[0].play(); }
+void MusicManager::sonyaKick01() { sonya[1].setVolume(volumeEffects); sonya[1].play(); }
+void MusicManager::sonyaFall01() { sonya[2].setVolume(volumeEffects); sonya[2].play(); }
+void MusicManager::sonyaFall02() { sonya[3].setVolume(volumeEffects); sonya[3].play(); }
+void MusicManager::sonyaFall03() { sonya[4].setVolume(volumeEffects); sonya[4].play(); }
+void MusicManager::sonyaFall04() { sonya[5].setVolume(volumeEffects); sonya[5].play(); }
 
 void MusicManager::stopIntros() {
 	for (int i = 0; i < intro.size(); i++) {

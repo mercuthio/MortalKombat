@@ -45,6 +45,8 @@ public:
 	void thepitTheme();
 	void warriorshrineTheme();
 	void throneroomTheme();
+	void victoryTheme();
+	void defeatTheme();
 
 	void excellent();
 	void fatality();
@@ -88,6 +90,13 @@ public:
 	void liuKangSpecial01();
 	void liuKangSpecial02();
 
+	void sonyaPunch01();
+	void sonyaKick01();
+	void sonyaFall01();
+	void sonyaFall02();
+	void sonyaFall03();
+	void sonyaFall04();
+
 	void reduceVolumeMusic() { volumeMusic -= 20.f;};
 	void addVolumeMusic() { volumeMusic += 20.f;};
 
@@ -113,6 +122,7 @@ private:
 	vector<Sound> arenas;
 	vector<Sound> scorpion;
 	vector<Sound> liukang;
+	vector<Sound> sonya;
 	vector<Sound> hits;
 	vector<Sound> male;
 
@@ -123,6 +133,7 @@ private:
 	vector<SoundBuffer> bufferArenas;
 	vector<SoundBuffer> bufferScorpion;
 	vector<SoundBuffer> bufferLiuKang;
+	vector<SoundBuffer> bufferSonya;
 	vector<SoundBuffer> bufferHits;
 	vector<SoundBuffer> bufferMale;
 

@@ -116,7 +116,6 @@ int main() {
         fps = (float)1e9 / (float)std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
         if (tiempo == 200) {
             tiempo = 0;
-            cout << "FPS: " << fps << endl;
         }
 
     }
