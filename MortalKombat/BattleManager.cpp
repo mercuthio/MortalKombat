@@ -883,7 +883,13 @@ void BattleManager::Update() {
 
 				RectangleShape rect = HUD_vector[16];
 				uvRect = rect.getTextureRect();
-				if (character1 == CharacterType::SONYA) uvRect.left = 3317.0f;
+				if (character1 == CharacterType::SONYA) {
+					uvRect.left = 3317.0f;
+					music.finishHer();
+				}
+				else {
+					music.finishHim();
+				}
 				rect.setTextureRect(uvRect);
 				HUD_vector[16] = rect;
 
