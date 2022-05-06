@@ -679,6 +679,9 @@ bool Character::CheckScreenCollisions(float movement) {
 	}
 
 	if (global_position.y > screenFloorLimit) {
+
+		if (animation_in_process == AnimationType::FALL || animation_in_process == AnimationType::FALL_BACK
+			|| animation_in_process == AnimationType::FALL_UPPERCUT) wantsShake = true;
 		on_air = false;
 		global_position.y = screenFloorLimit;
 		speed = Vector2<float>(0, 0);
@@ -863,8 +866,8 @@ void Character::GetHit() {
 }
 
 void Character::debugDraw(RenderWindow& window) {
-	window.draw(hitbox);	//Para debug
-	window.draw(damage_hitbox);	//Para debug
+	//window.draw(hitbox);	//Para debug
+	//window.draw(damage_hitbox);	//Para debug
 	window.draw(shadow);
 	window.draw(body);
 }

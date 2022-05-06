@@ -45,12 +45,18 @@ public:
 	int finished_round();
 	int isfinished();
 
+	void shake();
+
 private:
 
 	CharacterType character1;										//Personaje del jugador 1
 	CharacterType character2;										//Personaje del jugador 2
 
 	Clock clock;
+
+	bool shaking;
+	bool shakeUp;
+	float internalShaking;
 
 	int life1;
 	int life2;

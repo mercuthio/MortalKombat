@@ -34,6 +34,8 @@ const double ASPECT_RATIO = 4.0/3.0;
 static float width_window = 1024;
 static float height_window = 768;
 
+extern View view;
+
 extern Keyboard::Key forwButton_aux;
 extern Keyboard::Key backButton_aux;
 extern Keyboard::Key forwButton_auxP2;

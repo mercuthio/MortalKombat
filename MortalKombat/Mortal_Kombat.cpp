@@ -8,6 +8,8 @@ using namespace std;
 
 bool clapping;
 
+View view;
+
 View getLetterboxView(View view, int windowWidth, int windowHeight) {
 
     float windowRatio = windowWidth / (float)windowHeight;
@@ -44,7 +46,6 @@ int main() {
     icon.loadFromFile("resources/Imagenes/Menus/icon.png");
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-    View view;
     view.setSize(width_window, height_window);
     view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
     view = getLetterboxView(view, width_window, height_window);
@@ -104,6 +105,7 @@ int main() {
 
         window.clear(sf::Color(99, 99, 99, 255));
 
+        //view = getLetterboxView(view, width_window, height_window);
         window.setView(view);
 
         EventManager.draw(window);

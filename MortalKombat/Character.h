@@ -96,6 +96,14 @@ public:
 
 	bool CheckScreenCollisions(float movement);
 
+	bool getShake() {
+		return wantsShake;
+	}
+
+	void setShake(bool shake) {
+		wantsShake = false;
+	}
+
 
 	RectangleShape hitbox;
 	RectangleShape damage_hitbox;
@@ -119,6 +127,7 @@ private:
 	int ia_state_counter = 10;
 	bool doing_animation = false;
 
+	bool wantsShake = false;
 	bool on_air = false;
 	bool punching = false;
 	bool crouching = false;
