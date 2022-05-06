@@ -23,10 +23,6 @@ void Character::Update(float tiempo, bool secondPlayer) {
 			life = 0;
 		}
 
-		if (animation_in_process == AnimationType::DYING) {
-			cout << "MURIENDO EN UPDATE" << endl;
-		}
-
 		internalTimer = 0.0f;
 		/*global_position = body.getPosition();
 		if (DEBUG_POSITION) {
@@ -782,10 +778,6 @@ bool Character::CheckScreenCollisions(float movement) {
 void Character::DoAnimation() {
 	doing_animation = true;
 	bool finished = false;
-	
-	if (animation_in_process == AnimationType::DYING) {
-		cout << "MURIENDO EN DO ANIMATION" << endl;
-	}
 
 	if (!fallen) {
 		finished = animations[animation_in_process].animation.DoAnimation(
@@ -915,8 +907,7 @@ void Character::EndAndResetAnimation() {
 }
 
 void Character::GetHit() {
-	
-	EndAndResetAnimation();
+	if(!crouching)	EndAndResetAnimation();
 	doing_animation = true;
 	if (on_air) {
 		falling = true;
@@ -988,6 +979,10 @@ void Character::fullReset() {
 	mirrorOnEnd = false;
 	mirroring = false;
 
+	for (const auto& keyVal : animations) {
+		animations[keyVal.first].animation.ResetAnimation();
+	}
+
 	animation_in_process = AnimationType::IDLE;
 	
 	speed = { 0, 0 };
@@ -1004,8 +999,5 @@ void Character::setDying(bool die) {
 		speed = { 0, 0 };
 		animation_in_process = AnimationType::DYING;
 		global_position.y = screenFloorLimit;
-		if (animation_in_process == AnimationType::DYING) {
-			cout << "OK" << endl;
-		}
 	}
 }
