@@ -231,7 +231,6 @@ static Character CreateLiuKang() {
 	animations[AnimationType::HIT_HEAD] = hitHeadMov;
 	animations[AnimationType::HIT_DOWN] = hitDuckMov;
 
-	
 	//Tamaño damage hitboxes
 	Vector2f punchD[4] = { {0,0},{0,0},{35*3,13*3},{0,0} };
 	Vector2f punchUpD[4] = { {0,0},{0,0},{32*3,19*3},{0,0} };
@@ -384,8 +383,32 @@ static Character CreateLiuKang() {
 	Vector2f catchS[7] = { {36*3,127*3}, {38*3,110*3}, {48*3,125*3}, {39*3,131*3}, {33*3,131*3}, {34*3,117*3}, {42*3,110*3} };
 	Vector2f dyingS[7] = { {39*3,121*3}, {36*3,123*3}, {35*3,126*3}, {35*3,132*3}, {35*3,134*3}, {31*3,131*3}, {34*3,122*3} };
 
-	vector<RectangleShape> idleR;
+	Vector2f fallUpperCutS[8] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
+	Vector2f fallS[7] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
+	Vector2f fallBackS[6] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
+
+
 	rect.setFillColor(Color::Green);
+
+	vector<RectangleShape> fallUpperCutR;
+	for (Vector2f size : fallUpperCutS) {
+		rect.setSize(size);
+		fallUpperCutR.push_back(rect);
+	}
+
+	vector<RectangleShape> fallR;
+	for (Vector2f size : fallS) {
+		rect.setSize(size);
+		fallR.push_back(rect);
+	}
+
+	vector<RectangleShape> fallBackR;
+	for (Vector2f size : fallBackS) {
+		rect.setSize(size);
+		fallBackR.push_back(rect);
+	}
+
+	vector<RectangleShape> idleR;
 	for (Vector2f size : idleS) {
 		rect.setSize(size);
 		idleR.push_back(rect);
@@ -569,6 +592,9 @@ static Character CreateLiuKang() {
 	hitboxes[AnimationType::TURN_LEFT] = turnLeftR;
 	hitboxes[AnimationType::TURN_RIGHT] = turnRightR;
 
+	hitboxes[AnimationType::FALL] = fallR;
+	hitboxes[AnimationType::FALL_BACK] = fallBackR;
+	hitboxes[AnimationType::FALL_UPPERCUT] = fallUpperCutR;
 
 	RectangleShape specialAtt = RectangleShape(Vector2<float>(68, 11));
 	specialAtt.setSize(Vector2f(68 * 3, 11 * 3));

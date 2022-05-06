@@ -184,10 +184,10 @@ static Character CreateScorpion() {
 	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0),{79*3,86*3,90*3,91*3},{49*3,47*3,48*3,47*3} };
 	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0),{80*3,75*3,70*3,67*3},{48*3,49*3,47*3,49*3} };
 
-	Movement hitMov = Movement{ hit, Vector2<float>(0.0, 0.0) };
-	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0) };
-	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0) };
-	Movement hitDuckMov = Movement{ hitDuck, Vector2<float>(0.0, 0.0) };
+	Movement hitMov = Movement{ hit, Vector2<float>(0.0, 0.0), {77*3,73*3,69*3,66*3},{49*3,48*3,48*3,50*3} };
+	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0), {80*3,84*3,83*3,91*3,89*3,85*3},{48*3,42*3,43*3,43*3,48*3,49*3} };
+	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0), {70*3,61*3,64*3,69*3},{46*3,49*3,53*3,50*3} };
+	Movement hitDuckMov = Movement{ hitDuck, Vector2<float>(0.0, 0.0), {85*3,75*3,69*3},{108*3,101*3,108*3} };
 
 	map<AnimationType, Movement> animations;
 	animations[AnimationType::IDLE] = idleMov;
@@ -380,8 +380,31 @@ static Character CreateScorpion() {
 	Vector2f catchS[7] = { {0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0} };
 	Vector2f dyingS[7] = { {39*3,131*3},{31*3,128*3},{38*3,124*3},{35*3,127*3},{30*3,131*3},{35*3,132*3},{35*3,131*3} };
 
-	vector<RectangleShape> idleR;
+	Vector2f fallUpperCutS[8] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
+	Vector2f fallS[7] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
+	Vector2f fallBackS[6] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
+
 	rect.setFillColor(Color::Green);
+
+	vector<RectangleShape> fallUpperCutR;
+	for (Vector2f size : fallUpperCutS) {
+		rect.setSize(size);
+		fallUpperCutR.push_back(rect);
+	}
+
+	vector<RectangleShape> fallR;
+	for (Vector2f size : fallS) {
+		rect.setSize(size);
+		fallR.push_back(rect);
+	}
+
+	vector<RectangleShape> fallBackR;
+	for (Vector2f size : fallBackS) {
+		rect.setSize(size);
+		fallBackR.push_back(rect);
+	}
+
+	vector<RectangleShape> idleR;
 	for (Vector2f size : idleS) {
 		rect.setSize(size);
 		idleR.push_back(rect);
@@ -565,6 +588,9 @@ static Character CreateScorpion() {
 	hitboxes[AnimationType::TURN_LEFT] = turnLeftR;
 	hitboxes[AnimationType::TURN_RIGHT] = turnRightR;
 
+	hitboxes[AnimationType::FALL] = fallR;
+	hitboxes[AnimationType::FALL_BACK] = fallBackR;
+	hitboxes[AnimationType::FALL_UPPERCUT] = fallUpperCutR;
 
 	RectangleShape specialAtt = RectangleShape(Vector2<float>(68, 11));
 	specialAtt.setSize(Vector2f(68 * 3, 11 * 3));
