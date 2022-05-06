@@ -871,11 +871,11 @@ void Character::debugDraw(RenderWindow& window) {
 
 void Character::RestartMirror(bool playerTwo) {
 
-	forwButton = Keyboard::D;
-	backButton = Keyboard::A;
+	forwButton = forwButton_aux;
+	backButton = backButton_aux;
 
-	forwButtonP2 = Keyboard::Right;
-	backButtonP2 = Keyboard::Left;
+	forwButtonP2 = forwButton_auxP2;
+	backButtonP2 = backButton_auxP2;
 
 	mirroring = false;
 	mirrorOnEnd = false;
