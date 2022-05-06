@@ -90,6 +90,7 @@ public:
 	bool isOnAir() { return on_air; }
 
 	void setDying(bool die);
+
 	void setFallen(bool fall) {
 		fallen = fall;
 	}
@@ -109,7 +110,7 @@ public:
 	RectangleShape damage_hitbox;
 
 	AnimationType animation_in_process;
-
+	bool dying = false;
 	int life = 100;
 
 private:
@@ -135,7 +136,7 @@ private:
 	bool blocking = false;
 	bool fallen = false;
 	bool falling = false;
-	bool dying = false;
+	
 	bool wait_air = false;
 	bool fightKeyPressed = false;
 	bool removePunchNext = false;

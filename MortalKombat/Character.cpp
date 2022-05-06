@@ -19,6 +19,14 @@ Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _
 void Character::Update(float tiempo, bool secondPlayer) {
 	if (internalTimer >= updateTime) {
 
+		if (player == 2 && Keyboard::isKeyPressed(Keyboard::Multiply)) {
+			life = 0;
+		}
+
+		if (animation_in_process == AnimationType::DYING) {
+			cout << "MURIENDO EN UPDATE" << endl;
+		}
+
 		internalTimer = 0.0f;
 		/*global_position = body.getPosition();
 		if (DEBUG_POSITION) {
@@ -26,7 +34,7 @@ void Character::Update(float tiempo, bool secondPlayer) {
 			cout << "Origin: " << "(" << body.getOrigin().x << ", " << body.getOrigin().y << ")" << endl;
 		}*/
 
-		if (!freeze) {
+		if (!freeze && !dying) {
 			if (!secondPlayer)	CheckAnimation();	// Dependiendo de que ha pulsado el jugador hago una animación u otra
 			else CheckAnimationP2();
 		}
@@ -64,7 +72,7 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 		internalTimer = 0.0f;
 
 		
-		if (!freeze) {
+		if (!freeze && !dying) {
 			CheckIAAnimation(opponent);
 		}
 		DoAnimation();
@@ -171,7 +179,7 @@ void Character::CheckIAAnimation(Character opponent) {
 					}
 					else
 					{
-						int ataque = rand() % 4;
+						int ataque = rand() % 5;
 						cout << ataque << endl;
 						switch (ataque) {
 						case 0:
@@ -193,12 +201,19 @@ void Character::CheckIAAnimation(Character opponent) {
 							animation_in_process = AnimationType::KICK_LOW;
 							music.hit7();
 							break;
+						
+						case 4:
+							animation_in_process = AnimationType::PUNCH_MULTIPLE;
+							music.hit7();
+							break;
 						}
+
+			
 						estado = EstadoIA::ALEJARSE;
 					}
 				}
 				else {
-					int ataque = rand() % 4;
+					int ataque = rand() % 5;
 					cout << ataque << endl; 
 					switch (ataque) {
 					case 0:
@@ -218,6 +233,11 @@ void Character::CheckIAAnimation(Character opponent) {
 
 					case 3:
 						animation_in_process = AnimationType::KICK_LOW;
+						music.hit7();
+						break;
+
+					case 4:
+						animation_in_process = AnimationType::PUNCH_MULTIPLE;
 						music.hit7();
 						break;
 					}
@@ -755,21 +775,17 @@ bool Character::CheckScreenCollisions(float movement) {
 }
 
 
-void Character::setDying(bool die) {
-	if (!dying && die) {
-		EndAndResetAnimation();
-		dying = true;
-		doing_animation = true;
-		animation_in_process = AnimationType::DYING;
-		global_position.y = screenFloorLimit;
-	}
-}
+
 /*
 	Comprueba que tecla está presionando el usuario y realiza una animación dependiendo de eso
 */
 void Character::DoAnimation() {
 	doing_animation = true;
 	bool finished = false;
+	
+	if (animation_in_process == AnimationType::DYING) {
+		cout << "MURIENDO EN DO ANIMATION" << endl;
+	}
 
 	if (!fallen) {
 		finished = animations[animation_in_process].animation.DoAnimation(
@@ -814,7 +830,7 @@ void Character::DoAnimation() {
 	}
 	
 
-	if (isFixedMovement(animation_in_process) && !isBlockingMovement(animation_in_process)) { // Sigue un desplazamiento fijado
+	if (isFixedMovement(animation_in_process) && !isBlockingMovement(animation_in_process) && !dying) { // Sigue un desplazamiento fijado
 		Vector2<float> mov = animations[animation_in_process].traslation;
 		mov.x = mirrored ? -mov.x : mov.x;
 		if (mov.x != 0) { 
@@ -849,7 +865,7 @@ void Character::DoAnimation() {
 		}
 	}
 
-	if (finished) {
+	if (finished && !dying) {
 		AnimationType anim_pre = animation_in_process;
 
 		if (!hasFlag(animation_in_process)) {
@@ -905,24 +921,6 @@ void Character::GetHit() {
 	if (on_air) {
 		falling = true;
 	}
-	
-	/*
-	if (animation_in_process == AnimationType::BLOCK && upperBodyHit == true || animation_in_process == AnimationType::BLOCK_LOW && upperBodyHit == false) {
-		life -= quantity / 2;
-		return;
-	}
-
-	animation_in_process = AnimationType::FALL;
-	*/
-	/*
-	if (!mirrored) {
-		speed = Vector2<float>(100, 200);
-	}
-	else {
-		speed = Vector2<float>(-100, 200);
-	}
-	life -= quantity;
-	*/
 }
 
 void Character::debugDraw(RenderWindow& window) {
@@ -963,17 +961,15 @@ void Character::fullReset() {
 	animations[animation_in_process].animation.ResetAnimation();
 	looking_at = LookingAt::RIGHT;
 
-	if (mirrored) {
-		if (player == 1) {
+	if (mirrored && player == 1) {
 			Keyboard::Key aux = backButton;
 			backButton = forwButton;
-			forwButton = aux;
-		}
-		else {
-			Keyboard::Key aux = backButtonP2;
-			backButtonP2 = forwButtonP2;
-			forwButtonP2 = aux;
-		}
+			forwButton = aux;		
+	}
+	else if (mirrored && player == 2) {
+		Keyboard::Key aux = backButtonP2;
+		backButtonP2 = forwButtonP2;
+		forwButtonP2 = aux;
 	}
 
 	mirrored = false;	
@@ -999,4 +995,17 @@ void Character::fullReset() {
 	duracionEstadoActual = 0;
 	life = 100;
 
+}
+
+
+void Character::setDying(bool die) {
+	if (!dying && die) {
+		dying = true;
+		speed = { 0, 0 };
+		animation_in_process = AnimationType::DYING;
+		global_position.y = screenFloorLimit;
+		if (animation_in_process == AnimationType::DYING) {
+			cout << "OK" << endl;
+		}
+	}
 }
