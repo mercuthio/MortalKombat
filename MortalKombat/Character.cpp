@@ -98,22 +98,12 @@ void Character::CheckIAAnimation(Character opponent) {
 			estado = EstadoIA::ALEJARSE;
 
 		}
-		else if (estado == EstadoIA::MODO_ATAQUE && (crouching || !doing_animation)) {
+		else if (estado == EstadoIA::MODO_ATAQUE && crouching) {
 			animations[animation_in_process].animation.ResetAnimation();
 			crouching = false;	
 			sentFlag = false;
-			int ataque = rand() % 2;
-			switch (ataque) {
-			case 0:
-				animation_in_process = AnimationType::PUNCH_FROM_DOWN;
-				music.hit6();
-				break;
-
-			case 1:
-				animation_in_process == AnimationType::KICK_FROM_DOWN;
-				music.hit7();
-				break;
-			}		
+			animation_in_process = AnimationType::KICK_LOW;
+			music.hit7();
 			estado = EstadoIA::ALEJARSE;
 		}
 		else if (animation_in_process == AnimationType::DOWN && estado != EstadoIA::PREPAR_AGACHADO) {
@@ -182,6 +172,7 @@ void Character::CheckIAAnimation(Character opponent) {
 					else
 					{
 						int ataque = rand() % 4;
+						cout << ataque << endl;
 						switch (ataque) {
 						case 0:
 							animation_in_process = AnimationType::PUNCH;
@@ -208,6 +199,7 @@ void Character::CheckIAAnimation(Character opponent) {
 				}
 				else {
 					int ataque = rand() % 4;
+					cout << ataque << endl; 
 					switch (ataque) {
 					case 0:
 						animation_in_process = AnimationType::PUNCH;
@@ -288,7 +280,7 @@ void Character::ChangeIAState(Character opponent) {
 			ia_crouch_counter = 7;
 			estado = EstadoIA::MODO_DEFENSA;
 		}
-		else if (difficulty_lvl != DifficultyLevel::EASY && anim == AnimationType::DOWN && distancia < 190) {
+		else if (difficulty_lvl != DifficultyLevel::EASY && anim == AnimationType::DOWN && distancia < 170) {
 			estado = EstadoIA::PREPAR_AGACHADO;
 			ia_crouch_counter--;
 			if (ia_crouch_counter == 0) {
@@ -299,15 +291,10 @@ void Character::ChangeIAState(Character opponent) {
 		else {
 			ia_crouch_counter = 7;
 			if (distancia < 170) {
-				//cout << "\n" << Difficulty[difficulty_lvl] << " > ";
-				cout << "PROBABILIDAD EVENTO: " << probabilidad << endl;
-
 				if (Difficulty[difficulty_lvl] > probabilidad) {
-					//cout << "Entro en modo ataque" << endl;
 					estado = EstadoIA::MODO_ATAQUE;
 				}
 				else {
-					//cout << "Entro en modo me piro" << endl;
 					estado = EstadoIA::ALEJARSE;
 				}
 			}

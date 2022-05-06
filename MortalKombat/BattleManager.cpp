@@ -1027,7 +1027,7 @@ void BattleManager::CheckCollisions() {
 }
 
 void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
-
+	
 	if ((toPlayerTwo && player2.isBlocking())) {
 		life2 -= life_BLOCK;
 		player2.setSpeed(Vector2f(200, 0));
@@ -1190,7 +1190,7 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			characterFall04(character1);
 
 			int random = rand() % 10;
-			player1.setSpeed(Vector2f(5600, 1200));
+			player1.setSpeed(Vector2f(500, 1200));
 
 			if (player1.lookingAt() == LookingAt::LEFT) {
 				if (blood.isFinished() && random > 2) { blood.bloodEffectAt(BloodType::RIGHT, Vector2f(player1.getPosition().x + 141 * 3, player1.getPosition().y + 45 * 3)); }
