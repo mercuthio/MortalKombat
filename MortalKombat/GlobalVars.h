@@ -277,6 +277,15 @@ static bool isAnyKeyPressed(int player) {
 	}
 }
 
+static bool isLowHit(AnimationType animation) {
+    return(
+        animation == AnimationType::PUNCH_FROM_DOWN ||
+        animation == AnimationType::KICK_LOW ||
+        animation == AnimationType::KICK_FROM_DOWN ||
+        animation == AnimationType::NUTS
+        );
+}
+
 // probabilidad de fallar
 enum class DifficultyLevel {
 	EASY, 
@@ -291,13 +300,15 @@ enum class EstadoIA {
 	MODO_ATAQUE,
     SOBREPASAR_IZQ,
     SOBREPASAR_DCHA,
-	MODO_SEXO,
+	MODO_DEFENSA,
+    PREPAR_AGACHADO,
+    PREPAR_ATAQUE
 };
 
 static map<DifficultyLevel, int> Difficulty = {
-		{DifficultyLevel::EASY, 25},
-		{DifficultyLevel::MEDIUM, 50},
-		{DifficultyLevel::HARD, 111}
+		{DifficultyLevel::EASY, 30},
+		{DifficultyLevel::MEDIUM, 60},
+		{DifficultyLevel::HARD, 90}
 };
 
 static string fromKtoS(const sf::Keyboard::Key& k) {

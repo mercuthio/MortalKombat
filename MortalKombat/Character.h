@@ -124,9 +124,10 @@ private:
 	float internalTimer = 0.05f;
 
 	int freezeTimer = 0;
-	int ia_state_counter = 10;
+	int ia_crouch_counter = 7;
 	bool doing_animation = false;
 
+	bool sentFlag = false;
 	bool wantsShake = false;
 	bool on_air = false;
 	bool punching = false;
@@ -149,7 +150,7 @@ private:
 	bool mirrored = false;
 
 	EstadoIA estado = EstadoIA::IDLE;
-	DifficultyLevel difficulty_lvl = DifficultyLevel::MEDIUM;
+	DifficultyLevel difficulty_lvl = DifficultyLevel::HARD;
 
 	
 	int player = 0;	
