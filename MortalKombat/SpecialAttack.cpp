@@ -2,8 +2,7 @@
 
 SpecialAttack::SpecialAttack() {
 	frame = 0;
-	finished = true;
-	hasHit = false;
+	resetSpecial();
 
 	spriteSheet = new Texture();
 	Image spriteSheetImage;
@@ -22,16 +21,19 @@ SpecialAttack::SpecialAttack() {
 void SpecialAttack::Update() {
 
 	float maxInitTimer = 0.f;
+	float midTimer = 0.f;
 
 	switch (animationInProgress)
 	{
 	case SpecialType::LIU_KANG:
 		maxInitTimer = 0.33f;
+		midTimer = 0.17f;
 		break;
 	case SpecialType::SCORPION:
 		maxInitTimer = 0.00f;
 		break;
 	case SpecialType::SONYA:
+		midTimer = 0.03f;
 		maxInitTimer = 0.10f;
 		break;
 	default:
@@ -40,20 +42,32 @@ void SpecialAttack::Update() {
 
 
 	if (!finished) {
+		cout << "Animation" << endl;
+		cout << "Started: " << started << endl;
+		cout << "Finished: " << finished << endl;
+		cout << "------------------------------------" << endl;
 		if (initInternalTimer >= maxInitTimer) {
 			if (internalTimer >= 0.05f) {
 				internalTimer = 0.0f;
 
 				if ((looking_at == LookingAt::RIGHT && body.getPosition().x >= screenRightHardLimit)
 					|| (looking_at == LookingAt::LEFT && body.getPosition().x - body.getSize().x <= screenLeftHardLimit)) {
-					finished = true;
-					started = false;
+					if (looking_at == LookingAt::RIGHT) {
+						cout << "CIAO ============================= RIGHT" << endl;
+					} else if (looking_at == LookingAt::LEFT) {
+						cout << "CIAO ============================= LEFT" << endl;
+					}
+					else {
+						cout << "CIAO ============================= NONE" << endl;
+					}
+					resetSpecial();
 				}
 				else {
 					if (!hasHit) {
 						float posX = body.getPosition().x;
 						float posY = body.getPosition().y;
-						body.setPosition(Vector2f(posX + 60, posY));
+						if (mirrored) body.setPosition(Vector2f(posX - 60, posY));
+						else body.setPosition(Vector2f(posX + 60, posY));
 					}
 					else {
 						body.setPosition(Vector2f(body.getPosition().x, initY - 50*3));
@@ -67,8 +81,22 @@ void SpecialAttack::Update() {
 				internalTimer += 0.025f;
 			}
 		}
-		else if (initInternalTimer == 0.17f) {
-			music.liuKangSpecial01();
+		else if (initInternalTimer == midTimer) {
+			cout << "timer" << endl;
+			switch (animationInProgress)
+			{
+			case SpecialType::LIU_KANG:
+				music.liuKangSpecial01();
+				break;
+			case SpecialType::SCORPION:
+				//
+				break;
+			case SpecialType::SONYA:
+				music.sonyaSpecial01();
+				break;
+			default:
+				break;
+			}
 			initInternalTimer += 0.01f;
 		}
 		else {
@@ -77,23 +105,30 @@ void SpecialAttack::Update() {
 	}
 }
 
-void SpecialAttack::SpecialAttackAt(SpecialType type, Vector2f position, bool mirrored) {
-	animationInProgress = type;
-	body.setPosition(position);
-	switch (type)
-	{
-	case SpecialType::SCORPION:
-		body.setOrigin(size_scorpionAnim.x, 0);
-		break;
-	default:
-		body.setOrigin(0, 0);
-		break;
+void SpecialAttack::SpecialAttackAt(SpecialType type, Vector2f position, bool _mirrored) {
+	if (!started && finished) {
+		cout << "NEW ATTACK" << endl << endl << endl << endl << endl << endl;
+		animationInProgress = type;
+		body.setPosition(position);
+		switch (type)
+		{
+		case SpecialType::SCORPION:
+			body.setOrigin(size_scorpionAnim.x, 0);
+			break;
+		default:
+			body.setOrigin(0, 0);
+			break;
+		}
+		initY = position.y;
+		finished = false;
+		started = false;
+		hasHit = false;
+		mirrored = _mirrored;
+
+		if (mirrored) looking_at = LookingAt::LEFT;
+		else looking_at = LookingAt::RIGHT;
+		initInternalTimer = 0;
 	}
-	initY = position.y;
-	finished = false;
-	started = false;
-	hasHit = false;
-	initInternalTimer = 0;
 }
 
 bool SpecialAttack::SpecialAttackAnimation() {
@@ -116,7 +151,8 @@ bool SpecialAttack::SpecialAttackAnimation() {
 				body.setScale(3.0f, 3.0f);
 				uvRect.left = 3.0f + (size_liuAnim.x + 1) * frame;
 				uvRect.top = 57.0f;
-				uvRect.width = size_liuAnim.x;
+				if (mirrored) uvRect.width = -size_liuAnim.x;
+				else uvRect.width = size_liuAnim.x;
 				uvRect.height = size_liuAnim.y;
 				body.setTextureRect(uvRect);
 
@@ -132,7 +168,8 @@ bool SpecialAttack::SpecialAttackAnimation() {
 				body.setScale(3.0f, 3.0f);
 				uvRect.left = 142.0f + (size_liuHit.x + 2) * frame;
 				uvRect.top = 12.0f;
-				uvRect.width = size_liuHit.x;
+				if (mirrored) uvRect.width = -size_liuHit.x;
+				else uvRect.width = size_liuHit.x;
 				uvRect.height = size_liuHit.y;
 				body.setTextureRect(uvRect);
 				frame++;
@@ -172,7 +209,8 @@ bool SpecialAttack::SpecialAttackAnimation() {
 				body.setScale(3.0f, 3.0f);
 				uvRect.left = 2.0f;
 				uvRect.top = 454.0f;
-				uvRect.width = size_sonyaAnim.x;
+				if (mirrored) uvRect.width = -size_sonyaAnim.x;
+				else uvRect.width = size_sonyaAnim.x;
 				uvRect.height = size_sonyaAnim.y;
 				body.setTextureRect(uvRect);
 
@@ -188,7 +226,8 @@ bool SpecialAttack::SpecialAttackAnimation() {
 				body.setScale(3.0f, 3.0f);
 				uvRect.left = 47.0f + (size_sonyaHit.x + 2) * frame;
 				uvRect.top = 400.0f;
-				uvRect.width = size_sonyaHit.x;
+				if (mirrored) uvRect.width = -size_sonyaHit.x;
+				else uvRect.width = size_sonyaHit.x;
 				uvRect.height = size_sonyaHit.y;
 				body.setTextureRect(uvRect);
 				frame++;
@@ -207,6 +246,7 @@ bool SpecialAttack::SpecialAttackAnimation() {
 
 void SpecialAttack::draw(RenderWindow& window) {
 	if (started && !finished) {
+		cout << "Draw" << endl;
 		window.draw(body);
 	}
 }

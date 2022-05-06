@@ -96,6 +96,8 @@ public:
 	void sonyaFall02();
 	void sonyaFall03();
 	void sonyaFall04();
+	void sonyaSpecial01();
+	void sonyaSpecial02();
 
 	void reduceVolumeMusic() { volumeMusic -= 20.f;};
 	void addVolumeMusic() { volumeMusic += 20.f;};

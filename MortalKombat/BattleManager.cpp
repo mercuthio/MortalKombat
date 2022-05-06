@@ -272,6 +272,9 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 
 	totalMoveXBack = 0;
 
+	player1Special.resetSpecial();
+	player2Special.resetSpecial();
+
 	//Cambiar escenario segun el valor de stage
 	switch (stage)
 	{
@@ -628,7 +631,7 @@ void BattleManager::Update() {
 					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
 					break;
 				case SCORPION:
-					player1Special.SpecialAttackAt(SpecialType::SCORPION, pos, false);
+					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
 					break;
 				case SONYA:
 					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
@@ -643,7 +646,7 @@ void BattleManager::Update() {
 					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
 					break;
 				case SCORPION:
-					player1Special.SpecialAttackAt(SpecialType::SCORPION, pos, false);
+					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
 					break;
 				case SONYA:
 					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
@@ -654,7 +657,7 @@ void BattleManager::Update() {
 	}
 
 	if (player2.animation_in_process == AnimationType::SPECIAL) {
-		if (player1Special.isFinished()) {
+		if (player2Special.isFinished()) {
 			if (player2.lookingAt() == LookingAt::RIGHT) {
 				Vector2f pos = Vector2f(player2.getPosition().x + 375, player2.getPosition().y + 205);
 				switch (character2)
@@ -663,6 +666,7 @@ void BattleManager::Update() {
 					player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
 					break;
 				case SCORPION:
+					player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
 					break;
 				case SONYA:
 					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
@@ -670,16 +674,17 @@ void BattleManager::Update() {
 				}
 			}
 			else {
-				Vector2f pos = Vector2f(player2.getPosition().x + 75, player2.getPosition().y + 205);
-				switch (character1)
+				Vector2f pos = Vector2f(player1.getPosition().x + 75, player1.getPosition().y + 205);
+				switch (character2)
 				{
 				case LIU_KANG:
 					player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
 					break;
 				case SCORPION:
+					player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
 					break;
 				case SONYA:
-					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
+					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
 					break;
 				}
 			}
@@ -687,6 +692,7 @@ void BattleManager::Update() {
 	}
 
 	player1Special.Update();
+	player2Special.Update();
 
 	CheckCollisions();
 
@@ -1454,7 +1460,19 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player2.animation_in_process = AnimationType::HIT_STAND_STRONG;
 				player2.setSpeed(Vector2f(600, 0));
 			}
-			music.liuKangSpecial02();
+			switch (character1)
+			{
+			case LIU_KANG:
+				music.liuKangSpecial02();
+				break;
+			case SCORPION:
+				break;
+			case SONYA:
+				music.sonyaSpecial02();
+				break;
+			default:
+				break;
+			}
 		}
 		else {
 			life1 -= life_SPECIAL;
@@ -1471,7 +1489,19 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				player1.animation_in_process = AnimationType::HIT_STAND_STRONG;
 				player1.setSpeed(Vector2f(600, 0));
 			}
-			music.liuKangSpecial02();
+			switch (character2)
+			{
+			case LIU_KANG:
+				music.liuKangSpecial02();
+				break;
+			case SCORPION:
+				break;
+			case SONYA:
+				music.sonyaSpecial02();
+				break;
+			default:
+				break;
+			}
 		}
 	}
 	else if (anim == AnimationType::CATCH) {

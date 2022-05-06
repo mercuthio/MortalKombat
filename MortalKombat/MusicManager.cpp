@@ -179,7 +179,7 @@ MusicManager::MusicManager() {
 
 	//Sonya
 
-	for (int i = 0; i < 6; i++) { bufferSonya.push_back(buffer); sonya.push_back(sound); }
+	for (int i = 0; i < 8; i++) { bufferSonya.push_back(buffer); sonya.push_back(sound); }
 
 	bufferSonya[0].loadFromFile("audio/sonya/mk1-00432.ogg");
 	sonya[0].setBuffer(bufferSonya[0]);
@@ -193,6 +193,10 @@ MusicManager::MusicManager() {
 	sonya[4].setBuffer(bufferSonya[4]);
 	bufferSonya[5].loadFromFile("audio/sonya/mk1-00445.ogg");
 	sonya[5].setBuffer(bufferSonya[5]);
+	bufferSonya[6].loadFromFile("audio/unused/mk1-00144.ogg");
+	sonya[6].setBuffer(bufferSonya[6]);
+	bufferSonya[7].loadFromFile("audio/unused/mk1-00155.ogg");
+	sonya[7].setBuffer(bufferSonya[7]);
 }
 
 void MusicManager::startIntro() { intro[0].setVolume(volumeMusic); intro[0].play(); }
@@ -279,6 +283,8 @@ void MusicManager::sonyaFall01() { sonya[2].setVolume(volumeEffects); sonya[2].p
 void MusicManager::sonyaFall02() { sonya[3].setVolume(volumeEffects); sonya[3].play(); }
 void MusicManager::sonyaFall03() { sonya[4].setVolume(volumeEffects); sonya[4].play(); }
 void MusicManager::sonyaFall04() { sonya[5].setVolume(volumeEffects); sonya[5].play(); }
+void MusicManager::sonyaSpecial01() { sonya[6].setVolume(volumeEffects); sonya[6].play(); }
+void MusicManager::sonyaSpecial02() { sonya[7].setVolume(volumeEffects); sonya[7].play(); }
 
 void MusicManager::stopIntros() {
 	for (int i = 0; i < intro.size(); i++) {

@@ -23,6 +23,8 @@ public:
 
 	void setHit() {
 
+		cout << "HIT!" << endl;
+
 		bodyHit = body.getPosition();
 
 		if (!hasHit) {
@@ -31,6 +33,13 @@ public:
 			body.setPosition(Vector2f(posX + 5, posY - 5));
 			hasHit = true;
 		}
+	}
+
+	void resetSpecial() {
+		finished = true;
+		started = false;
+		hasHit = false;
+		frame = 0;
 	}
 
 	bool isFinished() { return finished; }
@@ -49,6 +58,8 @@ private:
 	bool finished;
 	bool started;
 	bool hasHit;
+
+	bool mirrored;
 
 	float initY;
 	Vector2f bodyHit;
