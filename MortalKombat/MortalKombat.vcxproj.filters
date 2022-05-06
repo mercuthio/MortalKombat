@@ -132,6 +132,9 @@
     <ClCompile Include="ControlsManager.cpp">
       <Filter>Archivos de origen\MenuManager</Filter>
     </ClCompile>
+    <ClCompile Include="Goros_Lair.cpp">
+      <Filter>Archivos de origen\BackgroundManager\BackgroundTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Courtyard.h">
@@ -223,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="ControlsManager.h">
       <Filter>Archivos de encabezado\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Goros_Lair.h">
+      <Filter>Archivos de encabezado\BackgroundManager\BackgroundTypes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

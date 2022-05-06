@@ -328,6 +328,16 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 
 		break;
 	}
+	case GOROS_LAIR:
+	{
+		Goros_Lair background;
+		background.loadTextures();
+		BackgroundManager = background;
+
+		music.goroslairTheme();
+
+		break;
+	}
 	break;
 	}
 
@@ -456,6 +466,9 @@ void BattleManager::RestartRound() {
 	case THRONE_ROOM:
 		music.throneroomTheme();
 		break;
+	case GOROS_LAIR:
+		music.goroslairTheme();
+		break;
 	}
 
 }
@@ -476,6 +489,7 @@ void BattleManager::Update() {
 
 	if (shaking) {
 		if (internalShaking >= 0.20f) {
+			view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
 			shaking = false;
 			shakeUp = false;
 		}

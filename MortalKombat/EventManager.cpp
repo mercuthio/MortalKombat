@@ -96,7 +96,7 @@ void EventManager::Update(Event event) {
 					break;
 				}
 
-				stage = (background)(rand() % 4);
+				stage = (background)(rand() % 5);
 				BattleManager.RestartCombat(character1, character2, stage, false);
 				BattleManager.Restart();
 
@@ -163,7 +163,7 @@ void EventManager::Update(Event event) {
 
 					changedEstate = true;
 
-					stage = (background)(rand() % 4);
+					stage = (background)(rand() % 5);
 					BattleManager.RestartCombat(character1, character2, stage, true);
 					BattleManager.Restart();
 
@@ -208,7 +208,7 @@ void EventManager::Update(Event event) {
 
 					changedEstate = true;
 
-					stage = (background)(rand() % 4);
+					stage = (background)(rand() % 5);
 					BattleManager.RestartCombat(character1, character2, stage, true);
 					BattleManager.Restart();
 				}
@@ -393,7 +393,7 @@ void EventManager::draw(RenderWindow& window) {
 
 		if (PlayerSelector_duel.AnimationFinished()) {
 			state = 7;
-			stage = (background)(rand() % 4);
+			stage = (background)(rand() % 5);
 			BattleManager.RestartCombat(character1, character2, stage, true);
 			BattleManager.Restart();
 		}
@@ -410,7 +410,7 @@ void EventManager::draw(RenderWindow& window) {
 
 			state = 6;
 			character2 = (CharacterType)HistoryManager.getOpponent();
-			stage = (background)(rand() % 4);
+			stage = (background)(rand() % 5);
 			BattleManager.RestartCombat(character1, character2, stage, false);
 			BattleManager.Restart();
 		}

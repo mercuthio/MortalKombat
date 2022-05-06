@@ -23,6 +23,11 @@ public:
 	void historyTheme();
 
 	void skipHistoryTheme();
+	
+	void maleFall01();
+	void maleFall02();
+	void maleFall03();
+	void maleFall04();
 
 	void maleJump();
 	void doubleJump();
@@ -45,6 +50,7 @@ public:
 	void thepitTheme();
 	void warriorshrineTheme();
 	void throneroomTheme();
+	void goroslairTheme();
 	void victoryTheme();
 	void defeatTheme();
 
@@ -98,6 +104,7 @@ public:
 	void sonyaFall04();
 	void sonyaSpecial01();
 	void sonyaSpecial02();
+	void sonyaJump01();
 
 	void reduceVolumeMusic() { volumeMusic -= 20.f;};
 	void addVolumeMusic() { volumeMusic += 20.f;};

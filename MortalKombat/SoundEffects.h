@@ -9,6 +9,7 @@ static void characterFall01(CharacterType character) {
 		music.liuKangFall01();
 		break;
 	case SCORPION:
+		music.maleFall01();
 		break;
 	case SONYA:
 		music.sonyaFall01();
@@ -21,6 +22,7 @@ static void characterFall02(CharacterType character) {
 		music.liuKangFall02();
 		break;
 	case SCORPION:
+		music.maleFall02();
 		break;
 	case SONYA:
 		music.sonyaFall02();
@@ -33,6 +35,7 @@ static void characterFall03(CharacterType character) {
 		music.liuKangFall03();
 		break;
 	case SCORPION:
+		music.maleFall03();
 		break;
 	case SONYA:
 		music.sonyaFall03();
@@ -45,11 +48,17 @@ static void characterFall04(CharacterType character) {
 		music.liuKangFall04();
 		break;
 	case SCORPION:
+		music.maleFall04();
 		break;
 	case SONYA:
 		music.sonyaFall04();
 		break;
 	}
+}
+
+static void characterJump01(bool male) {
+	if (male) music.maleJump();
+	else music.sonyaJump01();
 }
 
 

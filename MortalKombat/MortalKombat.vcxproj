@@ -30,6 +30,7 @@
     <ClCompile Include="DeadManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FinishManager.cpp" />
+    <ClCompile Include="Goros_Lair.cpp" />
     <ClCompile Include="HistoryManager.cpp" />
     <ClCompile Include="MusicManager.cpp" />
     <ClCompile Include="SpecialAttack.cpp" />
@@ -57,6 +58,7 @@
     <ClInclude Include="FinishManager.h" />
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="Goro.h" />
+    <ClInclude Include="Goros_Lair.h" />
     <ClInclude Include="HistoryManager.h" />
     <ClInclude Include="LiuKang.h" />
     <ClInclude Include="Movement.h" />

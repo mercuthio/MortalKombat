@@ -6,13 +6,14 @@ float moveYBack;
 float totalMoveXBack = 0;
 
 
-Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, map<AnimationType, vector<RectangleShape>> damage_hitboxes_) {
+Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, map<AnimationType, vector<RectangleShape>> damage_hitboxes_, bool male) {
 	srand(time(NULL));
 	body = _body;
 	shadow = _shadow;
 	animation_in_process = AnimationType::IDLE;
 	animations = _animations;
 	hitboxes = hitboxes_;
+	isMale = male;
 	damage_hitboxes = damage_hitboxes_;
 }
 
@@ -141,7 +142,7 @@ void Character::CheckIAAnimation(Character opponent) {
 					speed = Vector2<float>(-400, 700);
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					on_air = true;
-					music.maleJump();
+					characterJump01(isMale);
 					music.doubleJump();
 				}
 				else {
@@ -155,7 +156,7 @@ void Character::CheckIAAnimation(Character opponent) {
 					speed = Vector2<float>(400, 700);
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					on_air = true;
-					music.maleJump();
+					characterJump01(isMale);
 					music.doubleJump();
 				}
 				else {
@@ -401,7 +402,7 @@ void Character::CheckAnimation() {
 			else if (Keyboard::isKeyPressed(forwButton)) {												//Moverse derecha
 				if (Keyboard::isKeyPressed(jumpButton)) {												//Salto hacia delante
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
-					music.maleJump();
+					characterJump01(isMale);
 					music.doubleJump();
 					speed = Vector2<float>(-400, 800);
 					on_air = true;
@@ -432,7 +433,7 @@ void Character::CheckAnimation() {
 
 				if (Keyboard::isKeyPressed(jumpButton)) {												//Salto hacia atras
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
-					music.maleJump();
+					characterJump01(isMale);
 					music.doubleJump();
 					speed = Vector2<float>(400, 800);
 					on_air = true;
@@ -462,7 +463,7 @@ void Character::CheckAnimation() {
 			}
 			else if (Keyboard::isKeyPressed(jumpButton)) {												//Salto en parado
 				animation_in_process = AnimationType::JUMP;
-				music.maleJump();
+				characterJump01(isMale);
 				speed = Vector2<float>(0, 800);
 				on_air = true;
 			}
@@ -572,7 +573,7 @@ void Character::CheckAnimationP2() {
 			else if (Keyboard::isKeyPressed(forwButtonP2)) {												//Moverse derecha
 				if (Keyboard::isKeyPressed(jumpButtonP2)) {												//Salto hacia delante
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
-					music.maleJump();
+					characterJump01(isMale);
 					music.doubleJump();
 					speed = Vector2<float>(-400, 800);
 					on_air = true;
@@ -603,7 +604,7 @@ void Character::CheckAnimationP2() {
 
 				if (Keyboard::isKeyPressed(jumpButtonP2)) {												//Salto hacia atras
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
-					music.maleJump();
+					characterJump01(isMale);
 					music.doubleJump();
 					speed = Vector2<float>(400, 800);
 					on_air = true;
@@ -633,7 +634,7 @@ void Character::CheckAnimationP2() {
 			}
 			else if (Keyboard::isKeyPressed(jumpButtonP2)) {												//Salto en parado
 				animation_in_process = AnimationType::JUMP;
-				music.maleJump();
+				characterJump01(isMale);
 				speed = Vector2<float>(0, 800);
 				on_air = true;
 			}

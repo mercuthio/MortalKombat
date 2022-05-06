@@ -17,6 +17,7 @@
 #include "Warrior_Shrine.h"
 #include "The_Pit.h"
 #include "Throne_Room.h"
+#include "Goros_Lair.h"
 
 using namespace sf;
 using namespace std;

@@ -23,8 +23,10 @@ void BackgroundManager::Update() {
 
 	for (int i = 0; i < backgroundVector.size(); i++) {
 		if (i != 0) {
-			if (!(type == WARRIOR_SHRINE && i == 1)) {
-				if (i != backgroundVector.size() - 1) {
+			if (i <= 3 && type == GOROS_LAIR) {
+				backgroundVector[i].setPosition(backgroundVector[i].getPosition().x + moveXBack / 2, backgroundVector[i].getPosition().y + moveYBack / 2);
+			} else if (!(type == WARRIOR_SHRINE && i == 1)) {
+				if (i != backgroundVector.size() - 1 && type != GOROS_LAIR) {
 					backgroundVector[i].setPosition(backgroundVector[i].getPosition().x + moveXBack / 1.5, backgroundVector[i].getPosition().y + moveYBack / 1.5);
 				}
 				else if (type != THRONE_ROOM) {

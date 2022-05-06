@@ -18,9 +18,17 @@ MusicManager::MusicManager() {
 	intro[3].setBuffer(bufferIntro[3]);
 	
 	//MALE
-	for (int i = 0; i < 1; i++) { bufferMale.push_back(buffer); male.push_back(sound); }
+	for (int i = 0; i < 5; i++) { bufferMale.push_back(buffer); male.push_back(sound); }
 	bufferMale[0].loadFromFile("audio/male/mk1-00215.ogg");
 	male[0].setBuffer(bufferMale[0]);
+	bufferMale[1].loadFromFile("audio/male/mk1-00201.ogg");
+	male[1].setBuffer(bufferMale[1]);
+	bufferMale[2].loadFromFile("audio/male/mk1-00204.ogg");
+	male[2].setBuffer(bufferMale[2]);
+	bufferMale[3].loadFromFile("audio/male/mk1-00203.ogg");
+	male[3].setBuffer(bufferMale[3]);
+	bufferMale[4].loadFromFile("audio/male/mk1-00206.ogg");
+	male[4].setBuffer(bufferMale[4]);
 
 
 	//HITS
@@ -56,7 +64,7 @@ MusicManager::MusicManager() {
 
 	//MUSIC
 
-	for (int i = 0; i < 9; i++) { bufferMusic.push_back(buffer); music.push_back(sound); }
+	for (int i = 0; i < 10; i++) { bufferMusic.push_back(buffer); music.push_back(sound); }
 
 	bufferMusic[0].loadFromFile("audio/music/mainTheme.ogg");
 	music[0].setBuffer(bufferMusic[0]);
@@ -76,6 +84,8 @@ MusicManager::MusicManager() {
 	music[7].setBuffer(bufferMusic[7]);
 	bufferMusic[8].loadFromFile("audio/music/defeatTheme.ogg");
 	music[8].setBuffer(bufferMusic[8]);
+	bufferMusic[9].loadFromFile("audio/music/goroslairTheme.ogg");
+	music[9].setBuffer(bufferMusic[9]);
 
 
 	//ANUNCIADOR
@@ -179,7 +189,7 @@ MusicManager::MusicManager() {
 
 	//Sonya
 
-	for (int i = 0; i < 8; i++) { bufferSonya.push_back(buffer); sonya.push_back(sound); }
+	for (int i = 0; i < 9; i++) { bufferSonya.push_back(buffer); sonya.push_back(sound); }
 
 	bufferSonya[0].loadFromFile("audio/sonya/mk1-00432.ogg");
 	sonya[0].setBuffer(bufferSonya[0]);
@@ -197,6 +207,8 @@ MusicManager::MusicManager() {
 	sonya[6].setBuffer(bufferSonya[6]);
 	bufferSonya[7].loadFromFile("audio/unused/mk1-00155.ogg");
 	sonya[7].setBuffer(bufferSonya[7]);
+	bufferSonya[8].loadFromFile("audio/sonya/mk1-00437.ogg");
+	sonya[8].setBuffer(bufferSonya[8]);
 }
 
 void MusicManager::startIntro() { intro[0].setVolume(volumeMusic); intro[0].play(); }
@@ -213,6 +225,11 @@ void MusicManager::defeatTheme() { stopMusic(); stopIntros(); music[8].setVolume
 void MusicManager::skipHistoryTheme() { music[2].setPlayingOffset(seconds(6.65f)); }
 
 void MusicManager::maleJump() { male[0].setVolume(volumeEffects); male[0].play(); }
+
+void MusicManager::maleFall01() { male[1].setVolume(volumeEffects); male[1].play(); }
+void MusicManager::maleFall02() { male[2].setVolume(volumeEffects); male[2].play(); }
+void MusicManager::maleFall03() { male[3].setVolume(volumeEffects); male[3].play(); }
+void MusicManager::maleFall04() { male[4].setVolume(volumeEffects); male[4].play(); }
 
 void MusicManager::hit1() { hits[0].setVolume(volumeEffects); hits[0].play(); }
 void MusicManager::hit9() { hits[8].setVolume(volumeEffects); hits[8].play(); }
@@ -234,6 +251,7 @@ void MusicManager::courtyardTheme() { stopMusic(); stopIntros(); music[3].setVol
 void MusicManager::thepitTheme() { stopMusic(); stopIntros(); music[4].setVolume(volumeMusic); music[4].play(); music[4].setLoop(true); }
 void MusicManager::warriorshrineTheme() { stopMusic(); stopIntros(); music[5].setVolume(volumeMusic); music[5].play(); music[5].setLoop(true); }
 void MusicManager::throneroomTheme() { stopMusic(); stopIntros(); music[6].setVolume(volumeMusic); music[6].play(); music[6].setLoop(true); }
+void MusicManager::goroslairTheme() { stopMusic(); stopIntros(); music[9].setVolume(volumeMusic); music[9].play(); music[9].setLoop(true); }
 
 void MusicManager::excellent() { announcers[0].setVolume(volumeEffects); announcers[0].play(); }
 void MusicManager::fatality() { announcers[1].setVolume(volumeEffects); announcers[1].play(); }
@@ -285,6 +303,7 @@ void MusicManager::sonyaFall03() { sonya[4].setVolume(volumeEffects); sonya[4].p
 void MusicManager::sonyaFall04() { sonya[5].setVolume(volumeEffects); sonya[5].play(); }
 void MusicManager::sonyaSpecial01() { sonya[6].setVolume(volumeEffects); sonya[6].play(); }
 void MusicManager::sonyaSpecial02() { sonya[7].setVolume(volumeEffects); sonya[7].play(); }
+void MusicManager::sonyaJump01() { sonya[8].setVolume(volumeEffects); sonya[8].play(); }
 
 void MusicManager::stopIntros() {
 	for (int i = 0; i < intro.size(); i++) {

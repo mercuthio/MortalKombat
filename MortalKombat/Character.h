@@ -7,6 +7,7 @@
 
 #include "Movement.h"
 #include "Recover.h"
+#include "SoundEffects.h"
 #include "GlobalVars.h"
 
 //--------------DEBUG-------------
@@ -22,7 +23,7 @@ using namespace std;
 class Character {
 public:
 	Character() = default;
-	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, map<AnimationType, vector<RectangleShape>> damage_hitboxes_);
+	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, map<AnimationType, vector<RectangleShape>> damage_hitboxes_, bool male);
 	//~Character() = delete;
 
 	void fullReset();
@@ -127,6 +128,8 @@ private:
 	int freezeTimer = 0;
 	int ia_crouch_counter = 7;
 	bool doing_animation = false;
+
+	bool isMale;
 
 	bool sentFlag = false;
 	bool wantsShake = false;
