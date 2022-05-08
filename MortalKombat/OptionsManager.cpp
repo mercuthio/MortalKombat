@@ -8,6 +8,7 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	font = font_;
 	choosenOption = 0;
 	musicVolume = 3;
+	effects = 3;
 	speed_game = 1;
 
 	for (int i = 0; i < MAX_MUSIC; i++) {

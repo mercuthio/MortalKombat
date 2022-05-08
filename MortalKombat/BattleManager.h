@@ -101,6 +101,7 @@ private:
 	bool P1WinnedPose;
 	bool P2WinnedPose;
 	bool finishedFinishHim;
+	bool waitingToEnd;
 
 	Texture* texture;
 	Font font;											//Variable con la fuente de letra

@@ -273,6 +273,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	finishedFinishHim = false;
 	finishing1 = false;
 	finishing2 = false;
+	waitingToEnd = false;
 
 	clapping = false;
 
@@ -437,6 +438,7 @@ void BattleManager::RestartRound() {
 	P1WinnedPose = false;
 	P2WinnedPose = false;
 	finishedFinishHim = false;
+	waitingToEnd = false;
 
 	shaking = false;
 
@@ -534,6 +536,7 @@ void BattleManager::Update() {
 		player2.Update(0.05f, true);
 	}
 	else {
+		player2.setDifficulty();
 		player2.UpdateIA(0.05f, player1);
 	}
 
@@ -769,13 +772,12 @@ void BattleManager::Update() {
 		clock_finishRound++;
 
 		bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
-
 		if ((finishedFinishHim || !inFinishHim) && clock_finishRound == 80) {
 			music.clapsPublic();
 			clapping = true;
 		}
 
-		if (!finishedFinishHim && !inFinishHim && clock_finishRound >= 425) {			//Terminado periodo de 
+		if (!finishedFinishHim && !inFinishHim && clock_finishRound >= 500) {			//Terminado periodo de gracia
 			showing_win = false;
 			clock_finishRound = 0;
 			finishing1 = false;
@@ -783,14 +785,15 @@ void BattleManager::Update() {
 			clapping = false;
 			RestartRound();
 		}
-		else if (!finishedFinishHim && (inFinishHim && clock_finishRound == 300) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
+		else if (!finishedFinishHim && (inFinishHim && clock_finishRound >= 400) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
 
 			showing_win = true;
-			clock_finishRound = 0;
+			waitingToEnd = true;
+			if (!waitingToEnd) clock_finishRound = 0;
 			finishedFinishHim = true;
 			P1WinnedPose = false;
-			P1WinnedPose = false;
-
+			P2WinnedPose = false;
+		
 			if (finishing1) {
 
 				switch (character1) {
@@ -835,14 +838,16 @@ void BattleManager::Update() {
 
 		}
 
-		if (finishedFinishHim && clock_finishRound >= 425) {	//Acabar partida
+		if (waitingToEnd && clock_finishRound >= 500) {	//Acabar partida
+			clock_finishRound = 0;
+			waitingToEnd = false;
 			finished_game = true;
 		}
 
 	}
 	else {
 
-		int winner_round = finished_round();	//Comprobamos final de ronda
+		int winner_round = finished_round();							//Comprobamos final de ronda
 
 		if (winner_round == 1) {										//Jugador 1 acaba de ganar una ronda
 
