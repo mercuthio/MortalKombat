@@ -738,4 +738,6 @@ static string fromKtoS(const sf::Keyboard::Key& k) {
 
 }
 
+static DifficultyLevel chosen_difficulty;
+
 #endif

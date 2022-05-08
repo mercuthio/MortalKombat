@@ -7,7 +7,7 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	choosenOption = 0;
 	musicVolume = 3;
 	effects = 3;
-	difficulty = false;
+	chosen_difficulty = DifficultyLevel::EASY;
 	speed_game = 1;
 
 	for (int i = 0; i < MAX_MUSIC; i++) {
@@ -91,11 +91,19 @@ void OptionsManager::Update() {
 
 	}
 
-	if (difficulty) {
-		dific.setString("HARD");
-	}
-	else {
+	switch (chosen_difficulty)
+	{
+	case DifficultyLevel::EASY:
+		dific.setString("EASY");
+		break;
+
+	case DifficultyLevel::MEDIUM:
 		dific.setString("NORMAL");
+		break;
+
+	case DifficultyLevel::HARD:
+		dific.setString("HARD");
+		break;
 	}
 
 	if (speed_game == 3) {
@@ -132,7 +140,15 @@ void OptionsManager::Right() {
 		}
 		break;
 	case 2: //DIFICULTAD
-		difficulty = !difficulty;
+		if (chosen_difficulty == DifficultyLevel::EASY) {
+			chosen_difficulty = DifficultyLevel::MEDIUM;
+		}
+		else if (chosen_difficulty == DifficultyLevel::MEDIUM) {
+			chosen_difficulty = DifficultyLevel::HARD;
+		}
+		else {
+			chosen_difficulty = DifficultyLevel::EASY;
+		}
 		music.moveOptions();
 		break;
 	case 4:
@@ -171,7 +187,15 @@ void OptionsManager::Izquierda() {
 		}
 		break;
 	case 2: //DIFICULTAD
-		difficulty = !difficulty;
+		if (chosen_difficulty == DifficultyLevel::EASY) {
+			chosen_difficulty = DifficultyLevel::HARD;
+		}
+		else if (chosen_difficulty == DifficultyLevel::MEDIUM) {
+			chosen_difficulty = DifficultyLevel::EASY;
+		}
+		else {
+			chosen_difficulty = DifficultyLevel::MEDIUM;
+		}
 		music.moveOptions();
 		break;
 	case 4:

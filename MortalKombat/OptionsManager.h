@@ -3,6 +3,7 @@
 
 #include "SFML/Graphics.hpp"
 #include <SFML/Audio/Music.hpp>
+#include "GlobalVars.h"
 
 using namespace sf;
 
@@ -28,7 +29,6 @@ public:
 
 	int musicVolume;					//Valor del volumen de la musica
 	int effects;						//Valor del volumen de los efectos
-	bool difficulty;					//False = normal, True = dificil
 	int speed_game;
 
 private:

@@ -15,6 +15,7 @@ Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _
 	hitboxes = hitboxes_;
 	isMale = male;
 	damage_hitboxes = damage_hitboxes_;
+	difficulty_lvl = chosen_difficulty;
 }
 
 void Character::Update(float tiempo, bool secondPlayer) {
@@ -278,8 +279,6 @@ void Character::CheckIAAnimation(Character opponent) {
 	}
 }
 
-
-
 void Character::ChangeIAState(Character opponent) {
 
 	// Cambiamos de estado
@@ -295,7 +294,12 @@ void Character::ChangeIAState(Character opponent) {
 
 		if (siendoAtacado && difficulty_lvl != DifficultyLevel::EASY && distancia < 190) {
 			ia_crouch_counter = 7;
-			estado = EstadoIA::MODO_DEFENSA;
+			if (Difficulty[difficulty_lvl] > probabilidad) {
+				estado = EstadoIA::MODO_DEFENSA;
+			}
+			else {
+				estado = EstadoIA::IDLE;
+			}
 		}
 		else if (difficulty_lvl != DifficultyLevel::EASY && anim == AnimationType::DOWN && distancia < 170) {
 			estado = EstadoIA::PREPAR_AGACHADO;
@@ -340,19 +344,22 @@ void Character::CheckAnimation() {
 		}
 	}
 	if (!falling && !dying) {
-		if (on_air) {					// El personaje está en el aire
+		if (on_air && air_attack_permitted) {		// El personaje está en el aire
 			if (Keyboard::isKeyPressed(punchButton)) {
 
 				EndAndResetAnimation();
 				animation_in_process = AnimationType::PUNCH_FROM_AIR;
 				music.hit6();
+				air_attack_permitted = false;
 			}
 			else if (Keyboard::isKeyPressed(kickButton)) {
 				EndAndResetAnimation();
 				animation_in_process = AnimationType::KICK_FROM_AIR;
 				music.hit8();
+				air_attack_permitted = false;
 			}
 			// else -> nothing
+			
 		}
 		else if (blocking) {
 			if (!Keyboard::isKeyPressed(blockButton)) {
@@ -511,17 +518,19 @@ void Character::CheckAnimationP2() {
 		}
 	}
 	else if (!falling && !dying) {
-		if (on_air) {					// El personaje está en el aire
+		if (on_air && air_attack_permitted) {					// El personaje está en el aire
 			if (Keyboard::isKeyPressed(punchButton2P2)) {
 
 				EndAndResetAnimation();
 				animation_in_process = AnimationType::PUNCH_FROM_AIR;
 				music.hit6();
+				air_attack_permitted = false;
 			}
 			else if (Keyboard::isKeyPressed(kickButtonP2)) {
 				EndAndResetAnimation();
 				animation_in_process = AnimationType::KICK_FROM_AIR;
 				music.hit7();
+				air_attack_permitted = false;
 			}
 			// else -> nothing
 		}
@@ -760,6 +769,7 @@ bool Character::CheckScreenCollisions(float movement) {
 		if (animation_in_process == AnimationType::FALL || animation_in_process == AnimationType::FALL_BACK
 			|| animation_in_process == AnimationType::FALL_UPPERCUT) wantsShake = true;
 		on_air = false;
+		air_attack_permitted = true;
 		global_position.y = screenFloorLimit;
 		speed = Vector2<float>(0, 0);
 		if (!isBlockingMovement(animation_in_process)) {

@@ -146,6 +146,7 @@ private:
 	bool freeze = true;		//Para el comienzo de partidas, no permite mover
 	bool mirrorOnEnd = false;
 	bool mirroring = false;
+	bool air_attack_permitted = true;
 	
 	LookingAt looking_at = LookingAt::RIGHT;
 
