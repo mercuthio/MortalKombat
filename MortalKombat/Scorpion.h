@@ -36,7 +36,8 @@ static Character CreateScorpion() {
 	vector<int> blockUp_lock{ 3 };
 	vector<int> blockDown_lock{ 2 };
 	vector<int> win_lock{ 4 };
-	vector<int> punchOrKickAir_lock{ 5, 5 };
+	vector<int> punchAir_lock{ 5, 5 };
+	vector<int> kickAir_lock{ 3, 3 };
 	vector<int> fallBack_lock{ 6 };
 	vector<int> fall_lock{ 2, 5 };
 
@@ -53,7 +54,7 @@ static Character CreateScorpion() {
 	Animation punchUp0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(32, 1052), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation punchUpMult0 = Animation(10, spriteSheet, spriteSheetP2, Vector2<int>(1436, 1052), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation punchDown0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(1436, 2568), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation punchFromUp0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(500, 3090), sz, 5, false, true, noRecovery, punchOrKickAir_lock, 2);
+	Animation punchFromUp0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(500, 3090), sz, 5, false, true, noRecovery, punchAir_lock, 2);
 	Animation bodyToBody0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(4010, 580), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation bodyToBodyUp0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(4010, 1052), sz, 5, false, false, noRecovery, null_vector, 2);
 
@@ -66,7 +67,7 @@ static Character CreateScorpion() {
 	Animation kickUp0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(2606, 2046), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation kickDown0 = Animation(8, spriteSheet, spriteSheetP2, Vector2<int>(1904, 1574), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation kickFromDown0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(2840, 2568), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation kickFromUp0 = Animation(3, spriteSheet, spriteSheetP2, Vector2<int>(1904, 3090), sz, 5, false, true, noRecovery, punchOrKickAir_lock, 2);
+	Animation kickFromUp0 = Animation(3, spriteSheet, spriteSheetP2, Vector2<int>(1904, 3090), sz, 5, false, true, noRecovery, kickAir_lock, 2);
 
 	Animation duck0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(32, 2568), sz, 5, false, true, noRecovery, duck_lock, 2);
 	

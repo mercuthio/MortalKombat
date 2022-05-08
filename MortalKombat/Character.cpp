@@ -20,9 +20,6 @@ Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _
 void Character::Update(float tiempo, bool secondPlayer) {
 	if (internalTimer >= updateTime) {
 
-		if (player == 2 && Keyboard::isKeyPressed(Keyboard::Multiply)) {
-			life = 0;
-		}
 
 		internalTimer = 0.0f;
 		/*global_position = body.getPosition();
@@ -789,6 +786,11 @@ bool Character::CheckScreenCollisions(float movement) {
 void Character::DoAnimation() {
 	doing_animation = true;
 	bool finished = false;
+
+	if (animation_in_process == AnimationType::WIN) {
+		speed = { 0, 0 };
+		global_position.y = screenFloorLimit;
+	}
 
 	if (!fallen) {
 		finished = animations[animation_in_process].animation.DoAnimation(
