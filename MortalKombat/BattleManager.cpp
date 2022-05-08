@@ -245,7 +245,6 @@ void BattleManager::Restart() {
 }
 
 void BattleManager::RestartCombat(CharacterType character1_, CharacterType character2_, background stage_, bool twoPlayers_) {
-
 	twoPlayers = twoPlayers_;
 	character1 = character1_;
 	character2 = character2_;

@@ -34,7 +34,7 @@ public:
 private:
 
 	int choosenOption;					//Entero que guarda la opcion elegida
-
+	
 	//ControlsManager ControlsManager;
 
 	Font font;							//Variable con la fuente de la letra

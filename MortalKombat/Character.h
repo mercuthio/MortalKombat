@@ -114,6 +114,8 @@ public:
 	bool dying = false;
 	int life = 100;
 
+	void setDifficulty();
+
 private:
 	RectangleShape body;
 	RectangleShape shadow;
@@ -155,7 +157,7 @@ private:
 	bool mirrored = false;
 
 	EstadoIA estado = EstadoIA::IDLE;
-	DifficultyLevel difficulty_lvl = DifficultyLevel::HARD;
+	DifficultyLevel difficulty_lvl = DifficultyLevel::MEDIUM;
 
 	
 	int player = 0;	

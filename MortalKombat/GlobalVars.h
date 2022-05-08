@@ -63,7 +63,6 @@ extern Keyboard::Key grabButtonP2;
 extern Keyboard::Key specialButtonP2;
 extern Keyboard::Key blockButtonP2;
 
-
 const int life_BLOCK = 1;
 const int life_PUNCH = 2;
 const int life_PUNCH_MULTIPLE = 2;
@@ -738,6 +737,6 @@ static string fromKtoS(const sf::Keyboard::Key& k) {
 
 }
 
-static DifficultyLevel chosen_difficulty;
+extern DifficultyLevel chosen_difficulty;
 
 #endif

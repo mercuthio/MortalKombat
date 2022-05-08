@@ -14,8 +14,7 @@ Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _
 	animations = _animations;
 	hitboxes = hitboxes_;
 	isMale = male;
-	damage_hitboxes = damage_hitboxes_;
-	difficulty_lvl = chosen_difficulty;
+	damage_hitboxes = damage_hitboxes_;	
 }
 
 void Character::Update(float tiempo, bool secondPlayer) {
@@ -66,7 +65,7 @@ void Character::Update(float tiempo, bool secondPlayer) {
 
 void Character::UpdateIA(float tiempo, Character opponent) {
 	if (internalTimer >= updateTime) {
-
+		difficulty_lvl = chosen_difficulty;
 		internalTimer = 0.0f;
 
 		
@@ -166,8 +165,9 @@ void Character::CheckIAAnimation(Character opponent) {
 				break;
 
 			case EstadoIA::MODO_ATAQUE:
-
+				
 				if (difficulty_lvl == DifficultyLevel::HARD) {
+					cout << "DIFICIL LOKO" << endl;
 					if (probabilidad > 99) {
 						animation_in_process = AnimationType::SPECIAL;
 					}
@@ -1011,4 +1011,8 @@ void Character::setDying(bool die) {
 		animation_in_process = AnimationType::DYING;
 		global_position.y = screenFloorLimit;
 	}
+}
+
+void Character::setDifficulty() {
+	difficulty_lvl = chosen_difficulty;
 }
