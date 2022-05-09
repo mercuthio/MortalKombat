@@ -23,19 +23,19 @@ public:
 
 private:
 
-	int clock_flash;
-	bool flash;
+	int clock_flash = 0;
+	bool flash = false;
 
-	bool changing_key;
-	bool playerTwo;
-	int choosenOption;					//Entero que guarda la opcion elegida
-	Font font;							//Variable con la fuente de la letra
+	bool changing_key = false;
+	bool playerTwo = false;
+	int choosenOption = 0;					//Entero que guarda la opcion elegida
+	Font font = Font();							//Variable con la fuente de la letra
 	Text text[16];						//Vector de textos de las opciones del menu
 	Text keys[16];
 	Text shadow[16];
-	IntRect uvRect;						//IntRect del fondo
-	RectangleShape backg;				//Objeto del fondo
-	RectangleShape logo;
+	IntRect uvRect = IntRect();						//IntRect del fondo
+	RectangleShape backg = RectangleShape();				//Objeto del fondo
+	RectangleShape logo = RectangleShape();
 };
 
 #endif

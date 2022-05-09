@@ -21,19 +21,19 @@ public:
 
 private:
 
-	int actual_frame;
-	int character;
-	float seconds_aux;
+	int actual_frame = 0;
+	int character = 0;
+	float seconds_aux = 0.0;
 
-	IntRect uvRect_backg;
-	IntRect uvRect_icon;
-	IntRect uvRect_name;
-	IntRect uvRect_text;
-	RectangleShape icon;
-	RectangleShape bio_backg;
-	RectangleShape menu_backg;
-	RectangleShape name;
-	RectangleShape text;
+	IntRect uvRect_backg = IntRect();
+	IntRect uvRect_icon = IntRect();
+	IntRect uvRect_name = IntRect();
+	IntRect uvRect_text = IntRect();
+	RectangleShape icon = RectangleShape();
+	RectangleShape bio_backg = RectangleShape();
+	RectangleShape menu_backg = RectangleShape();
+	RectangleShape name = RectangleShape();
+	RectangleShape text = RectangleShape();
 
 };
 

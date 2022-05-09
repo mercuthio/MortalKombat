@@ -8,6 +8,10 @@ using namespace std;
 
 HistoryManager::HistoryManager(Texture* texture_, int character_) {
 
+	for (int i = 0; i < NUM_CHARS; i++) {
+		characters[i] = 0;
+	}
+
 	character = character_;
 	texture = texture_;
 

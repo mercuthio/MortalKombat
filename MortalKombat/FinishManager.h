@@ -23,14 +23,14 @@ public:
 
 private:
 
-	Texture* texture;
-	Font font;
+	Texture* texture = new Texture();
+	Font font = Font();
 
-	int clock;
-	int character;
-	bool changed_image;
+	int clock = 0;
+	int character = 0;
+	bool changed_image = false;
 
-	RectangleShape backg;
+	RectangleShape backg = RectangleShape();
 
 };
 

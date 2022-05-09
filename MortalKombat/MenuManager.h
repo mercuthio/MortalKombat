@@ -25,14 +25,14 @@ public:
 
 private:
 
-	int choosenOption;							//Entero que guarda la opcion elegida
+	int choosenOption = 0;							//Entero que guarda la opcion elegida
 
-	IntRect uvRect;								//IntRect del fondo
-	Font font;									//Variable con la fuente de letra
+	IntRect uvRect = IntRect();								//IntRect del fondo
+	Font font = Font();									//Variable con la fuente de letra
 	Text text[NUM_OPTIONS_MENU];				//Vector con los textos de las opciones del menu
 	Text shadow[NUM_OPTIONS_MENU];
-	RectangleShape logo;
-	RectangleShape backg;						//Objeto del fondo
+	RectangleShape logo = RectangleShape();
+	RectangleShape backg = RectangleShape();						//Objeto del fondo
 
 };
 

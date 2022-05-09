@@ -34,21 +34,21 @@ public:
 
 private:
 
-	int x, y;										//Coordenadas del primer cursor
-	int x2, y2;										//Coordenadas del segundo cursor
-	int clock;										//Tiempo actual total
-	int clock_choosen1;								//Reloj para la animación de seleccionar personaje1
-	int clock_choosen2;								//Reloj para la animación de seleccionar personaje2
-	int frame_choosen1;
-	int frame_choosen2;
+	int x = 0, y = 0;										//Coordenadas del primer cursor
+	int x2 = 0, y2 = 0;										//Coordenadas del segundo cursor
+	int clock = 0;										//Tiempo actual total
+	int clock_choosen1 = 0;								//Reloj para la animación de seleccionar personaje1
+	int clock_choosen2 = 0;								//Reloj para la animación de seleccionar personaje2
+	int frame_choosen1 = 0;
+	int frame_choosen2 = 0;
 
-	bool choosen1;									//True si el primer jugador a escogido personaje
-	bool choosen2;									//True si el segundo jugador a escogido personaje
-	bool flash;										//Variable para la animacion del marco (false = color claro, true = color oscuro)
-	bool twoPlayers;								//True si hay dos jugadores
+	bool choosen1 = false;									//True si el primer jugador a escogido personaje
+	bool choosen2 = false;									//True si el segundo jugador a escogido personaje
+	bool flash = false;										//Variable para la animacion del marco (false = color claro, true = color oscuro)
+	bool twoPlayers = false;								//True si hay dos jugadores
 
-	Texture* texture;
-	vector<RectangleShape> Objects;
+	Texture* texture = new Texture();
+	vector<RectangleShape> Objects = vector<RectangleShape>();
 
 };
 

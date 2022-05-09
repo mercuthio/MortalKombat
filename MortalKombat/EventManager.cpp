@@ -1,6 +1,6 @@
 #include "EventManager.h"
 
-MusicManager music;
+MusicManager music = MusicManager();
 
 EventManager::EventManager(Texture textures[], Font font, Clock clock) : BattleManager(&textures[0], font, clock), StartManager(&textures[0], &textures[1]),
 MenuManager(&textures[0], font), OptionsManager(&textures[0], font), PlayerSelector_hist(&textures[0], false),

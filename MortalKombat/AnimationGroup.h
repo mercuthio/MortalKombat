@@ -17,7 +17,7 @@ public:
 	bool RecieveFlagEvent();
 	void ResetAnimation();
 
-	vector<Animation> animations;
+	vector<Animation> animations = vector<Animation>();
 	int current_animation = 0;
 
 private:

@@ -1,12 +1,16 @@
 #include "MusicManager.h"
 
 MusicManager::MusicManager() {
-	
-	//INTRO
-	SoundBuffer buffer;
-	Sound sound;
 
-	for (int i = 0; i < 4; i++) { bufferIntro.push_back(buffer); intro.push_back(sound);}
+	//INTRO
+	SoundBuffer buffer = SoundBuffer();
+	Sound sound = Sound();
+
+
+	for (int i = 0; i < 4; i++) { 
+		bufferIntro.push_back(buffer);
+		intro.push_back(sound);
+	}
 
 	bufferIntro[0].loadFromFile("audio/musiccues/startIntro.ogg");
 	intro[0].setBuffer(bufferIntro[0]);

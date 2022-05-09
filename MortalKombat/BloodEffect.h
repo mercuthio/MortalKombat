@@ -23,14 +23,14 @@ public:
 	bool isFinished() { return finished; }
 
 private:
-	Texture* spriteSheet;
-	RectangleShape body;
+	Texture* spriteSheet = new Texture();
+	RectangleShape body = RectangleShape();
 	int totalFrames[4] = { 5, 6, 7, 18 };
-	int frame;
-	bool finished;
-	BloodType animationInProgress;
-	Clock clock;
-	float internalTimer;
+	int frame = 0;
+	bool finished = false;
+	BloodType animationInProgress = BloodType();
+	Clock clock = Clock();
+	float internalTimer = 0.0;
 };
 
 #endif

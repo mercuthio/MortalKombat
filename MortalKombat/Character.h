@@ -117,13 +117,13 @@ public:
 	void setDifficulty();
 
 private:
-	RectangleShape body;
-	RectangleShape shadow;
+	RectangleShape body = RectangleShape();
+	RectangleShape shadow = RectangleShape();
 
-	Vector2<float> global_position;
-	map<AnimationType, Movement> animations; // mapa de enum -> animacion
-	map<AnimationType, vector<RectangleShape>> hitboxes;
-	map<AnimationType, vector<RectangleShape>> damage_hitboxes;
+	Vector2<float> global_position = Vector2<float>();
+	map<AnimationType, Movement> animations = map<AnimationType, Movement>(); // mapa de enum -> animacion
+	map<AnimationType, vector<RectangleShape>> hitboxes = map<AnimationType, vector<RectangleShape>>();
+	map<AnimationType, vector<RectangleShape>> damage_hitboxes = map<AnimationType, vector<RectangleShape>>();
 
 	float internalTimer = 0.05f;
 
@@ -131,7 +131,7 @@ private:
 	int ia_crouch_counter = 7;
 	bool doing_animation = false;
 
-	bool isMale;
+	bool isMale = false;
 
 	bool sentFlag = false;
 	bool wantsShake = false;
@@ -152,7 +152,7 @@ private:
 	
 	LookingAt looking_at = LookingAt::RIGHT;
 
-	Vector2<float> speed;
+	Vector2<float> speed = Vector2<float>();
 
 	bool mirrored = false;
 

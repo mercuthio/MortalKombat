@@ -36,6 +36,12 @@ ControlsManager::ControlsManager(Texture* texture, Font font_) {
 	playerTwo = false;
 	changing_key = false;
 
+	for (int i = 0; i < 16; i++) {
+		text[i] = Text();
+		keys[i] = Text();
+		shadow[i] = Text();
+	}
+
 	text[0].setString("J1 ATRAS");
 	text[1].setString("J1 ADELANTE");
 	text[2].setString("J1 SALTAR");

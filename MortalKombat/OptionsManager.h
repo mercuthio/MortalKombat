@@ -27,24 +27,24 @@ public:
 	int ChoosenOption();				//Devuelve la opcion elegida
 	void MoveCursor(bool);				//Mueve el curso arriba si parametro true, abajo si false
 
-	int musicVolume;					//Valor del volumen de la musica
-	int effects;						//Valor del volumen de los efectos
-	int speed_game;
+	int musicVolume = 0;					//Valor del volumen de la musica
+	int effects = 0;						//Valor del volumen de los efectos
+	int speed_game = 0;
 
 private:
 
-	int choosenOption;					//Entero que guarda la opcion elegida
+	int choosenOption = 0;					//Entero que guarda la opcion elegida
 	
 	//ControlsManager ControlsManager;
 
-	Font font;							//Variable con la fuente de la letra
+	Font font = Font();							//Variable con la fuente de la letra
 	Text text[NUM_OPTIONS_OPT + 1];		//Vector de textos de las opciones del menu
 	Text shadow[NUM_OPTIONS_OPT + 1];
-	Text dific;							//Texto de la dificultad
-	Text speed;
-	IntRect uvRect;						//IntRect del fondo
-	RectangleShape backg;				//Objeto del fondo
-	RectangleShape logo;
+	Text dific = Text();							//Texto de la dificultad
+	Text speed = Text();
+	IntRect uvRect = IntRect();						//IntRect del fondo
+	RectangleShape backg = RectangleShape();				//Objeto del fondo
+	RectangleShape logo = RectangleShape();
 	RectangleShape musi[MAX_MUSIC];	//Vector de objetos de la musica
 	RectangleShape efec[MAX_EFFECTS];//Vector de objetos de los efectos
 };
