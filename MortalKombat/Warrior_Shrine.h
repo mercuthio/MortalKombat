@@ -16,7 +16,7 @@ public:
 
 private:
 
-	Texture* texture;
+	Texture* texture = new Texture();
 };
 
 #endif

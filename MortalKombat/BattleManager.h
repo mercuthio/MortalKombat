@@ -50,79 +50,79 @@ public:
 
 private:
 
-	CharacterType character1;										//Personaje del jugador 1
-	CharacterType character2;										//Personaje del jugador 2
+	CharacterType character1 = CharacterType();										//Personaje del jugador 1
+	CharacterType character2 = CharacterType();										//Personaje del jugador 2
 
-	Clock clock;
+	Clock clock = Clock();
 
-	bool shaking;
-	bool shakeUp;
-	float internalShaking;
+	bool shaking = false;
+	bool shakeUp = false;
+	float internalShaking = 0.0;
 
-	int life1;
-	int life2;
+	int life1 = 0;
+	int life2 = 0;
 
-	int stage;
-	int time_left;
-	int round;
+	int stage = 0;
+	int time_left = 0;
+	int round = 0;
 
-	int points1;
-	int points2;
+	int points1 = 0;
+	int points2 = 0;
 
-	int rounds_won1;
-	int rounds_won2;
+	int rounds_won1 = 0;
+	int rounds_won2 = 0;
 
-	int clock_timer;
-	int clock_flash;
-	int clock_fight;
-	int clock_start;
-	int clock_inDanger1;
-	int clock_inDanger2;
-	int clock_finishRound;
-	int clock_finishHim;
+	int clock_timer = 0;
+	int clock_flash = 0;
+	int clock_fight = 0;
+	int clock_start = 0;
+	int clock_inDanger1 = 0;
+	int clock_inDanger2 = 0;
+	int clock_finishRound = 0;
+	int clock_finishHim = 0;
 
-	int fight_x;
-	int finish_him_x;
+	int fight_x = 0;
+	int finish_him_x = 0;
 
-	bool flash;
-	bool started_game;
-	bool showing_fight;
-	bool showing_win;
-	bool showing_finishHim;
-	bool showing_round;
-	bool inDanger1;
-	bool inDanger2;
-	bool showed_danger1;
-	bool showed_danger2;
-	bool twoPlayers;
-	bool finished_game;
-	bool finishing1;
-	bool finishing2;
-	bool P1WinnedPose;
-	bool P2WinnedPose;
-	bool finishedFinishHim;
-	bool waitingToEnd;
+	bool flash = false;
+	bool started_game = false;
+	bool showing_fight = false;
+	bool showing_win = false;
+	bool showing_finishHim = false;
+	bool showing_round = false;
+	bool inDanger1 = false;
+	bool inDanger2 = false;
+	bool showed_danger1 = false;
+	bool showed_danger2 = false;
+	bool twoPlayers = false;
+	bool finished_game = false;
+	bool finishing1 = false;
+	bool finishing2 = false;
+	bool P1WinnedPose = false;
+	bool P2WinnedPose = false;
+	bool finishedFinishHim = false;
+	bool waitingToEnd = false;
 
-	Texture* texture;
-	Font font;											//Variable con la fuente de letra
+	Texture* texture = new Texture();
+	Font font = Font();											//Variable con la fuente de letra
 
 	BackgroundManager BackgroundManager;
 
-	Character LiuKang;
-	Character Scorpion;
-	Character SonyaBlade;
+	Character LiuKang = Character();
+	Character Scorpion = Character();
+	Character SonyaBlade = Character();
 
-	BloodEffect blood;
-	BloodEffect bloodGround1;
-	BloodEffect bloodGround2;
+	BloodEffect blood = BloodEffect();
+	BloodEffect bloodGround1 = BloodEffect();
+	BloodEffect bloodGround2 = BloodEffect();
 
-	SpecialAttack player1Special;
-	SpecialAttack player2Special;
+	SpecialAttack player1Special = SpecialAttack();
+	SpecialAttack player2Special = SpecialAttack();
 
-	Character player1;
-	Character player2;
+	Character player1 = Character();
+	Character player2 = Character();
 
-	vector<RectangleShape> HUD_vector;
+	vector<RectangleShape> HUD_vector = vector<RectangleShape>();
 
 };
 

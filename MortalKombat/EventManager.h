@@ -35,18 +35,18 @@ private:
 
 	void drawTransitionManager(RenderWindow& window);	//Dibuja la transicion entre pantallas
 
-	int state;											//0 = StartManager, 1 = MenuManager, 2 = PlayerSelectorHistoria, 3 = PlayerSelectorDuelo, 4 = OptionsManager, 5 = Torre, 6 = Batalla
-	bool changedEstate;									//True cuando se va a cambiar el estado en el siguiente frame, false en cualquier otro momento
+	int state = 0;											//0 = StartManager, 1 = MenuManager, 2 = PlayerSelectorHistoria, 3 = PlayerSelectorDuelo, 4 = OptionsManager, 5 = Torre, 6 = Batalla
+	bool changedEstate = false;									//True cuando se va a cambiar el estado en el siguiente frame, false en cualquier otro momento
 
 	CharacterType character1;							//Personaje elegido por el jugador 1
 	CharacterType character2;							//Personaje elegido por el jugador 2
 
 	background stage;
 	MenuManager MenuManager;							//Objeto del menu principal
-	StartManager StartManager;							//Objeto de las pantallas iniciales
+	StartManager StartManager;						//Objeto de las pantallas iniciales
 	OptionsManager OptionsManager;						//Objeto del menu de opciones
 	TransitionManager TransitionManager;				//Objeto de la transicion
-	Clock clock;										//Reloj para gestionar actualizacion de animaciones
+	Clock clock = Clock();										//Reloj para gestionar actualizacion de animaciones
 	PlayerSelector PlayerSelector_hist;					//Objeto de selector de personajes de historia
 	PlayerSelector PlayerSelector_duel;					//Objeto de selector de personajes de duelo
 	HistoryManager HistoryManager;
@@ -55,8 +55,8 @@ private:
 	FinishManager FinishManager;
 	ControlsManager ControlsManager;
 
-	RectangleShape loading_screen;
-	Texture* texture;
+	RectangleShape loading_screen = RectangleShape();
+	Texture* texture = new Texture();
 
 };
 

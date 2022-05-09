@@ -29,22 +29,22 @@ public:
 
 private:
 
-	Texture* texture;
+	Texture* texture = new Texture();
 
 	int characters[NUM_CHARS];					//Vector que contiene el orden de los personajes simples
-	int actual_combat;
-	int character;
-	int clock;
-	int clock_flash;
-	int clock_move;
+	int actual_combat = 0;
+	int character = 0;
+	int clock = 0;
+	int clock_flash = 0;
+	int clock_move = 0;
 
-	float time;
+	float time = 0.0;
 	
-	bool title_color;							//Color del titulo, true = azul, false = blanco
-	bool moving;
-	bool finish;
+	bool title_color = false;							//Color del titulo, true = azul, false = blanco
+	bool moving = false;
+	bool finish = false;
 
-	vector<RectangleShape> Objects;
+	vector<RectangleShape> Objects = vector<RectangleShape>();
 
 };
 

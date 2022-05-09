@@ -23,11 +23,11 @@ public:
 
 private:
 
-	Texture* texture;
+	Texture* texture = new Texture();
 
-	int clock;
+	int clock = 0;
 
-	RectangleShape backg;
+	RectangleShape backg = RectangleShape();
 
 };
 

@@ -124,27 +124,27 @@ public:
 	bool playingEffect = false;
 
 private:
-	vector<Sound> intro;
-	vector<Sound> music;
-	vector<Sound> announcers;
-	vector<Sound> UI;
-	vector<Sound> arenas;
-	vector<Sound> scorpion;
-	vector<Sound> liukang;
-	vector<Sound> sonya;
-	vector<Sound> hits;
-	vector<Sound> male;
+	vector<Sound> intro = vector<Sound>();
+	vector<Sound> music = vector<Sound>();
+	vector<Sound> announcers = vector<Sound>();
+	vector<Sound> UI = vector<Sound>();
+	vector<Sound> arenas = vector<Sound>();
+	vector<Sound> scorpion = vector<Sound>();
+	vector<Sound> liukang = vector<Sound>();
+	vector<Sound> sonya = vector<Sound>();
+	vector<Sound> hits = vector<Sound>();
+	vector<Sound> male = vector<Sound>();
 
-	vector<SoundBuffer> bufferIntro;
-	vector<SoundBuffer> bufferMusic;
-	vector<SoundBuffer> bufferAnnouncers;
-	vector<SoundBuffer> bufferUI;
-	vector<SoundBuffer> bufferArenas;
-	vector<SoundBuffer> bufferScorpion;
-	vector<SoundBuffer> bufferLiuKang;
-	vector<SoundBuffer> bufferSonya;
-	vector<SoundBuffer> bufferHits;
-	vector<SoundBuffer> bufferMale;
+	vector<SoundBuffer> bufferIntro = vector<SoundBuffer>();
+	vector<SoundBuffer> bufferMusic = vector<SoundBuffer>();
+	vector<SoundBuffer> bufferAnnouncers = vector<SoundBuffer>();
+	vector<SoundBuffer> bufferUI = vector<SoundBuffer>();
+	vector<SoundBuffer> bufferArenas = vector<SoundBuffer>();
+	vector<SoundBuffer> bufferScorpion = vector<SoundBuffer>();
+	vector<SoundBuffer> bufferLiuKang = vector<SoundBuffer>();
+	vector<SoundBuffer> bufferSonya = vector<SoundBuffer>();
+	vector<SoundBuffer> bufferHits = vector<SoundBuffer>();
+	vector<SoundBuffer> bufferMale = vector<SoundBuffer>();
 
 	float volumeMusic = 80.f;
 	float volumeEffects = 80.f;

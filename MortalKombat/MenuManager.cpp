@@ -6,6 +6,11 @@ MenuManager::MenuManager(Texture* textur, Font font_) {
 	font = font_;
 	choosenOption = 0;
 
+	for (int i = 0; i < NUM_OPTIONS_MENU; i++) {
+		text[i] = Text();
+		shadow[i] = Text();
+	}
+
 	text[0].setFont(font);
 	text[0].setFillColor(Color::White);
 	text[0].setString("STORY");

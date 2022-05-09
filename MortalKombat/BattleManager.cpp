@@ -290,7 +290,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	{
 	case COURTYARD:
 	{
-		Courtyard background;
+		Courtyard background = Courtyard();
 		background.loadTextures();
 		BackgroundManager = background;
 

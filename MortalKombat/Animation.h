@@ -29,8 +29,8 @@ public:
 	int frame_number = 1;
 
 private:
-	Texture* sprite_sheet;						// Spritesheet de la animacion
-	Texture* sprite_sheetP2;
+	Texture* sprite_sheet = new Texture();						// Spritesheet de la animacion
+	Texture* sprite_sheetP2 = new Texture();
 
 	int	duration = 0;							// Total de imagenes de la animacion
 	bool isPersistent = false;
@@ -41,11 +41,11 @@ private:
 	bool recovering = false;
 	bool waiting_flag = false;
 
-	Vector2<int> first_frame;					// Localización del primer frame en el Sprite Sheet
-	Vector2<int> this_frame;
-	Vector2<int> size;
-	Vector2<int> offset;						// Cuanto varia el ejeX hasta llegar al principio del siguiente frame
-	vector<int> flagged_frames;
+	Vector2<int> first_frame = Vector2<int>();					// Localización del primer frame en el Sprite Sheet
+	Vector2<int> this_frame = Vector2<int>();
+	Vector2<int> size = Vector2<int>();
+	Vector2<int> offset = Vector2<int>();						// Cuanto varia el ejeX hasta llegar al principio del siguiente frame
+	vector<int> flagged_frames = vector<int>();
 	int n_of_flagged_frames = 0;
 	int this_flagged_frame = 0;
 

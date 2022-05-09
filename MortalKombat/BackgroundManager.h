@@ -14,8 +14,8 @@ public:
 	BackgroundManager();
 	virtual ~BackgroundManager() = default;
 	
-	Vector2<float> initPlayer1;
-	Vector2<float> initPlayer2;
+	Vector2<float> initPlayer1 = Vector2<float>();
+	Vector2<float> initPlayer2 = Vector2<float>();
 
 	void Update();
 	void draw(RenderWindow&);
@@ -26,7 +26,7 @@ protected:
 	int clock = 0;
 	int speed = 0;
 	int sizeVector = 0;
-	vector<RectangleShape> backgroundVector;
+	vector<RectangleShape> backgroundVector = vector<RectangleShape>();
 
 };
 

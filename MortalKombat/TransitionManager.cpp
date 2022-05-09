@@ -4,6 +4,10 @@
 TransitionManager::TransitionManager() {
 
 	for (int i = 0; i < NUM_SQUARES; i++) {
+		backg[i] = RectangleShape();
+	}
+
+	for (int i = 0; i < NUM_SQUARES; i++) {
 		backg[i].setFillColor(Color::Black);
 	}
 

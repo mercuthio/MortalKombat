@@ -5,6 +5,16 @@ DifficultyLevel chosen_difficulty = DifficultyLevel::MEDIUM;
 
 OptionsManager::OptionsManager(Texture* texture, Font font_) {
 
+	for (int i = 0; i < NUM_OPTIONS_OPT + 1; i++) {
+		text[i] = Text();
+		shadow[i] = Text();
+	}
+
+	for (int i = 0; i < MAX_MUSIC; i++) {
+		musi[i] = RectangleShape();
+		efec[i] = RectangleShape();
+	}
+
 	font = font_;
 	choosenOption = 0;
 	musicVolume = 3;
