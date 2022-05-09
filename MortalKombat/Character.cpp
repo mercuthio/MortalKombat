@@ -333,7 +333,7 @@ void Character::initPosition(Vector2<float> initPos) {
 
 void Character::CheckAnimation() {
 
-	CheckDebugAnimations();
+	//CheckDebugAnimations();
 
 	if (fightKeyPressed) {
 		if (!isAnyFightKeyPressed(player)) {
@@ -507,7 +507,7 @@ void Character::CheckAnimation() {
 
 void Character::CheckAnimationP2() {
 
-	CheckDebugAnimations();
+	//CheckDebugAnimations();
 
 	if (fightKeyPressed) {
 		if (!isAnyFightKeyPressed(player)) {
