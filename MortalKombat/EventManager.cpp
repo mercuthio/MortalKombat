@@ -85,6 +85,9 @@ void EventManager::Update(Event event) {
 
 				switch (character1)
 				{
+				case CAGE:
+					music.JhonnyCage();
+					break;
 				case LIU_KANG:
 					music.LiuKang();
 					break;
@@ -148,6 +151,9 @@ void EventManager::Update(Event event) {
 
 				switch (character1)
 				{
+				case CAGE:
+					music.JhonnyCage();
+					break;
 				case LIU_KANG:
 					music.LiuKang();
 					break;
@@ -193,6 +199,9 @@ void EventManager::Update(Event event) {
 				character2 = PlayerSelector_duel.ChoosenOption(false);
 				switch (character2)
 				{
+				case CAGE:
+					music.JhonnyCage();
+					break;
 				case LIU_KANG:
 					music.LiuKang();
 					break;

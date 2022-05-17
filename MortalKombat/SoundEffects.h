@@ -14,6 +14,9 @@ static void characterFall01(CharacterType character) {
 	case SONYA:
 		music.sonyaFall01();
 		break;
+	case CAGE:
+		music.maleFall01();
+		break;
 	}
 }
 static void characterFall02(CharacterType character) {
@@ -26,6 +29,9 @@ static void characterFall02(CharacterType character) {
 		break;
 	case SONYA:
 		music.sonyaFall02();
+		break;
+	case CAGE:
+		music.maleFall02();
 		break;
 	}
 }
@@ -40,6 +46,9 @@ static void characterFall03(CharacterType character) {
 	case SONYA:
 		music.sonyaFall03();
 		break;
+	case CAGE:
+		music.maleFall03();
+		break;
 	}
 }
 static void characterFall04(CharacterType character) {
@@ -52,6 +61,9 @@ static void characterFall04(CharacterType character) {
 		break;
 	case SONYA:
 		music.sonyaFall04();
+		break;
+	case CAGE:
+		music.maleFall04();
 		break;
 	}
 }

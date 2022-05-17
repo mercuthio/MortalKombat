@@ -233,6 +233,9 @@
     <ClInclude Include="resource.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Jhonny_Cage.h">
+      <Filter>Archivos de encabezado\PlayerManager\CharacterTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">

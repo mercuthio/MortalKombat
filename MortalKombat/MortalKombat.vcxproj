@@ -60,6 +60,7 @@
     <ClInclude Include="Goro.h" />
     <ClInclude Include="Goros_Lair.h" />
     <ClInclude Include="HistoryManager.h" />
+    <ClInclude Include="Jhonny_Cage.h" />
     <ClInclude Include="LiuKang.h" />
     <ClInclude Include="Movement.h" />
     <ClInclude Include="MusicManager.h" />

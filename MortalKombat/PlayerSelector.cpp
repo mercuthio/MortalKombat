@@ -50,7 +50,7 @@ void PlayerSelector::LoadTextures() {
 		case 0:
 			uvRect.left = 904;
 			rect.setPosition(87.0f, 136.0f);
-			rect.setFillColor(Gray);
+			rect.setFillColor(Color::White);
 			break;
 		case 1:
 			uvRect.left = 904 + 64;
@@ -236,7 +236,7 @@ void PlayerSelector::MoveCursor(int x_, int y_, bool player1) {
 int PlayerSelector::ChoosenOption_int(bool player1) {
 
 	int charac = 0;
-	if (!player1 && ((x2 == 4 && y2 == 0) || (x2 == 2 && y2 == 1) || (x2 == 3 && y2 == 1)) ) {
+	if (!player1 && ((x2 == 4 && y2 == 0) || (x2 == 2 && y2 == 1) || (x2 == 3 && y2 == 1))) {
 		choosen2 = true;
 
 		if (y2 == 0 && x2 < 2) {

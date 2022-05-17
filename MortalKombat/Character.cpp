@@ -154,7 +154,7 @@ void Character::CheckIAAnimation(Character opponent) {
 
 			case EstadoIA::ACERCARSE:
 				if (probabilidad > 98) {
-					speed = Vector2<float>(-400, 700);
+					speed = Vector2<float>(-400, 1000);
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					on_air = true;
 					characterJump01(isMale);
@@ -168,7 +168,7 @@ void Character::CheckIAAnimation(Character opponent) {
 
 			case EstadoIA::ALEJARSE:
 				if (probabilidad > 80) {
-					speed = Vector2<float>(400, 700);
+					speed = Vector2<float>(400, 1000);
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					on_air = true;
 					characterJump01(isMale);
@@ -259,13 +259,13 @@ void Character::CheckIAAnimation(Character opponent) {
 				break;
 
 			case EstadoIA::SOBREPASAR_IZQ:
-				speed = distanceBetween > 0 ? Vector2<float>(400, 700) : Vector2<float>(-400, 700);
+				speed = distanceBetween > 0 ? Vector2<float>(400, 1000) : Vector2<float>(-400, 1000);
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
 				on_air = true;
 				break;
 
 			case EstadoIA::SOBREPASAR_DCHA:
-				speed = distanceBetween > 0 ? Vector2<float>(-400, 700) : Vector2<float>(400, 700);
+				speed = distanceBetween > 0 ? Vector2<float>(-400, 1000) : Vector2<float>(400, 1000);
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
 				on_air = true;
 				break;
@@ -426,7 +426,7 @@ void Character::CheckAnimation() {
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					characterJump01(isMale);
 					music.doubleJump();
-					speed = Vector2<float>(-400, 800);
+					speed = Vector2<float>(-400, 1000);
 					on_air = true;
 				}
 				else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButton)) {											//L.Punch hacia delante
@@ -457,7 +457,7 @@ void Character::CheckAnimation() {
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					characterJump01(isMale);
 					music.doubleJump();
-					speed = Vector2<float>(400, 800);
+					speed = Vector2<float>(400, 1000);
 					on_air = true;
 				}
 				else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButton)) {												//Salto hacia delante
@@ -486,7 +486,7 @@ void Character::CheckAnimation() {
 			else if (Keyboard::isKeyPressed(jumpButton)) {												//Salto en parado
 				animation_in_process = AnimationType::JUMP;
 				characterJump01(isMale);
-				speed = Vector2<float>(0, 800);
+				speed = Vector2<float>(0, 1000);
 				on_air = true;
 			}
 			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButton)) {		//M.Punch, H.Punch en parado
@@ -517,8 +517,11 @@ void Character::CheckAnimation() {
 			else if (Keyboard::isKeyPressed(grabButton)) {
 				animation_in_process = AnimationType::CATCH;
 			}
+		} else if (Keyboard::isKeyPressed(punchButton) && Keyboard::isKeyPressed(backButton) && Keyboard::isKeyPressed(forwButton)) {
+			animation_in_process = AnimationType::SPECIAL_JUMP;
+			characterJump01(isMale);
+			speed = Vector2<float>(600, 0);
 		}
-		// else -> Nothing
 	}
 	
 }
@@ -599,7 +602,7 @@ void Character::CheckAnimationP2() {
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					characterJump01(isMale);
 					music.doubleJump();
-					speed = Vector2<float>(-400, 800);
+					speed = Vector2<float>(-400, 1000);
 					on_air = true;
 				}
 				else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2)) {											//L.Punch hacia delante
@@ -630,7 +633,7 @@ void Character::CheckAnimationP2() {
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					characterJump01(isMale);
 					music.doubleJump();
-					speed = Vector2<float>(400, 800);
+					speed = Vector2<float>(400, 1000);
 					on_air = true;
 				}
 				else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2)) {												//Salto hacia delante
@@ -659,7 +662,7 @@ void Character::CheckAnimationP2() {
 			else if (Keyboard::isKeyPressed(jumpButtonP2)) {												//Salto en parado
 				animation_in_process = AnimationType::JUMP;
 				characterJump01(isMale);
-				speed = Vector2<float>(0, 800);
+				speed = Vector2<float>(0, 1000);
 				on_air = true;
 			}
 			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {		//M.Punch, H.Punch en parado

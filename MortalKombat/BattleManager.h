@@ -12,6 +12,7 @@
 #include "LiuKang.h"
 #include "Scorpion.h"
 #include "Sonya_Blade.h"
+#include "Jhonny_Cage.h"
 
 #include "Courtyard.h"
 #include "Warrior_Shrine.h"
@@ -111,6 +112,7 @@ private:
 	Character LiuKang = Character();
 	Character Scorpion = Character();
 	Character SonyaBlade = Character();
+	Character JhonnyCage = Character();
 
 	BloodEffect blood = BloodEffect();
 	BloodEffect bloodGround1 = BloodEffect();

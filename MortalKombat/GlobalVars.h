@@ -168,6 +168,7 @@ enum class AnimationType {
 	GET_CAUGHT_GORO,
 
 	SPECIAL,
+    SPECIAL_JUMP,
 
 	DYING,
 	CUT_HEAD,
@@ -197,7 +198,8 @@ static bool isFixedMovement(AnimationType anim) {
 		(anim != AnimationType::HIT_STAND_STRONG) &&
 		(anim != AnimationType::FALL_BACK) &&
 		(anim != AnimationType::FALL_UPPERCUT) &&
-		(anim != AnimationType::NUTS);
+		(anim != AnimationType::NUTS) &&
+        (anim != AnimationType::SPECIAL_JUMP);
 }
 
 static bool isUpperDamage(AnimationType anim) {

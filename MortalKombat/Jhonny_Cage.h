@@ -1,15 +1,15 @@
-#ifndef LiuKang_H
-#define LiuKang_H
+#ifndef Jhonny_Cage_H
+#define Jhonny_Cage_H
 
 #include "Character.h"
 
-static Character CreateLiuKang() {
+static Character CreateJhonnyCage() {
 
 	Texture* spriteSheet = new Texture();
 	Image spriteSheetImage;
 	Color back = Color(165, 231, 255, 255);
 
-	spriteSheetImage.loadFromFile("resources/Sprites/Personajes/Liu_Kang.png");
+	spriteSheetImage.loadFromFile("resources/Sprites/Personajes/Jhonny_Cage.png");
 	spriteSheetImage.createMaskFromColor(back);
 
 	spriteSheet->loadFromImage(spriteSheetImage);
@@ -17,7 +17,7 @@ static Character CreateLiuKang() {
 	Texture* spriteSheetP2 = new Texture();
 	Image spriteSheetImageP2;
 
-	spriteSheetImageP2.loadFromFile("resources/Sprites/Personajes/Liu_Kang2.png");
+	spriteSheetImageP2.loadFromFile("resources/Sprites/Personajes/Jhonny_Cage2.png");
 	spriteSheetImageP2.createMaskFromColor(back);
 
 	spriteSheetP2->loadFromImage(spriteSheetImageP2);
@@ -36,10 +36,11 @@ static Character CreateLiuKang() {
 	vector<int> duck_lock{ 3 };
 	vector<int> blockUp_lock{ 3 };
 	vector<int> blockDown_lock{ 2 };
-	vector<int> win_lock{ 14 };
-	vector<int> punchOrKickAir_lock{ 5, 5 };
+	vector<int> win_lock{ 12 };
+	vector<int> punchAir_lock{ 2, 2 };
+	vector<int> kickAir_lock{ 5, 5 };
 	vector<int> fallBack_lock{ 6 };
-	vector<int> fall_lock{ 3, 7 };
+	vector<int> fall_lock{ 3, 6 };
 	vector<int> specialJump_lock{ 3, 3 };
 
 	vector<Recover> punchRecovery{ {1, 1} };
@@ -47,18 +48,18 @@ static Character CreateLiuKang() {
 	vector<Recover> noRecovery{};
 
 
-	Animation idle0 = Animation(8, spriteSheet, spriteSheetP2, Vector2<int>(32, 58), sz, 5, false, false, noRecovery, null_vector, 3);
-	Animation forw0 = Animation(9, spriteSheet, spriteSheetP2, Vector2<int>(2138, 58), sz, 5, false, false, noRecovery, null_vector, 2);
-	Animation back0 = Animation(9, spriteSheet, spriteSheetP2, Vector2<int>(4010, 58), sz, 5, true, false, noRecovery, null_vector, 2);
+	Animation idle0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(32, 58), sz, 5, false, false, noRecovery, null_vector, 3);
+	Animation forw0 = Animation(9, spriteSheet, spriteSheetP2, Vector2<int>(1904, 58), sz, 5, false, false, noRecovery, null_vector, 2);
+	Animation back0 = Animation(9, spriteSheet, spriteSheetP2, Vector2<int>(3776, 58), sz, 5, true, false, noRecovery, null_vector, 2);
 
-	Animation punch0 = Animation(4, spriteSheet, spriteSheetP2, Vector2<int>(32, 580), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation punchMult0 = Animation(9, spriteSheet, spriteSheetP2, Vector2<int>(1202, 580), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation punchUp0 = Animation(4, spriteSheet, spriteSheetP2, Vector2<int>(32, 1052), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation punchUpMult0 = Animation(9, spriteSheet, spriteSheetP2, Vector2<int>(1202, 1052), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation punch0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(32, 580), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation punchMult0 = Animation(10, spriteSheet, spriteSheetP2, Vector2<int>(1436, 580), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation punchUp0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(32, 1052), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation punchUpMult0 = Animation(10, spriteSheet, spriteSheetP2, Vector2<int>(1436, 1052), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation punchDown0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(1436, 2568), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation punchFromUp0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(500, 3090), sz, 5, false, true, noRecovery, punchOrKickAir_lock, 2);
-	Animation bodyToBody0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(3542, 580), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation bodyToBodyUp0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(3542, 1052), sz, 5, false, false, noRecovery, null_vector, 2);
+	Animation punchFromUp0 = Animation(2, spriteSheet, spriteSheetP2, Vector2<int>(500, 3090), sz, 5, false, true, noRecovery, punchAir_lock, 2);
+	Animation bodyToBody0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(4010, 580), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation bodyToBodyUp0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(4010, 1052), sz, 5, false, false, noRecovery, null_vector, 2);
 
 	Animation jump0 = Animation(1, spriteSheet, spriteSheetP2, Vector2<int>(32, 3090), sz, 5, false, true, noRecovery, jump_lock, 2);
 	Animation jumpMove0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(500, 3562), sz, 5, false, true, noRecovery, null_vector, 0);
@@ -66,43 +67,43 @@ static Character CreateLiuKang() {
 	Animation jumpFall0 = Animation(2, spriteSheet, spriteSheetP2, Vector2<int>(32, 58), sz, 5, false, false, noRecovery, null_vector, 0);
 
 	Animation kick0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(32, 1574), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation kickUp0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(2372, 2046), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation kickUp0 = Animation(10, spriteSheet, spriteSheetP2, Vector2<int>(32, 2046), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation kickDown0 = Animation(8, spriteSheet, spriteSheetP2, Vector2<int>(1904, 1574), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation kickFromDown0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(2840, 2568), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation kickFromUp0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(1904, 3090), sz, 5, false, true, noRecovery, punchOrKickAir_lock, 2);
+	Animation kickFromUp0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(1202, 3090), sz, 5, false, true, noRecovery, kickAir_lock, 2);
 
 	Animation duck0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(32, 2568), sz, 5, false, true, noRecovery, duck_lock, 2);
 
 	Animation blockUp0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(32, 6122), sz, 5, false, true, noRecovery, blockUp_lock, 2);
-	Animation blockDown0 = Animation(2, spriteSheet, spriteSheetP2, Vector2<int>(1436, 6122), sz, 5, false, true, noRecovery, blockDown_lock, 2);
+	Animation blockDown0 = Animation(3, spriteSheet, spriteSheetP2, Vector2<int>(1436, 6122), sz, 5, false, true, noRecovery, blockDown_lock, 2);
 
-	Animation special0 = Animation(8, spriteSheet, spriteSheetP2, Vector2<int>(32, 6644), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation special1 = Animation(4, spriteSheet, spriteSheetP2, Vector2<int>(2606, 6644), sz, 5, false, true, noRecovery, specialJump_lock, 2);
-	Animation fatality0 = Animation(14, spriteSheet, spriteSheetP2, Vector2<int>(32, 7688), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation win0 = Animation(14, spriteSheet, spriteSheetP2, Vector2<int>(32, 8210), sz, 5, false, true, noRecovery, win_lock, 2);
+	Animation special0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(32, 6644), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation special1 = Animation(15, spriteSheet, spriteSheetP2, Vector2<int>(2606, 6644), sz, 5, false, true, noRecovery, specialJump_lock, 2);
+	Animation fatality0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(32, 8852), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation win0 = Animation(12, spriteSheet, spriteSheetP2, Vector2<int>(32, 9374), sz, 5, false, true, noRecovery, win_lock, 2);
 
-	Animation fall0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(32, 4606), sz, 5, false, true, noRecovery, fall_lock, 2);
+	Animation fall0 = Animation(6, spriteSheet, spriteSheetP2, Vector2<int>(32, 4606), sz, 5, false, true, noRecovery, fall_lock, 2);
 	Animation fallBack0 = Animation(6, spriteSheet, spriteSheetP2, Vector2<int>(32, 5078), sz, 5, false, true, noRecovery, fallBack_lock, 2);		// Al morir sin fatality
-	Animation fallUppercut0 = Animation(8, spriteSheet, spriteSheetP2, Vector2<int>(1904, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation nuts0 = Animation(4, spriteSheet, spriteSheetP2, Vector2<int>(4010, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation recover0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(1670, 5078), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation fallUppercut0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(1670, 4606), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation nuts0 = Animation(4, spriteSheet, spriteSheetP2, Vector2<int>(32, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation recover0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(1670, 5078), sz, 5, false, true, noRecovery, null_vector, 2);
 
 	Animation getCaught0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(1904, 5600), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation catch0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(32, 5600), sz, 5, false, true, punchRecovery, null_vector, 2);
-	Animation dying0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(32, 7166), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation dying0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(32, 8330), sz, 5, false, true, noRecovery, null_vector, 2);
 
-	Animation turnLeft0 = Animation(3, spriteSheet, spriteSheetP2, Vector2<int>(2138, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation turnRight0 = Animation(3, spriteSheet, spriteSheetP2, Vector2<int>(3074, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation turnLeft0 = Animation(4, spriteSheet, spriteSheetP2, Vector2<int>(2372, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation turnRight0 = Animation(4, spriteSheet, spriteSheetP2, Vector2<int>(2372, 6122), sz, 5, false, true, noRecovery, null_vector, 2);
 
 	Animation hit0 = Animation(4, spriteSheet, spriteSheetP2, Vector2<int>(32, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation hitHard0 = Animation(5, spriteSheet, spriteSheetP2, Vector2<int>(2372, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation hitHard0 = Animation(7, spriteSheet, spriteSheetP2, Vector2<int>(2372, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
 	Animation hitHead0 = Animation(4, spriteSheet, spriteSheetP2, Vector2<int>(1202, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
-	Animation hitDuck0 = Animation(3, spriteSheet, spriteSheetP2, Vector2<int>(3776, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
+	Animation hitDuck0 = Animation(4, spriteSheet, spriteSheetP2, Vector2<int>(4244, 4084), sz, 5, false, true, noRecovery, null_vector, 2);
 
 	AnimationGroup idle = AnimationGroup(idle0);
 	AnimationGroup forwWalk = AnimationGroup(forw0);
 	AnimationGroup backWalk = AnimationGroup(back0);
-	AnimationGroup punch = AnimationGroup(punch0); 
+	AnimationGroup punch = AnimationGroup(punch0);
 	AnimationGroup punchMult = AnimationGroup(punchMult0);
 	AnimationGroup punchUpMult = AnimationGroup(punchUpMult0);
 	AnimationGroup punchUp = AnimationGroup(punchUp0);
@@ -141,59 +142,59 @@ static Character CreateLiuKang() {
 	AnimationGroup hitHead = AnimationGroup(hitHead0);
 	AnimationGroup hitDuck = AnimationGroup(hitDuck0);
 
-	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0), {83*3,85*3,81*3,83*3,82*3,83*3,84*3,83*3}, {59*3,54*3,51*3,56*3,59*3,57*3,52*3,54*3} };
-	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0), {93*3,96*3,98*3,98*3,99*3,98*3,98*3,95*3,95*3},{53*3,49*3,50*3,49*3,53*3,49*3,51*3,50*3,55*3} };
+	Movement idleMov = Movement{ idle, Vector2<float>(0.0, 0.0), {83 * 3,85 * 3,81 * 3,83 * 3,82 * 3,83 * 3,84 * 3,83 * 3}, {59 * 3,54 * 3,51 * 3,56 * 3,59 * 3,57 * 3,52 * 3,54 * 3} };
+	Movement forwMov = Movement{ forwWalk, Vector2<float>(15.0, 0.0), {93 * 3,96 * 3,98 * 3,98 * 3,99 * 3,98 * 3,98 * 3,95 * 3,95 * 3},{53 * 3,49 * 3,50 * 3,49 * 3,53 * 3,49 * 3,51 * 3,50 * 3,55 * 3} };
 	Movement backMov = Movement{ backWalk, Vector2<float>(-10, 0.0), {93 * 3,96 * 3,98 * 3,98 * 3,99 * 3,98 * 3,98 * 3,95 * 3,95 * 3},{53 * 3,49 * 3,50 * 3,49 * 3,53 * 3,49 * 3,51 * 3,50 * 3,55 * 3} };
 	Movement punchMov = Movement{ punch, Vector2<float>(0.0, 0.0),{92 * 3,102 * 3,108 * 3,92 * 3},{47 * 3,45 * 3,49 * 3,47 * 3},
-		{0,0,139*3,0},{0,0,73*3,0} };
-	Movement punchMultMov = Movement{ punchMult, Vector2<float>(0.0, 0.0),{91*3,97*3,103*3,116*3,114*3,117*3,110*3,112*3,92*3},{46*3,42*3,48*3,45*3,47*3,54*3,46*3,45*3,47*3},
-		{0,0,138*3,0,0,140*3,0,0},{0,0,72*3,0,0,75*3,0,0} };
+		{0,0,139 * 3,0},{0,0,73 * 3,0} };
+	Movement punchMultMov = Movement{ punchMult, Vector2<float>(0.0, 0.0),{91 * 3,97 * 3,103 * 3,116 * 3,114 * 3,117 * 3,110 * 3,112 * 3,92 * 3},{46 * 3,42 * 3,48 * 3,45 * 3,47 * 3,54 * 3,46 * 3,45 * 3,47 * 3},
+		{0,0,138 * 3,0,0,140 * 3,0,0},{0,0,72 * 3,0,0,75 * 3,0,0} };
 	Movement punchUpMov = Movement{ punchUp, Vector2<float>(0.0, 0.0), {94 * 3,104 * 3,111 * 3,94 * 3},{48 * 3,45 * 3,45 * 3,48 * 3},
-		{0,0,139*3,0},{0,0,53*3,0}};
+		{0,0,139 * 3,0},{0,0,53 * 3,0} };
 	Movement punchFromUpMov = Movement{ punchFromUp, Vector2<float>(0.0, 0.0), {113 * 3,122 * 3,117 * 3,123 * 3,120 * 3},{29 * 3,29 * 3,28 * 3,30 * 3,28 * 3},
-		{0,0,156*3,0,0},{0,0,60*3,0,0} };
-	Movement punchUpMultMov = Movement{ punchUpMult, Vector2<float>(0.0, 0.0), {97*3,101*3,112*3,113*3,117*3,112*3,117*3,113*3,94*3},{47*3,45*3,46*3,46*3,48*3,49*3,48*3,45*3,48*3},
-		{0,0,153*3,0,0,155*3,0,0,0},{0,0,52*3,0,0,56*3,0,0,0} };
+		{0,0,156 * 3,0,0},{0,0,60 * 3,0,0} };
+	Movement punchUpMultMov = Movement{ punchUpMult, Vector2<float>(0.0, 0.0), {97 * 3,101 * 3,112 * 3,113 * 3,117 * 3,112 * 3,117 * 3,113 * 3,94 * 3},{47 * 3,45 * 3,46 * 3,46 * 3,48 * 3,49 * 3,48 * 3,45 * 3,48 * 3},
+		{0,0,153 * 3,0,0,155 * 3,0,0,0},{0,0,52 * 3,0,0,56 * 3,0,0,0} };
 	Movement bodyToBodyMov = Movement{ bodyToBody, Vector2<float>(0.0, 0.0), {93 * 3,100 * 3,108 * 3,102 * 3,96 * 3},{49 * 3,52 * 3,54 * 3,52 * 3,50 * 3},
-		{0,0,149*3,0,0},{0,0,67*3,0,0} };
-	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0), {80*3},{37*3} };
-	Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0),  {86*3,94*3,95*3,100*3,93*3,92*3,87*3},{48*3,46*3,49*3,50*3,49*3,47*3,49*3},
-		{0,0,0,133*3,0,0,0},{0,0,0,64*3,0,0,0} };
-	Movement kickUpMov = Movement{ kickUp, Vector2<float>(0.0, 0.0), {73*3,86*3,92*3,99*3,103*3,108*3,97*3},{48*3,52*3,63*3,48*3,87*3,76*3,52*3},
-		{0,0,0,139*3,0,0,0},{0,0,0,44*3,0,0,0} };
-	Movement kickDownMov = Movement{ kickDown, Vector2<float>(0.0, 0.0), {89*3,78*3,73*3,79*3,86*3,98*3,105*3,87*3},{49*3,95*3,119*3,125*3,124*3,121*3,79*3,48*3},
-		{0,0,0,0,137*3,0,0,0},{0,0,0,0,156*3,0,0,0} };
-	Movement kickFromDownMov = Movement{ kickFromDown, Vector2<float>(0.0, 0.0),{83*3,82*3,84*3,84*3,83*3},{102*3,104*3,109*3,105*3,104*3},
-		{0,0,135*3,0,0},{0,0,91*3,0,0} };
-	Movement kickFromUpMov = Movement{ kickFromUp, Vector2<float>(0.0, 0.0), {92*3,99*3,101*3,96*3,91*3},{37*3,41*3,43*3,42*3,37*3},
-		{0,0,126*3,0,0},{0,0,47*3,0,0} };
-	Movement punchDownMov = Movement{ punchDown, Vector2<float>(0.0, 0.0), {96*3,92*3,95*3,104*3,93*3},{74*3,58*3,50*3,51*3,53*3},
-		{0,0,128*3,0,0},{0,0,52*3,0,0} };
-	Movement jumpMoveMov = Movement{ jumpMove, Vector2<float>(0.0, 0.0),  {109*3,101*3,95*3,101*3,105*3,100*3,108*3},{44*3,50*3,52*3,46*3,37*3,48*3,44*3} };
+		{0,0,149 * 3,0,0},{0,0,67 * 3,0,0} };
+	Movement jumpMov = Movement{ jump, Vector2<float>(0.0, 0.0), {80 * 3},{37 * 3} };
+	Movement kickMov = Movement{ kick, Vector2<float>(0.0, 0.0),  {86 * 3,94 * 3,95 * 3,100 * 3,93 * 3,92 * 3,87 * 3},{48 * 3,46 * 3,49 * 3,50 * 3,49 * 3,47 * 3,49 * 3},
+		{0,0,0,133 * 3,0,0,0},{0,0,0,64 * 3,0,0,0} };
+	Movement kickUpMov = Movement{ kickUp, Vector2<float>(0.0, 0.0), {73 * 3,86 * 3,92 * 3,99 * 3,103 * 3,108 * 3,97 * 3},{48 * 3,52 * 3,63 * 3,48 * 3,87 * 3,76 * 3,52 * 3},
+		{0,0,0,139 * 3,0,0,0},{0,0,0,44 * 3,0,0,0} };
+	Movement kickDownMov = Movement{ kickDown, Vector2<float>(0.0, 0.0), {89 * 3,78 * 3,73 * 3,79 * 3,86 * 3,98 * 3,105 * 3,87 * 3},{49 * 3,95 * 3,119 * 3,125 * 3,124 * 3,121 * 3,79 * 3,48 * 3},
+		{0,0,0,0,137 * 3,0,0,0},{0,0,0,0,156 * 3,0,0,0} };
+	Movement kickFromDownMov = Movement{ kickFromDown, Vector2<float>(0.0, 0.0),{83 * 3,82 * 3,84 * 3,84 * 3,83 * 3},{102 * 3,104 * 3,109 * 3,105 * 3,104 * 3},
+		{0,0,135 * 3,0,0},{0,0,91 * 3,0,0} };
+	Movement kickFromUpMov = Movement{ kickFromUp, Vector2<float>(0.0, 0.0), {92 * 3,99 * 3,101 * 3,96 * 3,91 * 3},{37 * 3,41 * 3,43 * 3,42 * 3,37 * 3},
+		{0,0,126 * 3,0,0},{0,0,47 * 3,0,0} };
+	Movement punchDownMov = Movement{ punchDown, Vector2<float>(0.0, 0.0), {96 * 3,92 * 3,95 * 3,104 * 3,93 * 3},{74 * 3,58 * 3,50 * 3,51 * 3,53 * 3},
+		{0,0,128 * 3,0,0},{0,0,52 * 3,0,0} };
+	Movement jumpMoveMov = Movement{ jumpMove, Vector2<float>(0.0, 0.0),  {109 * 3,101 * 3,95 * 3,101 * 3,105 * 3,100 * 3,108 * 3},{44 * 3,50 * 3,52 * 3,46 * 3,37 * 3,48 * 3,44 * 3} };
 	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0),  {80 * 3, 84 * 3, 91 * 3, 86 * 3, 85 * 3},{63 * 3, 92 * 3, 104 * 3, 92 * 3, 63 * 3} };
 	Movement blockUpMov = Movement{ blockUp, Vector2<float>(0.0,0.0), {91 * 3, 90 * 3, 87 * 3, 89 * 3, 91 * 3},{52 * 3, 52 * 3, 54 * 3, 52 * 3, 51 * 3} };
 	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0), {78 * 3, 72 * 3},{89 * 3, 87 * 3} };
-	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0), {68*3,63*3,61*3,63*3,60*3,61*3,61*3,61*3},{68*3,79*3,64*3,51*3,56*3,55*3,56*3,56*3} };
+	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0), {68 * 3,63 * 3,61 * 3,63 * 3,60 * 3,61 * 3,61 * 3,61 * 3},{68 * 3,79 * 3,64 * 3,51 * 3,56 * 3,55 * 3,56 * 3,56 * 3} };
 	Movement special_jumpMov = Movement{ special_jump, Vector2<float>(0.0,0.0),  {},{},{},{} };
 	Movement fatalityMov = Movement{ fatality, Vector2<float>(0.0,0.0), {},{},{},{} };
-	Movement winMov = Movement{ win, Vector2<float>(0.0,0.0)};
+	Movement winMov = Movement{ win, Vector2<float>(0.0,0.0) };
 	Movement fallMov = Movement{ fall, Vector2<float>(0.0, 0.0) };
 	Movement fallBackMov = Movement{ fallBack, Vector2<float>(0.0, 0.0) };
 	Movement fallUppercutMov = Movement{ fallUppercut, Vector2<float>(0.0, 0.0) };
-	Movement nutsMov = Movement{ nuts, Vector2<float>(0.0, 0.0), {84*3,81*3,84*3,84*3},{79*3,91*3,92*3,63*3} };
+	Movement nutsMov = Movement{ nuts, Vector2<float>(0.0, 0.0), {84 * 3,81 * 3,84 * 3,84 * 3},{79 * 3,91 * 3,92 * 3,63 * 3} };
 	Movement recoverMov = Movement{ recover, Vector2<float>(0.0, 0.0) };
 	Movement getCaughtMov = Movement{ getCaught, Vector2<float>(5.0, 0.0) };
-	Movement catchMov = Movement{ catchAnim, Vector2<float>(0.0, 0.0), {96*3,109*3,88*3,88*3,78*3,63*3,61*3},{55*3,72*3,58*3,53*3,50*3,58*3,73*3} };
-	Movement dyingMov = Movement{ dying, Vector2<float>(0.0, 0.0), {94*3,101*3,96*3,88*3,83*3,81*3,89*3},{61*3,61*3,56*3,50*3,50*3,52*3,61*3} };
+	Movement catchMov = Movement{ catchAnim, Vector2<float>(0.0, 0.0), {96 * 3,109 * 3,88 * 3,88 * 3,78 * 3,63 * 3,61 * 3},{55 * 3,72 * 3,58 * 3,53 * 3,50 * 3,58 * 3,73 * 3} };
+	Movement dyingMov = Movement{ dying, Vector2<float>(0.0, 0.0), {94 * 3,101 * 3,96 * 3,88 * 3,83 * 3,81 * 3,89 * 3},{61 * 3,61 * 3,56 * 3,50 * 3,50 * 3,52 * 3,61 * 3} };
 
-	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0), {88*3,88*3,91*3},{54*3,54*3,53*3} };
-	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0), {92*3,92*3,87*3},{54*3,54*3,53*3} };
+	Movement turnLeftMov = Movement{ turnLeft, Vector2<float>(0.0, 0.0), {88 * 3,88 * 3,91 * 3},{54 * 3,54 * 3,53 * 3} };
+	Movement turnRightMov = Movement{ turnRight, Vector2<float>(0.0, 0.0), {92 * 3,92 * 3,87 * 3},{54 * 3,54 * 3,53 * 3} };
 
 	Movement hitMov = Movement{ hit, Vector2<float>(0.0, 0.0), {81 * 3, 80 * 3, 75 * 3, 78 * 3},{53 * 3, 53 * 3, 55 * 3, 53 * 3} };
 	Movement hitHardMov = Movement{ hitHard, Vector2<float>(0.0, 0.0), {77 * 3, 79 * 3, 86 * 3, 81 * 3, 85 * 3},{53 * 3, 43 * 3, 45 * 3, 47 * 3, 59 * 3} };
 	Movement hitHeadMov = Movement{ hitHead, Vector2<float>(0.0, 0.0), {69 * 3, 77 * 3, 68 * 3, 79 * 3},{57 * 3, 47 * 3, 57 * 3, 45 * 3} };
 	Movement hitDuckMov = Movement{ hitDuck, Vector2<float>(0.0, 0.0), {60 * 3, 64 * 3, 73 * 3},{89 * 3, 82 * 3, 87 * 3} };
-	
+
 
 	map<AnimationType, Movement> animations;
 	animations[AnimationType::IDLE] = idleMov;
@@ -236,24 +237,24 @@ static Character CreateLiuKang() {
 	animations[AnimationType::HIT_DOWN] = hitDuckMov;
 
 	//Tamaño damage hitboxes
-	Vector2f punchD[4] = { {0,0},{0,0},{43*3,13*3},{0,0} };
-	Vector2f punchUpD[4] = { {0,0},{0,0},{45*3,25*3},{0,0} };
-	Vector2f punchDownD[5] = { {0,0},{0,0},{38*3,35*3},{0,0} };
-	Vector2f punchFromUpD[5] = { {0,0},{0,0},{39*3,37*3},{0,0},{0,0} };
-	Vector2f bodyToBodyD[5] = { {0,0},{0,0},{12*3,13*3},{0,0},{0,0} };
-	Vector2f punchMultD[9] = { {0,0},{0,0},{46*3,16*3},{0,0},{0,0},{43*3,18*3},{0,0},{0,0},{0,0} };
-	Vector2f punchMultUpD[9] = { {0,0},{0,0},{44*3,25*3},{0,0},{0,0},{41*3,17*3},{0,0},{0,0},{0,0} };
+	Vector2f punchD[4] = { {0,0},{0,0},{43 * 3,13 * 3},{0,0} };
+	Vector2f punchUpD[4] = { {0,0},{0,0},{45 * 3,25 * 3},{0,0} };
+	Vector2f punchDownD[5] = { {0,0},{0,0},{38 * 3,35 * 3},{0,0} };
+	Vector2f punchFromUpD[5] = { {0,0},{0,0},{39 * 3,37 * 3},{0,0},{0,0} };
+	Vector2f bodyToBodyD[5] = { {0,0},{0,0},{12 * 3,13 * 3},{0,0},{0,0} };
+	Vector2f punchMultD[9] = { {0,0},{0,0},{46 * 3,16 * 3},{0,0},{0,0},{43 * 3,18 * 3},{0,0},{0,0},{0,0} };
+	Vector2f punchMultUpD[9] = { {0,0},{0,0},{44 * 3,25 * 3},{0,0},{0,0},{41 * 3,17 * 3},{0,0},{0,0},{0,0} };
 
-	Vector2f kickD[7] = { {0,0},{0,0},{0,0},{67*3,45*3},{0,0},{0,0},{0,0} };
-	Vector2f kickUpD[7] = { {0,0},{0,0},{0,0},{49*3,43*3},{0,0},{0,0},{0,0} };
-	Vector2f kickDownD[8] = { {0,0},{0,0},{0,0},{0,0},{69*3,31*3},{0,0},{0,0},{0,0} };
-	Vector2f kickFromDownD[5] = { {0,0},{0,0},{29*3,41*3},{0,0},{0,0} };
-	Vector2f kickFromUpD[5] = { {0,0},{0,0},{46*3,39*3},{0,0},{0,0} };
+	Vector2f kickD[7] = { {0,0},{0,0},{0,0},{67 * 3,45 * 3},{0,0},{0,0},{0,0} };
+	Vector2f kickUpD[7] = { {0,0},{0,0},{0,0},{49 * 3,43 * 3},{0,0},{0,0},{0,0} };
+	Vector2f kickDownD[8] = { {0,0},{0,0},{0,0},{0,0},{69 * 3,31 * 3},{0,0},{0,0},{0,0} };
+	Vector2f kickFromDownD[5] = { {0,0},{0,0},{29 * 3,41 * 3},{0,0},{0,0} };
+	Vector2f kickFromUpD[5] = { {0,0},{0,0},{46 * 3,39 * 3},{0,0},{0,0} };
 
 
 	RectangleShape rect;
 	rect.setFillColor(Color::Red);
-	
+
 	vector<RectangleShape> punchR;
 	for (Vector2f size : punchD) {
 		rect.setSize(size);
@@ -348,26 +349,26 @@ static Character CreateLiuKang() {
 
 
 	//Tamaños hitboxes
-	Vector2f idleS[8] = { {31*3,123*3}, {31*3,129*3}, {35*3,134*3}, {33*3,128*3}, {31*3,125*3}, {32*3,128*3}, {31*3,133*3}, {33*3,130*3} };
-	Vector2f forwS[9] = { {35*3,129*3}, {27*3,134*3}, {28*3,134*3}, {32*3,133*3}, {29*3,129*3}, {27*3,134*3}, {30*3,132*3}, {34*3,134*3}, {34*3,127*3} };
+	Vector2f idleS[8] = { {31 * 3,123 * 3}, {31 * 3,129 * 3}, {35 * 3,134 * 3}, {33 * 3,128 * 3}, {31 * 3,125 * 3}, {32 * 3,128 * 3}, {31 * 3,133 * 3}, {33 * 3,130 * 3} };
+	Vector2f forwS[9] = { {35 * 3,129 * 3}, {27 * 3,134 * 3}, {28 * 3,134 * 3}, {32 * 3,133 * 3}, {29 * 3,129 * 3}, {27 * 3,134 * 3}, {30 * 3,132 * 3}, {34 * 3,134 * 3}, {34 * 3,127 * 3} };
 	Vector2f backS[9] = { {35 * 3,129 * 3}, {27 * 3,134 * 3}, {28 * 3,134 * 3}, {32 * 3,133 * 3}, {29 * 3,129 * 3}, {27 * 3,134 * 3}, {30 * 3,132 * 3}, {34 * 3,134 * 3}, {34 * 3,127 * 3} };
 
-	Vector2f punchS[4] = { {35*3,135*3},{34*3,138*3},{37*3,133*3},{38*3,138*3} };
-	Vector2f punchUpS[4] = { {36*3,136*3},{34*3,139*3},{36*3,138*3},{41*3,136*3} };
-	Vector2f punchDownS[5] = { {33*3,110*3},{35*3,124*3},{34*3,134*3},{26*3,136*3},{37*3,130*3} };
-	Vector2f punchFromUpS[5] = { {45*3,81*3},{41*3,73*3},{52*3,72*3},{38*3,74*3},{43*3,81*3} };
-	Vector2f bodyToBodyS[5] = { {41*3,136*3},{37*3,131*3},{40*3,128*3},{35*3,129*3},{39*3,135*3} };
-	Vector2f punchMultS[9] = { {35*3,138*3},{37*3,141*3},{43*3,134*3},{31*3,136*3},{32*3,135*3},{37*3,128*3},{38*3,136*3},{35*3,138*3},{39*3,137*3} };
-	Vector2f punchMultUpS[9] = { {32*3,138*3},{37*3,139*3},{36*3,137*3},{35*3,138*3},{33*3,136*3},{39*3,134*3},{33*3,136*3},{36*3,138*3},{36*3,136*3} };
+	Vector2f punchS[4] = { {35 * 3,135 * 3},{34 * 3,138 * 3},{37 * 3,133 * 3},{38 * 3,138 * 3} };
+	Vector2f punchUpS[4] = { {36 * 3,136 * 3},{34 * 3,139 * 3},{36 * 3,138 * 3},{41 * 3,136 * 3} };
+	Vector2f punchDownS[5] = { {33 * 3,110 * 3},{35 * 3,124 * 3},{34 * 3,134 * 3},{26 * 3,136 * 3},{37 * 3,130 * 3} };
+	Vector2f punchFromUpS[5] = { {45 * 3,81 * 3},{41 * 3,73 * 3},{52 * 3,72 * 3},{38 * 3,74 * 3},{43 * 3,81 * 3} };
+	Vector2f bodyToBodyS[5] = { {41 * 3,136 * 3},{37 * 3,131 * 3},{40 * 3,128 * 3},{35 * 3,129 * 3},{39 * 3,135 * 3} };
+	Vector2f punchMultS[9] = { {35 * 3,138 * 3},{37 * 3,141 * 3},{43 * 3,134 * 3},{31 * 3,136 * 3},{32 * 3,135 * 3},{37 * 3,128 * 3},{38 * 3,136 * 3},{35 * 3,138 * 3},{39 * 3,137 * 3} };
+	Vector2f punchMultUpS[9] = { {32 * 3,138 * 3},{37 * 3,139 * 3},{36 * 3,137 * 3},{35 * 3,138 * 3},{33 * 3,136 * 3},{39 * 3,134 * 3},{33 * 3,136 * 3},{36 * 3,138 * 3},{36 * 3,136 * 3} };
 
-	Vector2f jumpS[4] = { {53*3,103*3},{35*3,99*3},{36*3,132*3},{35*3,116*3} };
-	Vector2f jumpMoveS[7] = { {45*3,71*3},{60*3,64*3},{66*3,51*3},{53*3,63*3},{50*3,62*3},{57*3,48*3},{48*3,61*3} };
+	Vector2f jumpS[4] = { {53 * 3,103 * 3},{35 * 3,99 * 3},{36 * 3,132 * 3},{35 * 3,116 * 3} };
+	Vector2f jumpMoveS[7] = { {45 * 3,71 * 3},{60 * 3,64 * 3},{66 * 3,51 * 3},{53 * 3,63 * 3},{50 * 3,62 * 3},{57 * 3,48 * 3},{48 * 3,61 * 3} };
 
-	Vector2f kickS[7] = { {35*3,133*3},{31*3,136*3},{32*3,133*3},{33*3,130*3},{33*3,133*3},{35*3,135*3},{31*3,133*3} };
-	Vector2f kickUpS[7] = { {42*3,134*3},{32*3,130*3},{37*3,120*3},{39*3,99*3},{35*3,96*3},{33*3,107*3},{40*3,131*3} };
-	Vector2f kickDownS[8] = { {30*3,133*3},{33*3,89*3},{65*3,67*3},{51*3,63*3},{48*3,63*3},{40*3,91*3},{36*3,104*3},{35*3,131*3} };
-	Vector2f kickFromDownS[5] = { {45*3,76*3},{49*3,77*3},{44*3,73*3},{40*3,77*3},{46*3,78*3} };
-	Vector2f kickFromUpS[5] = { {30*3,141*3},{47*3,84*3},{43*3,72*3},{46*3,81*3},{39*3,120*3} };
+	Vector2f kickS[7] = { {35 * 3,133 * 3},{31 * 3,136 * 3},{32 * 3,133 * 3},{33 * 3,130 * 3},{33 * 3,133 * 3},{35 * 3,135 * 3},{31 * 3,133 * 3} };
+	Vector2f kickUpS[7] = { {42 * 3,134 * 3},{32 * 3,130 * 3},{37 * 3,120 * 3},{39 * 3,99 * 3},{35 * 3,96 * 3},{33 * 3,107 * 3},{40 * 3,131 * 3} };
+	Vector2f kickDownS[8] = { {30 * 3,133 * 3},{33 * 3,89 * 3},{65 * 3,67 * 3},{51 * 3,63 * 3},{48 * 3,63 * 3},{40 * 3,91 * 3},{36 * 3,104 * 3},{35 * 3,131 * 3} };
+	Vector2f kickFromDownS[5] = { {45 * 3,76 * 3},{49 * 3,77 * 3},{44 * 3,73 * 3},{40 * 3,77 * 3},{46 * 3,78 * 3} };
+	Vector2f kickFromUpS[5] = { {30 * 3,141 * 3},{47 * 3,84 * 3},{43 * 3,72 * 3},{46 * 3,81 * 3},{39 * 3,120 * 3} };
 	Vector2f duckS[5] = { {37 * 3,118 * 3}, {43 * 3,90 * 3}, {39 * 3,79 * 3}, {39 * 3,89 * 3}, {33 * 3,119 * 3} };
 
 	Vector2f blockUpS[5] = { {31 * 3,128 * 3}, {35 * 3,130 * 3}, {35 * 3,127 * 3}, {34 * 3,131 * 3}, {32 * 3,130 * 3} };
@@ -380,12 +381,12 @@ static Character CreateLiuKang() {
 	Vector2f hitS[4] = { {0,0}, {0,0}, {0,0}, {0,0} };
 	Vector2f hitHeadS[4] = { {0,0}, {0,0}, {0,0}, {0,0} };
 	Vector2f hitHardS[5] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
-	Vector2f hitDuckS[3] = { {0,0}, {0,0}, {0,0}};
+	Vector2f hitDuckS[3] = { {0,0}, {0,0}, {0,0} };
 
-	Vector2f specialS[8] = { {41*3,116*3}, {39*3,105*3}, {38*3,121*3}, {38*3,134*3}, {32*3,128*3}, {31*3,131*3}, {37*3,128*3}, {32*3,128*3} };
+	Vector2f specialS[8] = { {41 * 3,116 * 3}, {39 * 3,105 * 3}, {38 * 3,121 * 3}, {38 * 3,134 * 3}, {32 * 3,128 * 3}, {31 * 3,131 * 3}, {37 * 3,128 * 3}, {32 * 3,128 * 3} };
 
-	Vector2f catchS[7] = { {36*3,127*3}, {38*3,110*3}, {48*3,125*3}, {39*3,131*3}, {33*3,131*3}, {34*3,117*3}, {42*3,110*3} };
-	Vector2f dyingS[7] = { {39*3,121*3}, {36*3,123*3}, {35*3,126*3}, {35*3,132*3}, {35*3,134*3}, {31*3,131*3}, {34*3,122*3} };
+	Vector2f catchS[7] = { {36 * 3,127 * 3}, {38 * 3,110 * 3}, {48 * 3,125 * 3}, {39 * 3,131 * 3}, {33 * 3,131 * 3}, {34 * 3,117 * 3}, {42 * 3,110 * 3} };
+	Vector2f dyingS[7] = { {39 * 3,121 * 3}, {36 * 3,123 * 3}, {35 * 3,126 * 3}, {35 * 3,132 * 3}, {35 * 3,134 * 3}, {31 * 3,131 * 3}, {34 * 3,122 * 3} };
 
 	Vector2f fallUpperCutS[8] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
 	Vector2f fallS[7] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
@@ -603,8 +604,8 @@ static Character CreateLiuKang() {
 	RectangleShape specialAtt = RectangleShape(Vector2<float>(68, 11));
 	specialAtt.setSize(Vector2f(68 * 3, 11 * 3));
 
-	Character LiuKang = Character(animations, body, shadow, hitboxes, damage_hitboxes, true);
+	Character JhonnyCage = Character(animations, body, shadow, hitboxes, damage_hitboxes, true);
 
-	return LiuKang;
+	return JhonnyCage;
 }
-#endif //LIUKANG_H
+#endif //JONNYCAGE_H

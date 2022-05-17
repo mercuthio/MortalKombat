@@ -227,6 +227,8 @@ void BattleManager::LoadCharacters() {
 	cout << "[++.....] Character Scorpion loaded!" << endl;
 	SonyaBlade = CreateSonyaBlade();
 	cout << "[+++....] Character Sonya Blade loaded!" << endl;
+	JhonnyCage = CreateJhonnyCage();
+	cout << "[++++...] Character Jhonny Cage loaded!" << endl;
 	cout << "[+++++++] All characters loaded succesfully!" << endl;
 }
 
@@ -343,7 +345,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 
 	switch (character1) {
 	case CAGE:
-		player1 = Scorpion;
+		player1 = JhonnyCage;
 		break;
 	case KANO:
 		player1 = Scorpion;
@@ -373,7 +375,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 
 	switch (character2) {
 	case CAGE:
-		player2 = Scorpion;
+		player2 = JhonnyCage;
 		break;
 	case KANO:
 		player2 = Scorpion;
@@ -695,7 +697,10 @@ void BattleManager::Update() {
 				case SONYA:
 					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
 					break;
-				}
+				case CAGE:
+					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
+					break;
+			}
 			}
 			else {
 				Vector2f pos = Vector2f(player1.getPosition().x + 75, player1.getPosition().y + 205);
@@ -708,6 +713,9 @@ void BattleManager::Update() {
 					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
 					break;
 				case SONYA:
+					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
+					break;
+				case CAGE:
 					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
 					break;
 				}
@@ -730,6 +738,9 @@ void BattleManager::Update() {
 				case SONYA:
 					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
 					break;
+				case CAGE:
+					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
+					break;
 				}
 			}
 			else {
@@ -743,6 +754,9 @@ void BattleManager::Update() {
 					player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
 					break;
 				case SONYA:
+					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
+					break;
+				case CAGE:
 					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
 					break;
 				}
@@ -797,14 +811,17 @@ void BattleManager::Update() {
 			if (finishing1) {
 
 				switch (character1) {
-				case 3:	//Liu Kang
+				case LIU_KANG:	//Liu Kang
 					music.LiuKangWins();
 					break;
-				case 4: //Scorpion
+				case SCORPION: //Scorpion
 					music.ScorpionWins();
 					break;
-				case 6:	//Sonya Blade
+				case SONYA:	//Sonya Blade
 					music.SonyaBladeWins();
+					break;
+				case CAGE:	//Jhonny Cage
+					music.JhonnyCageWins();
 					break;
 				}
 
@@ -816,14 +833,17 @@ void BattleManager::Update() {
 			else if (finishing2) {
 
 				switch (character2) {
-				case 3:	//Liu Kang
+				case LIU_KANG:	//Liu Kang
 					music.LiuKangWins();
 					break;
-				case 4: //Scorpion
+				case SCORPION: //Scorpion
 					music.ScorpionWins();
 					break;
-				case 6:	//Sonya Blade
+				case SONYA:	//Sonya Blade
 					music.SonyaBladeWins();
+					break;
+				case CAGE:	//Jhonny Cage
+					music.JhonnyCageWins();
 					break;
 				}
 
@@ -856,14 +876,17 @@ void BattleManager::Update() {
 			if (rounds_won1 == 1) {										//Todavia no ha ganado la partida
 
 				switch (character1) {
-				case 3:	//Liu Kang
+				case LIU_KANG:	//Liu Kang
 					music.LiuKangWins();
 					break;
-				case 4: //Scorpion
+				case SCORPION: //Scorpion
 					music.ScorpionWins();
 					break;
-				case 6:	//Sonya Blade
+				case SONYA:	//Sonya Blade
 					music.SonyaBladeWins();
+					break;
+				case CAGE:	//Jhonny Cage
+					music.JhonnyCageWins();
 					break;
 				}
 
@@ -914,14 +937,17 @@ void BattleManager::Update() {
 
 				music.stopMusic();
 				switch (character2) {
-				case 3:	//Liu Kang
+				case LIU_KANG:	//Liu Kang
 					music.LiuKangWins();
 					break;
-				case 4: //Scorpion
+				case SCORPION: //Scorpion
 					music.ScorpionWins();
 					break;
-				case 6:	//Sonya Blade
+				case SONYA:	//Sonya Blade
 					music.SonyaBladeWins();
+					break;
+				case CAGE:	//Jhonny Cage
+					music.JhonnyCageWins();
 					break;
 				}
 
@@ -946,7 +972,7 @@ void BattleManager::Update() {
 				player1.setFreeze(true);
 			}
 			else {														//Acaba de ganar la partida
-				cout << "932 de BATTLE MANAGER" << endl;
+				//cout << "932 de BATTLE MANAGER" << endl;
 				finishing2 = true;
 				showing_finishHim = true;
 				music.finishHim();
