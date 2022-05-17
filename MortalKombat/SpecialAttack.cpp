@@ -36,6 +36,10 @@ void SpecialAttack::Update() {
 		midTimer = 0.03f;
 		maxInitTimer = 0.10f;
 		break;
+	case SpecialType::CAGE:
+		midTimer = 0.33f;
+		maxInitTimer = 0.25f;
+		break;
 	default:
 		break;
 	}
@@ -93,6 +97,9 @@ void SpecialAttack::Update() {
 				break;
 			case SpecialType::SONYA:
 				music.sonyaSpecial01();
+				break;
+			case SpecialType::CAGE:
+				music.liuKangSpecial01();
 				break;
 			default:
 				break;
@@ -229,6 +236,36 @@ bool SpecialAttack::SpecialAttackAnimation() {
 				if (mirrored) uvRect.width = -size_sonyaHit.x;
 				else uvRect.width = size_sonyaHit.x;
 				uvRect.height = size_sonyaHit.y;
+				body.setTextureRect(uvRect);
+				frame++;
+			}
+			break;
+		case SpecialType::CAGE:
+			if (!hasHit) {
+				body.setSize(size_cageAnim);
+				body.setScale(3.0f, 3.0f);
+				uvRect.left = 3.0f + (size_cageAnim.x + 2) * frame;
+				uvRect.top = 618.0f;
+				if (mirrored) uvRect.width = -size_cageAnim.x;
+				else uvRect.width = size_cageAnim.x;
+				uvRect.height = size_cageAnim.y;
+				body.setTextureRect(uvRect);
+
+				if (frame == maxFrames - 1) {
+					frame = 0;
+				}
+				else {
+					frame++;
+				}
+			}
+			else {
+				body.setSize(size_cageHit);
+				body.setScale(3.0f, 3.0f);
+				uvRect.left = 135.0f + (size_cageHit.x + 2) * frame;
+				uvRect.top = 584.0f;
+				if (mirrored) uvRect.width = -size_cageHit.x;
+				else uvRect.width = size_cageHit.x;
+				uvRect.height = size_cageHit.y;
 				body.setTextureRect(uvRect);
 				frame++;
 			}

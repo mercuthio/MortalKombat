@@ -698,7 +698,7 @@ void BattleManager::Update() {
 					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
 					break;
 				case CAGE:
-					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
+					player1Special.SpecialAttackAt(SpecialType::CAGE, pos, false);
 					break;
 			}
 			}
@@ -716,7 +716,7 @@ void BattleManager::Update() {
 					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
 					break;
 				case CAGE:
-					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
+					player1Special.SpecialAttackAt(SpecialType::CAGE, pos, true);
 					break;
 				}
 			}
@@ -739,7 +739,7 @@ void BattleManager::Update() {
 					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
 					break;
 				case CAGE:
-					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
+					player2Special.SpecialAttackAt(SpecialType::CAGE, pos, false);
 					break;
 				}
 			}
@@ -757,7 +757,7 @@ void BattleManager::Update() {
 					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
 					break;
 				case CAGE:
-					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
+					player2Special.SpecialAttackAt(SpecialType::CAGE, pos, true);
 					break;
 				}
 			}

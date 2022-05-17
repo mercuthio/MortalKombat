@@ -48,8 +48,8 @@ public:
 
 private:
 	Texture* spriteSheet = new Texture();
-	int totalFramesAnim[3] = { 2, 4, 2};
-	int totalFramesHit[3] = { 6, 1, 4 };
+	int totalFramesAnim[4] = { 2, 4, 2, 2 };
+	int totalFramesHit[4] = { 6, 1, 4, 4 };
 	LookingAt looking_at = LookingAt::RIGHT;
 	int frame = 0;
 	float initInternalTimer = 0.0;
@@ -73,6 +73,9 @@ private:
 
 	Vector2f size_sonyaAnim = Vector2f(41.0f, 35.0f);
 	Vector2f size_sonyaHit = Vector2f(43.0f, 129.0f);
+
+	Vector2f size_cageAnim = Vector2f(64.0f, 19.0f);
+	Vector2f size_cageHit = Vector2f(48.0f, 86.0f);
 
 };
 

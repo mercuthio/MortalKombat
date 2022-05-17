@@ -95,7 +95,8 @@ enum class BloodType {
 enum class SpecialType {
 	LIU_KANG,
 	SCORPION,
-	SONYA
+	SONYA,
+    CAGE
 };
 
 enum CharacterType {
