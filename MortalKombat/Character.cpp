@@ -18,6 +18,24 @@ Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _
 }
 
 void Character::Update(float tiempo, bool secondPlayer) {
+
+	if (looking_at == LookingAt::LEFT && player == 1) {
+		backButton = forwButton_aux;
+		forwButton = backButton_aux;
+	}
+	else if (looking_at == LookingAt::RIGHT && player == 1) {
+		backButton = backButton_aux;
+		forwButton = forwButton_aux;
+	}
+	else if (looking_at == LookingAt::LEFT && player == 2) {
+		backButtonP2 = forwButton_auxP2;
+		forwButtonP2 = backButton_auxP2;
+	}
+	else if (looking_at == LookingAt::RIGHT && player == 2) {
+		backButtonP2 = backButton_auxP2;
+		forwButtonP2 = forwButton_auxP2;
+	}
+
 	if (internalTimer >= updateTime) {
 
 
