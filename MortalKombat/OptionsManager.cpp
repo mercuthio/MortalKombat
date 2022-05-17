@@ -157,9 +157,6 @@ void OptionsManager::Right() {
 		else if (chosen_difficulty == DifficultyLevel::MEDIUM) {
 			chosen_difficulty = DifficultyLevel::HARD;
 		}
-		else {
-			chosen_difficulty = DifficultyLevel::EASY;
-		}
 		music.moveOptions();
 		break;
 	case 4:
@@ -198,13 +195,10 @@ void OptionsManager::Izquierda() {
 		}
 		break;
 	case 2: //DIFICULTAD
-		if (chosen_difficulty == DifficultyLevel::EASY) {
-			chosen_difficulty = DifficultyLevel::HARD;
-		}
-		else if (chosen_difficulty == DifficultyLevel::MEDIUM) {
+		if (chosen_difficulty == DifficultyLevel::MEDIUM) {
 			chosen_difficulty = DifficultyLevel::EASY;
 		}
-		else {
+		else if ((chosen_difficulty == DifficultyLevel::HARD)) {
 			chosen_difficulty = DifficultyLevel::MEDIUM;
 		}
 		music.moveOptions();
