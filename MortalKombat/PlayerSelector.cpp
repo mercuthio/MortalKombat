@@ -50,7 +50,6 @@ void PlayerSelector::LoadTextures() {
 		case 0:
 			uvRect.left = 904;
 			rect.setPosition(87.0f, 136.0f);
-			rect.setFillColor(Color::White);
 			break;
 		case 1:
 			uvRect.left = 904 + 64;
@@ -236,32 +235,39 @@ void PlayerSelector::MoveCursor(int x_, int y_, bool player1) {
 int PlayerSelector::ChoosenOption_int(bool player1) {
 
 	int charac = 0;
-	if (!player1 && ((x2 == 4 && y2 == 0) || (x2 == 2 && y2 == 1) || (x2 == 3 && y2 == 1))) {
+	if (!player1 && ((x2 == 4 && y2 == 0) || (x2 == 2 && y2 == 1) || (x2 == 3 && y2 == 1) || (x2 == 0 && y2 == 0))) {
 		choosen2 = true;
 
-		if (y2 == 0 && x2 < 2) {
-			charac = x2;
+		if (y2 == 0 && x2 == 4) {
+			charac = 6;
 		}
-		else if (y2 == 0) {
-			charac = x2 + 2;
+		else if (y2 == 0 && x2 == 0) {
+			charac = 0;
+		}
+		else if (y2 == 1 && x2 == 2) {
+			charac = 3;
 		}
 		else {
-			charac = x2 + 1;
+			charac = 4;
 		}
 
 		return  (CharacterType)charac;
 	}
 
-	if ((x == 4 && y == 0) || (x == 2 && y == 1) || (x == 3 && y == 1)) {
+	if ((x == 4 && y == 0) || (x == 2 && y == 1) || (x == 3 && y == 1) || (x == 0 && y == 0)) {
 		choosen1 = true;
-		if (y == 0 && x < 2) {
-			charac = x;
+
+		if (y == 0 && x == 4) {
+			charac = 6;
 		}
-		else if (y == 0) {
-			charac = x + 2;
+		else if (y == 0 && x == 0) {
+			charac = 0;
+		}
+		else if (y == 1 && x == 2) {
+			charac = 3;
 		}
 		else {
-			charac = x + 1;
+			charac = 4;
 		}
 		return (CharacterType)charac;
 	}
