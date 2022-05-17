@@ -200,6 +200,24 @@ static bool isFixedMovement(AnimationType anim) {
 		(anim != AnimationType::NUTS);
 }
 
+static bool isUpperDamage(AnimationType anim) {
+    return (anim == AnimationType::PUNCH) ||
+        (anim == AnimationType::PUNCH_MULTIPLE) ||
+        (anim == AnimationType::PUNCH_CLOSE) ||
+        (anim == AnimationType::PUNCH_UPPER) ||
+        (anim == AnimationType::PUNCH_UPPER_MULTIPLE) ||
+        (anim == AnimationType::PUNCH_UPPER_CLOSE) ||
+        (anim == AnimationType::PUNCH_FROM_DOWN) ||
+        (anim == AnimationType::PUNCH_FROM_AIR) ||
+        (anim == AnimationType::KICK) ||
+        (anim == AnimationType::KICK_UPPER) ||
+        (anim == AnimationType::KICK_HIGH) ||
+        (anim == AnimationType::KICK_FROM_AIR) ||
+        (anim == AnimationType::CATCH) ||
+        (anim == AnimationType::SPECIAL) ||
+        (anim == AnimationType::FATALITY);
+}
+
 static bool isBlockingMovement(AnimationType anim) {
 	return (anim == AnimationType::BLOCK || anim == AnimationType::BLOCK_LOW);
 }
@@ -278,10 +296,8 @@ static bool isAnyKeyPressed(int player) {
 
 static bool isLowHit(AnimationType animation) {
     return(
-        animation == AnimationType::PUNCH_FROM_DOWN ||
         animation == AnimationType::KICK_LOW ||
-        animation == AnimationType::KICK_FROM_DOWN ||
-        animation == AnimationType::NUTS
+        animation == AnimationType::KICK_FROM_DOWN
         );
 }
 

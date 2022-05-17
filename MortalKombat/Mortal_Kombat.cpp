@@ -38,7 +38,8 @@ View getLetterboxView(View view, int windowWidth, int windowHeight) {
     return view;
 }
 
-int WinMain() {
+//int WinMain(){
+int main() {
 
     RenderWindow window(VideoMode(width_window, height_window), "Mortal Kombat I", (sf::Style::Resize + sf::Style::Close));
 
@@ -74,7 +75,7 @@ int WinMain() {
     Text version;
     version.setFont(font);
     version.setFillColor(Color::White);
-    version.setString("Beta v0.5.5");
+    version.setString("v0.1");
     version.setCharacterSize(25);
     version.setPosition(Vector2f(30.0, height_window - 45.0));
 

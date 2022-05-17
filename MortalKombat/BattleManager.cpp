@@ -1048,18 +1048,35 @@ void BattleManager::CheckCollisions() {
 void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 	
 	if ((toPlayerTwo && player2.isBlocking())) {
-		life2 -= life_BLOCK;
-		player2.setSpeed(Vector2f(200, 0));
-		music.hitBlock();
-		player2.life = life2;
-		return;
+		if (player2.isCrouching()) {
+			life2 -= life_BLOCK;
+			player2.setSpeed(Vector2f(200, 0));
+			music.hitBlock();
+			player2.life = life2;
+			return;
+		}
+		else if (!player2.isCrouching() && isUpperDamage(anim)) {
+			life2 -= life_BLOCK;
+			player2.setSpeed(Vector2f(200, 0));
+			music.hitBlock();
+			player2.life = life2;
+			return;
+		}
 	}
 	else if (!toPlayerTwo && player1.isBlocking()) {
-		life1 -= life_BLOCK;
-		player1.setSpeed(Vector2f(200, 0));
-		music.hitBlock();
-		player1.life = life1;
-		return;
+		if (player1.isCrouching()) {
+			life1 -= life_BLOCK;
+			player1.setSpeed(Vector2f(200, 0));
+			music.hitBlock();
+			player1.life = life1;
+			return;
+		} else if (!player1.isCrouching() && isUpperDamage(anim)) {
+			life1 -= life_BLOCK;
+			player1.setSpeed(Vector2f(200, 0));
+			music.hitBlock();
+			player1.life = life1;
+			return;
+		}
 	}
 
 	bool crouching = false;

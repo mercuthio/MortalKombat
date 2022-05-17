@@ -448,7 +448,7 @@ void Character::CheckAnimation() {
 						music.hit8();
 					}
 					else {
-						animation_in_process = AnimationType::PUNCH;
+						animation_in_process = AnimationType::PUNCH_CLOSE;
 						music.hit7();
 					}
 
@@ -621,7 +621,7 @@ void Character::CheckAnimationP2() {
 						animation_in_process = AnimationType::PUNCH_MULTIPLE;
 					}
 					else {
-						animation_in_process = AnimationType::PUNCH;
+						animation_in_process = AnimationType::PUNCH_CLOSE;
 						music.hit6();
 					}
 
