@@ -132,6 +132,9 @@ private:
 	bool doing_animation = false;
 
 	bool isMale = false;
+	int damageDelay = 2;
+	int specialDelay = 0;
+	bool hacerBarrido = false;
 
 	bool sentFlag = false;
 	bool wantsShake = false;
@@ -141,6 +144,7 @@ private:
 	bool blocking = false;
 	bool fallen = false;
 	bool falling = false;
+
 	
 	bool wait_air = false;
 	bool fightKeyPressed = false;

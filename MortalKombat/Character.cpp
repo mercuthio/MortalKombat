@@ -37,7 +37,7 @@ void Character::Update(float tiempo, bool secondPlayer) {
 	}
 
 	if (internalTimer >= updateTime) {
-
+		specialDelay--;
 
 		internalTimer = 0.0f;
 		/*global_position = body.getPosition();
@@ -100,7 +100,7 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 void Character::CheckIAAnimation(Character opponent) {
 	ChangeIAState(opponent);
 	if (!falling && !dying) {
-		if (on_air && estado == EstadoIA::MODO_ATAQUE) {
+		if (on_air && estado == EstadoIA::MODO_ATAQUE && damageDelay < 0) {
 			animations[animation_in_process].animation.ResetAnimation();
 			int ataque = rand() % 2;
 			sentFlag = false;
@@ -182,8 +182,12 @@ void Character::CheckIAAnimation(Character opponent) {
 			case EstadoIA::MODO_ATAQUE:
 				
 				if (difficulty_lvl == DifficultyLevel::HARD) {
-					cout << "DIFICIL LOKO" << endl;
-					if (probabilidad > 99) {
+					if (hacerBarrido) {
+						hacerBarrido = false;
+						animation_in_process = AnimationType::KICK_LOW;
+						music.hit7();
+
+					}else if (probabilidad > 99) {
 						animation_in_process = AnimationType::SPECIAL;
 					}
 					else if (animOp == AnimationType::BLOCK) {						
@@ -258,14 +262,16 @@ void Character::CheckIAAnimation(Character opponent) {
 				}
 				break;
 
-			case EstadoIA::SOBREPASAR_IZQ:
-				speed = distanceBetween > 0 ? Vector2<float>(400, 1000) : Vector2<float>(-400, 1000);
+			case EstadoIA::SOBREPASAR_IZQ: // Estoy pegado a la izq, tengo que sobrepasarle
+				cout << "Sobrepaso izq" << endl;
+				speed = Vector2<float>(-400, 1000);
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
 				on_air = true;
 				break;
 
-			case EstadoIA::SOBREPASAR_DCHA:
-				speed = distanceBetween > 0 ? Vector2<float>(-400, 1000) : Vector2<float>(400, 1000);
+			case EstadoIA::SOBREPASAR_DCHA: // Estoy pegado a la izq, tengo que sobrepasarle
+				cout << "Sobrepaso dcha" << endl;
+				speed = Vector2<float>(-400, 1000);
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
 				on_air = true;
 				break;
@@ -275,6 +281,12 @@ void Character::CheckIAAnimation(Character opponent) {
 					blocking = true;
 					if (isLowHit(animOp) && animation_in_process == AnimationType::DOWN) {
 						animation_in_process = AnimationType::BLOCK_LOW;
+					}
+					else if (isLowHit(animOp)) {
+						animation_in_process = AnimationType::JUMP;
+						on_air = true;
+						speed = Vector2<float>(0, 1000);
+						hacerBarrido = true;
 					}
 					else {
 						animation_in_process = AnimationType::BLOCK;
@@ -307,7 +319,19 @@ void Character::ChangeIAState(Character opponent) {
 		AnimationType anim = opponent.getAnimation();
 		bool siendoAtacado = opponent.isAttaking();
 
-		if (siendoAtacado && difficulty_lvl != DifficultyLevel::EASY && distancia < 190) {
+		cout << "Posicion X: "  << global_position.x << endl;
+		cout << "Right Limit: " << screenRightLimit << " - Left Limit: " << screenLeftLimit << endl;
+		cout << "Hard Right Limit: " << screenRightHardLimit << " - Hard Left Limit: " << screenLeftHardLimit <<  endl;
+		cout << "totalMoveXBack: " << totalMoveXBack << endl;
+		cout << endl;
+
+		if (global_position.x + 30 > screenRightLimit && totalMoveXBack + 30 > screenRightHardLimit) {
+			estado = EstadoIA::SOBREPASAR_DCHA;
+		}
+		else if (global_position.x - 30 < screenLeftLimit && totalMoveXBack - 30 < screenLeftHardLimit) {
+			estado = EstadoIA::SOBREPASAR_IZQ;
+		}
+		else if (siendoAtacado && difficulty_lvl != DifficultyLevel::EASY && distancia < 190) {
 			ia_crouch_counter = 7;
 			if (Difficulty[difficulty_lvl] > probabilidad) {
 				estado = EstadoIA::MODO_DEFENSA;
@@ -359,7 +383,7 @@ void Character::CheckAnimation() {
 		}
 	}
 	if (!falling && !dying) {
-		if (on_air && air_attack_permitted) {		// El personaje está en el aire
+		if (on_air && air_attack_permitted && damageDelay < 0) {		// El personaje está en el aire
 			if (Keyboard::isKeyPressed(punchButton)) {
 
 				EndAndResetAnimation();
@@ -507,7 +531,8 @@ void Character::CheckAnimation() {
 				punching = true;
 				fightKeyPressed = true;
 			}
-			else if (Keyboard::isKeyPressed(specialButton)) {		//L.Kick, M.Kick en parado
+			else if (Keyboard::isKeyPressed(specialButton) && specialDelay < 0) {		//L.Kick, M.Kick en parado
+				specialDelay = 30;
 				animation_in_process = AnimationType::SPECIAL;
 			}
 			else if (Keyboard::isKeyPressed(blockButton)) {												//H.Kick en parado
@@ -535,8 +560,8 @@ void Character::CheckAnimationP2() {
 			fightKeyPressed = false;
 		}
 	}
-	else if (!falling && !dying) {
-		if (on_air && air_attack_permitted) {					// El personaje está en el aire
+	else if (!falling && !dying ) {
+		if (on_air && air_attack_permitted && damageDelay < 0) {					// El personaje está en el aire
 			if (Keyboard::isKeyPressed(punchButton2P2)) {
 
 				EndAndResetAnimation();
@@ -683,7 +708,8 @@ void Character::CheckAnimationP2() {
 				punching = true;
 				fightKeyPressed = true;
 			}
-			else if (Keyboard::isKeyPressed(specialButtonP2)) {		//L.Kick, M.Kick en parado
+			else if (Keyboard::isKeyPressed(specialButtonP2) && specialDelay < 0) {		//L.Kick, M.Kick en parado
+				specialDelay = 30;
 				animation_in_process = AnimationType::SPECIAL;
 			}
 			else if (Keyboard::isKeyPressed(blockButtonP2)) {												//H.Kick en parado
@@ -783,7 +809,7 @@ bool Character::CheckScreenCollisions(float movement) {
 	}
 
 	if (global_position.y > screenFloorLimit) {
-
+		damageDelay = 2;
 		if (animation_in_process == AnimationType::FALL || animation_in_process == AnimationType::FALL_BACK
 			|| animation_in_process == AnimationType::FALL_UPPERCUT) wantsShake = true;
 		on_air = false;
@@ -807,6 +833,10 @@ bool Character::CheckScreenCollisions(float movement) {
 void Character::DoAnimation() {
 	doing_animation = true;
 	bool finished = false;
+
+	if (on_air) {
+		damageDelay--;
+	}
 
 	if (animation_in_process == AnimationType::WIN) {
 		speed = { 0, 0 };
