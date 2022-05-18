@@ -52,6 +52,7 @@ void EventManager::Update(Event event) {
 			if (state == 3) { character1 = (CharacterType)0; character2 = (CharacterType)0; PlayerSelector_duel.Restart(); music.selectorTheme(); }
 			if (state == 4) OptionsManager.Update();
 			if (state == 5) exit(0);
+
 			break;
 
 		}
@@ -80,33 +81,32 @@ void EventManager::Update(Event event) {
 			break;
 
 		case Keyboard::Enter:
-			if (character1 != PlayerSelector_hist.ChoosenOption(true)) {
-				character1 = PlayerSelector_hist.ChoosenOption(true);
+			character1 = PlayerSelector_hist.ChoosenOption(true);
 
-				switch (character1)
-				{
-				case CAGE:
-					music.JhonnyCage();
-					break;
-				case LIU_KANG:
-					music.LiuKang();
-					break;
-				case SCORPION:
-					music.Scorpion();
-					break;
-				case SONYA:
-					music.SonyaBlade();
-					break;
-				}
-
-				stage = (background)(rand() % 5);
-				BattleManager.RestartCombat(character1, character2, stage, false);
-				BattleManager.Restart();
-
-				HistoryManager.Restart(character1);
-
-				changedEstate = true;
+			switch (character1)
+			{
+			case CAGE:
+				music.JhonnyCage();
+				break;
+			case LIU_KANG:
+				music.LiuKang();
+				break;
+			case SCORPION:
+				music.Scorpion();
+				break;
+			case SONYA:
+				music.SonyaBlade();
+				break;
 			}
+
+			stage = (background)(rand() % 5);
+			BattleManager.RestartCombat(character1, character2, stage, false);
+			BattleManager.Restart();
+
+			HistoryManager.Restart(character1);
+
+			changedEstate = true;
+			
 			break;
 
 		case Keyboard::Escape:

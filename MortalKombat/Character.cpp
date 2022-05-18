@@ -949,8 +949,8 @@ void Character::GetHit() {
 }
 
 void Character::debugDraw(RenderWindow& window) {
-	//window.draw(hitbox);	//Para debug
-	//window.draw(damage_hitbox);	//Para debug
+	window.draw(hitbox);	//Para debug
+	window.draw(damage_hitbox);	//Para debug
 	window.draw(shadow);
 	window.draw(body);
 }

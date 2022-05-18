@@ -22,8 +22,8 @@ void HistoryManager::LoadTextures() {
 
 	Vector2f size_backg = Vector2f(width_window, height_window);
 	Vector2f size_title = Vector2f(321, 63);
-	Vector2f size_icon = Vector2f(66,113);
-	Vector2f size_my_icon = Vector2f(79, 127);
+	Vector2f size_icon = Vector2f(66,86);
+	Vector2f size_my_icon = Vector2f(80, 100);
 	Vector2f size_name = Vector2f(254,56);
 
 	IntRect uvRect;
@@ -33,8 +33,8 @@ void HistoryManager::LoadTextures() {
 	rect.setScale(1.0f, 1.0f);
 
 	//Fondo 0
-	uvRect.width = 400.0f;
-	uvRect.height = 216.0f;
+	uvRect.width = 399.0f;
+	uvRect.height = 277.0f;
 	uvRect.left = 505;
 	uvRect.top = 773;
 	rect.setSize(size_backg);
@@ -51,10 +51,10 @@ void HistoryManager::LoadTextures() {
 
 	rect.setTextureRect(uvRect);
 	rect.setSize(size_title);
-	rect.setPosition(315.0f, 45.0f);
+	rect.setPosition(315.0f, 17.0f);
 	Objects.push_back(rect);
 
-	//Textos combates simple 2-4
+	//Textos combates simple 2-5
 	uvRect.width = 70.0f;
 	uvRect.height = 16.0f;
 
@@ -94,12 +94,12 @@ void HistoryManager::LoadTextures() {
 		}
 		rect.setTextureRect(uvRect);
 		rect.setSize(size_name);
-		rect.setPosition(542,215 + 166*i);
+		rect.setPosition(542,155 + 134*i);
 		Objects.push_back(rect);
 
 	}
 
-	//Iconos combates simples 5-7 
+	//Iconos combates simples 6-9 
 	uvRect.width = 26.0f;
 	uvRect.height = 32.0f;
 	uvRect.top = 789;
@@ -108,25 +108,25 @@ void HistoryManager::LoadTextures() {
 		uvRect.left = characters[i] * 31 + 923;
 		rect.setTextureRect(uvRect);
 		rect.setSize(size_icon);
-		rect.setPosition(380,182 + 167*i);
+		rect.setPosition(380,143 + 131*i);
 		Objects.push_back(rect);
 	}
 
-	//Icono personaje 8
+	//Icono personaje 10
 	uvRect.left = character * 31 + 923;
 	rect.setTextureRect(uvRect);
 	rect.setSize(size_my_icon);
-	rect.setPosition(252, 175 + 167 * ((NUM_CHARS - actual_combat) - 1));
+	rect.setPosition(252, 137 + 131 * ((NUM_CHARS - actual_combat) - 1));
 	Objects.push_back(rect);
 
-	//Marco personaje 9
+	//Marco personaje 11
 	uvRect.width = 31.0f;
 	uvRect.height = 36.0f;
 	uvRect.top = 787;
 	uvRect.left = 1143.0f;
 	rect.setTextureRect(uvRect);
 	rect.setSize(size_my_icon);
-	rect.setPosition(252, 175 + 167 * ((NUM_CHARS - actual_combat) - 1));
+	rect.setPosition(252, 137 + 131 * ((NUM_CHARS - actual_combat) - 1));
 	Objects.push_back(rect);
 
 }
@@ -174,7 +174,7 @@ void HistoryManager::GetCharacters() {
 	int i = 0;
 
 	while (i < NUM_CHARS) {			//Randomizar personajes simples
-		character = rand() % 3;
+		character = rand() % 4;
 		for (int e = 0; e < NUM_CHARS; e++) {
 			if (characters[e] == character) {
 				encontrado = true;
@@ -190,7 +190,6 @@ void HistoryManager::GetCharacters() {
 	}
 
 	for (int e = 0; e < NUM_CHARS; e++) {
-		if (characters[e] == 0) characters[e] = 3;
 		if (characters[e] == 1) characters[e] = 4;
 		if (characters[e] == 2) characters[e] = 6;
 	}
@@ -225,11 +224,10 @@ void HistoryManager::Update() {
 		uvRect.width = 126.0f;
 		uvRect.height = 18.0f;
 		uvRect.top = 765;
-
+		
 		if (title_color) uvRect.left = 1049;
 		else uvRect.left = 921;
 		
-
 		Objects[1].setTextureRect(uvRect);
 
 		uvRect.width = 31.0f;
@@ -239,7 +237,7 @@ void HistoryManager::Update() {
 		if (title_color) uvRect.left = 1143;
 		else uvRect.left = 1179;
 
-		Objects[9].setTextureRect(uvRect);
+		Objects[11].setTextureRect(uvRect);
 
 	}
 
@@ -247,14 +245,14 @@ void HistoryManager::Update() {
 		
 		clock_move = 0;
 
-		float x = Objects[8].getPosition().x;
-		float y = Objects[8].getPosition().y;
+		float x = Objects[10].getPosition().x;
+		float y = Objects[10].getPosition().y;
 
-		if (y > 175 + 167 * ((NUM_CHARS - actual_combat) - 1)) y -= 3;
+		if (y > 137 + 131 * ((NUM_CHARS - actual_combat) - 1)) y -= 3;
 		else moving = false;
 
-		Objects[8].setPosition(x,y);
-		Objects[9].setPosition(x, y);
+		Objects[10].setPosition(x,y);
+		Objects[11].setPosition(x, y);
 
 	}
 
@@ -271,7 +269,7 @@ void HistoryManager::Update() {
 		uvRect.top = 787;
 		uvRect.left = 1215;
 
-		Objects[9].setTextureRect(uvRect);
+		Objects[11].setTextureRect(uvRect);
 
 		uvRect.width = 126.0f;
 		uvRect.height = 18.0f;

@@ -27,6 +27,10 @@ void FinishManager::LoadTextures() {
 	uvRect.height = 254;
 
 	switch (character) {
+	case 0:	//Jhonny Cage
+		uvRect.left = 5;
+		uvRect.top = 5;
+		break;
 	case 3:	//Liu Kang
 		uvRect.left = 812;
 		uvRect.top = 264;

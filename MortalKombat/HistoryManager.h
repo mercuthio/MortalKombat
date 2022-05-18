@@ -8,7 +8,7 @@
 using namespace sf;
 using namespace std;
 
-const int NUM_CHARS = 3;
+const int NUM_CHARS = 4;
 
 
 class HistoryManager {
