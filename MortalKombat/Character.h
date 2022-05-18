@@ -23,7 +23,9 @@ using namespace std;
 class Character {
 public:
 	Character() = default;
-	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, map<AnimationType, vector<RectangleShape>> damage_hitboxes_, bool male);
+	Character(map<AnimationType, Movement> _animations, RectangleShape & _body, 
+		RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, map<AnimationType, vector<RectangleShape>> damage_hitboxes_, 
+		bool male, bool _hasSpecial);
 	//~Character() = delete;
 
 	void fullReset();
@@ -133,6 +135,7 @@ private:
 
 	bool isMale = false;
 	int damageDelay = 2;
+	int hitDelay = 0;
 	int specialDelay = 0;
 	bool hacerBarrido = false;
 
@@ -144,6 +147,7 @@ private:
 	bool blocking = false;
 	bool fallen = false;
 	bool falling = false;
+	bool hasSpecial = false;
 
 	
 	bool wait_air = false;

@@ -6,7 +6,8 @@ float moveYBack;
 float totalMoveXBack = 0;
 
 
-Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, RectangleShape& _shadow, map<AnimationType, vector<RectangleShape>> hitboxes_, map<AnimationType, vector<RectangleShape>> damage_hitboxes_, bool male) {
+Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _body, RectangleShape& _shadow, map<AnimationType, 
+	vector<RectangleShape>> hitboxes_, map<AnimationType, vector<RectangleShape>> damage_hitboxes_, bool male, bool _hasSpecial) {
 	srand(time(NULL));
 	body = _body;
 	shadow = _shadow;
@@ -14,6 +15,7 @@ Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _
 	animations = _animations;
 	hitboxes = hitboxes_;
 	isMale = male;
+	hasSpecial = _hasSpecial;
 	damage_hitboxes = damage_hitboxes_;	
 }
 
@@ -38,6 +40,7 @@ void Character::Update(float tiempo, bool secondPlayer) {
 
 	if (internalTimer >= updateTime) {
 		specialDelay--;
+		hitDelay--;
 
 		internalTimer = 0.0f;
 		/*global_position = body.getPosition();
@@ -374,9 +377,6 @@ void Character::initPosition(Vector2<float> initPos) {
 }
 
 void Character::CheckAnimation() {
-
-	//CheckDebugAnimations();
-
 	if (fightKeyPressed) {
 		if (!isAnyFightKeyPressed(player)) {
 			fightKeyPressed = false;
@@ -384,15 +384,16 @@ void Character::CheckAnimation() {
 	}
 	if (!falling && !dying) {
 		if (on_air && air_attack_permitted && damageDelay < 0) {		// El personaje está en el aire
-			if (Keyboard::isKeyPressed(punchButton)) {
-
+			if (Keyboard::isKeyPressed(punchButton) && hitDelay < 0) {
 				EndAndResetAnimation();
+				hitDelay = 20;
 				animation_in_process = AnimationType::PUNCH_FROM_AIR;
 				music.hit6();
 				air_attack_permitted = false;
 			}
-			else if (Keyboard::isKeyPressed(kickButton)) {
+			else if (Keyboard::isKeyPressed(kickButton) && hitDelay < 0) {
 				EndAndResetAnimation();
+				hitDelay = 20;
 				animation_in_process = AnimationType::KICK_FROM_AIR;
 				music.hit8();
 				air_attack_permitted = false;
@@ -407,13 +408,15 @@ void Character::CheckAnimation() {
 			}
 		}
 		else if (crouching) {			// El personaje está agachado
-			if (!fightKeyPressed && Keyboard::isKeyPressed(punchButton) && animation_in_process != AnimationType::PUNCH_FROM_DOWN) {
+			if (!fightKeyPressed && Keyboard::isKeyPressed(punchButton) && animation_in_process != AnimationType::PUNCH_FROM_DOWN && hitDelay < 0) {
 				animations[animation_in_process].animation.ResetAnimation();
+				hitDelay = 20;
 				animation_in_process = AnimationType::PUNCH_FROM_DOWN;
 				music.hit7();
 				fightKeyPressed = true;
 			}
-			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButton)) {
+			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButton) && hitDelay < 0) {
+				hitDelay = 20;
 				animation_in_process = AnimationType::KICK_FROM_DOWN;
 				music.hit6();
 				fightKeyPressed = true;
@@ -452,6 +455,10 @@ void Character::CheckAnimation() {
 					music.doubleJump();
 					speed = Vector2<float>(-400, 1000);
 					on_air = true;
+				}
+				else if (hasSpecial && Keyboard::isKeyPressed(backButton) && Keyboard::isKeyPressed(punchButton) && specialDelay < 0) {		//L.Kick, M.Kick en parado
+					specialDelay = 30;
+					animation_in_process = AnimationType::SPECIAL;
 				}
 				else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButton)) {											//L.Punch hacia delante
 					if (Keyboard::isKeyPressed(punchButton2)) {
@@ -531,10 +538,6 @@ void Character::CheckAnimation() {
 				punching = true;
 				fightKeyPressed = true;
 			}
-			else if (Keyboard::isKeyPressed(specialButton) && specialDelay < 0) {		//L.Kick, M.Kick en parado
-				specialDelay = 30;
-				animation_in_process = AnimationType::SPECIAL;
-			}
 			else if (Keyboard::isKeyPressed(blockButton)) {												//H.Kick en parado
 				animation_in_process = AnimationType::BLOCK;
 				blocking = true;
@@ -542,10 +545,6 @@ void Character::CheckAnimation() {
 			else if (Keyboard::isKeyPressed(grabButton)) {
 				animation_in_process = AnimationType::CATCH;
 			}
-		} else if (Keyboard::isKeyPressed(punchButton) && Keyboard::isKeyPressed(backButton) && Keyboard::isKeyPressed(forwButton)) {
-			animation_in_process = AnimationType::SPECIAL_JUMP;
-			characterJump01(isMale);
-			speed = Vector2<float>(600, 0);
 		}
 	}
 	
@@ -562,15 +561,16 @@ void Character::CheckAnimationP2() {
 	}
 	else if (!falling && !dying ) {
 		if (on_air && air_attack_permitted && damageDelay < 0) {					// El personaje está en el aire
-			if (Keyboard::isKeyPressed(punchButton2P2)) {
-
+			if (Keyboard::isKeyPressed(punchButton2P2) && hitDelay < 0) {
 				EndAndResetAnimation();
+				hitDelay = 20;
 				animation_in_process = AnimationType::PUNCH_FROM_AIR;
 				music.hit6();
 				air_attack_permitted = false;
 			}
-			else if (Keyboard::isKeyPressed(kickButtonP2)) {
+			else if (Keyboard::isKeyPressed(kickButtonP2) && hitDelay < 0) {
 				EndAndResetAnimation();
+				hitDelay = 20;
 				animation_in_process = AnimationType::KICK_FROM_AIR;
 				music.hit7();
 				air_attack_permitted = false;
@@ -584,13 +584,15 @@ void Character::CheckAnimationP2() {
 			}
 		}
 		else if (crouching) {			// El personaje está agachado
-			if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2) && animation_in_process != AnimationType::PUNCH_FROM_DOWN) {
+			if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2) && animation_in_process != AnimationType::PUNCH_FROM_DOWN && hitDelay < 0) {
 				animations[animation_in_process].animation.ResetAnimation();
+				hitDelay = 20;
 				animation_in_process = AnimationType::PUNCH_FROM_DOWN;
 				music.hit8();
 				fightKeyPressed = true;
 			}
-			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2)) {
+			else if (!fightKeyPressed && Keyboard::isKeyPressed(kickButtonP2) && hitDelay < 0) {
+				hitDelay = 20;
 				animation_in_process = AnimationType::KICK_FROM_DOWN;
 				music.hit7();
 				fightKeyPressed = true;
@@ -629,6 +631,9 @@ void Character::CheckAnimationP2() {
 					music.doubleJump();
 					speed = Vector2<float>(-400, 1000);
 					on_air = true;
+				} else if (hasSpecial && Keyboard::isKeyPressed(backButtonP2) && Keyboard::isKeyPressed(punchButtonP2) && specialDelay < 0) {		//L.Kick, M.Kick en parado
+					specialDelay = 30;
+					animation_in_process = AnimationType::SPECIAL;
 				}
 				else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2)) {											//L.Punch hacia delante
 					if (Keyboard::isKeyPressed(punchButton2P2)) {
@@ -707,10 +712,6 @@ void Character::CheckAnimationP2() {
 
 				punching = true;
 				fightKeyPressed = true;
-			}
-			else if (Keyboard::isKeyPressed(specialButtonP2) && specialDelay < 0) {		//L.Kick, M.Kick en parado
-				specialDelay = 30;
-				animation_in_process = AnimationType::SPECIAL;
 			}
 			else if (Keyboard::isKeyPressed(blockButtonP2)) {												//H.Kick en parado
 				animation_in_process = AnimationType::BLOCK;
@@ -979,8 +980,8 @@ void Character::GetHit() {
 }
 
 void Character::debugDraw(RenderWindow& window) {
-	window.draw(hitbox);	//Para debug
-	window.draw(damage_hitbox);	//Para debug
+	//window.draw(hitbox);	//Para debug
+	//window.draw(damage_hitbox);	//Para debug
 	window.draw(shadow);
 	window.draw(body);
 }

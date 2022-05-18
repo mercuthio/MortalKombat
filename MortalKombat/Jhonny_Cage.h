@@ -604,7 +604,7 @@ static Character CreateJhonnyCage() {
 	RectangleShape specialAtt = RectangleShape(Vector2<float>(68, 11));
 	specialAtt.setSize(Vector2f(68 * 3, 11 * 3));
 
-	Character JhonnyCage = Character(animations, body, shadow, hitboxes, damage_hitboxes, true);
+	Character JhonnyCage = Character(animations, body, shadow, hitboxes, damage_hitboxes, true, true);
 
 	return JhonnyCage;
 }

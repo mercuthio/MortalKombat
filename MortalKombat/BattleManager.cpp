@@ -792,7 +792,7 @@ void BattleManager::Update() {
 			clapping = true;
 		}
 
-		if (!finishedFinishHim && !inFinishHim && clock_finishRound >= 500) {			//Terminado periodo de gracia
+		if (!finishedFinishHim && !inFinishHim && clock_finishRound >= 480) {			//Terminado periodo de gracia
 			showing_win = false;
 			clock_finishRound = 0;
 			finishing1 = false;
@@ -857,9 +857,12 @@ void BattleManager::Update() {
 			player1.setFreeze(true);
 			player2.setFreeze(true);
 
+			music.clapsPublic();
+			clapping = true;
+
 		}
 
-		if (waitingToEnd && clock_finishRound >= 500) {	//Acabar partida
+		if (waitingToEnd && clock_finishRound >= 480) {	//Acabar partida
 			clock_finishRound = 0;
 			waitingToEnd = false;
 			finished_game = true;
@@ -1063,10 +1066,15 @@ void BattleManager::CheckCollisions() {
 
 	if (player1Special.body.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds()) && !player1Special.isFinished() && !player1Special.getHasHit()) {
 		player1Special.setHit();
+		bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
+		if (inFinishHim && finishing1 && clock_finishRound > 5) { P1WinnedPose = true; }			//El jugador 1 golpea en finish him
+
 		ProcessHit(AnimationType::SPECIAL, true);
 	}
 	if (player2Special.body.getGlobalBounds().intersects(player1.hitbox.getGlobalBounds()) && !player2Special.isFinished() && !player2Special.getHasHit()) {
 		player2Special.setHit();
+		bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
+		if (inFinishHim && finishing2 && clock_finishRound > 5) { P2WinnedPose = true; }
 		ProcessHit(AnimationType::SPECIAL, false);
 	}
 

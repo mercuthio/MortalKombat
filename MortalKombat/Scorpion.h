@@ -595,7 +595,7 @@ static Character CreateScorpion() {
 	RectangleShape specialAtt = RectangleShape(Vector2<float>(68, 11));
 	specialAtt.setSize(Vector2f(68 * 3, 11 * 3));
 
-	Character Scorpion = Character(animations, body, shadow, hitboxes, damage_hitboxes, true);
+	Character Scorpion = Character(animations, body, shadow, hitboxes, damage_hitboxes, true, false);
 
 	return Scorpion;
 }
