@@ -64,7 +64,7 @@ bool Animation::DoAnimation(RectangleShape& body, RectangleShape& shadow, Rectan
 		hitbox.setPosition(globalPosition.x + position_x, globalPosition.y + position_y);
 
 		position_x = damage_hitbox_positions_X[frame_number - 1];
-		position_x = body.getSize().x - (position_x + hitbox.getSize().x);
+		position_x = body.getSize().x - (position_x + damage_hitbox.getSize().x);
 		position_y = damage_hitbox_positions_Y[frame_number - 1];
 		damage_hitbox.setPosition(globalPosition.x + position_x, globalPosition.y + position_y);
 
