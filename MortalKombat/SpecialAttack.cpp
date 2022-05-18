@@ -37,8 +37,8 @@ void SpecialAttack::Update() {
 		maxInitTimer = 0.10f;
 		break;
 	case SpecialType::CAGE:
-		midTimer = 0.33f;
 		maxInitTimer = 0.25f;
+		midTimer = 0.17f;
 		break;
 	default:
 		break;
@@ -46,18 +46,20 @@ void SpecialAttack::Update() {
 
 
 	if (!finished) {
-		cout << "Animation" << endl;
-		cout << "Started: " << started << endl;
-		cout << "Finished: " << finished << endl;
-		cout << "------------------------------------" << endl;
+		//cout << "Animation" << endl;
+		//cout << "Started: " << started << endl;
+		//cout << "Finished: " << finished << endl;
+		//cout << "------------------------------------" << endl;
 		if (initInternalTimer >= maxInitTimer) {
 			if (internalTimer >= 0.05f) {
 				internalTimer = 0.0f;
 
-				if ((looking_at == LookingAt::RIGHT && body.getPosition().x >= screenRightHardLimit)
-					|| (looking_at == LookingAt::LEFT && body.getPosition().x - body.getSize().x <= screenLeftHardLimit)) {
+				if ((looking_at == LookingAt::RIGHT && body.getPosition().x >= 1000)
+					|| (looking_at == LookingAt::LEFT && body.getPosition().x - body.getSize().x <= 1000)) {
 					if (looking_at == LookingAt::RIGHT) {
 						cout << "CIAO ============================= RIGHT" << endl;
+						cout << "Pos: " << body.getPosition().x << endl;
+						cout << "Limit: " << 1000 << endl;
 					} else if (looking_at == LookingAt::LEFT) {
 						cout << "CIAO ============================= LEFT" << endl;
 					}
@@ -89,6 +91,9 @@ void SpecialAttack::Update() {
 			cout << "timer" << endl;
 			switch (animationInProgress)
 			{
+			case SpecialType::CAGE:
+				music.liuKangSpecial01();
+				break;
 			case SpecialType::LIU_KANG:
 				music.liuKangSpecial01();
 				break;
@@ -97,9 +102,6 @@ void SpecialAttack::Update() {
 				break;
 			case SpecialType::SONYA:
 				music.sonyaSpecial01();
-				break;
-			case SpecialType::CAGE:
-				music.liuKangSpecial01();
 				break;
 			default:
 				break;

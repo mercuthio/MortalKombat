@@ -1629,6 +1629,9 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 			case SONYA:
 				music.sonyaSpecial02();
 				break;
+			case CAGE:
+				music.liuKangSpecial02();
+				break;
 			default:
 				break;
 			}
@@ -1657,6 +1660,9 @@ void BattleManager::ProcessHit(AnimationType anim, bool toPlayerTwo) {
 				break;
 			case SONYA:
 				music.sonyaSpecial02();
+				break;
+			case CAGE:
+				music.liuKangSpecial02();
 				break;
 			default:
 				break;
