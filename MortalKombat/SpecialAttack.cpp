@@ -46,34 +46,20 @@ void SpecialAttack::Update() {
 
 
 	if (!finished) {
-		//cout << "Animation" << endl;
-		//cout << "Started: " << started << endl;
-		//cout << "Finished: " << finished << endl;
-		//cout << "------------------------------------" << endl;
 		if (initInternalTimer >= maxInitTimer) {
 			if (internalTimer >= 0.05f) {
 				internalTimer = 0.0f;
 
-				if ((looking_at == LookingAt::RIGHT && body.getPosition().x >= 1000)
-					|| (looking_at == LookingAt::LEFT && body.getPosition().x - body.getSize().x <= 1000)) {
-					if (looking_at == LookingAt::RIGHT) {
-						cout << "CIAO ============================= RIGHT" << endl;
-						cout << "Pos: " << body.getPosition().x << endl;
-						cout << "Limit: " << 1000 << endl;
-					} else if (looking_at == LookingAt::LEFT) {
-						cout << "CIAO ============================= LEFT" << endl;
-					}
-					else {
-						cout << "CIAO ============================= NONE" << endl;
-					}
+				if ((looking_at == LookingAt::RIGHT && body.getPosition().x >= screenRightLimit + 250)
+					|| (looking_at == LookingAt::LEFT && body.getPosition().x - body.getSize().x <= screenLeftLimit - 250)) {
 					resetSpecial();
 				}
 				else {
 					if (!hasHit) {
 						float posX = body.getPosition().x;
 						float posY = body.getPosition().y;
-						if (mirrored) body.setPosition(Vector2f(posX - 60, posY));
-						else body.setPosition(Vector2f(posX + 60, posY));
+						if (mirrored) body.setPosition(Vector2f(posX - 50, posY));
+						else body.setPosition(Vector2f(posX + 50, posY));
 					}
 					else {
 						body.setPosition(Vector2f(body.getPosition().x, initY - 50*3));
@@ -88,7 +74,6 @@ void SpecialAttack::Update() {
 			}
 		}
 		else if (initInternalTimer == midTimer) {
-			cout << "timer" << endl;
 			switch (animationInProgress)
 			{
 			case SpecialType::CAGE:
@@ -116,7 +101,6 @@ void SpecialAttack::Update() {
 
 void SpecialAttack::SpecialAttackAt(SpecialType type, Vector2f position, bool _mirrored) {
 	if (!started && finished) {
-		cout << "NEW ATTACK" << endl << endl << endl << endl << endl << endl;
 		animationInProgress = type;
 		body.setPosition(position);
 		switch (type)
@@ -285,7 +269,6 @@ bool SpecialAttack::SpecialAttackAnimation() {
 
 void SpecialAttack::draw(RenderWindow& window) {
 	if (started && !finished) {
-		cout << "Draw" << endl;
 		window.draw(body);
 	}
 }

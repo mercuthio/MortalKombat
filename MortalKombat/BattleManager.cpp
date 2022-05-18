@@ -744,7 +744,8 @@ void BattleManager::Update() {
 				}
 			}
 			else {
-				Vector2f pos = Vector2f(player1.getPosition().x + 75, player1.getPosition().y + 205);
+				Vector2f pos = Vector2f(player2.getPosition().x + 75, player2.getPosition().y + 205);
+				cout << pos.x << endl;
 				switch (character2)
 				{
 				case LIU_KANG:
