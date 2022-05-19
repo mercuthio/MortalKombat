@@ -131,6 +131,7 @@ private:
 
 	int freezeTimer = 0;
 	int ia_crouch_counter = 7;
+	int ia_special_counter = 10;
 	bool doing_animation = false;
 
 	bool isMale = false;

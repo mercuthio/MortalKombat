@@ -157,7 +157,7 @@ void Character::CheckIAAnimation(Character opponent) {
 			music.hit7();
 			estado = EstadoIA::ALEJARSE;
 		}
-		else if (animation_in_process == AnimationType::DOWN && estado != EstadoIA::PREPAR_AGACHADO) {
+		else if (animation_in_process == AnimationType::DOWN && estado != EstadoIA::PREPAR_AGACHADO && estado != EstadoIA::DEFENSA_SPECIAL) {
 			if (!sentFlag) {
 				animations[animation_in_process].animation.RecieveFlagEvent();
 			}
@@ -349,6 +349,10 @@ void Character::CheckIAAnimation(Character opponent) {
 					animation_in_process = AnimationType::DOWN;
 				}
 				break;
+			case EstadoIA::DEFENSA_SPECIAL:
+				crouching = true;
+				animation_in_process = AnimationType::DOWN;
+				break;
 			}
 					
 		}
@@ -360,6 +364,12 @@ void Character::ChangeIAState(Character opponent) {
 	// Cambiamos de estado
 	if (estado == EstadoIA::PREPAR_ATAQUE) {
 		estado = EstadoIA::MODO_ATAQUE;
+	}
+	else if (estado == EstadoIA::DEFENSA_SPECIAL) {
+		ia_special_counter--;
+		if (ia_special_counter == 0) {
+			estado = EstadoIA::ACERCARSE;
+		}
 	}
 	else {
 		int probabilidad = rand() % 100; // entre 0 y 99 (inclusive)
@@ -389,8 +399,11 @@ void Character::ChangeIAState(Character opponent) {
 			else {
 				estado = EstadoIA::IDLE;
 			}
-		} else if (difficulty_lvl != DifficultyLevel::EASY && anim == AnimationType::SPECIAL && distancia < 350) {
-			estado = EstadoIA::PREPAR_AGACHADO;
+		} else if (anim == AnimationType::SPECIAL) {
+			if (Difficulty[difficulty_lvl] > probabilidad) {
+				estado = EstadoIA::DEFENSA_SPECIAL;
+				ia_special_counter = 18;
+			}
 		}
 		else if (difficulty_lvl != DifficultyLevel::EASY && anim == AnimationType::DOWN && distancia < 170) {
 			estado = EstadoIA::PREPAR_AGACHADO;
