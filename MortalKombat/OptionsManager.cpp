@@ -2,6 +2,8 @@
 #include "MenuManager.h"
 
 DifficultyLevel chosen_difficulty = DifficultyLevel::MEDIUM;
+bool noHitMode = false;
+bool noBlockMode = false;
 
 OptionsManager::OptionsManager(Texture* texture, Font font_) {
 
@@ -20,6 +22,7 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	musicVolume = 3;
 	effects = 3;
 	speed_game = 1;
+	num_mode = 0;
 
 	for (int i = 0; i < MAX_MUSIC; i++) {
 		musi[i].setSize(Vector2f(15, CHAR_SIZE));
@@ -34,6 +37,7 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	text[2].setString("DIFFICULTY");
 	text[3].setString("CONTROLS");
 	text[4].setString("GAME SPEED");
+	text[5].setString("STORY MODE");
 
 	for (int i = 0; i <= NUM_OPTIONS_OPT; i++) {
 		text[i].setFont(font);
@@ -42,6 +46,10 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 		shadow[i] = text[i];
 		shadow[i].setFillColor(Color::Black);
 	}
+
+	mode.setFont(font);
+	mode.setFillColor(Color::White);
+	mode.setCharacterSize(CHAR_SIZE);
 
 	speed.setFont(font);
 	speed.setFillColor(Color::White);
@@ -130,6 +138,16 @@ void OptionsManager::Update() {
 		speed.setString("SLOW");
 	}
 
+	if (num_mode == 2) {
+		mode.setString("NO HIT");
+	}
+	else if (num_mode == 1) {
+		mode.setString("NO BLOCK");
+	}
+	else {
+		mode.setString("NONE");
+	}
+
 }
 
 void OptionsManager::Right() {
@@ -162,6 +180,19 @@ void OptionsManager::Right() {
 	case 4:
 		if (speed_game + 1 < MAX_SPEED) {
 			speed_game++;
+		}
+		break;
+	case 5:
+		if (num_mode < 2) {
+			num_mode++;
+		}
+		if (num_mode == 1) {
+			noBlockMode = true;
+			noHitMode = false;
+		}
+		else {
+			noBlockMode = false;
+			noHitMode = true;
 		}
 		break;
 	}
@@ -206,6 +237,19 @@ void OptionsManager::Izquierda() {
 	case 4:
 		if (speed_game - 1 >= -1) {
 			speed_game--;
+		}
+		break;
+	case 5:
+		if (num_mode > 0) {
+			num_mode--;
+		}
+		if (num_mode == 0) {
+			noBlockMode = false;
+			noHitMode = false;
+		}
+		else {
+			noBlockMode = true;
+			noHitMode = false;
 		}
 		break;
 	}
@@ -265,6 +309,9 @@ void OptionsManager::draw(RenderWindow& window) {
 
 	speed.setPosition(Vector2f(width_window / 1.6, height_window / 7 + CHAR_SIZE * 5 + 100));
 	window.draw(speed);
+
+	mode.setPosition(Vector2f(width_window / 1.6, height_window / 7 + CHAR_SIZE * 6 + 100));
+	window.draw(mode);
 
 }
 

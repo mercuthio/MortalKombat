@@ -7,6 +7,10 @@ using namespace sf;
 
 extern MusicManager music;
 
+//Variables para el modo de juego en la historia
+extern bool noHitMode;
+extern bool noBlockMode;
+
 extern float loadingTime;
 extern float moveXBack;
 extern float moveYBack;

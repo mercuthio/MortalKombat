@@ -32,6 +32,9 @@ public:
 	bool AnimationFinished();
 	bool Choosen();										//Devuelve true si se han elegido todos los personajes necesarios
 
+	bool choosen1 = false;									//True si el primer jugador a escogido personaje
+	bool choosen2 = false;									//True si el segundo jugador a escogido personaje
+
 private:
 
 	int x = 0, y = 0;										//Coordenadas del primer cursor
@@ -42,8 +45,6 @@ private:
 	int frame_choosen1 = 0;
 	int frame_choosen2 = 0;
 
-	bool choosen1 = false;									//True si el primer jugador a escogido personaje
-	bool choosen2 = false;									//True si el segundo jugador a escogido personaje
 	bool flash = false;										//Variable para la animacion del marco (false = color claro, true = color oscuro)
 	bool twoPlayers = false;								//True si hay dos jugadores
 
