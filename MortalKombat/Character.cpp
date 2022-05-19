@@ -78,6 +78,7 @@ void Character::Update(float tiempo, bool secondPlayer) {
 		}
 		else {
 			fullReset();
+			EndAnimation();
 			body.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		}
 		
@@ -93,6 +94,8 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 	if (internalTimer >= updateTime) {
 		difficulty_lvl = chosen_difficulty;
 		internalTimer = 0.0f;
+		specialDelay--;
+		hitDelay--;
 
 		
 		if (!freeze && !dying) {
@@ -100,8 +103,22 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 		}
 		DoAnimation();
 
+		global_position += p2PositionOffset;
+		p2PositionOffset = Vector2f(0, 0);
+
+		p2Position = getPosition();
+
+		cout << "OFFSET: " << totalMoveXBack << endl;
+
 		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
-		body.setPosition(global_position);
+		if (global_position.y <= screenFloorLimit) {
+			body.setPosition(global_position);
+		}
+		else {
+			fullReset();
+			EndAnimation();
+			body.setPosition(Vector2f(global_position.x, screenFloorLimit));
+		}
 	}
 	else {
 		internalTimer += 0.025f;
@@ -110,6 +127,7 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 
 void Character::CheckIAAnimation(Character opponent) {
 	ChangeIAState(opponent);
+	float distanceBetween = abs(GetXPosition() - opponent.GetXPosition());
 	if (!falling && !dying) {
 		if (on_air && estado == EstadoIA::MODO_ATAQUE && damageDelay < 0) {
 			animations[animation_in_process].animation.ResetAnimation();
@@ -158,8 +176,6 @@ void Character::CheckIAAnimation(Character opponent) {
 			crouching = false;
 			AnimationType animOp = opponent.getAnimation();
 			int probabilidad = rand() % 100;
-			float distanceBetween = abs(GetXPosition() - opponent.GetXPosition());
-			cout << "Dist: " << distanceBetween << endl;
 
 			switch (estado) {
 			case EstadoIA::IDLE:
@@ -174,9 +190,9 @@ void Character::CheckIAAnimation(Character opponent) {
 					characterJump01(isMale);
 					music.doubleJump();
 				}
-				else if (probabilidad > 90 && hasSpecial && distanceBetween > 175 && specialDelay < 0) {
+				else if (probabilidad > 92 && hasSpecial && distanceBetween > 400 && specialDelay < 0) {
 					animation_in_process = AnimationType::SPECIAL;
-					specialDelay = 30;
+					specialDelay = 50;
 				}
 				else {
 					animation_in_process = AnimationType::WALK_FORW;
@@ -212,7 +228,7 @@ void Character::CheckIAAnimation(Character opponent) {
 					}
 					else
 					{
-						int ataque = rand() % 5;
+						int ataque = rand() % 6;
 						cout << ataque << endl;
 						switch (ataque) {
 						case 0:
@@ -239,6 +255,10 @@ void Character::CheckIAAnimation(Character opponent) {
 							animation_in_process = AnimationType::PUNCH_MULTIPLE;
 							music.hit7();
 							break;
+						case 5:
+							animation_in_process = AnimationType::PUNCH_FROM_DOWN;
+							music.hit8();
+							break;
 						}
 						estado = EstadoIA::ALEJARSE;
 					}
@@ -254,7 +274,7 @@ void Character::CheckIAAnimation(Character opponent) {
 						music.hit7();
 					}
 					else {
-						int ataque = rand() % 5;
+						int ataque = rand() % 6;
 						cout << ataque << endl;
 						switch (ataque) {
 						case 0:
@@ -276,10 +296,13 @@ void Character::CheckIAAnimation(Character opponent) {
 							animation_in_process = AnimationType::KICK_LOW;
 							music.hit7();
 							break;
-
 						case 4:
 							animation_in_process = AnimationType::PUNCH_MULTIPLE;
 							music.hit7();
+							break;
+						case 5:
+							animation_in_process = AnimationType::PUNCH_FROM_DOWN;
+							music.hit8();
 							break;
 						}
 						estado = EstadoIA::ALEJARSE;
@@ -300,7 +323,6 @@ void Character::CheckIAAnimation(Character opponent) {
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
 				on_air = true;
 				break;
-
 			case EstadoIA::MODO_DEFENSA:
 				if (Difficulty[difficulty_lvl] > probabilidad) {
 					blocking = true;
@@ -322,8 +344,10 @@ void Character::CheckIAAnimation(Character opponent) {
 				}
 				break;
 			case EstadoIA::PREPAR_AGACHADO:
-				crouching = true;
-				animation_in_process = AnimationType::DOWN;
+				if (Difficulty[difficulty_lvl] > probabilidad) {
+					crouching = true;
+					animation_in_process = AnimationType::DOWN;
+				}
 				break;
 			}
 					
@@ -336,7 +360,8 @@ void Character::ChangeIAState(Character opponent) {
 	// Cambiamos de estado
 	if (estado == EstadoIA::PREPAR_ATAQUE) {
 		estado = EstadoIA::MODO_ATAQUE;
-	}else{
+	}
+	else {
 		int probabilidad = rand() % 100; // entre 0 y 99 (inclusive)
 		int probabilidadIdle = rand() % 100; // entre 0 y 99 (inclusive)
 
@@ -364,6 +389,8 @@ void Character::ChangeIAState(Character opponent) {
 			else {
 				estado = EstadoIA::IDLE;
 			}
+		} else if (difficulty_lvl != DifficultyLevel::EASY && anim == AnimationType::SPECIAL && distancia < 350) {
+			estado = EstadoIA::PREPAR_AGACHADO;
 		}
 		else if (difficulty_lvl != DifficultyLevel::EASY && anim == AnimationType::DOWN && distancia < 170) {
 			estado = EstadoIA::PREPAR_AGACHADO;
@@ -384,7 +411,7 @@ void Character::ChangeIAState(Character opponent) {
 				}
 			}
 			else if (distancia > 400) {
-				cout << "\n" << "Entro en modo me acerco" << endl;
+				//cout << "\n" << "Entro en modo me acerco" << endl;
 				estado = EstadoIA::ACERCARSE;
 			}
 			else if ( distancia > 170 && distancia < 400 && (estado == EstadoIA::PREPAR_AGACHADO || estado == EstadoIA::MODO_DEFENSA || estado == EstadoIA::IDLE) ) {
@@ -789,6 +816,9 @@ void Character::CheckDebugAnimations() {
 }
 
 bool Character::CheckScreenCollisions(float movement) {
+
+	bool collision = false;
+
 	Vector2f opponentPos;
 	if (player == 1) {
 		opponentPos = p2Position;
@@ -800,7 +830,7 @@ bool Character::CheckScreenCollisions(float movement) {
 	if (global_position.x - movement <= screenLeftLimit) {
 
 		if ((opponentPos.x + movement >= screenRightLimit) || (totalMoveXBack <= screenLeftHardLimit)) {
-			return true;
+			collision = true;
 		}
 		else {
 			moveXBack += movement;
@@ -811,13 +841,12 @@ bool Character::CheckScreenCollisions(float movement) {
 			else if (player == 2) {
 				p1PositionOffset.x += movement;
 			}
-			return true;
+			collision = true;
 		}
 
 	} else if (global_position.x - movement >= screenRightLimit) {
-
 		if ((opponentPos.x + movement <= screenLeftLimit) || (totalMoveXBack >= screenRightHardLimit)) {
-			return true;
+			collision = true;
 		} else {
 			moveXBack += movement;
 			totalMoveXBack -= moveXBack;
@@ -827,7 +856,7 @@ bool Character::CheckScreenCollisions(float movement) {
 			else if (player == 2) {
 				p1PositionOffset.x += movement;
 			}
-			return true;
+			collision = true;
 		}
 	}
 
@@ -842,10 +871,10 @@ bool Character::CheckScreenCollisions(float movement) {
 		if (!isBlockingMovement(animation_in_process)) {
 			animations[animation_in_process].animation.RecieveFlagEvent();
 		}
-		return true;
+		collision = true;
 	}
 
-	return false;
+	return collision;
 }
 
 
@@ -919,6 +948,7 @@ void Character::DoAnimation() {
 		}
 	} else { // Sigue las físicas del mundo (gravedad)
 		Vector2<float> mov;
+
 		mov.y = speed.y * updateTime;
 		global_position.y -= mov.y;
 
@@ -931,7 +961,6 @@ void Character::DoAnimation() {
 				global_position.x -= mov.x;
 			}
 		}
-
 
 		Vector2<float> pre_speed = speed;
 		speed.y = speed.y - gravedad * updateTime;
@@ -1002,7 +1031,7 @@ void Character::GetHit() {
 }
 
 void Character::debugDraw(RenderWindow& window) {
-	//window.draw(hitbox);	//Para debug
+	window.draw(hitbox);	//Para debug
 	//window.draw(damage_hitbox);	//Para debug
 	window.draw(shadow);
 	window.draw(body);

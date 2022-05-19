@@ -18,12 +18,11 @@ void EventManager::Update(Event event) {
 	case -1: //Cargando
 		break;
 	case 0: //Pantalla inicial
+		changedEstate = true;
+		state = 1;
 
 		music.skipIntro();
 		music.mainTheme();
-
-		changedEstate = true;
-		state = 1;
 
 		StartManager.~StartManager();
 		MenuManager.Update();
@@ -371,6 +370,9 @@ void EventManager::draw(RenderWindow& window) {
 
 			changedEstate = true;
 			state = 1;
+
+			music.skipIntro();
+			music.mainTheme();
 
 			StartManager.~StartManager();
 			MenuManager.Update();

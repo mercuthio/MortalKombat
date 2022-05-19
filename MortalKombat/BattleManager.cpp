@@ -249,6 +249,7 @@ void BattleManager::Restart() {
 	clock_inDanger1 = 0;
 	clock_inDanger2 = 0;
 	clock_finishRound = 0;
+	shaking = false;
 	paused = false;
 
 	LoadTextures();
@@ -262,10 +263,15 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	stage = stage_;
 	
 	life1 = 100;
-	cout << noHitMode << endl;
-	cout << twoPlayers << endl;
-	if (noHitMode && !twoPlayers) life1 = 1;
 	life2 = 100;
+
+	if (noHitMode && twoPlayers) {
+		life1 = 1;
+		life2 = 1;
+	}
+	else if (noHitMode && twoPlayers) {
+		life1 = 1;
+	}
 
 	time_left = 99;
 	round = 0;
@@ -1088,14 +1094,14 @@ void BattleManager::CheckCollisions() {
 		player2.setPosition(Vector2f(p2Pos.x + addXP1, p2Pos.y));
 	}
 
-	if (player1Special.body.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds()) && !player1Special.isFinished() && !player1Special.getHasHit()) {
+	if (player1Special.body.getGlobalBounds().intersects(player2.hitbox.getGlobalBounds()) && !player1Special.isFinished() && !player1Special.getHasHit() && player1Special.hasStarted()) {
 		player1Special.setHit();
 		bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
 		if (inFinishHim && finishing1 && clock_finishRound > 5) { P1WinnedPose = true; }			//El jugador 1 golpea en finish him
 
 		ProcessHit(AnimationType::SPECIAL, true);
 	}
-	if (player2Special.body.getGlobalBounds().intersects(player1.hitbox.getGlobalBounds()) && !player2Special.isFinished() && !player2Special.getHasHit()) {
+	if (player2Special.body.getGlobalBounds().intersects(player1.hitbox.getGlobalBounds()) && !player2Special.isFinished() && !player2Special.getHasHit() && player2Special.hasStarted()) {
 		player2Special.setHit();
 		bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
 		if (inFinishHim && finishing2 && clock_finishRound > 5) { P2WinnedPose = true; }

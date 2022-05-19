@@ -181,6 +181,7 @@ void OptionsManager::Right() {
 		if (speed_game + 1 < MAX_SPEED) {
 			speed_game++;
 		}
+		music.moveOptions();
 		break;
 	case 5:
 		if (num_mode < 2) {
@@ -194,6 +195,7 @@ void OptionsManager::Right() {
 			noBlockMode = false;
 			noHitMode = true;
 		}
+		music.moveOptions();
 		break;
 	}
 
@@ -238,6 +240,7 @@ void OptionsManager::Izquierda() {
 		if (speed_game - 1 >= -1) {
 			speed_game--;
 		}
+		music.moveOptions();
 		break;
 	case 5:
 		if (num_mode > 0) {
@@ -251,6 +254,7 @@ void OptionsManager::Izquierda() {
 			noBlockMode = true;
 			noHitMode = false;
 		}
+		music.moveOptions();
 		break;
 	}
 

@@ -324,12 +324,13 @@ enum class EstadoIA {
     SOBREPASAR_DCHA,
 	MODO_DEFENSA,
     PREPAR_AGACHADO,
-    PREPAR_ATAQUE
+    PREPAR_ATAQUE,
+    DEFENSA_SPECIAL
 };
 
 static map<DifficultyLevel, int> Difficulty = {
-		{DifficultyLevel::EASY, 60},
-		{DifficultyLevel::MEDIUM, 85},
+		{DifficultyLevel::EASY, 45},
+		{DifficultyLevel::MEDIUM, 80},
 		{DifficultyLevel::HARD, 95}
 };
 

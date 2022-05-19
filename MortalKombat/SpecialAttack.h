@@ -23,8 +23,6 @@ public:
 
 	void setHit() {
 
-		cout << "HIT!" << endl;
-
 		bodyHit = body.getPosition();
 
 		if (!hasHit) {
@@ -43,6 +41,8 @@ public:
 	}
 
 	bool isFinished() { return finished; }
+
+	bool hasStarted() { return started; }
 
 	RectangleShape body = RectangleShape();
 
