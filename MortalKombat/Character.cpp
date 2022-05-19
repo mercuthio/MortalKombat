@@ -72,7 +72,14 @@ void Character::Update(float tiempo, bool secondPlayer) {
 		}
 
 		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
-		body.setPosition(global_position);
+		if (global_position.y <= screenFloorLimit) {
+			body.setPosition(global_position);
+		}
+		else {
+			fullReset();
+			body.setPosition(Vector2f(global_position.x, screenFloorLimit));
+		}
+		
 	
 	}
 	else {
@@ -110,11 +117,13 @@ void Character::CheckIAAnimation(Character opponent) {
 			switch (ataque) {
 			case 0:
 				animation_in_process = AnimationType::PUNCH_FROM_AIR;
+				damageDelay = 2;
 				music.hit6();
 				break;
 
 			case 1:
 				animation_in_process == AnimationType::KICK_FROM_AIR;
+				damageDelay = 2;
 				music.hit7();
 				break;
 			}
@@ -148,7 +157,8 @@ void Character::CheckIAAnimation(Character opponent) {
 			crouching = false;
 			AnimationType animOp = opponent.getAnimation();
 			int probabilidad = rand() % 100;
-			float distanceBetween = mirrored ? (GetXPosition() - opponent.GetXPosition()) * -1 : (GetXPosition() - opponent.GetXPosition());
+			float distanceBetween = abs(GetXPosition() - opponent.GetXPosition());
+			cout << "Dist: " << distanceBetween << endl;
 
 			switch (estado) {
 			case EstadoIA::IDLE:
@@ -156,12 +166,16 @@ void Character::CheckIAAnimation(Character opponent) {
 				break;
 
 			case EstadoIA::ACERCARSE:
-				if (probabilidad > 98) {
-					speed = Vector2<float>(-400, 1000);
+				if (probabilidad > 97) {
+					speed = Vector2<float>(-500, 1000);
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					on_air = true;
 					characterJump01(isMale);
 					music.doubleJump();
+				}
+				else if (probabilidad > 90 && hasSpecial && distanceBetween > 175 && specialDelay < 0) {
+					animation_in_process = AnimationType::SPECIAL;
+					specialDelay = 30;
 				}
 				else {
 					animation_in_process = AnimationType::WALK_FORW;
@@ -170,8 +184,8 @@ void Character::CheckIAAnimation(Character opponent) {
 				break;
 
 			case EstadoIA::ALEJARSE:
-				if (probabilidad > 80) {
-					speed = Vector2<float>(400, 1000);
+				if (probabilidad > 90) {
+					speed = Vector2<float>(500, 1000);
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					on_air = true;
 					characterJump01(isMale);
@@ -190,10 +204,8 @@ void Character::CheckIAAnimation(Character opponent) {
 						animation_in_process = AnimationType::KICK_LOW;
 						music.hit7();
 
-					}else if (probabilidad > 99) {
-						animation_in_process = AnimationType::SPECIAL;
 					}
-					else if (animOp == AnimationType::BLOCK) {						
+					else if (animOp == AnimationType::BLOCK) {
 						animation_in_process = AnimationType::KICK_LOW;
 						music.hit7();
 					}
@@ -227,54 +239,63 @@ void Character::CheckIAAnimation(Character opponent) {
 							music.hit7();
 							break;
 						}
-
-			
 						estado = EstadoIA::ALEJARSE;
 					}
 				}
 				else {
-					int ataque = rand() % 5;
-					cout << ataque << endl; 
-					switch (ataque) {
-					case 0:
-						animation_in_process = AnimationType::PUNCH;
-						music.hit6();
-						break;
-
-					case 1:
-						animation_in_process = AnimationType::PUNCH_UPPER;
-						music.hit6();
-						break;
-
-					case 2:
-						animation_in_process = AnimationType::KICK;
-						music.hit7();
-						break;
-
-					case 3:
+					if (hacerBarrido && probabilidad > 95) {
+						hacerBarrido = false;
 						animation_in_process = AnimationType::KICK_LOW;
 						music.hit7();
-						break;
-
-					case 4:
-						animation_in_process = AnimationType::PUNCH_MULTIPLE;
-						music.hit7();
-						break;
 					}
-					estado = EstadoIA::ALEJARSE;
+					else if (animOp == AnimationType::BLOCK && probabilidad > 95) {
+						animation_in_process = AnimationType::KICK_LOW;
+						music.hit7();
+					}
+					else {
+						int ataque = rand() % 5;
+						cout << ataque << endl;
+						switch (ataque) {
+						case 0:
+							animation_in_process = AnimationType::PUNCH;
+							music.hit6();
+							break;
+
+						case 1:
+							animation_in_process = AnimationType::PUNCH_UPPER;
+							music.hit6();
+							break;
+
+						case 2:
+							animation_in_process = AnimationType::KICK;
+							music.hit7();
+							break;
+
+						case 3:
+							animation_in_process = AnimationType::KICK_LOW;
+							music.hit7();
+							break;
+
+						case 4:
+							animation_in_process = AnimationType::PUNCH_MULTIPLE;
+							music.hit7();
+							break;
+						}
+						estado = EstadoIA::ALEJARSE;
+					}
 				}
 				break;
 
 			case EstadoIA::SOBREPASAR_IZQ: // Estoy pegado a la izq, tengo que sobrepasarle
 				cout << "Sobrepaso izq" << endl;
-				speed = Vector2<float>(-400, 1000);
+				speed = Vector2<float>(-500, 1000);
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
 				on_air = true;
 				break;
 
 			case EstadoIA::SOBREPASAR_DCHA: // Estoy pegado a la izq, tengo que sobrepasarle
 				cout << "Sobrepaso dcha" << endl;
-				speed = Vector2<float>(-400, 1000);
+				speed = Vector2<float>(-500, 1000);
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
 				on_air = true;
 				break;
@@ -322,11 +343,11 @@ void Character::ChangeIAState(Character opponent) {
 		AnimationType anim = opponent.getAnimation();
 		bool siendoAtacado = opponent.isAttaking();
 
-		cout << "Posicion X: "  << global_position.x << endl;
-		cout << "Right Limit: " << screenRightLimit << " - Left Limit: " << screenLeftLimit << endl;
-		cout << "Hard Right Limit: " << screenRightHardLimit << " - Hard Left Limit: " << screenLeftHardLimit <<  endl;
-		cout << "totalMoveXBack: " << totalMoveXBack << endl;
-		cout << endl;
+		//cout << "Posicion X: "  << global_position.x << endl;
+		//cout << "Right Limit: " << screenRightLimit << " - Left Limit: " << screenLeftLimit << endl;
+		//cout << "Hard Right Limit: " << screenRightHardLimit << " - Hard Left Limit: " << screenLeftHardLimit <<  endl;
+		//cout << "totalMoveXBack: " << totalMoveXBack << endl;
+		//cout << endl;
 
 		if (global_position.x + 30 > screenRightLimit && totalMoveXBack + 30 > screenRightHardLimit) {
 			estado = EstadoIA::SOBREPASAR_DCHA;
@@ -362,7 +383,7 @@ void Character::ChangeIAState(Character opponent) {
 				}
 			}
 			else if (distancia > 400) {
-				//cout << "\n" << "Entro en modo me acerco" << endl;
+				cout << "\n" << "Entro en modo me acerco" << endl;
 				estado = EstadoIA::ACERCARSE;
 			}
 			else if ( distancia > 170 && distancia < 400 && (estado == EstadoIA::PREPAR_AGACHADO || estado == EstadoIA::MODO_DEFENSA || estado == EstadoIA::IDLE) ) {
@@ -453,7 +474,7 @@ void Character::CheckAnimation() {
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					characterJump01(isMale);
 					music.doubleJump();
-					speed = Vector2<float>(-400, 1000);
+					speed = Vector2<float>(-500, 1000);
 					on_air = true;
 				}
 				else if (hasSpecial && Keyboard::isKeyPressed(backButton) && Keyboard::isKeyPressed(punchButton) && specialDelay < 0) {		//L.Kick, M.Kick en parado
@@ -488,7 +509,7 @@ void Character::CheckAnimation() {
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					characterJump01(isMale);
 					music.doubleJump();
-					speed = Vector2<float>(400, 1000);
+					speed = Vector2<float>(500, 1000);
 					on_air = true;
 				}
 				else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButton)) {												//Salto hacia delante
@@ -629,7 +650,7 @@ void Character::CheckAnimationP2() {
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					characterJump01(isMale);
 					music.doubleJump();
-					speed = Vector2<float>(-400, 1000);
+					speed = Vector2<float>(-500, 1000);
 					on_air = true;
 				} else if (hasSpecial && Keyboard::isKeyPressed(backButtonP2) && Keyboard::isKeyPressed(punchButtonP2) && specialDelay < 0) {		//L.Kick, M.Kick en parado
 					specialDelay = 30;
@@ -663,7 +684,7 @@ void Character::CheckAnimationP2() {
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					characterJump01(isMale);
 					music.doubleJump();
-					speed = Vector2<float>(400, 1000);
+					speed = Vector2<float>(500, 1000);
 					on_air = true;
 				}
 				else if (!fightKeyPressed && Keyboard::isKeyPressed(punchButtonP2)) {												//Salto hacia delante

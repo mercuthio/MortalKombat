@@ -324,9 +324,9 @@ enum class EstadoIA {
 };
 
 static map<DifficultyLevel, int> Difficulty = {
-		{DifficultyLevel::EASY, 30},
-		{DifficultyLevel::MEDIUM, 60},
-		{DifficultyLevel::HARD, 90}
+		{DifficultyLevel::EASY, 60},
+		{DifficultyLevel::MEDIUM, 85},
+		{DifficultyLevel::HARD, 95}
 };
 
 static string fromKtoS(const sf::Keyboard::Key& k) {
