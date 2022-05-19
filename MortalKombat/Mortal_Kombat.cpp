@@ -71,6 +71,7 @@ int main() {
     textures[0].loadFromImage(a);
     textures[1].loadFromImage(b);
     textures[2].loadFromImage(c);
+    textures[3].loadFromImage(icon);
 
     Text version;
     version.setFont(font);

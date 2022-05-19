@@ -11,11 +11,12 @@ Vector2f p2Position;
 Vector2f p1PositionOffset;
 Vector2f p2PositionOffset;
 
-BattleManager::BattleManager(Texture* texture_, Font font_, Clock clock) {
+BattleManager::BattleManager(Texture* texture_, Texture* icon_, Font font_, Clock clock) {
 
 	this->clock = clock;
 
 	texture = texture_;
+	icon = icon_;
 	font = font_;
 
 	time_left = 99;
@@ -28,6 +29,7 @@ BattleManager::BattleManager(Texture* texture_, Font font_, Clock clock) {
 
 	clapping = false;
 	shaking = false;
+	paused = false;
 	internalShaking = 0.f;
 
 	LoadTextures();
@@ -61,12 +63,18 @@ void BattleManager::LoadTextures() {
 	Vector2f size_clock = Vector2f(38.0f, 54.0f);
 	Vector2f size_fight = Vector2f(735.0f, 180.0f);
 	Vector2f size_winner = Vector2f(735.0f, 161.0f);
+	Vector2f size_icon = Vector2f(200.0f, 200.0f);
 
 	IntRect uvRect;
 	RectangleShape rect;
 
 	rect.setTexture(texture);
 	rect.setScale(1.0f, 1.0f);
+
+	pauseIcon.setTexture(icon);
+	pauseIcon.setScale(1.0f, 1.0f);
+	pauseIcon.setSize(size_icon);
+	pauseIcon.setPosition( width_window / 2 - pauseIcon.getSize().x / 2, height_window / 2 - pauseIcon.getSize().y / 2);
 
 	//Marcos barras de vida 0 y 1
 	uvRect.width = 163.0f;
@@ -241,6 +249,7 @@ void BattleManager::Restart() {
 	clock_inDanger1 = 0;
 	clock_inDanger2 = 0;
 	clock_finishRound = 0;
+	paused = false;
 
 	LoadTextures();
 
@@ -251,8 +260,11 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	character1 = character1_;
 	character2 = character2_;
 	stage = stage_;
-
+	
 	life1 = 100;
+	cout << noHitMode << endl;
+	cout << twoPlayers << endl;
+	if (noHitMode && !twoPlayers) life1 = 1;
 	life2 = 100;
 
 	time_left = 99;
@@ -276,6 +288,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 	finishing1 = false;
 	finishing2 = false;
 	waitingToEnd = false;
+	paused = false;
 
 	clapping = false;
 
@@ -406,6 +419,11 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 
 }
 
+void BattleManager::Pause() {
+	if (paused) paused = false;
+	else paused = true;
+}
+
 void BattleManager::RestartRound() {
 
 	moveXBack = totalMoveXBack; //Movemos escenario a posicion inicial
@@ -441,12 +459,14 @@ void BattleManager::RestartRound() {
 	P2WinnedPose = false;
 	finishedFinishHim = false;
 	waitingToEnd = false;
+	paused = false;
 
 	shaking = false;
 
 	fight_x = 0;
 	finish_him_x = 0;
 	life1 = 100;
+	if (noHitMode && !twoPlayers) life1 = 1;
 	life2 = 100;
 	time_left = 99;
 	round++;
@@ -480,529 +500,533 @@ void BattleManager::Update(Event event) {}
 
 void BattleManager::Update() {
 
-	// Shake effect
-	if (!shaking && player1.getShake()) {
-		player1.setShake(false);
-		shake();
-	}
-	if (!shaking && player2.getShake()) {
-		player2.setShake(false);
-		shake();
-	}
-
-	if (shaking) {
-		if (internalShaking >= 0.20f) {
-			view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
-			shaking = false;
-			shakeUp = false;
+	if (!paused) {
+		// Shake effect
+		if (!shaking && player1.getShake()) {
+			player1.setShake(false);
+			shake();
 		}
-		else {
-			if (shakeUp) {
-				view.setCenter(view.getSize().x / 2, view.getSize().y / 2 + 5);
+		if (!shaking && player2.getShake()) {
+			player2.setShake(false);
+			shake();
+		}
+
+		if (shaking) {
+			if (internalShaking >= 0.20f) {
+				view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
+				shaking = false;
+				shakeUp = false;
 			}
 			else {
-				view.setCenter(view.getSize().x / 2, view.getSize().y / 2 - 5);
+				if (shakeUp) {
+					view.setCenter(view.getSize().x / 2, view.getSize().y / 2 + 5);
+				}
+				else {
+					view.setCenter(view.getSize().x / 2, view.getSize().y / 2 - 5);
+				}
+				shakeUp = !shakeUp;
+				internalShaking += 0.025;
 			}
-			shakeUp = !shakeUp;
-			internalShaking += 0.025;
 		}
-	}
 
-	// Mirror
-	if (player1.lookingAt() == LookingAt::RIGHT && player1.GetXPosition() > player2.GetXPosition() + 5) { //PLAYER 1 LEFT -> RIGHT
-		player1.Mirror();
-		player2.Mirror();
-		player1.SetXPosition(10.f);
-	}
-	else if (player1.lookingAt() == LookingAt::LEFT && player1.GetXPosition() + 5 < player2.GetXPosition()) { //PLAYER 1 RIGHT -> LEFT
-		player1.Mirror();
-		player2.Mirror();
-		player1.SetXPosition(-10.f);
-	}
-
-	// Life
-	float vida = player1.GetLife();
-	Vector2f size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[2].getSize().y);
-	HUD_vector[2].setSize(size_life);
-
-	if (!showed_danger1 && (vida / 100.0f) <= 0.2f) inDanger1 = true;
-
-	vida = player2.GetLife();
-	size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[3].getSize().y);
-	HUD_vector[3].setSize(size_life);
-
-	if (!showed_danger2 && (vida / 100.0f) <= 0.2f) inDanger2 = true;
-
-	player1.Update(0.05f, false);
-	if (twoPlayers) {
-		player2.Update(0.05f, true);
-	}
-	else {
-		player2.setDifficulty();
-		player2.UpdateIA(0.05f, player1);
-	}
-
-	// Background
-	BackgroundManager.Update();
-
-	IntRect uvRect;
-
-	clock_timer++;
-	clock_flash++;
-
-	if (showing_round && clock_timer == 60) {
-		showing_round = false;
-		showing_fight = true;
-	}
-
-	if (showing_fight && clock_timer == 60) { music.fight(); }
-
-	if (showing_fight && clock_timer == 120) { //Solo se ejecuta una vez
-
-		showing_fight = false;
-		started_game = true;
-		player1.setFreeze(false);
-		player2.setFreeze(false);
-
-	}
-
-
-	if ((!finishing1 && !finishing2) && started_game && clock_timer >= 60) {
-
-		clock_timer = 0;
-		if (time_left > 0) time_left--;
-
-		uvRect.width = 14.0f;
-		uvRect.height = 17.0f;
-		uvRect.left = 5573 + 16 * ((time_left / 10) % 10);
-		uvRect.top = 49;
-
-
-		HUD_vector[13].setTextureRect(uvRect);
-		uvRect.left = 5573 + 16 * (time_left % 10);
-		HUD_vector[14].setTextureRect(uvRect);
-
-	}
-
-	if (inDanger1) {
-		clock_inDanger1++;
-		if (clock_inDanger1 == 100) {
-			showed_danger1 = true;
-			inDanger1 = false;
+		// Mirror
+		if (player1.lookingAt() == LookingAt::RIGHT && player1.GetXPosition() > player2.GetXPosition() + 5) { //PLAYER 1 LEFT -> RIGHT
+			player1.Mirror();
+			player2.Mirror();
+			player1.SetXPosition(10.f);
 		}
-	}
-
-	if (inDanger2) {
-		clock_inDanger2++;
-		if (clock_inDanger2 == 100) {
-			showed_danger2 = true;
-			inDanger2 = false;
+		else if (player1.lookingAt() == LookingAt::LEFT && player1.GetXPosition() + 5 < player2.GetXPosition()) { //PLAYER 1 RIGHT -> LEFT
+			player1.Mirror();
+			player2.Mirror();
+			player1.SetXPosition(-10.f);
 		}
-	}
 
-	if (clock_flash == 10) {
-		clock_flash = 0;
-		flash = !flash;
+		// Life
+		float vida = life1;
+		if (life1 < 0) vida = 0;
+		Vector2f size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[2].getSize().y);
+		HUD_vector[2].setSize(size_life);
 
-		uvRect.width = 46.0f;
-		uvRect.height = 13.0f;
-		uvRect.top = 82;
+		if (!showed_danger1 && (vida / 100.0f) <= 0.2f) inDanger1 = true;
 
-		if (flash) {
-			uvRect.left = 5502;
+		vida = life2;
+		if (life2 < 0) vida = 0;
+		size_life = Vector2f(SIZE_LIFE * (vida / 100.0f), HUD_vector[3].getSize().y);
+		HUD_vector[3].setSize(size_life);
+
+		if (!showed_danger2 && (vida / 100.0f) <= 0.2f) inDanger2 = true;
+
+		player1.Update(0.05f, false);
+		if (twoPlayers) {
+			player2.Update(0.05f, true);
 		}
 		else {
-			uvRect.left = 5435;
+			player2.setDifficulty();
+			player2.UpdateIA(0.05f, player1);
 		}
-		//Danger
-		HUD_vector[11].setTextureRect(uvRect);
-		HUD_vector[12].setTextureRect(uvRect);
+
+		// Background
+		BackgroundManager.Update();
+
+		IntRect uvRect;
+
+		clock_timer++;
+		clock_flash++;
+
+		if (showing_round && clock_timer == 60) {
+			showing_round = false;
+			showing_fight = true;
+		}
+
+		if (showing_fight && clock_timer == 60) { music.fight(); }
+
+		if (showing_fight && clock_timer == 120) { //Solo se ejecuta una vez
+
+			showing_fight = false;
+			started_game = true;
+			player1.setFreeze(false);
+			player2.setFreeze(false);
+
+		}
+
+
+		if ((!finishing1 && !finishing2) && started_game && clock_timer >= 60) {
+
+			clock_timer = 0;
+			if (time_left > 0) time_left--;
+
+			uvRect.width = 14.0f;
+			uvRect.height = 17.0f;
+			uvRect.left = 5573 + 16 * ((time_left / 10) % 10);
+			uvRect.top = 49;
+
+
+			HUD_vector[13].setTextureRect(uvRect);
+			uvRect.left = 5573 + 16 * (time_left % 10);
+			HUD_vector[14].setTextureRect(uvRect);
+
+		}
+
+		if (inDanger1) {
+			clock_inDanger1++;
+			if (clock_inDanger1 == 100) {
+				showed_danger1 = true;
+				inDanger1 = false;
+			}
+		}
+
+		if (inDanger2) {
+			clock_inDanger2++;
+			if (clock_inDanger2 == 100) {
+				showed_danger2 = true;
+				inDanger2 = false;
+			}
+		}
+
+		if (clock_flash == 10) {
+			clock_flash = 0;
+			flash = !flash;
+
+			uvRect.width = 46.0f;
+			uvRect.height = 13.0f;
+			uvRect.top = 82;
+
+			if (flash) {
+				uvRect.left = 5502;
+			}
+			else {
+				uvRect.left = 5435;
+			}
+			//Danger
+			HUD_vector[11].setTextureRect(uvRect);
+			HUD_vector[12].setTextureRect(uvRect);
+
+			if (finishing1 || finishing2) {
+
+				//Letras victoria
+				RectangleShape rect = HUD_vector[17];
+				uvRect = rect.getTextureRect();
+				if (flash) {
+					uvRect.left = 4046.0f;
+				}
+				else {
+					uvRect.left = 3715.0f;
+				}
+
+				rect.setTextureRect(uvRect);
+				HUD_vector[17] = rect;
+			}
+
+		}
+
+		if (showing_fight) {
+			clock_fight++;
+
+			if (clock_fight == 7) {
+
+				clock_fight = 0;
+				fight_x++;
+				if (fight_x == 18) {
+					showing_fight = false;
+					started_game = true;
+				}
+				else {
+					uvRect.width = 327.0f;
+					uvRect.height = 68.0f;
+					uvRect.left = 2646;
+					uvRect.top = 16 + 72 * fight_x;
+					HUD_vector[15].setTextureRect(uvRect);
+
+				}
+
+			}
+		}
+
+		if (showing_finishHim) {
+			clock_finishHim++;
+
+			if (clock_finishHim == 7) {
+
+				clock_finishHim = 0;
+				finish_him_x++;
+				if (finish_him_x == 18) {
+					showing_finishHim = false;
+				}
+				else {
+
+					RectangleShape rect = HUD_vector[16];
+					uvRect = rect.getTextureRect();
+					uvRect.top = 16 + 72 * finish_him_x;
+					rect.setTextureRect(uvRect);
+					HUD_vector[16] = rect;
+
+				}
+			}
+
+		}
+
+		if (player1.animation_in_process == AnimationType::SPECIAL) {
+			if (player1Special.isFinished()) {
+				if (player1.lookingAt() == LookingAt::RIGHT) {
+					Vector2f pos = Vector2f(player1.getPosition().x + 375, player1.getPosition().y + 205);
+					switch (character1)
+					{
+					case LIU_KANG:
+						player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
+						break;
+					case SCORPION:
+						player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
+						break;
+					case SONYA:
+						player1Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
+						break;
+					case CAGE:
+						player1Special.SpecialAttackAt(SpecialType::CAGE, pos, false);
+						break;
+					}
+				}
+				else {
+					Vector2f pos = Vector2f(player1.getPosition().x + 75, player1.getPosition().y + 205);
+					switch (character1)
+					{
+					case LIU_KANG:
+						player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
+						break;
+					case SCORPION:
+						player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
+						break;
+					case SONYA:
+						player1Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
+						break;
+					case CAGE:
+						player1Special.SpecialAttackAt(SpecialType::CAGE, pos, true);
+						break;
+					}
+				}
+			}
+		}
+
+		if (player2.animation_in_process == AnimationType::SPECIAL) {
+			if (player2Special.isFinished()) {
+				if (player2.lookingAt() == LookingAt::RIGHT) {
+					Vector2f pos = Vector2f(player2.getPosition().x + 375, player2.getPosition().y + 205);
+					switch (character2)
+					{
+					case LIU_KANG:
+						player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
+						break;
+					case SCORPION:
+						player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
+						break;
+					case SONYA:
+						player2Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
+						break;
+					case CAGE:
+						player2Special.SpecialAttackAt(SpecialType::CAGE, pos, false);
+						break;
+					}
+				}
+				else {
+					Vector2f pos = Vector2f(player2.getPosition().x + 75, player2.getPosition().y + 205);
+					cout << pos.x << endl;
+					switch (character2)
+					{
+					case LIU_KANG:
+						player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
+						break;
+					case SCORPION:
+						player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
+						break;
+					case SONYA:
+						player2Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
+						break;
+					case CAGE:
+						player2Special.SpecialAttackAt(SpecialType::CAGE, pos, true);
+						break;
+					}
+				}
+			}
+		}
+
+		player1Special.Update();
+		player2Special.Update();
+
+		CheckCollisions();
+
+		blood.Update();
+		bloodGround1.Update();
+		bloodGround2.Update();
 
 		if (finishing1 || finishing2) {
 
-			//Letras victoria
-			RectangleShape rect = HUD_vector[17];
-			uvRect = rect.getTextureRect();
-			if (flash) {
-				uvRect.left = 4046.0f;
-			}
-			else {
-				uvRect.left = 3715.0f;
-			}
+			shaking = false;
 
-			rect.setTextureRect(uvRect);
-			HUD_vector[17] = rect;
-		}
+			if (showing_finishHim && finishing1) HUD_vector[3].setSize(Vector2f(0, 0));
+			else if (showing_finishHim && finishing2) HUD_vector[2].setSize(Vector2f(0, 0));
 
-	}
+			inDanger1 = false;
+			inDanger2 = false;
 
-	if (showing_fight) {
-		clock_fight++;
+			clock_finishRound++;
 
-		if (clock_fight == 7) {
-
-			clock_fight = 0;
-			fight_x++;
-			if (fight_x == 18) {
-				showing_fight = false;
-				started_game = true;
-			}
-			else {
-				uvRect.width = 327.0f;
-				uvRect.height = 68.0f;
-				uvRect.left = 2646;
-				uvRect.top = 16 + 72 * fight_x;
-				HUD_vector[15].setTextureRect(uvRect);
-
+			bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
+			if ((finishedFinishHim || !inFinishHim) && clock_finishRound == 80) {
+				music.clapsPublic();
+				clapping = true;
 			}
 
-		}
-	}
-
-	if (showing_finishHim) {
-		clock_finishHim++;
-
-		if (clock_finishHim == 7) {
-
-			clock_finishHim = 0;
-			finish_him_x++;
-			if (finish_him_x == 18) {
-				showing_finishHim = false;
+			if (!finishedFinishHim && !inFinishHim && clock_finishRound >= 480) {			//Terminado periodo de gracia
+				showing_win = false;
+				clock_finishRound = 0;
+				finishing1 = false;
+				finishing2 = false;
+				clapping = false;
+				RestartRound();
 			}
-			else {
+			else if (!finishedFinishHim && (inFinishHim && clock_finishRound >= 400) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
 
-				RectangleShape rect = HUD_vector[16];
-				uvRect = rect.getTextureRect();
-				uvRect.top = 16 + 72 * finish_him_x;
-				rect.setTextureRect(uvRect);
-				HUD_vector[16] = rect;
-
-			}
-		}
-
-	}
-
-	if (player1.animation_in_process == AnimationType::SPECIAL) {
-		if (player1Special.isFinished()) {
-			if (player1.lookingAt() == LookingAt::RIGHT) {
-				Vector2f pos = Vector2f(player1.getPosition().x + 375, player1.getPosition().y + 205);
-				switch (character1)
-				{
-				case LIU_KANG:
-					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
-					break;
-				case SCORPION:
-					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
-					break;
-				case SONYA:
-					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
-					break;
-				case CAGE:
-					player1Special.SpecialAttackAt(SpecialType::CAGE, pos, false);
-					break;
-			}
-			}
-			else {
-				Vector2f pos = Vector2f(player1.getPosition().x + 75, player1.getPosition().y + 205);
-				switch (character1)
-				{
-				case LIU_KANG:
-					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
-					break;
-				case SCORPION:
-					player1Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
-					break;
-				case SONYA:
-					player1Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
-					break;
-				case CAGE:
-					player1Special.SpecialAttackAt(SpecialType::CAGE, pos, true);
-					break;
-				}
-			}
-		}
-	}
-
-	if (player2.animation_in_process == AnimationType::SPECIAL) {
-		if (player2Special.isFinished()) {
-			if (player2.lookingAt() == LookingAt::RIGHT) {
-				Vector2f pos = Vector2f(player2.getPosition().x + 375, player2.getPosition().y + 205);
-				switch (character2)
-				{
-				case LIU_KANG:
-					player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
-					break;
-				case SCORPION:
-					player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, false);
-					break;
-				case SONYA:
-					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, false);
-					break;
-				case CAGE:
-					player2Special.SpecialAttackAt(SpecialType::CAGE, pos, false);
-					break;
-				}
-			}
-			else {
-				Vector2f pos = Vector2f(player2.getPosition().x + 75, player2.getPosition().y + 205);
-				cout << pos.x << endl;
-				switch (character2)
-				{
-				case LIU_KANG:
-					player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
-					break;
-				case SCORPION:
-					player2Special.SpecialAttackAt(SpecialType::LIU_KANG, pos, true);
-					break;
-				case SONYA:
-					player2Special.SpecialAttackAt(SpecialType::SONYA, pos, true);
-					break;
-				case CAGE:
-					player2Special.SpecialAttackAt(SpecialType::CAGE, pos, true);
-					break;
-				}
-			}
-		}
-	}
-
-	player1Special.Update();
-	player2Special.Update();
-
-	CheckCollisions();
-
-	blood.Update();
-	bloodGround1.Update();
-	bloodGround2.Update();
-
-	if (finishing1 || finishing2) {
-
-		shaking = false;
-
-		if (showing_finishHim && finishing1) HUD_vector[3].setSize(Vector2f(0, 0));
-		else if (showing_finishHim && finishing2) HUD_vector[2].setSize(Vector2f(0, 0));
-
-		inDanger1 = false;
-		inDanger2 = false;
-
-		clock_finishRound++;
-
-		bool inFinishHim = (rounds_won1 == 2 || rounds_won2 == 2);
-		if ((finishedFinishHim || !inFinishHim) && clock_finishRound == 80) {
-			music.clapsPublic();
-			clapping = true;
-		}
-
-		if (!finishedFinishHim && !inFinishHim && clock_finishRound >= 480) {			//Terminado periodo de gracia
-			showing_win = false;
-			clock_finishRound = 0;
-			finishing1 = false;
-			finishing2 = false;
-			clapping = false;
-			RestartRound();
-		}
-		else if (!finishedFinishHim && (inFinishHim && clock_finishRound >= 400) || (P1WinnedPose || P2WinnedPose)) {	//En finish him se ha acabado el tiempo sin golpearle o le ha golpeado
-
-			showing_win = true;
-			waitingToEnd = true;
-			if (!waitingToEnd) clock_finishRound = 0;
-			finishedFinishHim = true;
-			P1WinnedPose = false;
-			P2WinnedPose = false;
-		
-			if (finishing1) {
-
-				switch (character1) {
-				case LIU_KANG:	//Liu Kang
-					music.LiuKangWins();
-					break;
-				case SCORPION: //Scorpion
-					music.ScorpionWins();
-					break;
-				case SONYA:	//Sonya Blade
-					music.SonyaBladeWins();
-					break;
-				case CAGE:	//Jhonny Cage
-					music.JhonnyCageWins();
-					break;
-				}
-
-				characterFall03(character2);
-				player1.animation_in_process = AnimationType::WIN;
-				player2.animation_in_process = AnimationType::FALL_BACK;
-				player2.setSpeed(Vector2f(500, 0));
-			}
-			else if (finishing2) {
-
-				switch (character2) {
-				case LIU_KANG:	//Liu Kang
-					music.LiuKangWins();
-					break;
-				case SCORPION: //Scorpion
-					music.ScorpionWins();
-					break;
-				case SONYA:	//Sonya Blade
-					music.SonyaBladeWins();
-					break;
-				case CAGE:	//Jhonny Cage
-					music.JhonnyCageWins();
-					break;
-				}
-
-				characterFall03(character1);
-				player2.animation_in_process = AnimationType::WIN;
-				player1.animation_in_process = AnimationType::FALL_BACK;
-				player1.setSpeed(Vector2f(500, 0));
-			}
-
-			player1.setFreeze(true);
-			player2.setFreeze(true);
-
-			music.clapsPublic();
-			clapping = true;
-
-		}
-
-		if (waitingToEnd && clock_finishRound >= 480) {	//Acabar partida
-			clock_finishRound = 0;
-			waitingToEnd = false;
-			finished_game = true;
-		}
-
-	}
-	else {
-
-		int winner_round = finished_round();							//Comprobamos final de ronda
-
-		if (winner_round == 1) {										//Jugador 1 acaba de ganar una ronda
-
-			music.stopMusic();
-
-			if (rounds_won1 == 1) {										//Todavia no ha ganado la partida
-
-				switch (character1) {
-				case LIU_KANG:	//Liu Kang
-					music.LiuKangWins();
-					break;
-				case SCORPION: //Scorpion
-					music.ScorpionWins();
-					break;
-				case SONYA:	//Sonya Blade
-					music.SonyaBladeWins();
-					break;
-				case CAGE:	//Jhonny Cage
-					music.JhonnyCageWins();
-					break;
-				}
-
-				finishing1 = true;
 				showing_win = true;
+				waitingToEnd = true;
+				if (!waitingToEnd) clock_finishRound = 0;
+				finishedFinishHim = true;
+				P1WinnedPose = false;
+				P2WinnedPose = false;
 
-				uvRect.width = 327;
-				uvRect.height = 50.0f;
-				uvRect.left = 3715;
-				uvRect.top = 16 + (character1 * 52);
+				if (finishing1) {
 
-				RectangleShape rect = HUD_vector[17];
-				rect.setTextureRect(uvRect);
-				HUD_vector[17] = rect;
+					switch (character1) {
+					case LIU_KANG:	//Liu Kang
+						music.LiuKangWins();
+						break;
+					case SCORPION: //Scorpion
+						music.ScorpionWins();
+						break;
+					case SONYA:	//Sonya Blade
+						music.SonyaBladeWins();
+						break;
+					case CAGE:	//Jhonny Cage
+						music.JhonnyCageWins();
+						break;
+					}
 
-				characterFall02(character2);
-				player1.animation_in_process = AnimationType::WIN;
-				player2.animation_in_process = AnimationType::FALL;
-				player2.setSpeed(Vector2f(500, 0));
+					characterFall03(character2);
+					player1.animation_in_process = AnimationType::WIN;
+					player2.animation_in_process = AnimationType::FALL_BACK;
+					player2.setSpeed(Vector2f(500, 0));
+				}
+				else if (finishing2) {
+
+					switch (character2) {
+					case LIU_KANG:	//Liu Kang
+						music.LiuKangWins();
+						break;
+					case SCORPION: //Scorpion
+						music.ScorpionWins();
+						break;
+					case SONYA:	//Sonya Blade
+						music.SonyaBladeWins();
+						break;
+					case CAGE:	//Jhonny Cage
+						music.JhonnyCageWins();
+						break;
+					}
+
+					characterFall03(character1);
+					player2.animation_in_process = AnimationType::WIN;
+					player1.animation_in_process = AnimationType::FALL_BACK;
+					player1.setSpeed(Vector2f(500, 0));
+				}
 
 				player1.setFreeze(true);
 				player2.setFreeze(true);
+
+				music.clapsPublic();
+				clapping = true;
+
 			}
-			else {														//Acaba de ganar la partida
-				finishing1 = true;
-				showing_finishHim = true;
 
-				RectangleShape rect = HUD_vector[16];
-				uvRect = rect.getTextureRect();
-				if (character2 == CharacterType::SONYA) { 
-					uvRect.left = 3317.0f;
-					music.finishHer();
-				}
-				else {
-					music.finishHim();
-				}
-				rect.setTextureRect(uvRect);
-				HUD_vector[16] = rect;
-
-				player2.setDying(true);
-				player2.setFreeze(true);
+			if (waitingToEnd && clock_finishRound >= 480) {	//Acabar partida
+				clock_finishRound = 0;
+				waitingToEnd = false;
+				finished_game = true;
 			}
 
 		}
-		else if (winner_round == 2) {
+		else {
 
-			if (rounds_won2 == 1) {										//Todavia no ha ganado la partida
+			int winner_round = finished_round();							//Comprobamos final de ronda
+
+			if (winner_round == 1) {										//Jugador 1 acaba de ganar una ronda
 
 				music.stopMusic();
-				switch (character2) {
-				case LIU_KANG:	//Liu Kang
-					music.LiuKangWins();
-					break;
-				case SCORPION: //Scorpion
-					music.ScorpionWins();
-					break;
-				case SONYA:	//Sonya Blade
-					music.SonyaBladeWins();
-					break;
-				case CAGE:	//Jhonny Cage
-					music.JhonnyCageWins();
-					break;
+
+				if (rounds_won1 == 1) {										//Todavia no ha ganado la partida
+
+					switch (character1) {
+					case LIU_KANG:	//Liu Kang
+						music.LiuKangWins();
+						break;
+					case SCORPION: //Scorpion
+						music.ScorpionWins();
+						break;
+					case SONYA:	//Sonya Blade
+						music.SonyaBladeWins();
+						break;
+					case CAGE:	//Jhonny Cage
+						music.JhonnyCageWins();
+						break;
+					}
+
+					finishing1 = true;
+					showing_win = true;
+
+					uvRect.width = 327;
+					uvRect.height = 50.0f;
+					uvRect.left = 3715;
+					uvRect.top = 16 + (character1 * 52);
+
+					RectangleShape rect = HUD_vector[17];
+					rect.setTextureRect(uvRect);
+					HUD_vector[17] = rect;
+
+					characterFall02(character2);
+					player1.animation_in_process = AnimationType::WIN;
+					player2.animation_in_process = AnimationType::FALL;
+					player2.setSpeed(Vector2f(500, 0));
+
+					player1.setFreeze(true);
+					player2.setFreeze(true);
+				}
+				else {														//Acaba de ganar la partida
+					finishing1 = true;
+					showing_finishHim = true;
+
+					RectangleShape rect = HUD_vector[16];
+					uvRect = rect.getTextureRect();
+					if (character2 == CharacterType::SONYA) {
+						uvRect.left = 3317.0f;
+						music.finishHer();
+					}
+					else {
+						music.finishHim();
+					}
+					rect.setTextureRect(uvRect);
+					HUD_vector[16] = rect;
+
+					player2.setDying(true);
+					player2.setFreeze(true);
 				}
 
-				finishing2 = true;
-				showing_win = true;
-
-				uvRect.width = 327;
-				uvRect.height = 50.0f;
-				uvRect.left = 3715;
-				uvRect.top = 16 + (character2 * 52);
-
-				RectangleShape rect = HUD_vector[17];
-				rect.setTextureRect(uvRect);
-				HUD_vector[17] = rect;
-
-				characterFall02(character1);
-				player2.animation_in_process = AnimationType::WIN;
-				player1.animation_in_process = AnimationType::FALL;
-				player1.setSpeed(Vector2f(500, 0));
-
-				player2.setFreeze(true);
-				player1.setFreeze(true);
 			}
-			else {														//Acaba de ganar la partida
-				//cout << "932 de BATTLE MANAGER" << endl;
-				finishing2 = true;
-				showing_finishHim = true;
-				music.finishHim();
+			else if (winner_round == 2) {
 
-				RectangleShape rect = HUD_vector[16];
-				uvRect = rect.getTextureRect();
-				if (character1 == CharacterType::SONYA) {
-					uvRect.left = 3317.0f;
-					music.finishHer();
+				if (rounds_won2 == 1) {										//Todavia no ha ganado la partida
+
+					music.stopMusic();
+					switch (character2) {
+					case LIU_KANG:	//Liu Kang
+						music.LiuKangWins();
+						break;
+					case SCORPION: //Scorpion
+						music.ScorpionWins();
+						break;
+					case SONYA:	//Sonya Blade
+						music.SonyaBladeWins();
+						break;
+					case CAGE:	//Jhonny Cage
+						music.JhonnyCageWins();
+						break;
+					}
+
+					finishing2 = true;
+					showing_win = true;
+
+					uvRect.width = 327;
+					uvRect.height = 50.0f;
+					uvRect.left = 3715;
+					uvRect.top = 16 + (character2 * 52);
+
+					RectangleShape rect = HUD_vector[17];
+					rect.setTextureRect(uvRect);
+					HUD_vector[17] = rect;
+
+					characterFall02(character1);
+					player2.animation_in_process = AnimationType::WIN;
+					player1.animation_in_process = AnimationType::FALL;
+					player1.setSpeed(Vector2f(500, 0));
+
+					player2.setFreeze(true);
+					player1.setFreeze(true);
 				}
-				else {
+				else {														//Acaba de ganar la partida
+					//cout << "932 de BATTLE MANAGER" << endl;
+					finishing2 = true;
+					showing_finishHim = true;
 					music.finishHim();
-				}
-				rect.setTextureRect(uvRect);
-				HUD_vector[16] = rect;
 
-				player1.setDying(true);
-				player1.setFreeze(true);
+					RectangleShape rect = HUD_vector[16];
+					uvRect = rect.getTextureRect();
+					if (character1 == CharacterType::SONYA) {
+						uvRect.left = 3317.0f;
+						music.finishHer();
+					}
+					else {
+						music.finishHim();
+					}
+					rect.setTextureRect(uvRect);
+					HUD_vector[16] = rect;
+
+					player1.setDying(true);
+					player1.setFreeze(true);
+				}
 			}
 		}
-	}
 
-	Vector2f size_round = Vector2f(327.0f, 82.0f);
-	uvRect = HUD_vector[10].getTextureRect();
-	uvRect.top = 54 + 84 * round;
-	HUD_vector[10].setTextureRect(uvRect);
+		Vector2f size_round = Vector2f(327.0f, 82.0f);
+		uvRect = HUD_vector[10].getTextureRect();
+		uvRect.top = 54 + 84 * round;
+		HUD_vector[10].setTextureRect(uvRect);
+	}
 
 }
 
@@ -1820,6 +1844,10 @@ void BattleManager::draw(RenderWindow& window) {
 		}
 		i++;
 
+	}
+
+	if (paused) {
+		window.draw(pauseIcon);
 	}
 
 }

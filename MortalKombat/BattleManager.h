@@ -29,7 +29,7 @@ const float SIZE_LIFE = 413.0f;
 class BattleManager {
 
 public:
-	BattleManager(Texture*, Font, Clock);
+	BattleManager(Texture*,Texture*, Font, Clock);
 	~BattleManager() = default;
 
 	void Update(Event);									//Para que no crashee en cinematica historia (no hace nada)
@@ -43,6 +43,7 @@ public:
 	void increase_round(int);
 	void CheckCollisions();
 	void ProcessHit(AnimationType, bool);
+	void Pause();
 
 	int finished_round();
 	int isfinished();
@@ -58,6 +59,7 @@ private:
 
 	bool shaking = false;
 	bool shakeUp = false;
+	bool paused = false;
 	float internalShaking = 0.0;
 
 	int life1 = 0;
@@ -105,9 +107,11 @@ private:
 	bool waitingToEnd = false;
 
 	Texture* texture = new Texture();
+	Texture* icon = new Texture();
 	Font font = Font();											//Variable con la fuente de letra
 
 	BackgroundManager BackgroundManager;
+	RectangleShape pauseIcon;
 
 	Character LiuKang = Character();
 	Character Scorpion = Character();

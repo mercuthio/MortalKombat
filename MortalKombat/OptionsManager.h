@@ -7,7 +7,7 @@
 
 using namespace sf;
 
-const int NUM_OPTIONS_OPT = 5;
+const int NUM_OPTIONS_OPT = 6;
 const int MAX_MUSIC = 5;
 const int MAX_EFFECTS = 5;
 const int MAX_SPEED = 4;
@@ -30,6 +30,7 @@ public:
 	int musicVolume = 0;					//Valor del volumen de la musica
 	int effects = 0;						//Valor del volumen de los efectos
 	int speed_game = 0;
+	int num_mode = 0;
 
 private:
 
@@ -42,6 +43,7 @@ private:
 	Text shadow[NUM_OPTIONS_OPT + 1];
 	Text dific = Text();							//Texto de la dificultad
 	Text speed = Text();
+	Text mode = Text();
 	IntRect uvRect = IntRect();						//IntRect del fondo
 	RectangleShape backg = RectangleShape();				//Objeto del fondo
 	RectangleShape logo = RectangleShape();

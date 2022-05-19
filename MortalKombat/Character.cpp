@@ -17,6 +17,7 @@ Character::Character(map<AnimationType, Movement> _animations, RectangleShape& _
 	isMale = male;
 	hasSpecial = _hasSpecial;
 	damage_hitboxes = damage_hitboxes_;	
+
 }
 
 void Character::Update(float tiempo, bool secondPlayer) {
