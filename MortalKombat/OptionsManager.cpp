@@ -37,7 +37,7 @@ OptionsManager::OptionsManager(Texture* texture, Font font_) {
 	text[2].setString("DIFFICULTY");
 	text[3].setString("CONTROLS");
 	text[4].setString("GAME SPEED");
-	text[5].setString("STORY MODE");
+	text[5].setString("GAMEMODE");
 
 	for (int i = 0; i <= NUM_OPTIONS_OPT; i++) {
 		text[i].setFont(font);

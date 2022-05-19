@@ -443,7 +443,7 @@ void Character::CheckAnimation() {
 				music.hit6();
 				fightKeyPressed = true;
 			}
-			else if (Keyboard::isKeyPressed(blockButton)) {												//H.Kick en parado
+			else if (Keyboard::isKeyPressed(blockButton) && !noBlockMode) {												//H.Kick en parado
 				animation_in_process = AnimationType::BLOCK_LOW;
 				blocking = true;
 			}
@@ -560,7 +560,7 @@ void Character::CheckAnimation() {
 				punching = true;
 				fightKeyPressed = true;
 			}
-			else if (Keyboard::isKeyPressed(blockButton)) {												//H.Kick en parado
+			else if (Keyboard::isKeyPressed(blockButton) && !noBlockMode) {												//H.Kick en parado
 				animation_in_process = AnimationType::BLOCK;
 				blocking = true;
 			}
@@ -619,7 +619,7 @@ void Character::CheckAnimationP2() {
 				music.hit7();
 				fightKeyPressed = true;
 			}
-			else if (Keyboard::isKeyPressed(blockButtonP2)) {												//H.Kick en parado
+			else if (Keyboard::isKeyPressed(blockButtonP2) && !noBlockMode) {												//H.Kick en parado
 				animation_in_process = AnimationType::BLOCK_LOW;
 				blocking = true;
 			}
@@ -735,7 +735,7 @@ void Character::CheckAnimationP2() {
 				punching = true;
 				fightKeyPressed = true;
 			}
-			else if (Keyboard::isKeyPressed(blockButtonP2)) {												//H.Kick en parado
+			else if (Keyboard::isKeyPressed(blockButtonP2) && !noBlockMode) {												//H.Kick en parado
 				animation_in_process = AnimationType::BLOCK;
 				blocking = true;
 			}
