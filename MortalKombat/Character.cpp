@@ -106,19 +106,21 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 		global_position += p2PositionOffset;
 		p2PositionOffset = Vector2f(0, 0);
 
-		p2Position = getPosition();
-
 		cout << "OFFSET: " << totalMoveXBack << endl;
 
 		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		if (global_position.y <= screenFloorLimit) {
 			body.setPosition(global_position);
+		} else if(global_position.y < screenFloorLimit - 20 && animation_in_process == AnimationType::IDLE) {
+			body.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		}
 		else {
 			fullReset();
 			EndAnimation();
 			body.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		}
+
+		p2Position = getPosition();
 	}
 	else {
 		internalTimer += 0.025f;
@@ -190,7 +192,7 @@ void Character::CheckIAAnimation(Character opponent) {
 					characterJump01(isMale);
 					music.doubleJump();
 				}
-				else if (probabilidad > 92 && hasSpecial && distanceBetween > 400 && specialDelay < 0) {
+				else if (probabilidad > 90 && hasSpecial && distanceBetween > 350 && specialDelay < 0) {
 					animation_in_process = AnimationType::SPECIAL;
 					specialDelay = 50;
 				}
@@ -400,9 +402,9 @@ void Character::ChangeIAState(Character opponent) {
 				estado = EstadoIA::IDLE;
 			}
 		} else if (anim == AnimationType::SPECIAL) {
-			if (Difficulty[difficulty_lvl] > probabilidad) {
+			if (Difficulty[difficulty_lvl] > probabilidad - 10) {
 				estado = EstadoIA::DEFENSA_SPECIAL;
-				ia_special_counter = 18;
+				ia_special_counter = 21;
 			}
 		}
 		else if (difficulty_lvl != DifficultyLevel::EASY && anim == AnimationType::DOWN && distancia < 170) {
@@ -1044,7 +1046,7 @@ void Character::GetHit() {
 }
 
 void Character::debugDraw(RenderWindow& window) {
-	window.draw(hitbox);	//Para debug
+	//window.draw(hitbox);	//Para debug
 	//window.draw(damage_hitbox);	//Para debug
 	window.draw(shadow);
 	window.draw(body);
