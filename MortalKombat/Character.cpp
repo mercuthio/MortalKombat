@@ -403,7 +403,7 @@ void Character::CheckIAAnimation(Character opponent) {
 
 			case EstadoIA::SOBREPASAR_IZQ: // Estoy pegado a la dcha, tengo que sobrepasarle
 				cout << "Sobrepaso izq" << endl;
-				speed = Vector2<float>(500, 1000);
+				speed = Vector2<float>(-500, 1000);
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
 				on_air = true;
 				break;
