@@ -72,9 +72,14 @@ void Character::Update(float tiempo, bool secondPlayer) {
 			p2Position = getPosition();
 		}
 
+		cout << "POS Y: " << global_position.y << endl;
+
 		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
-		if (global_position.y <= screenFloorLimit) {
+		if (global_position.y == screenFloorLimit || (global_position.y < screenFloorLimit && on_air)) {
 			body.setPosition(global_position);
+		}
+		else if (global_position.y < screenFloorLimit && !on_air) {
+			body.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		}
 		else {
 			fullReset();
@@ -106,12 +111,13 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 		global_position += p2PositionOffset;
 		p2PositionOffset = Vector2f(0, 0);
 
-		cout << "OFFSET: " << totalMoveXBack << endl;
+		//cout << "OFFSET: " << totalMoveXBack << endl;
 
 		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
-		if (global_position.y <= screenFloorLimit) {
+		if (global_position.y == screenFloorLimit || (global_position.y < screenFloorLimit && on_air)) {
 			body.setPosition(global_position);
-		} else if(global_position.y < screenFloorLimit - 20 && animation_in_process == AnimationType::IDLE) {
+		}
+		else if (global_position.y < screenFloorLimit && !on_air) {
 			body.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		}
 		else {
