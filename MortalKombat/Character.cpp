@@ -185,25 +185,56 @@ void Character::CheckIAAnimation(Character opponent) {
 				break;
 
 			case EstadoIA::ACERCARSE:
-				if (probabilidad > 97) {
-					speed = Vector2<float>(-500, 1000);
-					animation_in_process = AnimationType::JUMP_AND_MOVE;
-					on_air = true;
-					characterJump01(isMale);
-					music.doubleJump();
+				if (difficulty_lvl == DifficultyLevel::HARD) {
+					if (probabilidad > 96) {
+						speed = Vector2<float>(-500, 1000);
+						animation_in_process = AnimationType::JUMP_AND_MOVE;
+						on_air = true;
+						characterJump01(isMale);
+						music.doubleJump();
+					}
+					else if (probabilidad > 86 && hasSpecial && distanceBetween > 325 && specialDelay < 0) {
+						animation_in_process = AnimationType::SPECIAL;
+						specialDelay = 45;
+					}
+					else {
+						animation_in_process = AnimationType::WALK_FORW;
+					}
+				} else if (difficulty_lvl == DifficultyLevel::MEDIUM) {
+					if (probabilidad > 97) {
+						speed = Vector2<float>(-500, 1000);
+						animation_in_process = AnimationType::JUMP_AND_MOVE;
+						on_air = true;
+						characterJump01(isMale);
+						music.doubleJump();
+					}
+					else if (probabilidad > 90 && hasSpecial && distanceBetween > 350 && specialDelay < 0) {
+						animation_in_process = AnimationType::SPECIAL;
+						specialDelay = 50;
+					}
+					else {
+						animation_in_process = AnimationType::WALK_FORW;
+					}
+				} else if (difficulty_lvl == DifficultyLevel::EASY) {
+					if (probabilidad > 98) {
+						speed = Vector2<float>(-500, 1000);
+						animation_in_process = AnimationType::JUMP_AND_MOVE;
+						on_air = true;
+						characterJump01(isMale);
+						music.doubleJump();
+					}
+					else if (probabilidad > 94 && hasSpecial && distanceBetween > 350 && specialDelay < 0) {
+						animation_in_process = AnimationType::SPECIAL;
+						specialDelay = 60;
+					}
+					else {
+						animation_in_process = AnimationType::WALK_FORW;
+					}
 				}
-				else if (probabilidad > 90 && hasSpecial && distanceBetween > 350 && specialDelay < 0) {
-					animation_in_process = AnimationType::SPECIAL;
-					specialDelay = 50;
-				}
-				else {
-					animation_in_process = AnimationType::WALK_FORW;
-				}
-
 				break;
 
 			case EstadoIA::ALEJARSE:
-				if (probabilidad > 90) {
+				if (probabilidad > 92) {
 					speed = Vector2<float>(500, 1000);
 					animation_in_process = AnimationType::JUMP_AND_MOVE;
 					on_air = true;
@@ -216,7 +247,6 @@ void Character::CheckIAAnimation(Character opponent) {
 				break;
 
 			case EstadoIA::MODO_ATAQUE:
-				
 				if (difficulty_lvl == DifficultyLevel::HARD) {
 					if (hacerBarrido) {
 						hacerBarrido = false;
@@ -230,7 +260,7 @@ void Character::CheckIAAnimation(Character opponent) {
 					}
 					else
 					{
-						int ataque = rand() % 6;
+						int ataque = rand() % 7;
 						cout << ataque << endl;
 						switch (ataque) {
 						case 0:
@@ -258,25 +288,34 @@ void Character::CheckIAAnimation(Character opponent) {
 							music.hit7();
 							break;
 						case 5:
-							animation_in_process = AnimationType::PUNCH_FROM_DOWN;
-							music.hit8();
+							animation_in_process = AnimationType::KICK_UPPER;
+							music.hit6();
+							break;
+						case 6:
+							animation_in_process = AnimationType::PUNCH_CLOSE;
+							music.hit6();
 							break;
 						}
-						estado = EstadoIA::ALEJARSE;
+						if (probabilidad > 80) {
+							estado = EstadoIA::PREPAR_ATAQUE;
+						}
+						else {
+							estado = EstadoIA::ALEJARSE;
+						}
 					}
 				}
-				else {
-					if (hacerBarrido && probabilidad > 95) {
+				else if (difficulty_lvl == DifficultyLevel::MEDIUM) {
+					if (hacerBarrido && probabilidad > 80) {
 						hacerBarrido = false;
 						animation_in_process = AnimationType::KICK_LOW;
 						music.hit7();
 					}
-					else if (animOp == AnimationType::BLOCK && probabilidad > 95) {
+					else if (animOp == AnimationType::BLOCK && probabilidad > 80) {
 						animation_in_process = AnimationType::KICK_LOW;
 						music.hit7();
 					}
 					else {
-						int ataque = rand() % 6;
+						int ataque = rand() % 7;
 						cout << ataque << endl;
 						switch (ataque) {
 						case 0:
@@ -303,23 +342,73 @@ void Character::CheckIAAnimation(Character opponent) {
 							music.hit7();
 							break;
 						case 5:
-							animation_in_process = AnimationType::PUNCH_FROM_DOWN;
-							music.hit8();
+							animation_in_process = AnimationType::KICK_UPPER;
+							music.hit6();
+							break;
+						case 6:
+							animation_in_process = AnimationType::PUNCH_CLOSE;
+							music.hit6();
 							break;
 						}
-						estado = EstadoIA::ALEJARSE;
+						if (probabilidad > 90) {
+							estado = EstadoIA::PREPAR_ATAQUE;
+						}
+						else {
+							estado = EstadoIA::ALEJARSE;
+						}
+					}
+				}
+				else if (difficulty_lvl == DifficultyLevel::EASY) {
+					if (hacerBarrido && probabilidad > 95) {
+						hacerBarrido = false;
+						animation_in_process = AnimationType::KICK_LOW;
+						music.hit7();
+					}
+					else {
+						int ataque = rand() % 5;
+						cout << ataque << endl;
+						switch (ataque) {
+						case 0:
+							animation_in_process = AnimationType::PUNCH;
+							music.hit6();
+							break;
+
+						case 1:
+							animation_in_process = AnimationType::PUNCH_UPPER;
+							music.hit6();
+							break;
+
+						case 2:
+							animation_in_process = AnimationType::KICK;
+							music.hit7();
+							break;
+						case 3:
+							animation_in_process = AnimationType::KICK_UPPER;
+							music.hit6();
+							break;
+						case 4:
+							animation_in_process = AnimationType::PUNCH_CLOSE;
+							music.hit6();
+							break;
+						}
+						if (probabilidad > 96) {
+							estado = EstadoIA::PREPAR_ATAQUE;
+						}
+						else {
+							estado = EstadoIA::ALEJARSE;
+						}
 					}
 				}
 				break;
 
 			case EstadoIA::SOBREPASAR_IZQ: // Estoy pegado a la izq, tengo que sobrepasarle
 				cout << "Sobrepaso izq" << endl;
-				speed = Vector2<float>(-500, 1000);
+				speed = Vector2<float>(500, 1000);
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
 				on_air = true;
 				break;
 
-			case EstadoIA::SOBREPASAR_DCHA: // Estoy pegado a la izq, tengo que sobrepasarle
+			case EstadoIA::SOBREPASAR_DCHA: // Estoy pegado a la dcha, tengo que sobrepasarle
 				cout << "Sobrepaso dcha" << endl;
 				speed = Vector2<float>(-500, 1000);
 				animation_in_process = AnimationType::JUMP_AND_MOVE;
@@ -335,10 +424,15 @@ void Character::CheckIAAnimation(Character opponent) {
 						animation_in_process = AnimationType::JUMP;
 						on_air = true;
 						speed = Vector2<float>(0, 1000);
-						hacerBarrido = true;
+						if (Difficulty[difficulty_lvl] > probabilidad) {
+							hacerBarrido = true;
+						}
 					}
 					else {
 						animation_in_process = AnimationType::BLOCK;
+						if (Difficulty[difficulty_lvl] > probabilidad) {
+							estado = EstadoIA::PREPAR_ATAQUE;
+						}
 					}
 				}
 				else {
@@ -352,8 +446,10 @@ void Character::CheckIAAnimation(Character opponent) {
 				}
 				break;
 			case EstadoIA::DEFENSA_SPECIAL:
-				crouching = true;
-				animation_in_process = AnimationType::DOWN;
+				if (Difficulty[difficulty_lvl] > probabilidad) {
+					crouching = true;
+					animation_in_process = AnimationType::DOWN;
+				}
 				break;
 			}
 					
@@ -402,7 +498,10 @@ void Character::ChangeIAState(Character opponent) {
 				estado = EstadoIA::IDLE;
 			}
 		} else if (anim == AnimationType::SPECIAL) {
-			if (Difficulty[difficulty_lvl] > probabilidad - 10) {
+			if (difficulty_lvl == DifficultyLevel::EASY && distancia > 300 && Difficulty[difficulty_lvl] > probabilidad) {
+				estado = EstadoIA::DEFENSA_SPECIAL;
+				ia_special_counter = 21;
+			} else if (Difficulty[difficulty_lvl] > probabilidad) {
 				estado = EstadoIA::DEFENSA_SPECIAL;
 				ia_special_counter = 21;
 			}
@@ -429,7 +528,7 @@ void Character::ChangeIAState(Character opponent) {
 				//cout << "\n" << "Entro en modo me acerco" << endl;
 				estado = EstadoIA::ACERCARSE;
 			}
-			else if ( distancia > 170 && distancia < 400 && (estado == EstadoIA::PREPAR_AGACHADO || estado == EstadoIA::MODO_DEFENSA || estado == EstadoIA::IDLE) ) {
+			else if ( distancia > 170 && distancia < 350 && (estado == EstadoIA::PREPAR_AGACHADO || estado == EstadoIA::MODO_DEFENSA || estado == EstadoIA::IDLE) ) {
 				estado = EstadoIA::ALEJARSE;
 			}
 		}
