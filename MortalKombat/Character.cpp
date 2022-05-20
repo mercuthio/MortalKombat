@@ -75,10 +75,10 @@ void Character::Update(float tiempo, bool secondPlayer) {
 		cout << "POS Y: " << global_position.y << endl;
 
 		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
-		if (global_position.y == screenFloorLimit || (global_position.y < screenFloorLimit && on_air)) {
+		if (global_position.y == screenFloorLimit || (global_position.y < screenFloorLimit && !fallen)) {
 			body.setPosition(global_position);
 		}
-		else if (global_position.y < screenFloorLimit && !on_air) {
+		else if (global_position.y < screenFloorLimit && fallen) {
 			body.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		}
 		else {
@@ -114,10 +114,10 @@ void Character::UpdateIA(float tiempo, Character opponent) {
 		//cout << "OFFSET: " << totalMoveXBack << endl;
 
 		shadow.setPosition(Vector2f(global_position.x, screenFloorLimit));
-		if (global_position.y == screenFloorLimit || (global_position.y < screenFloorLimit && on_air)) {
+		if (global_position.y == screenFloorLimit || (global_position.y < screenFloorLimit && !fallen)) {
 			body.setPosition(global_position);
 		}
-		else if (global_position.y < screenFloorLimit && !on_air) {
+		else if (global_position.y < screenFloorLimit && fallen) {
 			body.setPosition(Vector2f(global_position.x, screenFloorLimit));
 		}
 		else {
@@ -1039,7 +1039,7 @@ void Character::DoAnimation() {
 	}
 	
 	if (finished) {
-		if (animation_in_process == AnimationType::FALL || animation_in_process == AnimationType::FALL_UPPERCUT) {
+		if (animation_in_process == AnimationType::FALL || animation_in_process == AnimationType::FALL_UPPERCUT ) {
 			finished = false;
 			if (life == 0) {
 				fallen = true;
