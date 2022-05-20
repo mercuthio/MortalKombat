@@ -431,7 +431,12 @@ void Character::CheckIAAnimation(Character opponent) {
 					else {
 						animation_in_process = AnimationType::BLOCK;
 						if (Difficulty[difficulty_lvl] > probabilidad) {
-							estado = EstadoIA::PREPAR_ATAQUE;
+							if (Difficulty[difficulty_lvl] > probabilidad - 25) {
+								estado = EstadoIA::MODO_ATAQUE;
+							}
+							else {
+								estado = EstadoIA::PREPAR_ATAQUE;
+							}
 						}
 					}
 				}
