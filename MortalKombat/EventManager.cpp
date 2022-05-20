@@ -345,15 +345,6 @@ void EventManager::Update(Event event) {
 
 }
 
-void EventManager::drawTransitionManager(RenderWindow& window) {
-
-	if (changedEstate) {
-		TransitionManager.draw(window);
-		changedEstate = false;
-	}
-
-}
-
 void EventManager::draw(RenderWindow& window) {
 
 	int ganador_partida;
@@ -483,7 +474,7 @@ void EventManager::draw(RenderWindow& window) {
 		}
 		break;
 
-	case 10:	//Controles
+	case 10://Controles
 
 		ControlsManager.draw(window);
 		break;

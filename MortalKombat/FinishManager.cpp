@@ -23,7 +23,7 @@ void FinishManager::LoadTextures() {
 	backg.setScale(1.0f, 1.0f);
 
 	//Fondo
-	uvRect.width = 400;
+	uvRect.width = 399;
 	uvRect.height = 254;
 
 	switch (character) {

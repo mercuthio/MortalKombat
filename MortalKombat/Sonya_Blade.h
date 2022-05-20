@@ -169,7 +169,7 @@ static Character CreateSonyaBlade() {
 	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0), {89*3,85*3,88*3}, {82*3,111*3,82*3} };
 	Movement blockUpMov = Movement{ blockUp, Vector2<float>(0.0,0.0), {84*3,80*3,68*3,79*3,83*3},{49*3,50*3,54*3,50*3,49*3} };
 	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0),{74*3,65*3,72*3},{96*3,99*3,96*3} };
-	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0) };
+	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0), {91*3,97*3,103*3,101*3,100*3},{67*3,69*3,71*3,71*3,71*3} };
 	Movement fatalityMov = Movement{ fatality, Vector2<float>(0.0,0.0) };
 	Movement winMov = Movement{ win, Vector2<float>(0.0,0.0) };
 	Movement fallMov = Movement{ fall, Vector2<float>(0.0, 0.0) };
@@ -375,7 +375,7 @@ static Character CreateSonyaBlade() {
 	Vector2f hitHardS[6] = { {0,0}, {0,0}, {0,0}, {0,0},{0,0}, {0,0} };
 	Vector2f hitDuckS[3] = { {0,0}, {0,0}, {0,0} };
 
-	Vector2f specialS[5] = { {41 * 3,116 * 3}, {39 * 3,105 * 3}, {38 * 3,121 * 3}, {38 * 3,134 * 3}, {32 * 3,128 * 3} };
+	Vector2f specialS[5] = { {35 * 3,117 * 3}, {31 * 3,113 * 3}, {31 * 3,112 * 3}, {35 * 3,113 * 3}, {37 * 3,112 * 3} };
 
 	Vector2f catchS[7] = { {36 * 3,127 * 3}, {38 * 3,110 * 3}, {48 * 3,125 * 3}, {39 * 3,131 * 3}, {33 * 3,131 * 3}, {34 * 3,117 * 3}, {42 * 3,110 * 3} };
 	Vector2f dyingS[7] = { {52*3,129*3},{42*3,127*3},{28*3,122*3},{28*3,129*3},{28*3,133*3},{35*3,132*3},{36*3,127*3} };

@@ -269,7 +269,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 		life1 = 1;
 		life2 = 1;
 	}
-	else if (noHitMode && twoPlayers) {
+	else if (noHitMode && !twoPlayers) {
 		life1 = 1;
 	}
 
@@ -472,8 +472,16 @@ void BattleManager::RestartRound() {
 	fight_x = 0;
 	finish_him_x = 0;
 	life1 = 100;
-	if (noHitMode && !twoPlayers) life1 = 1;
 	life2 = 100;
+
+	if (noHitMode && twoPlayers) {
+		life1 = 1;
+		life2 = 1;
+	}
+	else if (noHitMode && !twoPlayers) {
+		life1 = 1;
+	}
+
 	time_left = 99;
 	round++;
 	clock_timer = 0;

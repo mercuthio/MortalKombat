@@ -105,9 +105,6 @@
     <ClCompile Include="FinishManager.cpp">
       <Filter>Archivos de origen\MenuManager</Filter>
     </ClCompile>
-    <ClCompile Include="TransitionManager.cpp">
-      <Filter>Archivos de origen\MenuManager</Filter>
-    </ClCompile>
     <ClCompile Include="StartManager.cpp">
       <Filter>Archivos de origen\MenuManager</Filter>
     </ClCompile>
@@ -145,9 +142,6 @@
     </ClInclude>
     <ClInclude Include="The_Pit.h">
       <Filter>Archivos de encabezado\BackgroundManager\BackgroundTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="Goro.h">
-      <Filter>Archivos de encabezado\PlayerManager\CharacterTypes</Filter>
     </ClInclude>
     <ClInclude Include="LiuKang.h">
       <Filter>Archivos de encabezado\PlayerManager\CharacterTypes</Filter>
@@ -216,9 +210,6 @@
       <Filter>Archivos de encabezado\PlayerManager</Filter>
     </ClInclude>
     <ClInclude Include="StartManager.h">
-      <Filter>Archivos de encabezado\MenuManager</Filter>
-    </ClInclude>
-    <ClInclude Include="TransitionManager.h">
       <Filter>Archivos de encabezado\MenuManager</Filter>
     </ClInclude>
     <ClInclude Include="BackgroundManager.h">

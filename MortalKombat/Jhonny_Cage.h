@@ -174,7 +174,7 @@ static Character CreateJhonnyCage() {
 	Movement duckMov = Movement{ duck, Vector2<float>(0.0,0.0),  {78 * 3, 79 * 3, 78 * 3, 82 * 3, 78 * 3},{57 * 3, 93 * 3, 112 * 3, 94 * 3, 57 * 3} };
 	Movement blockUpMov = Movement{ blockUp, Vector2<float>(0.0,0.0), {73 * 3, 77 * 3, 72 * 3, 76 * 3, 75 * 3},{54 * 3, 55 * 3, 54 * 3, 55 * 3, 53 * 3} };
 	Movement blockDownMov = Movement{ blockDown, Vector2<float>(0.0,0.0), {72 * 3, 67 * 3,62 * 3},{88 * 3, 87 * 3,90 * 3} };
-	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0), {68 * 3,63 * 3,61 * 3,63 * 3,60 * 3,61 * 3,61 * 3,61 * 3},{68 * 3,79 * 3,64 * 3,51 * 3,56 * 3,55 * 3,56 * 3,56 * 3} };
+	Movement specialMov = Movement{ special, Vector2<float>(0.0,0.0), {79 * 3,80 * 3,96 * 3,97 * 3,104 * 3,104 * 3,103 * 3},{63 * 3,67 * 3,70 * 3,71 * 3,73 * 3,73 * 3,73 * 3} };
 	Movement special_jumpMov = Movement{ special_jump, Vector2<float>(0.0,0.0),  {},{},{},{} };
 	Movement fatalityMov = Movement{ fatality, Vector2<float>(0.0,0.0), {},{},{},{} };
 	Movement winMov = Movement{ win, Vector2<float>(0.0,0.0) };
@@ -383,7 +383,7 @@ static Character CreateJhonnyCage() {
 	Vector2f hitHardS[5] = { {0,0}, {0,0}, {0,0}, {0,0}, {0,0} };
 	Vector2f hitDuckS[3] = { {0,0}, {0,0}, {0,0} };
 
-	Vector2f specialS[8] = { {41 * 3,116 * 3}, {39 * 3,105 * 3}, {38 * 3,121 * 3}, {38 * 3,134 * 3}, {32 * 3,128 * 3}, {31 * 3,131 * 3}, {37 * 3,128 * 3}, {32 * 3,128 * 3} };
+	Vector2f specialS[7] = { {32 * 3,122 * 3}, {32 * 3,122 * 3}, {32 * 3,122 * 3}, {32 * 3,122 * 3},{32 * 3,122 * 3},{32 * 3,122 * 3}, {32 * 3,122 * 3} };
 
 	Vector2f catchS[7] = { {36 * 3,127 * 3}, {38 * 3,110 * 3}, {48 * 3,125 * 3}, {39 * 3,131 * 3}, {33 * 3,131 * 3}, {34 * 3,117 * 3}, {42 * 3,110 * 3} };
 	Vector2f dyingS[7] = { {39 * 3,121 * 3}, {36 * 3,123 * 3}, {35 * 3,126 * 3}, {35 * 3,132 * 3}, {35 * 3,134 * 3}, {31 * 3,131 * 3}, {34 * 3,122 * 3} };

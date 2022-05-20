@@ -5,7 +5,6 @@
 #include <iostream>
 #include "StartManager.h"
 #include "MenuManager.h"
-#include "TransitionManager.h"
 #include "OptionsManager.h"
 #include "PlayerSelector.h"
 #include "HistoryManager.h"
@@ -45,7 +44,6 @@ private:
 	MenuManager MenuManager;							//Objeto del menu principal
 	StartManager StartManager;						//Objeto de las pantallas iniciales
 	OptionsManager OptionsManager;						//Objeto del menu de opciones
-	TransitionManager TransitionManager;				//Objeto de la transicion
 	Clock clock = Clock();										//Reloj para gestionar actualizacion de animaciones
 	PlayerSelector PlayerSelector_hist;					//Objeto de selector de personajes de historia
 	PlayerSelector PlayerSelector_duel;					//Objeto de selector de personajes de duelo
