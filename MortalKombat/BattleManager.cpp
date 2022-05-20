@@ -426,8 +426,7 @@ void BattleManager::RestartCombat(CharacterType character1_, CharacterType chara
 }
 
 void BattleManager::Pause() {
-	if (paused) paused = false;
-	else paused = true;
+	paused = !paused;
 }
 
 void BattleManager::RestartRound() {
@@ -603,7 +602,6 @@ void BattleManager::Update() {
 
 		}
 
-
 		if ((!finishing1 && !finishing2) && started_game && clock_timer >= 60) {
 
 			clock_timer = 0;
@@ -613,7 +611,6 @@ void BattleManager::Update() {
 			uvRect.height = 17.0f;
 			uvRect.left = 5573 + 16 * ((time_left / 10) % 10);
 			uvRect.top = 49;
-
 
 			HUD_vector[13].setTextureRect(uvRect);
 			uvRect.left = 5573 + 16 * (time_left % 10);

@@ -50,6 +50,8 @@ public:
 
 	void shake();
 
+	bool paused = false;
+
 private:
 
 	CharacterType character1 = CharacterType();										//Personaje del jugador 1
@@ -59,7 +61,6 @@ private:
 
 	bool shaking = false;
 	bool shakeUp = false;
-	bool paused = false;
 	float internalShaking = 0.0;
 
 	int life1 = 0;

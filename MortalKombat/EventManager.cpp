@@ -298,6 +298,15 @@ void EventManager::Update(Event event) {
 
 		if (event.key.code == Keyboard::Escape) {
 			music.moveMain();
+			if (BattleManager.paused) {
+				state = 1;
+				music.mainTheme();
+			}
+			else {
+				BattleManager.Pause();
+			}
+		}
+		else if (BattleManager.paused) {
 			BattleManager.Pause();
 		}
 		BattleManager.Update(event);
@@ -307,6 +316,15 @@ void EventManager::Update(Event event) {
 
 		if (event.key.code == Keyboard::Escape) {
 			music.moveMain();
+			if (BattleManager.paused) {
+				state = 1;
+				music.mainTheme();
+			}
+			else {
+				BattleManager.Pause();
+			}
+		}
+		else if (BattleManager.paused) {
 			BattleManager.Pause();
 		}
 		BattleManager.Update(event);
