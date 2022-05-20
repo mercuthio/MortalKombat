@@ -12,7 +12,7 @@ bool playingStart = false;
 StartManager::StartManager(Texture* menus, Texture* bios) {
 
 	srand(time(0));
-	character = rand() % 8;
+	character = rand() % 7;
 	actual_frame = 0;
 	seconds_aux = 3.0f;
 
